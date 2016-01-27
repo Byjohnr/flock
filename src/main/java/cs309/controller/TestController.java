@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -23,7 +25,11 @@ public class TestController {
         return "index";
     }
 
-    @ModelAttribute("users")
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public void delete(){}
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @ResponseBody
     public List<User> allUsers() {
         return userService.getUsers();
     }

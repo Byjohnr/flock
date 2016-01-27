@@ -23,11 +23,4 @@ public class DataBaseConfig {
                 .setType(EmbeddedDatabaseType.H2)
                 .build();
     }
-
-//    @Bean
-//    public SpringLiquibase liquibase() {
-//        SpringLiquibase liquibase = new SpringLiquibase();
-//        liquibase.setDataSource(dataSource());
-//        return liquibase;
-//    }
 }

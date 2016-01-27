@@ -1,0 +1,24 @@
+{
+  "name": "flock",
+  "homepage": "https://github.com/JeffHask/flock",
+  "authors": [
+    "Jeff Haskovec <jeffhaskovec@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "requirejs": "~2.1.22",
+    "reflux": "~0.3.0",
+    "react": "~0.14.6"
+  }
+}

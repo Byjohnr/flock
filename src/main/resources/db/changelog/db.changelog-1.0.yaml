@@ -1,1 +1,17 @@
-#databaseChangeLog:
+databaseChangeLog:
+   - changeSet:
+        id: 1
+        author: jeffreyh
+        changes:
+          - createTable:
+              columns:
+              - column:
+                  name: id
+                  type: int
+              - column:
+                  name: first_name
+                  type: varchar(200)
+              - column:
+                  name: last_name
+                  type: varchar(200)
+              tableName: user
