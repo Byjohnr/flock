@@ -8,6 +8,10 @@ databaseChangeLog:
               - column:
                   name: id
                   type: int
+                  constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_user
               - column:
                   name: first_name
                   type: varchar(200)
@@ -15,3 +19,43 @@ databaseChangeLog:
                   name: last_name
                   type: varchar(200)
               tableName: user
+
+   - changeSet:
+        id: 2
+        author: jeffreyh
+        changes:
+          - createTable:
+              tableName: event
+              columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_event
+              - column:
+                  name: creator_id
+                  type: int
+              - column:
+                  name: event_name
+                  type: varchar(200)
+              - column:
+                  name: event_date
+                  type: date
+              - column:
+                  name: time_start
+                  type: date
+              - column:
+                  name: time_end
+                  type: date
+              - column:
+                  name: type
+                  type: int
+              - column:
+                  name: location
+                  type: varchar(200)
+              - column:
+                  name: event_description
+                  type: varchar(2000)
+

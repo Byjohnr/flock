@@ -1,0 +1,1 @@
+INSERT INTO event(id, creator_id, event_name, event_date, time_start, time_end, type, location, event_description) VALUES (1,1,'Cool Event',null,null,null,1,null,'Not a fun thing at all')
