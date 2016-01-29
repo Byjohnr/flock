@@ -20,17 +20,17 @@ public class TestController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/")
+    @RequestMapping("/1")
     public String test() {
         return "index";
     }
-
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public void delete(){}
-
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    @ResponseBody
-    public List<User> allUsers() {
-        return userService.getUsers();
-    }
+//
+//    @RequestMapping(value = "/", method = RequestMethod.POST)
+//    public void delete(){}
+//
+//    @RequestMapping(value = "/test", method = RequestMethod.GET)
+//    @ResponseBody
+//    public List<User> allUsers() {
+//        return userService.getUsers();
+//    }
 }

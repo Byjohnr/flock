@@ -35,6 +35,17 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
+      <library name="Gradle: org.slf4j:slf4j-api:1.7.13">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.13/7fcf30c25b8f4a9379b9dad0d3f487b25272c026/slf4j-api-1.7.13.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.13/96e785df399a4e1a6c030877097807b7e18520cc/slf4j-api-1.7.13-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
       <library name="Gradle: org.springframework:spring-jdbc:4.2.4.RELEASE">
         <CLASSES>
           <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jdbc/4.2.4.RELEASE/7aa1c3c817b0a04796e6570a2c07ac23248c1ee0/spring-jdbc-4.2.4.RELEASE.jar!/" />
@@ -172,17 +183,6 @@
         <JAVADOC />
         <SOURCES>
           <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/1.3.1.RELEASE/9de075e2d5b2aba0878ccd29b7044187ad7e68fb/spring-boot-1.3.1.RELEASE-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Gradle: org.slf4j:slf4j-api:1.7.13">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.13/7fcf30c25b8f4a9379b9dad0d3f487b25272c026/slf4j-api-1.7.13.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.13/96e785df399a4e1a6c030877097807b7e18520cc/slf4j-api-1.7.13-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -407,17 +407,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="Gradle: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/1.0.0.Final/5e731d961297e5a07290bfaf3db1fbc8bbbf405a/hibernate-jpa-2.1-api-1.0.0.Final.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/1.0.0.Final/33fbaa7276b774ef0925f541640f6ff23fbc62dc/hibernate-jpa-2.1-api-1.0.0.Final-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="Gradle: org.springframework:spring-tx:4.2.4.RELEASE">
         <CLASSES>
           <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/4.2.4.RELEASE/66e1a131263f5f9ba95943061b22ff2666930ca6/spring-tx-4.2.4.RELEASE.jar!/" />
@@ -425,6 +414,17 @@
         <JAVADOC />
         <SOURCES>
           <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/4.2.4.RELEASE/52ccbd22e04e295d1642c46abdae5a9657d16de3/spring-tx-4.2.4.RELEASE-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/1.0.0.Final/5e731d961297e5a07290bfaf3db1fbc8bbbf405a/hibernate-jpa-2.1-api-1.0.0.Final.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/1.0.0.Final/33fbaa7276b774ef0925f541640f6ff23fbc62dc/hibernate-jpa-2.1-api-1.0.0.Final-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -506,17 +506,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="Gradle: javax.validation:validation-api:1.1.0.Final">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.validation/validation-api/1.1.0.Final/8613ae82954779d518631e05daa73a6a954817d5/validation-api-1.1.0.Final.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.validation/validation-api/1.1.0.Final/7d49b53caed9bd81d172807c3e096d24f3c57090/validation-api-1.1.0.Final-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="Gradle: nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.3.1">
         <CLASSES>
           <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect/1.3.1/612621a307427d822e1d8df99a4f24af9ff2689c/thymeleaf-layout-dialect-1.3.1.jar!/" />
@@ -524,6 +513,17 @@
         <JAVADOC />
         <SOURCES>
           <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect/1.3.1/305accc40df1d83d8e712b7e6a8246b46ca497d5/thymeleaf-layout-dialect-1.3.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: javax.validation:validation-api:1.1.0.Final">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.validation/validation-api/1.1.0.Final/8613ae82954779d518631e05daa73a6a954817d5/validation-api-1.1.0.Final.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.validation/validation-api/1.1.0.Final/7d49b53caed9bd81d172807c3e096d24f3c57090/validation-api-1.1.0.Final-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -539,17 +539,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="Gradle: aopalliance:aopalliance:1.0">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/aopalliance/aopalliance/1.0/235ba8b489512805ac13a8f9ea77a1ca5ebe3e8/aopalliance-1.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/aopalliance/aopalliance/1.0/4a4b6d692e17846a9f3da036438a7ac491d3c814/aopalliance-1.0-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="Gradle: org.springframework.boot:spring-boot-starter-validation:1.3.1.RELEASE">
         <CLASSES>
           <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-validation/1.3.1.RELEASE/47f424e3c7ed629b988b1976e52b662834a76856/spring-boot-starter-validation-1.3.1.RELEASE.jar!/" />
@@ -557,6 +546,17 @@
         <JAVADOC />
         <SOURCES>
           <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-validation/1.3.1.RELEASE/3ed727928247a8e8ffb775becf715d14a67329c5/spring-boot-starter-validation-1.3.1.RELEASE-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: aopalliance:aopalliance:1.0">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/aopalliance/aopalliance/1.0/235ba8b489512805ac13a8f9ea77a1ca5ebe3e8/aopalliance-1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/aopalliance/aopalliance/1.0/4a4b6d692e17846a9f3da036438a7ac491d3c814/aopalliance-1.0-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -572,17 +572,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-core/1.2.0.RELEASE/f380e7760032e7d929184f8ad8a33716b75c0657/spring-plugin-core-1.2.0.RELEASE.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-core/1.2.0.RELEASE/112d82259202fa909d51cf7ccefae0c5523f1373/spring-plugin-core-1.2.0.RELEASE-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.6.4">
         <CLASSES>
           <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.4/f2abadd10891512268b16a1a1a6f81890f3e2976/jackson-databind-2.6.4.jar!/" />
@@ -590,6 +579,17 @@
         <JAVADOC />
         <SOURCES>
           <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.4/b4a661c12421c38a7d02f729e41bb7e840ed853b/jackson-databind-2.6.4-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-core/1.2.0.RELEASE/f380e7760032e7d929184f8ad8a33716b75c0657/spring-plugin-core-1.2.0.RELEASE.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.plugin/spring-plugin-core/1.2.0.RELEASE/112d82259202fa909d51cf7ccefae0c5523f1373/spring-plugin-core-1.2.0.RELEASE-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -700,17 +700,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="Gradle: com.google.guava:guava:16.0.1">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/16.0.1/5fa98cd1a63c99a44dd8d3b77e4762b066a5d0c5/guava-16.0.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/16.0.1/2477d012cd5379f9696e0d9d3ccc62ad13a09ca4/guava-16.0.1-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="Gradle: org.apache.tomcat.embed:tomcat-embed-core:8.0.30">
         <CLASSES>
           <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-core/8.0.30/87b12667b258d0135f7cf4234030a5ccbb55193f/tomcat-embed-core-8.0.30.jar!/" />
@@ -718,6 +707,17 @@
         <JAVADOC />
         <SOURCES>
           <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-core/8.0.30/63de3c69f2a2b972ee12d55bc175cc36424651fc/tomcat-embed-core-8.0.30-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: com.google.guava:guava:16.0.1">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/16.0.1/5fa98cd1a63c99a44dd8d3b77e4762b066a5d0c5/guava-16.0.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/16.0.1/2477d012cd5379f9696e0d9d3ccc62ad13a09ca4/guava-16.0.1-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -952,6 +952,5 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="library" name="flock node_modules" level="project" />
   </component>
 </module>
