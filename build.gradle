@@ -46,5 +46,5 @@ task wrapper(type: Wrapper) {
 }
 
 task compileComponents(type:Exec) {
-    commandLine 'babel', 'src/main/resources/static/js/components', '-d', 'src/main/resources/static/js/components_compiled'
+    commandLine 'babel', 'src/main/resources/static/js/components', '-w','-d', 'src/main/resources/static/js/components_compiled'
 }

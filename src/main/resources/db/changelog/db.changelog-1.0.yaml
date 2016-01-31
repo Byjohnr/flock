@@ -41,14 +41,11 @@ databaseChangeLog:
                   name: event_name
                   type: varchar(200)
               - column:
-                  name: event_date
-                  type: date
+                  name: event_start
+                  type: datetime
               - column:
-                  name: time_start
-                  type: date
-              - column:
-                  name: time_end
-                  type: date
+                  name: event_end
+                  type: datetime
               - column:
                   name: type
                   type: int
