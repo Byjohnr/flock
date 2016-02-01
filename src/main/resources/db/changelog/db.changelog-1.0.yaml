@@ -55,4 +55,44 @@ databaseChangeLog:
               - column:
                   name: event_description
                   type: varchar(2000)
-
+          - createTable:
+              tableName: invite
+              columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_invite
+              - column:
+                  name: inviter_id
+                  type: int
+              - column:
+                  name: invited_user_id
+                  type: int
+              - column:
+                  name: date_invited
+                  type: datetime
+              - column:
+                  name: event_id
+                  type: int
+              - column:
+                  name: invite_status
+                  type: int
+          - createTable:
+              tableName: connection
+              columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_connection
+              - column:
+                  name: user_1_id
+                  type: int
+              - column:
+                  name: user_2_id
+                  type: int
