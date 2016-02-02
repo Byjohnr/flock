@@ -15,10 +15,12 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "owner_id")
+    @ManyToOne
+    @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;
 
-    @Column(name = "event_id")
+    @ManyToOne
+    @JoinColumn(name = "event_id", referencedColumnName = "id")
     private Event event;
 
     @Column(name = "comment")
