@@ -96,3 +96,31 @@ databaseChangeLog:
               - column:
                   name: user_2_id
                   type: int
+
+   - changeSet:
+        id: 3
+        author: ckoehler
+        changes:
+          -createTable:
+              tableName: comment
+              columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_comment
+              - column:
+                  name: owner_id
+                  type: int
+              - column:
+                  name: event_id
+                  type: int
+              - column:
+                  name: comment
+                  type: varchar(1000)
+              - column:
+                  name: time
+                  type: date
+
