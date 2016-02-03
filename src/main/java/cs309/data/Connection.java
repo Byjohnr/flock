@@ -12,7 +12,8 @@ public class Connection {
 
     @Id
     @Column(name = "id")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "user_1_id", referencedColumnName = "id")
@@ -22,11 +23,11 @@ public class Connection {
     @JoinColumn(name = "user_2_id", referencedColumnName = "id")
     private User user2;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

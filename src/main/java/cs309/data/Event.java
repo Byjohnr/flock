@@ -13,7 +13,8 @@ public class Event {
 
     @Id
     @Column(name = "id")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "creator_id", referencedColumnName = "id")
@@ -46,11 +47,11 @@ public class Event {
 //    TODO jeffreyh 1-28-16, wait for image upload implementation
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

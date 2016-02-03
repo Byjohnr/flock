@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
  */
 public class EventDTO {
 
-    private Long eventId;
+    private Integer eventId;
     private String name;
     private String startTime;
     private String endTime;
@@ -51,11 +51,11 @@ public class EventDTO {
         }
     }
 
-    public Long getEventId() {
+    public Integer getEventId() {
         return eventId;
     }
 
-    public void setEventId(Long eventId) {
+    public void setEventId(Integer eventId) {
         this.eventId = eventId;
     }
 

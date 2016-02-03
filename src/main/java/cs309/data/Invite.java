@@ -9,11 +9,11 @@ import java.util.Date;
 @Entity
 @Table(name = "invite")
 public class Invite {
-//    TODO jeffreyh 1/29/16
 
     @Id
     @Column(name = "id")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "inviter_id", referencedColumnName = "id")
@@ -33,11 +33,11 @@ public class Invite {
     @JoinColumn(name = "invite_status")
     private Integer inviteStatus;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
