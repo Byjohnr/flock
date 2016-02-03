@@ -1018,5 +1018,6 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="library" name="flock node_modules" level="project" />
   </component>
 </module>
