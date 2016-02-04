@@ -1,0 +1,15 @@
+# Package Files #
+*.war
+*.ear
+node_modules
+gradle
+*.iml
+*.ipr
+*.iws
+*.DS_Store
+.DS_Store
+.idea
+.gradle
+target/**
+target/
+build/
