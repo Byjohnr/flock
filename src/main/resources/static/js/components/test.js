@@ -1,9 +1,9 @@
 var React = require('react');
-var TestStore = require('../stores/testStore');
+//var TestStore = require('../stores/testStore');
 
 var Hello = React.createClass({
     getInitialState: function() {
-        this.props.list = TestStore.onFetchUsers();
+        //this.props.list = TestStore.onFetchUsers();
     },
    render: function() {
        return <div> Hello {this.props.name}</div>;

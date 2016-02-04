@@ -13,7 +13,8 @@ public class Event {
 
     @Id
     @Column(name = "id")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "creator_id", referencedColumnName = "id")
@@ -22,14 +23,11 @@ public class Event {
     @Column(name = "event_name")
     private String eventName;
 
-    @Column(name = "event_date")
-    private Date eventDate;
+    @Column(name = "event_start")
+    private Date eventStart;
 
-    @Column(name = "time_start")
-    private Date timeStart;
-
-    @Column(name = "time_end")
-    private Date timeEnd;
+    @Column(name = "event_end")
+    private Date eventEnd;
 
     @Column(name = "type")
     private Integer type;
@@ -49,11 +47,11 @@ public class Event {
 //    TODO jeffreyh 1-28-16, wait for image upload implementation
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -73,28 +71,20 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public Date getEventDate() {
-        return eventDate;
+    public Date getEventStart() {
+        return eventStart;
     }
 
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
+    public void setEventStart(Date eventStart) {
+        this.eventStart = eventStart;
     }
 
-    public Date getTimeStart() {
-        return timeStart;
+    public Date getEventEnd() {
+        return eventEnd;
     }
 
-    public void setTimeStart(Date timeStart) {
-        this.timeStart = timeStart;
-    }
-
-    public Date getTimeEnd() {
-        return timeEnd;
-    }
-
-    public void setTimeEnd(Date timeEnd) {
-        this.timeEnd = timeEnd;
+    public void setEventEnd(Date eventEnd) {
+        this.eventEnd = eventEnd;
     }
 
     public Integer getType() {
@@ -120,4 +110,17 @@ public class Event {
     public void setEventDescription(String eventDescription) {
         this.eventDescription = eventDescription;
     }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", creator=" + creator +
+                ", eventName='" + eventName + '\'' +
+                ", type=" + type +
+                ", location='" + location + '\'' +
+                ", eventDescription='" + eventDescription + '\'' +
+                '}';
+    }
 }
+

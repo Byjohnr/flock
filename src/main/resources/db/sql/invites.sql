@@ -1,0 +1,2 @@
+INSERT into invite(id,inviter_id,invited_user_id,date_invited,event_id, invite_status) values (1, 1, 2, null, 1, 1);
+INSERT into invite(id,inviter_id,invited_user_id,date_invited,event_id, invite_status) values (2, 2, 1, null, 2, 2);
