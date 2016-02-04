@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/sql/invites.sql
   - include:
       file: db/sql/connections.sql
+  - include:
+      file: db/sql/notifications.sql
