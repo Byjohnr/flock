@@ -133,21 +133,24 @@ databaseChangeLog:
                  columns:
                  - column:
                      name: id
-                     type: int
+                     type: Integer
                      constraints:
                          nullable: false
                          primaryKey: true
                          primaryKeyName: pk_notification
                  - column:
-                     name: owner_id
-                     type: int
+                     name: type
+                     type: Integer
                  - column:
-                     name: event_id
-                     type: int
+                     name: creator
+                     type: User
                  - column:
-                     name: comment
-                     type: varchar(1000)
+                     name: reciever
+                     type: User
                  - column:
                      name: time
                      type: date
+                 - column:
+                     name: type_id
+                     type: Integer
 
