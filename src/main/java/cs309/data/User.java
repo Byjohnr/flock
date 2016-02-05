@@ -1,7 +1,11 @@
 package cs309.data;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.imageio.ImageIO;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -20,19 +24,17 @@ public class User {
     private String email;
     @Column(name = "description")
     private String description;
+    //TODO tstack 2/4/16 figure out how images should be stored in the database
+//    private ImageIO profilePicture;
     @Column(name = "current_city")
     private String currentCity;
-
-//    This should be looked into for doing location
+    //TODO tstack 2/4/16 implement saving of any further location information
 //    private Long cityXCoordinate;
 //    private Long cityYCoordinate;
-
-
-//    Figure out how this works
-//    private ImageIO profilePicture;
-
-//    Look into doing connections
-//    private Connection connections
+    @OneToMany(mappedBy = "connection")
+    private List<Connection> connections;
+    @OneToMany(mappedBy = "event")
+    private List<Event> events;
 
     public User(){
     }
@@ -83,6 +85,36 @@ public class User {
 
     public void setCurrentCity(String currentCity) {
         this.currentCity = currentCity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return new EqualsBuilder()
+                .append(id, user.id)
+                .append(firstName, user.firstName)
+                .append(lastName, user.lastName)
+                .append(email, user.email)
+                .append(description, user.description)
+                .append(currentCity, user.currentCity)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .append(firstName)
+                .append(lastName)
+                .append(email)
+                .append(description)
+                .append(currentCity)
+                .toHashCode();
     }
 
     @Override
