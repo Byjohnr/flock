@@ -1,0 +1,8 @@
+# Package Files #
+node_modules
+gradle
+*.iml
+.idea
+.gradle
+build/
+src/main/resources/static/bower_components
