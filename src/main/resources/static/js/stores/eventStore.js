@@ -7,13 +7,13 @@ var EventStore = Reflux.createStore({
     //eventList: [],
     init : function() {
         console.log('Init');
-        this.events = undefined;
-        return {
-            events : this.events
-        };
+        //this.events = undefined;
+        //return {
+        //    events : this.events
+        //};
     },
     getInitialState() {
-        this.onListEvents();
+        //this.onListEvents();
         console.log('Initial State');
         //this.events = undefined;
         //return {
@@ -40,5 +40,8 @@ var EventStore = Reflux.createStore({
     addEvents: function(data) {
         this.events = data;
         this.trigger(this.events);
+    },
+    onCreateEvent: function(data) {
+
     }
 });
