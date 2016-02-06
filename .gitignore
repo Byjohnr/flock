@@ -3,6 +3,7 @@ node_modules
 gradle
 *.iml
 .idea
+.sonar
 .gradle
 build/
 src/main/resources/static/bower_components
