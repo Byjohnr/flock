@@ -35,7 +35,7 @@ public class User {
 //    @OneToMany(mappedBy = "connection")
 //    private List<Connection> connections;
     //TODO tstack 2/5/16 fix this so it actually maps to events, and figure out how to add a primary key in liquibase to do so
-    @OneToMany(mappedBy = "user")
+    @OneToMany
     private List<Event> events;
 
     public User() {

@@ -18,11 +18,11 @@ public class Connection {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-//    @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "user_1_id", referencedColumnName = "id")
     private User user1;
 
-//    @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "user_2_id", referencedColumnName = "id")
     private User user2;
 
