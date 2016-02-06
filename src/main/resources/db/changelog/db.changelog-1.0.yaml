@@ -15,19 +15,19 @@ databaseChangeLog:
                       primaryKeyName: pk_user
               - column:
                   name: first_name
-                  type: varchar(200)
+                  type: varchar(50)
               - column:
                   name: last_name
-                  type: varchar(200)
+                  type: varchar(50)
               - column:
                   name: email
-                  type: varchar(200)
+                  type: varchar(50)
               - column:
                   name: description
                   type: varchar(1000)
               - column:
                   name: current_city
-                  type: varchar(200)
+                  type: varchar(100)
 
    - changeSet:
         id: 2
