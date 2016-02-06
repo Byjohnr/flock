@@ -31,10 +31,8 @@ public class User {
     //TODO tstack 2/4/16 implement saving of any further location information
 //    private Long cityXCoordinate;
 //    private Long cityYCoordinate;
-    //TODO tstack 2/4/16 figure out how these are going to be connected
-//    @OneToMany(mappedBy = "connection")
-//    private List<Connection> connections;
-    //TODO tstack 2/5/16 fix this so it actually maps to events, and figure out how to add a primary key in liquibase to do so
+    @OneToMany
+    private List<Connection> connections;
     @OneToMany
     private List<Event> events;
 
@@ -87,6 +85,22 @@ public class User {
 
     public void setCurrentCity(String currentCity) {
         this.currentCity = currentCity;
+    }
+
+    public List<Connection> getConnections() {
+        return connections;
+    }
+
+    public void setConnections(List<Connection> connections) {
+        this.connections = connections;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 
     @Override

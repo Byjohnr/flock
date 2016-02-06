@@ -64,13 +64,6 @@ databaseChangeLog:
               - column:
                   name: event_description
                   type: varchar(2000)
-#          - addForeignKeyConstraint:
-#              baseColumnNames: creator_id
-#              baseTableName: event
-#              constraintName: fk_creator_event
-#              onDelete: CASCADE
-#              referencedColumnNames: id
-#              referencedTableName: user
           - createTable:
               tableName: invite
               columns:
