@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by chasekoehler on 1/29/16.
  */
 @Entity
-@Table(name = "user")
+@Table(name = "comment")
 public class Comment {
 
     @Id
@@ -30,7 +30,6 @@ public class Comment {
     private Date dateCreated;
 
     public Comment() {
-
     }
 
     public Integer getId() {

@@ -6,6 +6,6 @@ databaseChangeLog:
   - include:
       file: db/sql/events.sql
   - include:
-      file: db/sql/invites.sql
+      file: db/sql/eventInvites.sql
   - include:
       file: db/sql/connections.sql

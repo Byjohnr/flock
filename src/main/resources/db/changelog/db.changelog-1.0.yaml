@@ -1,9 +1,10 @@
 databaseChangeLog:
    - changeSet:
         id: 1
-        author: jeffreyh
+        author: tstack
         changes:
           - createTable:
+              tableName: user
               columns:
               - column:
                   name: id
@@ -14,11 +15,19 @@ databaseChangeLog:
                       primaryKeyName: pk_user
               - column:
                   name: first_name
-                  type: varchar(200)
+                  type: varchar(50)
               - column:
                   name: last_name
-                  type: varchar(200)
-              tableName: user
+                  type: varchar(50)
+              - column:
+                  name: email
+                  type: varchar(50)
+              - column:
+                  name: description
+                  type: varchar(1000)
+              - column:
+                  name: current_city
+                  type: varchar(100)
 
    - changeSet:
         id: 2
@@ -56,7 +65,7 @@ databaseChangeLog:
                   name: event_description
                   type: varchar(2000)
           - createTable:
-              tableName: invite
+              tableName: event_invite
               columns:
               - column:
                   name: id
@@ -101,7 +110,7 @@ databaseChangeLog:
         id: 3
         author: ckoehler
         changes:
-          -createTable:
+          - createTable:
               tableName: comment
               columns:
               - column:

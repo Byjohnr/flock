@@ -34,7 +34,8 @@ public class Event {
 //    TODO jeffreyh 1-28-16 wait for tags to be implemented
 //    private List<Tags> tagsList
 //    TODO jeffreyh 1-28-16 wait for users to be implemented
-//    private List<Invites> userList
+    @OneToMany
+    private List<EventInvite> eventInvites;
 //    TODO jeffreyh 1-28-16 wait for comments to be implemented
 //    private List<Comment> commentList;
 
