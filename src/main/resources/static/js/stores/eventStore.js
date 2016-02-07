@@ -49,11 +49,18 @@ var EventStore = Reflux.createStore({
                 'Content-Type': 'application/json'
             },
             url: '/api/create',
-            dataType:'json',
+            dataType:'text',
             type: 'POST',
             data: JSON.stringify(data),
-            success: function() {
+            success: function(data) {
+                window.location.replace(data);
                 console.log("It worked?!?!?");
+            },
+            error : function () {
+                console.log("error");
+            },
+            done : function() {
+                console.log("done?");
             }
         });
 

@@ -26,18 +26,19 @@ public class HomeRestController {
     private UserService userService;
 
     @RequestMapping("/api/events")
-    List<EventDTO> getEvents() {
+    public List<EventDTO> getEvents() {
         List<EventDTO> eventDTOs = new ArrayList<>();
         eventService.getEvents().stream().forEach(event -> eventDTOs.add(new EventDTO(event)));
         return eventDTOs;
     }
 
     @RequestMapping(value = "/api/create", method = RequestMethod.POST)
-    String createEvent(@RequestBody final CreateEventDTO createEventDTO) throws IOException, ParseException {
+    public String createEvent(@RequestBody final CreateEventDTO createEventDTO) throws IOException, ParseException {
 //        TODO jeffreyh 2-6-16 add validation, return response
         System.out.println(createEventDTO.toString());
 //        TODO jefffreyh 2-6/16 set the user by whoever is creating the event
         eventService.saveEvent(new Event(createEventDTO, userService.getUser(1)));
-        return "test";
+//        TODO jeffreyh 2/7/16 return url to event just created when the event page is created
+        return "/";
     }
 }
