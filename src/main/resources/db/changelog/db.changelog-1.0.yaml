@@ -65,7 +65,7 @@ databaseChangeLog:
                   name: event_description
                   type: varchar(2000)
           - createTable:
-              tableName: invite
+              tableName: event_invite
               columns:
               - column:
                   name: id

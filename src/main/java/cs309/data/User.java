@@ -34,7 +34,7 @@ public class User {
     @OneToMany
     private List<Connection> connections;
     @OneToMany
-    private List<Event> events;
+    private List<EventInvite> events;
 
     public User() {
     }
@@ -95,11 +95,11 @@ public class User {
         this.connections = connections;
     }
 
-    public List<Event> getEvents() {
+    public List<EventInvite> getEvents() {
         return events;
     }
 
-    public void setEvents(List<Event> events) {
+    public void setEvents(List<EventInvite> events) {
         this.events = events;
     }
 
