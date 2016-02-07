@@ -35,7 +35,6 @@ public class HomeRestController {
     @RequestMapping(value = "/api/create", method = RequestMethod.POST)
     public String createEvent(@RequestBody final CreateEventDTO createEventDTO) throws IOException, ParseException {
 //        TODO jeffreyh 2-6-16 add validation, return response
-        System.out.println(createEventDTO.toString());
 //        TODO jefffreyh 2-6/16 set the user by whoever is creating the event
         eventService.saveEvent(new Event(createEventDTO, userService.getUser(1)));
 //        TODO jeffreyh 2/7/16 return url to event just created when the event page is created
