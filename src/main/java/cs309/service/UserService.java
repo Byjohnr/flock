@@ -20,4 +20,8 @@ public class UserService {
     public List<User> getUsers() {
         return userRepo.findAll();
     }
+
+    public User getUser(int id) {
+        return userRepo.findOne(id);
+    }
 }

@@ -42,6 +42,20 @@ var EventStore = Reflux.createStore({
         this.trigger(this.events);
     },
     onCreateEvent: function(data) {
+        console.log(data);
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: '/api/create',
+            dataType:'json',
+            type: 'POST',
+            data: JSON.stringify(data),
+            success: function() {
+                console.log("It worked?!?!?");
+            }
+        });
 
     }
 });

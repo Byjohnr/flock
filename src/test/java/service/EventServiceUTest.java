@@ -12,7 +12,9 @@ import util.MockData;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -31,5 +33,19 @@ public class EventServiceUTest extends UnitTestBase {
         when(eventRepo.findAll()).thenReturn(new ArrayList<>(MockData.getMockEvents(5)));
         List<Event> events = eventService.getEvents();
         assertEquals(events.size(),5);
+    }
+
+    @Test
+    public void getEvent() {
+        when(eventRepo.findOne(0)).thenReturn(MockData.getEvent(0));
+        Event event = eventService.getEvent(0);
+        assertNotNull(event);
+    }
+
+    @Test
+    public void saveEvent() {
+        Event event = MockData.getEvent(1);
+        eventService.saveEvent(event);
+        verify(eventRepo,times(1)).save(event);
     }
 }
