@@ -1,10 +1,10 @@
 # Package Files #
-node_modules
-gradle
-*.iml
-.idea
-.sonar
 .sonar_lock
-.gradle
+/flock.iml
+node_modules/
+gradle/
+.idea/
+.sonar/
+.gradle/
 build/
 src/main/resources/static/bower_components
