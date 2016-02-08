@@ -10,7 +10,6 @@ import java.util.jar.Attributes;
 
 @Entity
 @Table(name = "Notification")
-
 public class Notification {
 
     @Id

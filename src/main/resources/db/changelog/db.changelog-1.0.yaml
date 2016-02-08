@@ -128,29 +128,29 @@ databaseChangeLog:
            id: 4
            author: jruby
            changes:
-             -createTable:
+             - createTable:
                  tableName: notification
                  columns:
                  - column:
                      name: id
-                     type: Integer
+                     type: int
                      constraints:
                          nullable: false
                          primaryKey: true
                          primaryKeyName: pk_notification
                  - column:
                      name: type
-                     type: Integer
+                     type: int
                  - column:
-                     name: creator
-                     type: User
+                     name: creator_id
+                     type: int
                  - column:
-                     name: reciever
-                     type: User
+                     name: receiver_id
+                     type: int
                  - column:
                      name: time
                      type: date
                  - column:
                      name: type_id
-                     type: Integer
+                     type: int
 

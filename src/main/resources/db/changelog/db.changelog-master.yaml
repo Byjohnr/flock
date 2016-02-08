@@ -10,4 +10,4 @@ databaseChangeLog:
   - include:
       file: db/sql/connections.sql
   - include:
-      file: db/sql/notifications.sql
+      file: db/sql/notification.sql
