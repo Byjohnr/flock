@@ -31,10 +31,10 @@ public class User {
     //TODO tstack 2/4/16 implement saving of any further location information
 //    private Long cityXCoordinate;
 //    private Long cityYCoordinate;
-    @OneToMany
-    private List<Connection> connections;
-    @OneToMany
-    private List<EventInvite> events;
+//    @OneToMany
+//    private List<Connection> connections;
+//    @OneToMany
+//    private List<EventInvite> events;
 
     public User() {
     }
@@ -87,22 +87,22 @@ public class User {
         this.currentCity = currentCity;
     }
 
-    public List<Connection> getConnections() {
-        return connections;
-    }
-
-    public void setConnections(List<Connection> connections) {
-        this.connections = connections;
-    }
-
-    public List<EventInvite> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<EventInvite> events) {
-        this.events = events;
-    }
-
+//    public List<Connection> getConnections() {
+//        return connections;
+//    }
+//
+//    public void setConnections(List<Connection> connections) {
+//        this.connections = connections;
+//    }
+//
+//    public List<EventInvite> getEvents() {
+//        return events;
+//    }
+//
+//    public void setEvents(List<EventInvite> events) {
+//        this.events = events;
+//    }
+//
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -3,25 +3,26 @@
  */
 var EventList = React.createClass({
     mixins: [Reflux.connect(EventStore,'events')],
-    //getInitialState: function() {
-    //    return { events : []};
-    //},
+    getInitialState: function() {
+        return {events : undefined};
+    },
     //onListEvents: function(listEvents) {
     //    console.log('listEvents');
     //    this.setState({
     //        events : listEvents
     //    });
     //},
-    //componentDidMount: function() {
-    //    console.log('componentMounted');
-    //    //this.listenTo(EventStore, this.onListEvents)
-    //},
+    componentDidMount: function() {
+        console.log('componentMounted');
+        EventStore.onListEvents();
+    },
     render: function() {
         //EventActions.onListEvents();
         console.log('rendering');
         //console.log(this.state.events);
         if(this.state.events === undefined) {
-            return <div>Loading <i className="a fa-refresh fa-spin"/> </div>;
+            //EventActions.listEvents;
+            return <div onLoad={EventActions.listEvents}>Loading <i className="fa fa-spin fa-refresh"/> </div>;
         }
 
             var eventNodes = this.state.events.map(function (event) {

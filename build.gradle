@@ -37,6 +37,8 @@ dependencies {
     compile('org.apache.commons:commons-lang3:3.0')
     compile('mysql:mysql-connector-java:5.1.6')
     compile('org.liquibase:liquibase-core:3.4.2')
+    compile("com.fasterxml.jackson.core:jackson-databind")
+
 
     testCompile("junit:junit")
     testCompile('org.springframework.boot:spring-boot-starter-test:1.2.3.RELEASE');
