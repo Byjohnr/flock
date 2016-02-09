@@ -17,6 +17,6 @@ public class UserController {
 
     @RequestMapping("/account")
     public String userAccountPage() {
-        return "index";
+        return "viewAccount";
     }
 }

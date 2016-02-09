@@ -1,6 +1,6 @@
 # Package Files #
 .sonar_lock
-/flock.iml
+/*.iml
 node_modules/
 gradle/
 .idea/
