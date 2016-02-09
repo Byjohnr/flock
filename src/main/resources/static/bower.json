@@ -19,6 +19,7 @@
     "bootstrap": "~3.3.6",
     "reflux": "~0.3.0",
     "react": "~0.14.6",
-    "font-awesome": "~4.5.0"
+    "font-awesome": "~4.5.0",
+    "pickadate": "^3.5.6"
   }
 }
