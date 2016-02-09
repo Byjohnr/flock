@@ -24,6 +24,8 @@ public class User {
     private String email;
     @Column(name = "description")
     private String description;
+    @Column(name = "password")
+    private String password;
     //TODO tstack 2/4/16 figure out how images should be stored in the database
 //    private ImageIO profilePicture;
     @Column(name = "current_city")
@@ -37,6 +39,7 @@ public class User {
 //    private List<EventInvite> events;
 
     public User() {
+
     }
 
     public Integer getId() {
@@ -103,6 +106,16 @@ public class User {
 //        this.events = events;
 //    }
 //
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
