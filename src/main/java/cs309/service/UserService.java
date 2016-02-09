@@ -24,4 +24,8 @@ public class UserService {
     public User getUser(int id) {
         return userRepo.findOne(id);
     }
+
+    public void saveUser(User user) {
+        userRepo.save(user);
+    }
 }

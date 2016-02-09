@@ -29,4 +29,11 @@ public class UserServiceUTest extends UnitTestBase {
         User user = userService.getUser(3);
         assertNotNull(user);
     }
+
+    @Test
+    public void saveUser() {
+        User user = new User();
+        userService.saveUser(user);
+        verify(userRepository, times(1)).save(user);
+    }
 }
