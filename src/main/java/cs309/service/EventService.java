@@ -4,6 +4,7 @@ import cs309.data.Event;
 import cs309.repo.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,5 +19,14 @@ public class EventService {
 
     public List<Event> getEvents() {
         return eventRepository.findAll();
+    }
+
+    public Event getEvent(int id) {
+        return eventRepository.findOne(id);
+    }
+
+    @Transactional
+    public void saveEvent(Event event) {
+        eventRepository.save(event);
     }
 }
