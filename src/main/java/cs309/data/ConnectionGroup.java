@@ -1,5 +1,7 @@
 package cs309.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +19,14 @@ public class ConnectionGroup {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnore
     private User user;
 
     @Column(name = "group_name")
     private String groupName;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "connection_group_user",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "connection_group_id", referencedColumnName = "id")})
-    private List<User> groupUsers = new ArrayList<User>();
+    @OneToMany(mappedBy = "connectionGroup")
+    private List<ConnectionGroupUser> groupUsers = new ArrayList<ConnectionGroupUser>();
 
     public ConnectionGroup() {
 
@@ -56,11 +56,18 @@ public class ConnectionGroup {
         this.groupName = groupName;
     }
 
-    public List<User> getGroupUsers() {
+    public List<ConnectionGroupUser> getGroupUsers() {
         return groupUsers;
     }
 
-    public void setGroupUsers(List<User> groupUsers) {
+    public void setGroupUsers(List<ConnectionGroupUser> groupUsers) {
         this.groupUsers = groupUsers;
+    }
+
+    @Override
+    public String toString() {
+        return "ConnectionGroup{" +
+                "groupName='" + groupName + '\'' +
+                '}';
     }
 }

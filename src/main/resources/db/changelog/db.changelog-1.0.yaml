@@ -135,6 +135,14 @@ databaseChangeLog:
               tableName: connection_group_user
               columns:
               - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_connection_group_user
+              - column:
                   name: user_id
                   type: int
               - column:

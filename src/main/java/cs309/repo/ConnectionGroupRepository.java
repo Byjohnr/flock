@@ -1,7 +1,8 @@
 package cs309.repo;
 
-/**
- * Created by jeffrey on 2/9/16.
- */
-public interface ConnectionGroupRepository {
+import cs309.data.ConnectionGroup;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ConnectionGroupRepository extends JpaRepository<ConnectionGroup,Integer> {
+
 }
