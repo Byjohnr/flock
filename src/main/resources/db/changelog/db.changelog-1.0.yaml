@@ -29,6 +29,9 @@ databaseChangeLog:
               - column:
                   name: current_city
                   type: varchar(100)
+              - column:
+                  name: password
+                  type: varchar(100)
 
    - changeSet:
         id: 2
