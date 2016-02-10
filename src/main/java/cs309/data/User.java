@@ -36,6 +36,9 @@ public class User {
 //    @OneToMany
 //    private List<EventInvite> events;
 
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "groupUsers")
+    private List<ConnectionGroup> connectionGroups;
+
     public User() {
     }
 
@@ -103,6 +106,15 @@ public class User {
 //        this.events = events;
 //    }
 //
+
+    public List<ConnectionGroup> getConnectionGroups() {
+        return connectionGroups;
+    }
+
+    public void setConnectionGroups(List<ConnectionGroup> connectionGroups) {
+        this.connectionGroups = connectionGroups;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,0 +1,1 @@
+INSERT into connection_group_user(user_id,group_id) VALUES (1,1);
