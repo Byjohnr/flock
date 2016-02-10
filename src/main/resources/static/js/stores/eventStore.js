@@ -2,10 +2,11 @@
  * Created by jeffrey on 1/29/16.
  */
 // TODO jeffreyh 1/29/16
-var EventStore = Reflux.createStore({
+var EventStore;
+EventStore = Reflux.createStore({
     listenables: [EventActions],
     //eventList: [],
-    init : function() {
+    init: function () {
         console.log('Init');
         //this.events = undefined;
         //return {
@@ -20,7 +21,7 @@ var EventStore = Reflux.createStore({
         //    events : this.events
         //};
     },
-    onListEvents: function() {
+    onListEvents: function () {
         $.ajax({
             url: '/api/events',
             dataType: 'json',
@@ -37,11 +38,10 @@ var EventStore = Reflux.createStore({
         //console.log(this.events);
         //return this.eventList;
     },
-    addEvents: function(data) {
-        this.events = data;
-        this.trigger(this.events);
+    addEvents: function (data) {
+        this.trigger(data);
     },
-    onCreateEvent: function(data) {
+    onCreateEvent: function (data) {
         console.log(data);
         $.ajax({
             headers: {
@@ -49,20 +49,32 @@ var EventStore = Reflux.createStore({
                 'Content-Type': 'application/json'
             },
             url: '/api/create',
-            dataType:'text',
+            dataType: 'text',
             type: 'POST',
             data: JSON.stringify(data),
-            success: function(data) {
+            success: function (data) {
                 window.location.replace(data);
                 console.log("It worked?!?!?");
             },
-            error : function () {
+            error: function () {
                 console.log("error");
             },
-            done : function() {
+            done: function () {
                 console.log("done?");
             }
         });
-
+    },
+    onEvent: function () {
+        var id = window.alert(href.substr(href.lastIndexOf('/') + 1));
+        $.ajax({
+            url: '/api/event/' + id,
+            datatype: 'json',
+            success: this.getEvent
+        })
+    },
+    getEvent: function (data) {
+        this.trigger(data);
     }
+
+
 });
