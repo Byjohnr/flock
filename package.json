@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/JeffHask/flock/issues"
   },
-  "homepage": "https://github.com/JeffHask/flock#readme"
+  "homepage": "https://github.com/JeffHask/flock#readme",
+  "devDependencies": {
+    "babel-preset-react": "^6.5.0"
+  }
 }
