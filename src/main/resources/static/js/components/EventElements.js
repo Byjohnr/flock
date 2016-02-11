@@ -3,25 +3,26 @@
  */
 
 var EventElements = React.createClass({
-    mixins: [Reflux.connect(EventStore,'events')],
+    mixins: [Reflux.connect(EventStore,'event')],
     getInitialState: function() {
         return {event : undefined};
     },
     componentDidMount: function() {
-        EventStore.onEvent();
+        EventActions.getEvent();
     },
     render: function() {
-        var name = this.props.data.name
-        var description = this.props.data.description
-        var location = this.props.data.location
-        var time = this.props.data.time
-        var string = this.props.data.toString()
+        console.log("checkpoint 1");
+        //var description = this.props.data.description;
+        //var location = this.props.data.location;
+        //var time = this.props.data.time;
+        if(this.state.event === undefined) {
+            console.log("checkpoint 2");
+            return <div>Loading <i className="fa fa-spin fa-refresh"/> </div>;
+        }
         return (
-            <p>
-                {name}
-            </p>
-
-
+            <div>
+                <h3> {this.state.event.name} </h3>
+            </div>
         );
     }
 });

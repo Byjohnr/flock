@@ -8,7 +8,7 @@ var EventPage = React.createClass({
             <div className="row">
                 <div className="col-sm-5 col-sm-offset-3">
                     <h1 className="text-center"> Event </h1>
-                    <EventLine/>
+                    <EventElements/>
                 </div>
             </div>
         );

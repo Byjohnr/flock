@@ -44,4 +44,11 @@ public class HomeControllerUTest extends UnitTestBase{
                 .andExpect(status().isOk())
                 .andExpect(view().name("home"));
     }
+
+    @Test
+    public void mainPage() throws Exception {
+        this.mockMvc.perform(get("/main"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("mainPage"));
+    }
 }

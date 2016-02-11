@@ -4,6 +4,7 @@ import cs309.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -19,4 +20,16 @@ public class HomeController {
     public String homePage() {
         return "home";
     }
+
+    @RequestMapping("/main")
+    public String mainPage() {
+        return "mainPage";
+    }
+
+
+    @RequestMapping(value = "/event/{id}")
+    public String eventPage(@PathVariable("id") Integer id) {
+        return "eventPage";
+    }
+
 }
