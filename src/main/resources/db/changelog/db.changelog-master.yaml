@@ -8,4 +8,6 @@ databaseChangeLog:
   - include:
       file: db/sql/eventInvites.sql
   - include:
-      file: db/sql/connections.sql
+      file: db/sql/connectionGroups.sql
+  - include:
+      file: db/sql/connectionGroupUsers.sql
