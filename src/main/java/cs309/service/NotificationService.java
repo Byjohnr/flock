@@ -13,10 +13,10 @@ import java.util.List;
 @Service
 public class NotificationService {
     @Autowired
-    private NotificationRepository NotificationRepository;
+    private NotificationRepository notificationRepository;
 
     public List<Notification> getNotifications() {
-        return NotificationRepository.findAll();
+        return notificationRepository.findAll();
     }
 
 }

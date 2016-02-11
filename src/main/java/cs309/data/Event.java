@@ -1,6 +1,10 @@
 package cs309.data;
 
+import cs309.dto.CreateEventDTO;
+
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +38,8 @@ public class Event {
 //    TODO jeffreyh 1-28-16 wait for tags to be implemented
 //    private List<Tags> tagsList
 //    TODO jeffreyh 1-28-16 wait for users to be implemented
-//    private List<User> userList
+    @OneToMany
+    private List<EventInvite> eventInvites;
 //    TODO jeffreyh 1-28-16 wait for comments to be implemented
 //    private List<Comment> commentList;
 
@@ -45,6 +50,23 @@ public class Event {
     private String eventDescription;
 
 //    TODO jeffreyh 1-28-16, wait for image upload implementation
+
+    public Event() {
+
+    }
+
+    public Event(CreateEventDTO eventDTO, User user) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy HH:mm a");
+//        TODO jeffreyh 2-6-16, need to set up spring security before we can grab user from the session
+//        this.creator = new User();
+        this.eventStart = eventDTO.getStartDate() == null || eventDTO.getStartDate().equals(" ") ? null : dateFormat.parse(eventDTO.getStartDate());
+        this.eventEnd = eventDTO.getEndDate() == null || eventDTO.getEndDate().equals(" ") ? null : dateFormat.parse(eventDTO.getEndDate());
+        this.eventDescription = eventDTO.getDescription();
+        this.location = eventDTO.getAddress();
+        this.eventName = eventDTO.getEventName();
+        this.type = eventDTO.getType();
+        this.creator = user;
+    }
 
 
     public Integer getId() {

@@ -1,15 +1,11 @@
 # Package Files #
-*.war
-*.ear
 node_modules
 gradle
 *.iml
-*.ipr
-*.iws
-*.DS_Store
-.DS_Store
 .idea
+.sonar
+.sonar_lock
 .gradle
-target/**
-target/
 build/
+src/main/resources/static/bower_components
+src/main/resources/static/js/components_compiled

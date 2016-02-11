@@ -1,5 +1,8 @@
 package cs309.data;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 
 /**
@@ -45,5 +48,38 @@ public class Connection {
 
     public void setUser2(User user2) {
         this.user2 = user2;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Connection that = (Connection) o;
+
+        return new EqualsBuilder()
+                .append(id, that.id)
+                .append(user1, that.user1)
+                .append(user2, that.user2)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .append(user1)
+                .append(user2)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Connection{" +
+                "id=" + id +
+                ", user1=" + user1 +
+                ", user2=" + user2 +
+                '}';
     }
 }

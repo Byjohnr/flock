@@ -3,7 +3,6 @@ package cs309.data;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 
 /**
  * Created by John on 2/7/2016.

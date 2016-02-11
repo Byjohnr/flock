@@ -7,8 +7,12 @@ import java.util.Date;
  * Created by jeffrey on 1/29/16.
  */
 @Entity
-@Table(name = "invite")
-public class Invite {
+@Table(name = "event_invite")
+public class EventInvite {
+
+    public static final Integer EVENT_INVITE_ROLE_CREATOR = 1;
+    public static final Integer EVENT_INVITE_ROLE_ADMIN = 2;
+    public static final Integer EVENT_INVITE_ROLE_INVITEE = 3;
 
     @Id
     @Column(name = "id")
@@ -30,7 +34,7 @@ public class Invite {
     @JoinColumn(name = "event_id", referencedColumnName = "id")
     private Event event;
 
-    @JoinColumn(name = "invite_status")
+    @Column(name = "invite_status")
     private Integer inviteStatus;
 
     public Integer getId() {

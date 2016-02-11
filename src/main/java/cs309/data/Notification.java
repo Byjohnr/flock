@@ -33,6 +33,9 @@ public class Notification {
     @Column(name = "time")
     private Date dateCreated;
 
+    @Column(name = "notification_name")
+    private String notificationName;
+
     public Notification() {
 
     }
@@ -59,6 +62,10 @@ public class Notification {
 
     public void setCreator(User creator) {
         this.creator = creator;
+    }
+
+    public void setNotificationName(String notificationName) {
+        this.notificationName = notificationName;
     }
 
     public Integer getType() {
