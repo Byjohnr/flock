@@ -4,7 +4,6 @@ import org.h2.server.web.WebServlet;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 /**
  * Created by jeffrey on 1/22/16.
  */
@@ -17,19 +16,4 @@ public class WebConfig {
         registrationBean.addUrlMappings("/console/*");
         return registrationBean;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

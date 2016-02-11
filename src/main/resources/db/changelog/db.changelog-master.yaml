@@ -3,3 +3,11 @@ databaseChangeLog:
       file: db/changelog/db.changelog-1.0.yaml
   - include:
       file: db/sql/users.sql
+  - include:
+      file: db/sql/events.sql
+  - include:
+      file: db/sql/eventInvites.sql
+  - include:
+      file: db/sql/connectionGroups.sql
+  - include:
+      file: db/sql/connectionGroupUsers.sql
