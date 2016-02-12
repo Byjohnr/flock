@@ -4,6 +4,8 @@ import cs309.data.User;
 import cs309.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,6 +26,15 @@ public class UserService {
         return userRepo.findOne(id);
     }
 
+    public List<User> getUsersByCurrentCity(String currentCity) {
+        return userRepo.findByCurrentCity(currentCity);
+    }
+
+    public User getUsersByFirstNameAndLastNameAndEmail(String firstName, String lastName, String email) {
+        return userRepo.findUserByFirstNameAndLastNameAndEmail(firstName, lastName, email);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
     public void saveUser(User user) {
         userRepo.save(user);
     }

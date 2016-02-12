@@ -39,7 +39,6 @@ public class User {
 //    private List<EventInvite> events;
 
     public User() {
-
     }
 
     public Integer getId() {
