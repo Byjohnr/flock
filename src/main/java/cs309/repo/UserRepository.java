@@ -13,6 +13,6 @@ public interface UserRepository extends JpaRepository<User,Integer>{
     @Query("select u from User u where u.currentCity = :currentCity")
     List<User> findByCurrentCity(@Param("currentCity") String currentCity);
 
-    @Query("select u from User u where u.firstName = :firstName and u.lastName = :lastName and u.email = :email")
-    User findUserByFirstNameAndLastNameAndEmail(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("email") String email);
+    @Query("select u from User u where u.email = :email")
+    User findUserByEmail(@Param("email") String email);
 }

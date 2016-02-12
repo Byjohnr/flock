@@ -8,8 +8,6 @@ import org.junit.After;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.test.annotation.DirtiesContext;
-import util.MockData;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -71,17 +69,17 @@ public class UserServiceUTest extends UnitTestBase {
     }
 
     @Test
-    public void getUsersByFirstNameAndLastNameAndEmail() {
+    public void getUserByEmail() {
         User user = new User();
         user.setFirstName("First");
         user.setLastName("Last");
         user.setEmail("totallyLegit@email.com");
-        when(userRepository.findUserByFirstNameAndLastNameAndEmail(anyString(), anyString(), anyString())).thenReturn(user);
+        when(userRepository.findUserByEmail(anyString())).thenReturn(user);
 
-        User methodReturn = userRepository.findUserByFirstNameAndLastNameAndEmail("First", "Last", "totallyLegit@email.com");
+        User methodReturn = userRepository.findUserByEmail("totallyLegit@email.com");
 
         assertEquals(user, methodReturn);
-        verify(userRepository, times(1)).findUserByFirstNameAndLastNameAndEmail("First", "Last", "totallyLegit@email.com");
+        verify(userRepository, times(1)).findUserByEmail("totallyLegit@email.com");
         verifyNoMoreInteractions(userRepository);
     }
 

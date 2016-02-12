@@ -30,8 +30,8 @@ public class UserService {
         return userRepo.findByCurrentCity(currentCity);
     }
 
-    public User getUsersByFirstNameAndLastNameAndEmail(String firstName, String lastName, String email) {
-        return userRepo.findUserByFirstNameAndLastNameAndEmail(firstName, lastName, email);
+    public User getUserByEmail(String email) {
+        return userRepo.findUserByEmail(email);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
