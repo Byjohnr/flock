@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://git.linux.iastate.edu/309Spring/flock.git"
+    "url": "git+https://github.com/JeffHask/flock.git"
   },
   "author": "",
   "license": "ISC",
