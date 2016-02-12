@@ -44,7 +44,7 @@ var EventStore = Reflux.createStore({
         });
     },
     onGetEvent: function () {
-        var id = window.alert(href.substr(href.lastIndexOf('/') + 1));
+        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
         $.ajax({
             url: '/api/event/' + id,
             datatype: 'json',

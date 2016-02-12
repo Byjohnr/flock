@@ -12,6 +12,7 @@ var EventElements = React.createClass({
     },
     render: function() {
         console.log("checkpoint 1");
+        console.log(window.location.href);
         //var description = this.props.data.description;
         //var location = this.props.data.location;
         //var time = this.props.data.time;
@@ -19,9 +20,10 @@ var EventElements = React.createClass({
             console.log("checkpoint 2");
             return <div>Loading <i className="fa fa-spin fa-refresh"/> </div>;
         }
+        console.log(this.state.event);
         return (
             <div>
-                <h3> {this.state.event.name} </h3>
+                <h3> {this.state.event.eventName} </h3>
             </div>
         );
     }
