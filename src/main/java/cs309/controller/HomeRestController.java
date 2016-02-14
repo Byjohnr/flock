@@ -5,13 +5,21 @@ import cs309.dto.CreateEventDTO;
 import cs309.dto.EventDTO;
 import cs309.service.EventService;
 import cs309.service.UserService;
+import cs309.validator.CreateEventValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.MessageSourceResourceBundle;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by jeffrey on 1/29/16.
@@ -25,6 +33,12 @@ public class HomeRestController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CreateEventValidator eventValidator;
+
+    @Autowired
+    private MessageSource messageSource;
+
     @RequestMapping("/api/events")
     public List<EventDTO> getEvents() {
         List<EventDTO> eventDTOs = new ArrayList<>();
@@ -33,11 +47,21 @@ public class HomeRestController {
     }
 
     @RequestMapping(value = "/api/create", method = RequestMethod.POST)
-    public String createEvent(@RequestBody final CreateEventDTO createEventDTO) throws IOException, ParseException {
+    public List<ObjectError> createEvent(@Valid @RequestBody final CreateEventDTO createEventDTO, BindingResult result) throws IOException, ParseException {
+        String blah = messageSource.getMessage(result.getAllErrors().get(0).getCode(),null,Locale.ENGLISH);
+        System.out.println(blah);
+        if(result.hasErrors()) {
+            return result.getAllErrors();
+        }
 //        TODO jeffreyh 2-6-16 add validation, return response
 //        TODO jefffreyh 2-6/16 set the user by whoever is creating the event
         eventService.saveEvent(new Event(createEventDTO, userService.getUser(1)));
 //        TODO jeffreyh 2/7/16 return url to event just created when the event page is created
-        return "/";
+        return new ArrayList<>();
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(eventValidator);
     }
 }

@@ -2,6 +2,7 @@ package cs309.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -13,6 +14,7 @@ public class CreateEventDTO {
 //    private static final long serialVersionUID = 1L;
 
     private String eventName;
+    @NotNull
     private String description;
     private String startDate;
     private String endDate;
