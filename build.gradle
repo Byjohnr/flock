@@ -46,9 +46,10 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.1'
+    gradleVersion = '2.11'
 }
 
 task compileComponents(type:Exec) {
-    commandLine 'babel', 'src/main/resources/static/js/components', '-w','-d', 'src/main/resources/static/js/components_compiled'
+    commandLine "babel", "src/main/resources/static/js/components", "-w", "-d", "src/main/resources/static/js/components_compiled"
+    //babel src/main/resources/static/js/components -w -d src/main/resources/static/js/components_compiled
 }
