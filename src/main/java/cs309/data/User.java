@@ -1,10 +1,12 @@
 package cs309.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.imageio.ImageIO;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,8 +40,11 @@ public class User {
 //    @OneToMany
 //    private List<EventInvite> events;
 
-    public User() {
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<ConnectionGroup> connectionGroups = new ArrayList<ConnectionGroup>();
 
+    public User() {
     }
 
     public Integer getId() {
@@ -114,6 +119,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<ConnectionGroup> getConnectionGroups() {
+        return connectionGroups;
+    }
+
+    public void setConnectionGroups(List<ConnectionGroup> connectionGroups) {
+        this.connectionGroups = connectionGroups;
     }
 
     @Override

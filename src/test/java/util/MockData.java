@@ -1,6 +1,7 @@
 package util;
 
 import cs309.data.Event;
+import cs309.data.Notification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,5 +24,20 @@ public class MockData {
         event.setId(x);
         event.setEventName("event" + x);
         return event;
+    }
+
+    public static List<Notification> getMockNotifications(int k) {
+        List<Notification> notifications = new ArrayList<>();
+        for(int i = 0; i < k; i++){
+            notifications.add(getNotification(i));
+        }
+        return notifications;
+    }
+
+    public static Notification getNotification(int k) {
+        Notification notification = new Notification();
+        notification.setId(k);
+        notification.setNotificationName("notification" + k);
+        return notification;
     }
 }
