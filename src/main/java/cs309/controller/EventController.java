@@ -4,25 +4,20 @@ import cs309.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.PathVariable;
+import cs309.data.Event;
 /**
- * Created by jeffrey on 1/28/16.
+ * Created by chasekoehler on 2/8/16.
  */
 @Controller
-public class HomeController {
+public class EventController {
 
     @Autowired
     private EventService eventService;
 
-    @RequestMapping("/")
-    public String homePage() {
-        return "home";
+    @RequestMapping(value = "/event/{id}")
+    public String eventPage(@PathVariable("id") Integer id) {
+        return "eventPage";
     }
-
-    @RequestMapping("/main")
-    public String mainPage() {
-        return "mainPage";
-    }
-
 
 }
