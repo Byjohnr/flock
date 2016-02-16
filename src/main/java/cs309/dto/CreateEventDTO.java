@@ -14,7 +14,6 @@ public class CreateEventDTO {
 //    private static final long serialVersionUID = 1L;
 
     private String eventName;
-    @NotNull
     private String description;
     private String startDate;
     private String endDate;

@@ -2,6 +2,7 @@ package cs309.controller;
 
 import cs309.data.Event;
 import cs309.dto.CreateEventDTO;
+import cs309.dto.ErrorsDTO;
 import cs309.dto.EventDTO;
 import cs309.service.EventService;
 import cs309.service.UserService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceResourceBundle;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -47,13 +49,13 @@ public class HomeRestController {
     }
 
     @RequestMapping(value = "/api/create", method = RequestMethod.POST)
-    public List<ObjectError> createEvent(@Valid @RequestBody final CreateEventDTO createEventDTO, BindingResult result) throws IOException, ParseException {
-        String blah = messageSource.getMessage(result.getAllErrors().get(0).getCode(),null,Locale.ENGLISH);
-        System.out.println(blah);
+    public List<ErrorsDTO> createEvent(@Valid @RequestBody final CreateEventDTO createEventDTO, BindingResult result) throws IOException, ParseException {
+        System.out.println(result.getFieldErrors());
         if(result.hasErrors()) {
-            return result.getAllErrors();
+            List<ErrorsDTO> errors = new ArrayList<>();
+            result.getFieldErrors().stream().forEach(fieldError ->  errors.add(new ErrorsDTO(fieldError.getField(),fieldError.getCode())));
+            return errors;
         }
-//        TODO jeffreyh 2-6-16 add validation, return response
 //        TODO jefffreyh 2-6/16 set the user by whoever is creating the event
         eventService.saveEvent(new Event(createEventDTO, userService.getUser(1)));
 //        TODO jeffreyh 2/7/16 return url to event just created when the event page is created
