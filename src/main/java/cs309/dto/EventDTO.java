@@ -42,7 +42,7 @@ public class EventDTO {
         if(event.getEventStart() != null) {
             startTime = format.format(event.getEventStart());
         } else {
-            endTime = "";
+            startTime = "";
         }
         if(event.getEventEnd() != null) {
             endTime = format.format(event.getEventStart());

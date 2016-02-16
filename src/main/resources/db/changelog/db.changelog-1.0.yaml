@@ -112,6 +112,42 @@ databaseChangeLog:
               - column:
                   name: user_2_id
                   type: int
+          - createTable:
+              tableName: connection_group
+              columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_connection_group
+              - column:
+                  name: user_id
+                  type: int
+              - column:
+                  name: group_name
+                  type: varchar(50)
+
+
+          - createTable:
+              tableName: connection_group_user
+              columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_connection_group_user
+              - column:
+                  name: user_id
+                  type: int
+              - column:
+                  name: connection_group_id
+                  type: int
 
    - changeSet:
         id: 3
@@ -140,4 +176,34 @@ databaseChangeLog:
               - column:
                   name: time
                   type: date
+
+   - changeSet:
+           id: 4
+           author: jruby
+           changes:
+             - createTable:
+                 tableName: notification
+                 columns:
+                 - column:
+                     name: id
+                     type: int
+                     constraints:
+                         nullable: false
+                         primaryKey: true
+                         primaryKeyName: pk_notification
+                 - column:
+                     name: type
+                     type: int
+                 - column:
+                     name: creator_id
+                     type: int
+                 - column:
+                     name: receiver_id
+                     type: int
+                 - column:
+                     name: time
+                     type: date
+                 - column:
+                     name: type_id
+                     type: int
 
