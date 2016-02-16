@@ -21,7 +21,6 @@ public class EventRestController {
 
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.GET)
     public Event getEvent(@PathVariable Integer id) {
-        Event event = eventService.getEvent(id);
-        return event;
+        return eventService.getEvent(id);
     }
 }

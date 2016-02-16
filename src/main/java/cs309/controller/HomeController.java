@@ -27,9 +27,4 @@ public class HomeController {
     }
 
 
-    @RequestMapping(value = "/event/{id}")
-    public String eventPage(@PathVariable("id") Integer id) {
-        return "eventPage";
-    }
-
 }

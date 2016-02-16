@@ -15,9 +15,9 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-//    @RequestMapping("/event/{id}")
-//    public String eventPage(@PathVariable Integer id) {
-//        return "eventPage";
-//    }
+    @RequestMapping(value = "/event/{id}")
+    public String eventPage(@PathVariable("id") Integer id) {
+        return "eventPage";
+    }
 
 }
