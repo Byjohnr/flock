@@ -45,7 +45,6 @@ public class User {
     private List<ConnectionGroup> connectionGroups = new ArrayList<ConnectionGroup>();
 
     public User() {
-
     }
 
     public Integer getId() {
