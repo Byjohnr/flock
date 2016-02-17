@@ -17,19 +17,18 @@ var EventStore = Reflux.createStore({
             success: this.addEvents
         });
     },
-    addEvents: function(data) {
-        this.events = data;
-        this.trigger(this.events);
+    addEvents: function (data) {
+        this.trigger(data);
     },
-    onCreateEvent: function(data) {
-        //console.log(data);
+    onCreateEvent: function (data) {
+        console.log(data);
         $.ajax({
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             url: '/api/create',
-            dataType:'text',
+            dataType: 'text',
             type: 'POST',
             data: JSON.stringify(data),
             success: function(data) {
@@ -43,10 +42,20 @@ var EventStore = Reflux.createStore({
             error : function (data) {
                 console.log(data);
             },
-            done : function() {
+            done: function () {
                 console.log("done?");
             }
         });
-
+    },
+    onGetEvent: function () {
+        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        $.ajax({
+            url: '/api/event/' + id,
+            datatype: 'json',
+            success: this.pushEvent
+        })
+    },
+    pushEvent: function (data) {
+        this.trigger(data);
     }
 });
