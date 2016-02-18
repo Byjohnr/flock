@@ -39,8 +39,6 @@ var EventStore = Reflux.createStore({
                 }
                 console.log("It worked?!?!?");
             },
-            error: function () {
-                console.log("error");
             error : function (data) {
                 console.log(data);
             },
