@@ -23,6 +23,7 @@ var CreateEvent = React.createClass({
     render: function() {
         return(
             <div>
+                <NavBar/>
                 <h1 className="text-center">
                     Event Creation
                 </h1>
