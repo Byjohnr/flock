@@ -9,23 +9,27 @@ var NotificationList = React.createClass({
     },
     componentDidMount: function() {
         console.log('componentMounted');
-        NotificationActions.listNotifications();
+        notificationActions.fetchNotifications();
     },
     render: function() {
         console.log('rendering');
         if(this.state.notifications === undefined) {
-            return <div>Loading <i className="fa fa-spin fa-refresh"/> </div>;
+            return <div> Loading <i className="fa fa-spin fa-refresh"/> </div>;
         }
 
         var notificationNodes = this.state.notifications.map(function (notification) {
-            return (<NotificationLine key={notification.notifi} data={notification}/>);
+            return (table.rows);
         });
         if(notificationNodes.length === 0) {
             return(<div className="text-center">You have no notifications!</div>)
         }
         return (
             <div>
-            {notificationNodes}
+                <table>
+                    <TR>
+                {notificationNodes}
+                        </TR>
+                    </table>
             </div>)
     }
 });
