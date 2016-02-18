@@ -17,6 +17,7 @@ import java.util.List;
  * Created by jeffrey on 1/29/16.
  */
 @RestController
+@RequestMapping("/api")
 public class HomeRestController {
 
     @Autowired
@@ -25,14 +26,14 @@ public class HomeRestController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/api/events")
+    @RequestMapping("/events")
     public List<EventDTO> getEvents() {
         List<EventDTO> eventDTOs = new ArrayList<>();
         eventService.getEvents().stream().forEach(event -> eventDTOs.add(new EventDTO(event)));
         return eventDTOs;
     }
 
-    @RequestMapping(value = "/api/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createEvent(@RequestBody final CreateEventDTO createEventDTO) throws IOException, ParseException {
 //        TODO jeffreyh 2-6-16 add validation, return response
 //        TODO jefffreyh 2-6/16 set the user by whoever is creating the event
