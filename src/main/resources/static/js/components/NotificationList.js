@@ -9,7 +9,7 @@ var NotificationList = React.createClass({
     },
     componentDidMount: function() {
         console.log('componentMounted');
-        notificationActions.fetchNotifications();
+        NotificationActions.fetchNotifications();
     },
     render: function() {
         console.log('rendering');
@@ -17,19 +17,22 @@ var NotificationList = React.createClass({
             return <div> Loading <i className="fa fa-spin fa-refresh"/> </div>;
         }
 
-        var notificationNodes = this.state.notifications.map(function (notification) {
-            return (table.rows);
-        });
+        var notificationNodes = this.state.notifications.map(function (notification){
+            return <tr>{notification.type}</tr>        });
+
         if(notificationNodes.length === 0) {
             return(<div className="text-center">You have no notifications!</div>)
         }
         return (
             <div>
-                <table>
-                    <TR>
-                {notificationNodes}
-                        </TR>
+                <table color="green" border="5" bgcolor="teal">
+                    <tr>
+                        <td>
+                            {notificationNodes}
+                            </td>
+                        </tr>
                     </table>
             </div>)
     }
 });
+ReactDOM.render(<NotificationList />, document.getElementById("list_notification"));

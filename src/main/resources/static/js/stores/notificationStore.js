@@ -10,39 +10,16 @@ var NotificationStore = Reflux.createStore({
     getInitialState() {
         console.log('Initial State');
     },
-    onListNotifications: function() {
+    onFetchNotifications: function() {
         $.ajax({
             url: '/api/notifications',
             dataType: 'json',
             success: this.addNotifications
         });
+
     },
     addNotifications: function(data) {
-        this.notifications = data;
-        this.trigger(this.notifications);
+        this.trigger(data);
     },
-    onCreateNotification: function(data) {
-        console.log(data);
-        $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            url: '/api/notifications',
-            dataType:'text',
-            type: 'POST',
-            data: JSON.stringify(data),
-            success: function(data) {
-                window.location.replace(data);
-                console.log("Hope something happens");
-            },
-            error : function () {
-                console.log("error");
-            },
-            done : function() {
-                console.log("sure");
-            }
-        });
-
-    }
+    //ToDO allow users to delete notifications
 });

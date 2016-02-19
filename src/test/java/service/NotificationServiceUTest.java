@@ -29,8 +29,8 @@ public class NotificationServiceUTest extends UnitTestBase {
 
     @Test
     public void getNotifications(){
-    when(notificationRepo.findAll()).thenReturn(new ArrayList<>(MockData.getMockNotifications(5)));
+    when(notificationRepo.findAll()).thenReturn(new ArrayList<>(MockData.getMockNotifications(10)));
     List<Notification> notification = notificationService.getNotifications();
-    assertEquals(notification.size(),5);
+    assertEquals(notification.size(),10);
     }
 }
