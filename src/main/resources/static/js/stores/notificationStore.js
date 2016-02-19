@@ -13,6 +13,7 @@ var NotificationStore = Reflux.createStore({
     onFetchNotifications: function() {
         $.ajax({
             url: '/api/notifications',
+            type: 'GET',
             dataType: 'json',
             success: this.addNotifications
         });

@@ -206,4 +206,7 @@ databaseChangeLog:
                  - column:
                      name: type_id
                      type: int
+                 - column:
+                     name: notification_name
+                     type: varchar(500)
 

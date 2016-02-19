@@ -64,6 +64,10 @@ public class Notification {
         this.creator = creator;
     }
 
+    public String getNotificationName() {
+        return notificationName;
+    }
+
     public void setNotificationName(String notificationName) {
         this.notificationName = notificationName;
     }
