@@ -3,10 +3,16 @@
  */
 var ViewAccount = React.createClass({
     mixins: [Reflux.connect(UserStore, 'userInformation')],
-    //UserStore: UserStore.getUserInformation("thomas@test.com"),
+    getInitialState: function() {
+        return {userInformation : undefined};
+    },
+    componentDidMount: function() {
+        console.log('componentMounted');
+        UserActions.getUserInformation("thomas@test.com");
+    },
     render: function () {
-        UserStore.getUserInformation("thomas@test.com");
-        if (this.state.userInformation) {
+        if (this.state.userInformation !== undefined) {
+        //UserStore.getUserInformation("thomas@test.com");
             return (
                 <div>
                     <h1 className="text-center">
@@ -22,8 +28,9 @@ var ViewAccount = React.createClass({
                         {this.state.userInformation.currentCity}
                     </h2>
                 </div>
-            )
+            );
         } else {
+        //UserStore.getUserInformation("thomas@test.com");
             return (
                 <span>Please wait while your information is being loaded...</span>
             )
