@@ -26,11 +26,13 @@ var NotificationList = React.createClass({
         return (
             <div>
                 <table color="green" border="5" bgcolor="teal">
-                    <tr>
-                        <td>
-                            {notificationNodes}
-                            </td>
-                        </tr>
+                    <tbody>
+                            return <div NotificationList={"row"} key={i}>
+                                {[ notificationNodes.name
+                                ]}
+                            </div>}
+                            )})}
+                        </tbody>
                     </table>
             </div>)
     }
