@@ -4,12 +4,6 @@
 
 var EventElements = React.createClass({
     mixins: [Reflux.connect(EventStore,'event')],
-    getInitialState: function() {
-        return {event : undefined};
-    },
-    componentDidMount: function() {
-        EventActions.getEvent();
-    },
     render: function() {
         if(this.state.event === undefined) {
             return <div>Loading <i className="fa fa-spin fa-refresh"/> </div>;
