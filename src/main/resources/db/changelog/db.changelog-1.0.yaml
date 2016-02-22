@@ -207,3 +207,16 @@ databaseChangeLog:
                      name: type_id
                      type: int
 
+   - changeSet:
+          id: 5
+          author: jeffreyh
+          changes:
+            - createTable:
+                tableName: user_roles
+                columns:
+                - column:
+                    name: email
+                    type: varchar(50)
+                - column:
+                    name: role
+                    type: varchar(50)
