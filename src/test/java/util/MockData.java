@@ -2,9 +2,11 @@ package util;
 
 import cs309.data.Event;
 import cs309.data.Notification;
+import cs309.data.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Created by jeffrey on 2/2/16.
@@ -39,5 +41,20 @@ public class MockData {
         notification.setId(k);
         notification.setNotificationName("notification" + k);
         return notification;
+    }
+
+    public static User getUser(int k) {
+        User user = new User();
+        user.setId(k);
+        user.setEmail("email" + k);
+        user.setFirstName("first" + k);
+        user.setLastName("last" + k);
+        return user;
+    }
+
+    public static List<User> getUsers(int k) {
+        List<User> mockUsers = new ArrayList<>();
+        IntStream.range(0,k).forEach( i -> mockUsers.add(getUser(k)));
+        return mockUsers;
     }
 }

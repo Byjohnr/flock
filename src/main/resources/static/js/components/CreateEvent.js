@@ -1,6 +1,3 @@
-/**
- * Created by jeffrey on 2/4/16.
- */
 var CreateEvent = React.createClass({
     mixins: [Reflux.connect(EventStore,'form')],
     onSubmit: function() {

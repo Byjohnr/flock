@@ -1,6 +1,3 @@
-/**
- * Created by jeffrey on 2/8/16.
- */
 var RegisterUser = React.createClass({
     mixins: [Reflux.connect(UserStore,'user')],
 

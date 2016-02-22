@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CreateEventValidatorUTest extends UnitTestBase {
 
@@ -31,6 +32,12 @@ public class CreateEventValidatorUTest extends UnitTestBase {
     public void setup() {
         Map<String,String> map = new HashMap<>();
         errors = new MapBindingResult(map, CreateEventDTO.class.getName());
+    }
+
+    @Test
+    public void testSupports() {
+        boolean boo = createEventValidator.supports(CreateEventDTO.class);
+        assertTrue(boo);
     }
 
     @Test
