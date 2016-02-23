@@ -6,9 +6,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by jeffrey on 2/8/16.
- */
 @Entity
 @Table(name = "connection_group")
 public class ConnectionGroup {

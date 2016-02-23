@@ -1,6 +1,3 @@
-/**
- * Created by chasekoehler on 2/8/16.
- */
 var EventPage = React.createClass({
     mixins: [Reflux.connect(EventStore,'event'), Reflux.connect(EventStore,'form')],
     timePicker: function(id) {

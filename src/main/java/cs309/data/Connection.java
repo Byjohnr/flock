@@ -5,9 +5,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 
-/**
- * Created by jeffrey on 1/29/16.
- */
 @Entity
 @Table(name = "connection")
 public class Connection {
