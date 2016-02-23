@@ -10,19 +10,19 @@ var EventPage = React.createClass({
         $('#' + id).pickadate();
     },
     getInitialState: function() {
-        return {event : undefined};
+        return {event : undefined };
     },
     componentDidMount: function() {
         EventActions.getEvent();
     },
     handleNameChange: function(event) {
-        this.setState({eventName: event.target.event.eventName});
+        this.setState({eventName: event.target.value});
     },
     handleDescriptionChange: function(event) {
-        this.setState({eventDescription: event.target.event.eventDescription});
+        this.setState({eventDescription: event.target.value});
     },
     handleLocationChange: function(event) {
-        this.setState({eventLocation: event.target.event.eventLocation});
+        this.setState({eventLocation: event.target.value});
     },
     onSubmit: function (){
         var formData = {
