@@ -9,12 +9,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import util.MockData;
 
+import java.util.List;
+
+import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
-/**
- * Created by jeffrey on 2/6/16.
- */
 public class UserServiceUTest extends UnitTestBase {
 
     @Mock
@@ -35,5 +35,19 @@ public class UserServiceUTest extends UnitTestBase {
         User user = new User();
         userService.saveUser(user);
         verify(userRepository, times(1)).save(user);
+    }
+
+    @Test
+    public void getUsers() {
+        when(userRepository.findAll()).thenReturn(MockData.getUsers(5));
+        List<User> users = userService.getUsers();
+        assertEquals(5, users.size());
+    }
+
+    @Test
+    public void getUserByEmail() {
+        when(userRepository.getUserByEmail("test@email.com")).thenReturn(MockData.getUser(3));
+        User user = userService.getUserByEmail("test@email.com");
+        assertNotNull(user);
     }
 }
