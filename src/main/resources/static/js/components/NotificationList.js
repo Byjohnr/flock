@@ -25,9 +25,10 @@ var NotificationList = React.createClass({
         }
         return (
             <div>
-                <table className="text-center">
+                <NavBar/>
+                <table className="table table-hover">
                     <thead>
-                        <tr>
+                        <tr className="text-center">
                             <th>
                                 type
                             </th>
