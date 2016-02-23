@@ -66,6 +66,7 @@ public class EventRestControllerUTest extends UnitTestBase {
     @Test
     public void createEvent() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
+        when(eventService.saveEvent(any(Event.class))).thenReturn(MockData.getEvent(1));
         CreateEventDTO eventDTO = new CreateEventDTO();
         String string = mapper.writeValueAsString(eventDTO);
         when(userService.getUser(1)).thenReturn(mock(User.class));
