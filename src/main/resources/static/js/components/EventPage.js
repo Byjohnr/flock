@@ -1,5 +1,5 @@
 var EventPage = React.createClass({
-    mixins: [Reflux.connect(EventStore,'event'), Reflux.connect(EventStore,'form')],
+    mixins: [Reflux.connect(EventStore,'event')],
     timePicker: function(id) {
         $('#' + id).pickatime();
     },
@@ -11,23 +11,26 @@ var EventPage = React.createClass({
     },
     componentDidMount: function() {
         EventActions.getEvent();
+        console.log("lol")
     },
     handleNameChange: function(event) {
-        this.setState({eventName: event.target.value});
+        console.log("event name change");
+        this.setState({event:{eventName: event.target.value, eventDescription: this.state.event.eventDescription, location: this.state.event.location, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type}});
     },
     handleDescriptionChange: function(event) {
-        this.setState({eventDescription: event.target.value});
+        this.setState({event:{eventDescription: event.target.value, eventName: this.state.event.eventName, location: this.state.event.location, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type}});
     },
     handleLocationChange: function(event) {
-        this.setState({eventLocation: event.target.value});
+        this.setState({event:{location: event.target.value, eventDescription: this.state.event.eventDescription, eventName: this.state.event.eventName, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type}});
     },
-    onSubmit: function (){
+    blah: function (){
+        console.log("submitting");
         var formData = {
             eventName: this.refs.eventName,
             description: this.refs.description,
             location: this.refs.location
         };
-        EventActions.editEvent(formData);
+        EventActions.editEvent(this.state.event);
     },
 
     render: function() {
@@ -49,7 +52,7 @@ var EventPage = React.createClass({
 
                         <h3> End: {this.state.event.eventEnd} </h3>
 
-                        <h3> Location: {this.state.event.eventLocation} </h3>
+                        <h3> Location: {this.state.event.location} </h3>
                     </div>
                     <button type="button" className="btn btn-primary btn-lg" data-toggle="modal"
                             data-target="#EditModal">
@@ -59,13 +62,13 @@ var EventPage = React.createClass({
                          aria-labelledby="EditModalLabel">
                         <div className="modal-dialog" role="document">
                             <div className="modal-content">
-                                <div className="modal-header">
-                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span></button>
-                                    <h4 className="modal-title" id="myModalLabel">Edit Event</h4>
-                                </div>
-                                <div className="modal-body">
-                                    <form>
+                                <form onSubmit={this.blah}>
+                                    <div className="modal-header">
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <h4 className="modal-title" id="myModalLabel">Edit Event</h4>
+                                    </div>
+                                    <div className="modal-body">
                                         <div className="form-group">
                                             <label htmlFor="eventName">Name of Event</label>
                                             <input type="text" className="form-control" id="eventName" value={this.state.event.eventName}
@@ -94,16 +97,16 @@ var EventPage = React.createClass({
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="eventLocation">Event Location</label>
-                                            <input type="text" className="form-control" id="eventLocation" value={this.state.event.eventLocation}
+                                            <input type="text" className="form-control" id="eventLocation" value={this.state.event.location}
                                                    onChange={this.handleLocationChange}/>
                                         </div>
-                                    </form>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-default" data-dismiss="modal">Close
-                                    </button>
-                                    <button type="button" className="btn btn-primary" onClick={this.onSubmit()} data-dismiss="modal">Save changes</button>
-                                </div>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-default" data-dismiss="modal">Close
+                                        </button>
+                                        <input type="submit" className="btn btn-primary" value="Save Changes"/>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

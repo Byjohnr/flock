@@ -42,6 +42,7 @@ public class EventRestController {
 
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.POST)
     public String updateEvent(@RequestBody Event event) {
+        LOG.info(event.toString());
         eventService.saveEvent(event);
         return "/";
     }
@@ -68,7 +69,7 @@ public class EventRestController {
         return noErrors;
     }
 
-    @InitBinder
+    @InitBinder(value = "createEventDTO")
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(eventValidator);
     }

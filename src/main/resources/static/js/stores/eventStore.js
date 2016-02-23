@@ -55,7 +55,7 @@ var EventStore = Reflux.createStore({
             type: 'POST',
             data: JSON.stringify(data),
             success: function(data) {
-                console.log(data)
+                console.log
             }
         });
     },
