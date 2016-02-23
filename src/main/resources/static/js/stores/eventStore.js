@@ -31,12 +31,16 @@ var EventStore = Reflux.createStore({
             dataType: 'text',
             type: 'POST',
             data: JSON.stringify(data),
-            success: function (data) {
-                window.location.replace(data);
+            success: function(data) {
+                var errors = JSON.parse(data);
+                console.log(errors);
+                if(errors.length === 0) {
+                    window.location.replace("/");
+                }
                 console.log("It worked?!?!?");
             },
-            error: function () {
-                console.log("error");
+            error : function (data) {
+                console.log(data);
             },
             done: function () {
                 console.log("done?");

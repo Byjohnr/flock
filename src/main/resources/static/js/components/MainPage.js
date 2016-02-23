@@ -8,6 +8,7 @@ var MainPage = React.createClass({
        return(
 
          <div className="row">
+             <NavBar  hideInfo="true" />
             <div className="col-sm-7"></div>
              <div className="col-sm-5">
                  <RegisterUser />

@@ -1,6 +1,3 @@
-/**
- * Created by jeffrey on 1/28/16.
- */
 var EventLine = React.createClass({
     expandWell : function(id) {
         if(id.endsWith('-small')) {

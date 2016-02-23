@@ -20,18 +20,26 @@ public class User {
 
     @Column(name = "first_name")
     private String firstName;
+
     @Column(name = "last_name")
     private String lastName;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "description")
     private String description;
+
+//    @JsonIgnore
     @Column(name = "password")
     private String password;
+
     //TODO tstack 2/4/16 figure out how images should be stored in the database
 //    private ImageIO profilePicture;
+
     @Column(name = "current_city")
     private String currentCity;
+
     //TODO tstack 2/4/16 implement saving of any further location information
 //    private Long cityXCoordinate;
 //    private Long cityYCoordinate;

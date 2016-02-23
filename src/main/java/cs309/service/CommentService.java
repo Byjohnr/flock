@@ -4,11 +4,9 @@ import cs309.repo.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by chasekoehler on 2/1/16.
- */
+@Service
 public class CommentService {
 
     @Autowired
-    CommentRepository eventRepository;
+    private CommentRepository eventRepository;
 }

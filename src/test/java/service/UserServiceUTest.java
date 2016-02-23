@@ -9,6 +9,9 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import java.util.List;
+
+import static junit.framework.TestCase.assertEquals;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,9 +19,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
-/**
- * Created by jeffrey on 2/6/16.
- */
 public class UserServiceUTest extends UnitTestBase {
 
     @Mock
@@ -81,6 +81,13 @@ public class UserServiceUTest extends UnitTestBase {
         assertEquals(user, methodReturn);
         verify(userRepository, times(1)).findUserByEmail("totallyLegit@email.com");
         verifyNoMoreInteractions(userRepository);
+    }
+
+    @Test
+    public void getUsers() {
+        when(userRepository.findAll()).thenReturn(MockData.getUsers(5));
+        List<User> users = userService.getUsers();
+        assertEquals(5, users.size());
     }
 
     @After
