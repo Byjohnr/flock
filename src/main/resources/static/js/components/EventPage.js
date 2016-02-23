@@ -23,7 +23,7 @@ var EventPage = React.createClass({
     handleLocationChange: function(event) {
         this.setState({event:{location: event.target.value, eventDescription: this.state.event.eventDescription, eventName: this.state.event.eventName, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type}});
     },
-    blah: function (){
+    onSubmit: function (){
         console.log("submitting");
         var formData = {
             eventName: this.refs.eventName,
@@ -62,7 +62,7 @@ var EventPage = React.createClass({
                          aria-labelledby="EditModalLabel">
                         <div className="modal-dialog" role="document">
                             <div className="modal-content">
-                                <form onSubmit={this.blah}>
+                                <form onSubmit={this.onSubmit}>
                                     <div className="modal-header">
                                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span></button>
