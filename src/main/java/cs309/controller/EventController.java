@@ -20,4 +20,9 @@ public class EventController {
         return "eventPage";
     }
 
+    @RequestMapping("/event/create")
+    public String createEventPage() {
+        return "createEvent";
+    }
+
 }

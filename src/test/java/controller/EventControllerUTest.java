@@ -17,9 +17,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
-/**
- * Created by chasekoehler on 2/15/16.
- */
 public class EventControllerUTest extends UnitTestBase {
     private WebApplicationContext wac;
 
@@ -42,5 +39,12 @@ public class EventControllerUTest extends UnitTestBase {
         this.mockMvc.perform(get("/event/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("eventPage"));
+    }
+
+    @Test
+    public void createEventPage() throws Exception {
+        this.mockMvc.perform(get("/event/create"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("createEvent"));
     }
 }

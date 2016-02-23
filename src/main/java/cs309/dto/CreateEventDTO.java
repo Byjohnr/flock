@@ -2,6 +2,7 @@ package cs309.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
