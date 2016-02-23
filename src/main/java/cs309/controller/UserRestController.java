@@ -24,7 +24,7 @@ public class UserRestController {
         return "success";
     }
 
-    @RequestMapping("/user/get/{userEmail}")
+    @RequestMapping("/user/get/{userEmail:.+}")
     public String getUser(@PathVariable("userEmail") String userEmail) {
         return JsonObjectConverter.toJsonString(userService.getUserByEmail(userEmail));
     }

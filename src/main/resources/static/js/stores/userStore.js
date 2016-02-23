@@ -21,7 +21,7 @@ var UserStore = Reflux.createStore({
             }
         });
     },
-    getUserInformation: function (data) {
+    onGetUserInformation: function (data) {
         console.log("getting user information with data:");
         console.log(data);
         $.ajax({
@@ -31,17 +31,14 @@ var UserStore = Reflux.createStore({
             },
             url: '/api/user/get/' + data,
             type: 'GET',
-            success: function (result) {
-                returnInformationSuccess(result);
-            },
+            success: this.returnInformationSuccess,
             error: function () {
                 console.log("error getting user information from the backend");
             }
         });
     },
-    returnInformationSuccess(result) {
-        this.trigger(result);
-        //ViewAccount.setState();
+    returnInformationSuccess: function (data) {
+        this.trigger(data);
     },
     handleSuccess: function () {
         console.log('success');

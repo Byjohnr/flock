@@ -12,7 +12,6 @@ var ViewAccount = React.createClass({
     },
     render: function () {
         if (this.state.userInformation !== undefined) {
-        //UserStore.getUserInformation("thomas@test.com");
             return (
                 <div>
                     <h1 className="text-center">
@@ -30,7 +29,6 @@ var ViewAccount = React.createClass({
                 </div>
             );
         } else {
-        //UserStore.getUserInformation("thomas@test.com");
             return (
                 <span>Please wait while your information is being loaded...</span>
             )
