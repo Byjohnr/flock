@@ -14,11 +14,11 @@ var NotificationList = React.createClass({
     render: function() {
         console.log('rendering');
         if(this.state.notifications === undefined) {
-            return <div> Loading <i className="fa fa-spin fa-refresh"/> </div>;
+            return <div> Loading <i className="fa fa-spin fa-refresh text-center"/> </div>;
         }
 
         var notificationNodes = this.state.notifications.map(function (notification){
-            return <tr key={notification.id}><td className="text-center">{notification.type}</td></tr>        });
+            return <tr key={notification.id}>  <td>{notification.type}</td><td className="text-center">{notification.notificationName}</td></tr>        });
 
         if(notificationNodes.length === 0) {
             return(<div className="text-center">You have no notifications!</div>)
@@ -28,9 +28,12 @@ var NotificationList = React.createClass({
                 <NavBar/>
                 <table className="table table-hover">
                     <thead>
-                        <tr className="text-center">
+                        <tr>
                             <th>
-                                type
+                                Type
+                            </th>
+                            <th>
+                                Name
                             </th>
                         </tr>
                     </thead>
