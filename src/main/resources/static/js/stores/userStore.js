@@ -15,14 +15,25 @@ var UserStore = Reflux.createStore({
             dataType:'text',
             type: 'POST',
             data: JSON.stringify(data),
-            success: this.handleSuccess,
+            success: this.createUserSuccess,
             error: function () {
                 console.log("error bruh");
             }
         });
     },
-    handleSuccess: function() {
+    createUserSuccess: function() {
         console.log('success');
         this.trigger('yoloswag');
+    },
+    onGetUserInfo : function() {
+        $.ajax({
+            url: '/api/user/info',
+            dataType:'json',
+            success : this.handleUserInfo
+        })
+    },
+    handleUserInfo: function(data) {
+        console.log(data);
+        this.trigger(data);
     }
 });

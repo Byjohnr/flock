@@ -1,6 +1,3 @@
-/**
- * Created by jeffrey on 2/4/16.
- */
 var CreateEvent = React.createClass({
     mixins: [Reflux.connect(EventStore,'form')],
     onSubmit: function() {
@@ -23,6 +20,7 @@ var CreateEvent = React.createClass({
     render: function() {
         return(
             <div>
+                <NavBar/>
                 <h1 className="text-center">
                     Event Creation
                 </h1>

@@ -210,3 +210,26 @@ databaseChangeLog:
                      name: notification_name
                      type: varchar(500)
 
+   - changeSet:
+          id: 5
+          author: jeffreyh
+          changes:
+            - createTable:
+                tableName: user_roles
+                columns:
+                - column:
+                    name: id
+                    type: int
+                    autoIncrement: true
+                    constraints:
+                        nullable: false
+                - column:
+                    name: email
+                    type: varchar(50)
+                    constraints:
+                        nullable: false
+                - column:
+                    name: role
+                    type: varchar(50)
+                    constraints:
+                        nullable: false
