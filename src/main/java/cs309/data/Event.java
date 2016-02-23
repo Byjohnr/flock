@@ -8,9 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by jeffrey on 1/28/16.
- */
 @Entity
 @Table(name = "event")
 public class Event {

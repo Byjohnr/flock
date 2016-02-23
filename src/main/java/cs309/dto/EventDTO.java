@@ -5,9 +5,6 @@ import cs309.data.User;
 
 import java.text.SimpleDateFormat;
 
-/**
- * Created by jeffrey on 1/30/16.
- */
 public class EventDTO {
 
     private Integer eventId;

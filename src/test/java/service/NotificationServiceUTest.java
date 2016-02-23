@@ -15,9 +15,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by John on 2/8/2016.
- */
 public class NotificationServiceUTest extends UnitTestBase {
 
     @Mock

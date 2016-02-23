@@ -1,6 +1,3 @@
-/**
- * Created by jeffrey on 2/8/16.
- */
 var UserStore = Reflux.createStore({
     listenables:[UserActions],
     onCreateUser(data) {

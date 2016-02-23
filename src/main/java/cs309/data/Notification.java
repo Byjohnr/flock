@@ -4,9 +4,6 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.jar.Attributes;
 
-/**
- * Created by John on 2/3/2016.
- */
 
 @Entity
 @Table(name = "Notification")
