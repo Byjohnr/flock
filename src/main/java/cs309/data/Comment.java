@@ -3,9 +3,6 @@ package cs309.data;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created by chasekoehler on 1/29/16.
- */
 @Entity
 @Table(name = "comment")
 public class Comment {

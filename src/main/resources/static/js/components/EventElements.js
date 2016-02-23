@@ -1,6 +1,3 @@
-/**
- * Created by chasekoehler on 2/8/16.
- */
 
 var EventElements = React.createClass({
     mixins: [Reflux.connect(EventStore,'event')],
