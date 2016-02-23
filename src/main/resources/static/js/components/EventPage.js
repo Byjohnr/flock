@@ -2,7 +2,7 @@
  * Created by chasekoehler on 2/8/16.
  */
 var EventPage = React.createClass({
-    mixins: [Reflux.connect(EventStore,'event')],
+    mixins: [Reflux.connect(EventStore,'event'), Reflux.connect(EventStore,'form')],
     timePicker: function(id) {
         $('#' + id).pickatime();
     },
@@ -26,9 +26,9 @@ var EventPage = React.createClass({
     },
     onSubmit: function (){
         var formData = {
-            eventName: this.refs.eventName.value,
-            description: this.refs.description.value,
-            location: this.refs.location.value
+            eventName: this.refs.eventName,
+            description: this.refs.description,
+            location: this.refs.location
         };
         EventActions.editEvent(formData);
     },
@@ -104,7 +104,7 @@ var EventPage = React.createClass({
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-default" data-dismiss="modal">Close
                                     </button>
-                                    <button type="button" className="btn btn-primary" onClick={this.onSubmit()}>Save changes</button>
+                                    <button type="button" className="btn btn-primary" onClick={this.onSubmit()} data-dismiss="modal">Save changes</button>
                                 </div>
                             </div>
                         </div>

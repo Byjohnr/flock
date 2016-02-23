@@ -22,7 +22,8 @@ public class EventRestController {
     }
 
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.POST)
-    public void updateEvent(@RequestBody Event event) {
+    public String updateEvent(@RequestBody Event event) {
         eventService.saveEvent(event);
+        return "/";
     }
 }
