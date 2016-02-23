@@ -18,21 +18,25 @@ var NotificationList = React.createClass({
         }
 
         var notificationNodes = this.state.notifications.map(function (notification){
-            return <tr>{notification.type}</tr>        });
+            return <tr key={notification.id}><td className="text-center">{notification.type}</td></tr>        });
 
         if(notificationNodes.length === 0) {
             return(<div className="text-center">You have no notifications!</div>)
         }
         return (
             <div>
-                <table color="green" border="5" bgcolor="teal">
+                <table className="text-center">
+                    <thead>
+                        <tr>
+                            <th>
+                                type
+                            </th>
+                        </tr>
+                    </thead>
                     <tbody>
-                           // return <div NotificationList={"row"}>
-                                {notificationNodes}
-                            //</div>}
-                            )})}
-                        </tbody>
-                    </table>
+                    {notificationNodes}
+                    </tbody>
+                </table>
             </div>)
     }
 });
