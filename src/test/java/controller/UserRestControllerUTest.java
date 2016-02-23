@@ -1,8 +1,6 @@
 package controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.security.auth.UserPrincipal;
 import config.UnitTestBase;
 import cs309.controller.UserRestController;
 import cs309.data.Role;
@@ -16,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.validation.ObjectError;
 import util.MockData;
 
 
@@ -27,9 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
-/**
- * Created by jeffrey on 2/8/16.
- */
+
 public class UserRestControllerUTest extends UnitTestBase {
 
     private MockMvc mockMvc;

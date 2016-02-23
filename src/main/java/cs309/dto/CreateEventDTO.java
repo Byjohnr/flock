@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-/**
- * Created by jeffrey on 2/5/16.
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CreateEventDTO {
 

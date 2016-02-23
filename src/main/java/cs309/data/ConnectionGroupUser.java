@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
-/**
- * Created by jeffrey on 2/9/16.
- */
 @Entity
 @Table(name = "connection_group_user")
 public class ConnectionGroupUser {
