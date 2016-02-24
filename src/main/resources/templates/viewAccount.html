@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <head th:remove="tag" th:include="fragments/head :: title"/>
+    <head th:remove="tag" th:include="fragments/head :: imports"/>
+</head>
+<body>
+<div id="view_account"></div>
+<script src="/js/components_compiled/ViewAccount.js"></script>
+
+<body th:remove="tag" th:include="fragments/foot :: footer"/>
+</body>
+</html>

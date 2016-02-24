@@ -1,6 +1,6 @@
 var CreateEvent = React.createClass({
-    mixins: [Reflux.connect(EventStore,'form')],
-    onSubmit: function() {
+    mixins: [Reflux.connect(EventStore, 'form')],
+    onSubmit: function () {
         var formData = {
             eventName: this.refs.eventName.value,
             description: this.refs.description.value,
@@ -11,14 +11,14 @@ var CreateEvent = React.createClass({
         };
         EventActions.createEvent(formData);
     },
-    timePicker: function(id) {
+    timePicker: function (id) {
         $('#' + id).pickatime();
     },
-    datePicker: function(id) {
+    datePicker: function (id) {
         $('#' + id).pickadate();
     },
-    render: function() {
-        return(
+    render: function () {
+        return (
             <div>
                 <NavBar/>
                 <h1 className="text-center">
@@ -39,7 +39,8 @@ var CreateEvent = React.createClass({
                                 </div>
                                 <div className="form-group">
                                     <div>
-                                        <label className="col-sm-2 control-label" htmlFor="description">Event Description</label>
+                                        <label className="col-sm-2 control-label" htmlFor="description">Event
+                                            Description</label>
                                     </div>
                                     <div className="col-sm-8">
                                         <textarea id="description" className="form-control" rows="3" ref="description"/>
@@ -47,23 +48,29 @@ var CreateEvent = React.createClass({
                                 </div>
                                 <div className="form-group">
                                     <div>
-                                        <label className="col-sm-2 control-label" htmlFor="startDate">Event Start Time</label>
+                                        <label className="col-sm-2 control-label" htmlFor="startDate">Event Start
+                                            Time</label>
                                     </div>
                                     <div className="col-sm-8">
                                         <div className="form-inline">
-                                            <input id="startDate" className="form-control" onClick={this.datePicker.bind(this,'startDate')} ref="startDate"/>
-                                            <input id="startTime" className="form-control" onClick={this.timePicker.bind(this,'startTime')} ref="startTime"/>
+                                            <input id="startDate" className="form-control"
+                                                   onClick={this.datePicker.bind(this,'startDate')} ref="startDate"/>
+                                            <input id="startTime" className="form-control"
+                                                   onClick={this.timePicker.bind(this,'startTime')} ref="startTime"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="form-group">
                                     <div>
-                                        <label className="col-sm-2 control-label" htmlFor="startDate">Event End Time</label>
+                                        <label className="col-sm-2 control-label" htmlFor="startDate">Event End
+                                            Time</label>
                                     </div>
                                     <div className="col-sm-8">
                                         <div className="form-inline">
-                                            <input id="endDate" className="form-control" onClick={this.datePicker.bind(this,'endDate')} ref="endDate"/>
-                                            <input id="endTime" className="form-control" onClick={this.timePicker.bind(this,'endTime')} ref="endTime"/>
+                                            <input id="endDate" className="form-control"
+                                                   onClick={this.datePicker.bind(this,'endDate')} ref="endDate"/>
+                                            <input id="endTime" className="form-control"
+                                                   onClick={this.timePicker.bind(this,'endTime')} ref="endTime"/>
                                         </div>
                                     </div>
                                 </div>
@@ -94,7 +101,7 @@ var CreateEvent = React.createClass({
                                     </div>
                                 </div>
                             </div>
-                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
