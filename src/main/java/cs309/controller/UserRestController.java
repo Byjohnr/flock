@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import cs309.data.User;
 import cs309.service.RoleService;
 import cs309.service.UserService;
-import cs309.util.JsonObjectConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,10 +45,5 @@ public class UserRestController {
             return userService.getUser(1);
         }
         return userService.getUserByEmail(principal.getName());
-    }
-
-    @RequestMapping("/user/get/{userEmail:.+}")
-    public String getUser(@PathVariable("userEmail") String userEmail) {
-        return JsonObjectConverter.toJsonString(userService.getUserByEmail(userEmail));
     }
 }

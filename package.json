@@ -8,9 +8,6 @@
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0"
   },
-  "devDependencies": {
-    "babel-cli": "^6.4.5"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,8 +20,5 @@
   "bugs": {
     "url": "https://github.com/JeffHask/flock/issues"
   },
-  "homepage": "https://github.com/JeffHask/flock#readme",
-  "devDependencies": {
-    "babel-preset-react": "^6.5.0"
-  }
+  "homepage": "https://github.com/JeffHask/flock#readme"
 }

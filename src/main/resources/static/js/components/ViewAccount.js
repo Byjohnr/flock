@@ -8,7 +8,7 @@ var ViewAccount = React.createClass({
     },
     componentDidMount: function() {
         console.log('componentMounted');
-        UserActions.getUserInformation("thomas@test.com");
+        UserActions.getUserInformation();
     },
     render: function () {
         if (this.state.userInformation !== undefined) {
@@ -30,7 +30,7 @@ var ViewAccount = React.createClass({
             );
         } else {
             return (
-                <span>Please wait while your information is being loaded...</span>
+                <h1 className="text-center">Loading <i className="fa fa-spin fa-refresh"/> </h1>
             )
         }
     }

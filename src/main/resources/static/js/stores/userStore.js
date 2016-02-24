@@ -33,15 +33,13 @@ var UserStore = Reflux.createStore({
         console.log(data);
         this.trigger(data);
     },
-    onGetUserInformation: function (data) {
-        console.log("getting user information with data:");
-        console.log(data);
+    onGetUserInformation: function () {
         $.ajax({
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            url: '/api/user/get/' + data,
+            url: '/api/user/info',
             type: 'GET',
             success: this.returnInformationSuccess,
             error: function () {

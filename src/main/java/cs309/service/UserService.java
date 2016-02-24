@@ -32,7 +32,6 @@ public class UserService {
         return userRepo.findUserByEmail(email);
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
     public void saveUser(User user) {
         userRepo.save(user);
     }

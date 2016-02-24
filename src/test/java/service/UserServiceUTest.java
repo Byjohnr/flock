@@ -8,10 +8,10 @@ import org.junit.After;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import util.MockData;
 
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -63,7 +63,10 @@ public class UserServiceUTest extends UnitTestBase {
 
         List<User> methodReturn = userService.getUsersByCurrentCity(currentCity);
 
-        assertEquals(users, methodReturn);
+        assertEquals(users.size(), methodReturn.size());
+        for (int i = 0; i < methodReturn.size(); ++i) {
+            assertEquals(users.get(i), methodReturn.get(i));
+        }
         verify(userRepository, times(1)).findByCurrentCity(currentCity);
         verifyNoMoreInteractions(userRepository);
     }
