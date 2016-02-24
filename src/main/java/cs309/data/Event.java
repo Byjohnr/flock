@@ -37,8 +37,9 @@ public class Event {
 //    TODO jeffreyh 1-28-16 wait for users to be implemented
     @OneToMany(mappedBy = "event")
     private List<EventInvite> eventInvites;
-//    TODO jeffreyh 1-28-16 wait for comments to be implemented
-//    private List<Comment> commentList;
+
+    @OneToMany (mappedBy = "event")
+    private List<Comment> commentList;
 
     @Column(name = "location")
     private String location;
@@ -129,6 +130,14 @@ public class Event {
 
     public void setEventDescription(String eventDescription) {
         this.eventDescription = eventDescription;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
     }
 
     @Override

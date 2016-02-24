@@ -1,0 +1,17 @@
+/**
+ * Created by chasekoehler on 2/23/16.
+ */
+var CommentList = React.createClass({
+    render: function() {
+        var commentNodes = this.props.comments.map(function (comment) {
+            return <p>{comment.owner.name}, {comment.comment}, {comment.dateCreated}</p>
+        });
+        if (commentNodes.length === 0) {
+            return (<div className="text-center"> No Comments. Add yours now.</div>)
+        }
+        return (
+            <div>
+                {commentNodes}
+            </div>)
+    }
+})

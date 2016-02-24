@@ -68,6 +68,7 @@ var EventStore = Reflux.createStore({
         })
     },
     pushEvent: function (data) {
+        console.log(data);
         this.trigger(data);
     }
 });
