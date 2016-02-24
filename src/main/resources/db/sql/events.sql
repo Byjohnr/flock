@@ -1,2 +1,2 @@
-INSERT INTO event(id, creator_id, event_name, event_start, event_end, type, location, event_description) VALUES (1,1,'Cool Event','2016-04-19 13:00:00', null,1,null,'Not a fun thing at all');
+INSERT INTO event(id, creator_id, event_name, event_start, event_end, type, location, event_description) VALUES (1,1,'Cool Events','2016-04-19 13:00:00', null,1,'my house','Not a fun thing at all');
 INSERT INTO event(id, creator_id, event_name, event_start, event_end, type, location, event_description) VALUES (2,1,'Event',null,null,1,null,'fun ');

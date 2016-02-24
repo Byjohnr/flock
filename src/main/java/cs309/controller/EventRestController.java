@@ -7,6 +7,7 @@ import cs309.service.UserService;
 import cs309.validator.CreateEventValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +40,13 @@ public class EventRestController {
         return eventService.getEvent(id);
     }
 
+    @RequestMapping(value = "/api/event/{id}", method = RequestMethod.POST)
+    public String updateEvent(@RequestBody Event event) {
+        LOG.info(event.toString());
+        eventService.saveEvent(event);
+        return "/";
+    }
+
     @RequestMapping("/api/events")
     public List<EventDTO> getEvents() {
         List<EventDTO> eventDTOs = new ArrayList<>();
@@ -61,7 +69,7 @@ public class EventRestController {
         return noErrors;
     }
 
-    @InitBinder
+    @InitBinder(value = "createEventDTO")
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(eventValidator);
     }
