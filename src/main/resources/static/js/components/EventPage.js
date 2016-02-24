@@ -1,7 +1,3 @@
-/**
- * Created by chasekoehler on 2/8/16.
- */
-
 var EventPage = React.createClass({
     render: function() {
         return (

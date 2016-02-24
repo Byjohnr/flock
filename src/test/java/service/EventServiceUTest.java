@@ -17,9 +17,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by jeffrey on 2/2/16.
- */
 public class EventServiceUTest extends UnitTestBase {
 
     @Mock

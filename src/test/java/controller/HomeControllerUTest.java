@@ -16,9 +16,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-/**
- * Created by jeffrey on 1/31/16.
- */
+
 public class HomeControllerUTest extends UnitTestBase{
 
 

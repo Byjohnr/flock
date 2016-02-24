@@ -7,9 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by John on 2/3/2016.
- */
 @Service
 public class NotificationService {
     @Autowired

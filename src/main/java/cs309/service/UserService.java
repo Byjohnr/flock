@@ -9,9 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by jeffrey on 1/22/16.
- */
+
 @Service
 public class UserService {
 

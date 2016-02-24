@@ -41,6 +41,10 @@ public class UserRestController {
 
     @RequestMapping("/user/info")
     public User getUser(Principal principal) {
+//        TODO jeffreyh 2/22/16 remove this when we decide to enable authentication
+        if(principal == null) {
+            return userService.getUser(1);
+        }
         return userService.getUserByEmail(principal.getName());
     }
 

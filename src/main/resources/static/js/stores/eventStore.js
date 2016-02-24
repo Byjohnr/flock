@@ -1,7 +1,3 @@
-/**
- * Created by jeffrey on 1/29/16.
- */
-// TODO jeffreyh 1/29/16
 var EventStore = Reflux.createStore({
     listenables: [EventActions],
     init : function() {
@@ -34,8 +30,8 @@ var EventStore = Reflux.createStore({
             success: function(data) {
                 var errors = JSON.parse(data);
                 console.log(errors);
-                if(errors.length === 0) {
-                    window.location.replace("/");
+                if(errors.length === 1 && errors[0].fieldId === "success") {
+                    window.location.replace("/event/" + errors[0].errorMessage);
                 }
                 console.log("It worked?!?!?");
             },

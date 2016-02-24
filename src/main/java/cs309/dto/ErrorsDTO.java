@@ -1,8 +1,5 @@
 package cs309.dto;
 
-/**
- * Created by jeffrey on 2/13/16.
- */
 public class ErrorsDTO {
     private String fieldId;
     private String errorMessage;

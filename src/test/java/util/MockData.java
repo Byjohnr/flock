@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-/**
- * Created by jeffrey on 2/2/16.
- */
+
 public class MockData {
 
     public static List<Event> getMockEvents(int x) {
