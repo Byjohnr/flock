@@ -34,8 +34,9 @@ public class Event {
     private Integer type;
 //    TODO jeffreyh 1-28-16 wait for tags to be implemented
 //    private List<Tags> tagsList
-//    TODO jeffreyh 1-28-16 wait for users to be implemented
-    @OneToMany( mappedBy = "event")
+
+
+    @OneToMany(mappedBy = "event")
     private List<EventInvite> eventInvites;
 
     @OneToMany (mappedBy = "event")
@@ -138,6 +139,14 @@ public class Event {
 
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
+    }
+
+    public List<EventInvite> getEventInvites() {
+        return eventInvites;
+    }
+
+    public void setEventInvites(List<EventInvite> eventInvites) {
+        this.eventInvites = eventInvites;
     }
 
     @Override
