@@ -38,6 +38,7 @@ public class EventRestController {
 
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.GET)
     public Event getEvent(@PathVariable Integer id) {
+        LOG.info(eventService.getEvent(id).getCommentList());
         return eventService.getEvent(id);
     }
 
