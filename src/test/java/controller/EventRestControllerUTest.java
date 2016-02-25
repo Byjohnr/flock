@@ -77,4 +77,18 @@ public class EventRestControllerUTest extends UnitTestBase {
 
         verify(eventService, times(1)).saveEvent(any(Event.class));
     }
+
+    @Test
+    public void editEvent() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        when(eventService.saveEvent(any(Event.class))).thenReturn(MockData.getEvent(1));
+        Event event = new Event();
+        String string = mapper.writeValueAsString(event);
+        this.mockMvc.perform(post("/api/event/1")
+                .content(string)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(eventService, times(1)).saveEvent(any(Event.class));
+    }
 }

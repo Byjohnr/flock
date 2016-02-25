@@ -1,6 +1,7 @@
 package cs309.controller;
 
 import cs309.data.Role;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import cs309.data.User;
 import cs309.service.RoleService;
 import cs309.service.UserService;
@@ -11,10 +12,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
 @RestController
+@RequestMapping("/api")
 public class UserRestController {
 
     @Autowired
@@ -26,7 +29,7 @@ public class UserRestController {
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping("/api/user/create")
+    @RequestMapping("/user/create")
     public String createUser(@RequestBody User user) {
 //        TODO jeffreyh 2/8/16 validation
 //        user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -35,7 +38,7 @@ public class UserRestController {
         return "success";
     }
 
-    @RequestMapping("/api/user/info")
+    @RequestMapping("/user/info")
     public User getUser(Principal principal) {
 //        TODO jeffreyh 2/22/16 remove this when we decide to enable authentication
         if(principal == null) {

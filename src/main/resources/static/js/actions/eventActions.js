@@ -1,5 +1,6 @@
 var EventActions = Reflux.createActions([
     "listEvents",
     "createEvent",
-    "getEvent"
+    "getEvent",
+    "editEvent"
 ]);
