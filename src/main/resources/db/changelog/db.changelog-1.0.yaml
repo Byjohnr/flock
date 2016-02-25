@@ -32,6 +32,23 @@ databaseChangeLog:
               - column:
                   name: password
                   type: varchar(100)
+          - createTable:
+              tableName: picture_file
+              columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_picture_file
+              - column:
+                  name: file_name
+                  type: varchar(100)
+              - column:
+                  name: input_stream
+                  type: blob
 
    - changeSet:
         id: 2
