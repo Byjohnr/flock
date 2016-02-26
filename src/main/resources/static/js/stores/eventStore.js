@@ -43,6 +43,22 @@ var EventStore = Reflux.createStore({
             }
         });
     },
+    onEditEvent: function (data) {
+        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: '/api/event/'+ id,
+            dataType: 'text',
+            type: 'POST',
+            data: JSON.stringify(data),
+            success: function(data) {
+                console.log
+            }
+        });
+    },
     onGetEvent: function () {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
         $.ajax({
