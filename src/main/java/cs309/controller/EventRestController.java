@@ -69,6 +69,11 @@ public class EventRestController {
         return noErrors;
     }
 
+    @RequestMapping("")
+    public String addInvites() {
+        return null;
+    }
+
     @InitBinder(value = "createEventDTO")
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(eventValidator);

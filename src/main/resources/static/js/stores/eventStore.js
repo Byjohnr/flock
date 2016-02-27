@@ -16,7 +16,7 @@ var EventStore = Reflux.createStore({
     addEvents: function (data) {
         this.trigger(data);
     },
-    onCreateEvent: function (data) {
+    onCreateEvent: function (data, invites) {
         console.log(data);
         $.ajax({
             headers: {
@@ -31,7 +31,7 @@ var EventStore = Reflux.createStore({
                 var errors = JSON.parse(data);
                 console.log(errors);
                 if(errors.length === 1 && errors[0].fieldId === "success") {
-                    window.location.replace("/event/" + errors[0].errorMessage);
+                    this.handleInvites(errors[0].errorMessage, invites);
                 }
                 console.log("It worked?!?!?");
             },
@@ -40,6 +40,28 @@ var EventStore = Reflux.createStore({
             },
             done: function () {
                 console.log("done?");
+            }
+        });
+        console.log('does it get here?');
+    },
+    handleInvites: function(eventId, invites) {
+        var userIds = [];
+        invites.map(function(invite) {
+            userIds.push(invite.id);
+        });
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: '/api/event'+ eventId +'/invites',
+            data: JSON.stringify(userIds),
+            type: 'POST',
+            success: function() {
+                window.location.replace("/event/" + url);
+            },
+            error : function() {
+                console.log("Error adding invites");
             }
         });
     },

@@ -1,7 +1,14 @@
 var ConnectionList = React.createClass({
    mixins: [Reflux.connect(ConnectionStore, 'connections')],
     getInitialState : function() {
-        return {connections : undefined};
+        return [{connections : undefined}];
+    },
+    handleClick : function(connection) {
+      console.log(connection);
+        this.props.handleInvite(connection);
+        $('#invite' + connection.id).prop("disabled", true);
+        $('#invite' + connection.id).html("Added");
+
     },
     render: function() {
         var modalBody;
@@ -12,16 +19,17 @@ var ConnectionList = React.createClass({
         } else {
             console.log("defined connections");
             modalBody = this.state.connections.map(function (connection) {
+                var handleClick = this.handleClick.bind(this,connection);
                 return (<tr key={connection.id}>
-                    <td><input type="checkbox"/></td>
                     <td>{connection.firstName} {connection.lastName}</td>
+                    <td><button id={'invite' + connection.id} type="button" className="btn btn-primary" onClick={handleClick}>Add to Invite List</button></td>
                 </tr>);
-            });
+            }, this);
             modalBody = <table className="table" cols="2">
                 <tbody>
                 <tr>
-                    <td> Invite </td>
                     <td> Name </td>
+                    <td> Invite </td>
                 </tr>
                 {modalBody}
                 </tbody>
@@ -38,7 +46,7 @@ var ConnectionList = React.createClass({
                         <div className="modal-content">
                             <div className="modal-header">
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 className="modal-title" id="myModalLabel">Modal title</h4>
+                                <h4 className="modal-title" id="myModalLabel">Connections</h4>
                             </div>
                             <div className="modal-body">
                                 {modalBody}
