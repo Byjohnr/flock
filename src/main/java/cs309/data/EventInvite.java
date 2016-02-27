@@ -11,6 +11,13 @@ public class EventInvite {
     public static final Integer EVENT_INVITE_ROLE_ADMIN = 2;
     public static final Integer EVENT_INVITE_ROLE_INVITEE = 3;
 
+    public static final Integer INVITED = 0;
+    public static final Integer GOING = 1;
+    public static final Integer UNDECIDED = 2;
+    public static final Integer NOT_GOING = 3;
+
+
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,6 +40,14 @@ public class EventInvite {
 
     @Column(name = "invite_status")
     private Integer inviteStatus;
+
+    public EventInvite(User inviter, User userInvited, Event event) {
+        this.inviter = inviter;
+        this.userInvited = userInvited;
+        this.event = event;
+        this.dateInvited = new Date();
+        this.inviteStatus = INVITED;
+    }
 
     public Integer getId() {
         return id;
