@@ -28,7 +28,6 @@ var CreateEvent = React.createClass({
                     <div className="row">
                         <div className="col-sm-7">
                             <div className="form-horizontal">
-                                LEFT SIDE
                                 <div className="form-group">
                                     <div>
                                         <label className="col-sm-2 control-label" htmlFor="name">Name of Event</label>
@@ -87,8 +86,8 @@ var CreateEvent = React.createClass({
                                         </select>
                                     </div>
                                 </div>
+                                <ConnectionList/>
                             </div>
-                            <input type="button" value="Create Event" onClick={this.onSubmit}/>
                         </div>
                         <div className="col-sm-5">
                             <div className="form-horizontal">
@@ -103,6 +102,7 @@ var CreateEvent = React.createClass({
                             </div>
                         </div>
                     </div>
+                    <input type="button" className="btn btn-default" value="Create Event" onClick={this.onSubmit}/>
                 </form>
             </div>
         );
