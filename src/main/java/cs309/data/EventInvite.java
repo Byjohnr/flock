@@ -1,5 +1,7 @@
 package cs309.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -25,6 +27,7 @@ public class EventInvite {
 
     @ManyToOne
     @JoinColumn(name = "inviter_id", referencedColumnName = "id")
+    @JsonIgnore
     private User inviter;
 
     @ManyToOne
@@ -40,6 +43,10 @@ public class EventInvite {
 
     @Column(name = "invite_status")
     private Integer inviteStatus;
+
+    public EventInvite() {
+
+    }
 
     public EventInvite(User inviter, User userInvited, Event event) {
         this.inviter = inviter;

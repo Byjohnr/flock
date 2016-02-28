@@ -15,7 +15,7 @@ public class EventController {
 
     @RequestMapping(value = "/event/{id}")
     public String eventPage(@PathVariable("id") Integer id) {
-        return "eventPage";
+        return eventService.getEvent(id) != null ? "eventPage" : "redirect:/403";
     }
 
     @RequestMapping("/event/create")
