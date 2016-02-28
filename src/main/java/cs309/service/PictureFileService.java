@@ -29,4 +29,27 @@ public class PictureFileService {
         }
         return bufferedImage;
     }
+
+    public BufferedImage getPictureByUserId(Integer userId) {
+        PictureFile pictureFile = pictureFileRepo.findByUserId(userId);
+        BufferedImage bufferedImage = null;
+
+        try {
+            bufferedImage = ImageIO.read(pictureFile.getInputStream());
+        } catch (IOException ex) {
+            LOG.warn("BufferedImage with userId " + userId + "was not read from the PictureFile " + pictureFile.getFileName() + ".", ex);
+        }
+        return bufferedImage;
+    }
+
+    public BufferedImage getPictureByEventId(Integer eventId) {
+        PictureFile pictureFile = pictureFileRepo.findByEventId(eventId);
+        BufferedImage bufferedImage = null;
+        try {
+            bufferedImage = ImageIO.read(pictureFile.getInputStream());
+        } catch (IOException ex) {
+            LOG.warn("BufferedImage with eventId " + eventId + "was not read from the PictureFile " + pictureFile.getFileName() + ".", ex);
+        }
+        return bufferedImage;
+    }
 }

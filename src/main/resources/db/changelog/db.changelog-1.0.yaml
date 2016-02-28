@@ -49,6 +49,12 @@ databaseChangeLog:
               - column:
                   name: input_stream
                   type: blob
+              - column:
+                  name: user_id
+                  type: int
+              - column:
+                  name: event_id
+                  type: int
 
    - changeSet:
         id: 2
