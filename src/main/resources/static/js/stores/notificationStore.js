@@ -17,7 +17,6 @@ var NotificationStore = Reflux.createStore({
             dataType: 'json',
             success: this.addNotifications
         });
-
     },
     addNotifications: function(data) {
         this.trigger(data);

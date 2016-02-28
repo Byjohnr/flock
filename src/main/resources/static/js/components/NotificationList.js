@@ -33,7 +33,7 @@ var NotificationList = React.createClass({
                 <table className="table table-hover bg-info">
                     <thead>
                     <tr>
-                        <th>
+                        <th data-firstsort="desc">
                             Type
                         </th>
                         <th>
