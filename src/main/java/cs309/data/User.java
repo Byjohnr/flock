@@ -103,7 +103,7 @@ public class User {
         this.currentCity = currentCity;
     }
 
-//    public List<Connection> getConnections() {
+    //    public List<Connection> getConnections() {
 //        return connections;
 //    }
 //
