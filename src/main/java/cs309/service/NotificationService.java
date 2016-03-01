@@ -17,6 +17,11 @@ public class NotificationService {
         return notificationRepository.findAll();
     }
 
-    public List<Notification> getNotificationDTOs() {return notificationRepository.findAll();}
+    public List<Notification> getNotificationDTOs(String email) {
+        for (Notification notificaiton : notificationRepository.getNotificationsByEmail(email)) {
+            if(notification){
 
+            }
+        }
+    }
 }
