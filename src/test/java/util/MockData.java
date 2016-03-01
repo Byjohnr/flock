@@ -1,5 +1,6 @@
 package util;
 
+import cs309.data.Connection;
 import cs309.data.Event;
 import cs309.data.Notification;
 import cs309.data.User;
@@ -54,5 +55,19 @@ public class MockData {
         List<User> mockUsers = new ArrayList<>();
         IntStream.range(0,k).forEach( i -> mockUsers.add(getUser(k)));
         return mockUsers;
+    }
+
+    public static Connection getConnection(int k) {
+        Connection connection = new Connection();
+        connection.setId(k);
+        connection.setUser1(getUser(k));
+        connection.setUser2(getUser(k+1));
+        return connection;
+    }
+
+    public static List<Connection> getConnections(int k) {
+        List<Connection> mockConnections = new ArrayList<>();
+        IntStream.range(0,k).forEach( i -> mockConnections.add(getConnection(k)));
+        return mockConnections;
     }
 }
