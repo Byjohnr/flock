@@ -24,6 +24,6 @@ public class UserController {
         if(userService.getUserByEmail(principal.getName()).getId() == id) {
             return "redirect:/account";
         }
-        return userService.getUser(id) != null ? "userPage" : "redirect:/403";
+        return userService.getUser(id) != null ? "userPage" : "redirect:/404";
     }
 }
