@@ -1,8 +1,10 @@
 package cs309.data;
 
-import javax.persistence.*;
-import java.io.InputStream;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
+
+@Entity
 @Table(name = "picture_file")
 public class PictureFile {
 
@@ -14,32 +16,33 @@ public class PictureFile {
     @Column(name = "file_name")
     private String fileName;
 
-    @Column(name = "input_stream")
-    private InputStream inputStream;
-
     @Column(name = "user_id")
     private Integer userId;
 
     @Column(name = "event_id")
     private Integer eventId;
 
-    public PictureFile(String fileName, InputStream inputStream) {
+    @Lob
+    @Column(name = "picture")
+    private byte[] picture;
+
+    public PictureFile(String fileName, byte[] picture) {
         this.fileName = fileName;
-        this.inputStream = inputStream;
+        this.picture = picture;
     }
 
-    public PictureFile(String fileName, InputStream inputStream, Integer userId, Integer eventId) {
+    public PictureFile(String fileName, Integer userId, Integer eventId, byte[] picture) {
         this.fileName = fileName;
-        this.inputStream = inputStream;
         this.userId = userId;
         this.eventId = eventId;
+        this.picture = picture;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -49,14 +52,6 @@ public class PictureFile {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
-    }
-
-    public InputStream getInputStream() {
-        return inputStream;
-    }
-
-    public void setInputStream(InputStream inputStream) {
-        this.inputStream = inputStream;
     }
 
     public Integer getUserId() {
@@ -73,5 +68,23 @@ public class PictureFile {
 
     public void setEventId(Integer eventId) {
         this.eventId = eventId;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
+
+    @Override
+    public String toString() {
+        return "PictureFile{" +
+                "id=" + id +
+                ", fileName='" + fileName + '\'' +
+                ", userId=" + userId +
+                ", eventId=" + eventId +
+                '}';
     }
 }
