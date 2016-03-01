@@ -1,5 +1,6 @@
 package cs309.controller;
 
+import cs309.data.Comment;
 import cs309.dto.CreateEventDTO;
 import cs309.dto.ErrorsDTO;
 import cs309.dto.EventDTO;
@@ -37,6 +38,7 @@ public class EventRestController {
 
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.GET)
     public Event getEvent(@PathVariable Integer id) {
+        LOG.info(eventService.getEvent(id).getCommentList());
         return eventService.getEvent(id);
     }
 
