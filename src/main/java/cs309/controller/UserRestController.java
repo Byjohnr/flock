@@ -46,4 +46,9 @@ public class UserRestController {
         }
         return userService.getUserByEmail(principal.getName());
     }
+
+    @RequestMapping("/user/{id}")
+    public User getOtherUser(@PathVariable int id) {
+        return userService.getUser(id);
+    }
 }
