@@ -70,5 +70,18 @@ var EventStore = Reflux.createStore({
     pushEvent: function (data) {
         console.log(data);
         this.trigger(data);
+    },
+    onCreateComment: function (data) {
+        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: '/api/event/createComment/' + id,
+            datatype: 'text',
+            type: 'POST',
+            data: JSON.stringify(data)
+        })
     }
 });

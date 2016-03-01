@@ -7,7 +7,7 @@ var EventPage = React.createClass({
         $('#' + id).pickadate();
     },
     getInitialState: function() {
-        return {event : undefined };
+        return {event : undefined};
     },
     componentDidMount: function() {
         EventActions.getEvent();
@@ -24,12 +24,12 @@ var EventPage = React.createClass({
     },
     onSubmit: function (){
         console.log("submitting");
-        var formData = {
-            eventName: this.refs.eventName,
-            description: this.refs.description,
-            location: this.refs.location
-        };
         EventActions.editEvent(this.state.event);
+    },
+    createComment: function(){
+        var comment = this.refs.commentString.value;
+        EventActions.createComment(comment);
+        EventActions.getEvent();
     },
 
     render: function() {
@@ -60,6 +60,13 @@ var EventPage = React.createClass({
                     <div>
                         <h2 className="text-center"> Comments </h2>
                         <CommentList comments={this.state.event.commentList}/>
+                        <form>
+                            <div className="form-group">
+                                <label htmlFor="createComment">Create Comment</label>
+                                <input type="text" className="form-control" id="createComment" ref="commentString"/>
+                            </div>
+                        </form>
+                        <input type="button" className="btn btn-default" value="Submit" onClick={this.createComment}/>
                     </div>
                     <div>
                         <h2 className="text-center"> Invited </h2>
