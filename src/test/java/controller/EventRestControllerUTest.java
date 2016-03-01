@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import config.UnitTestBase;
 import cs309.controller.EventRestController;
 import cs309.data.Event;
+import cs309.data.EventInvite;
 import cs309.data.User;
 import cs309.dto.CreateEventDTO;
+import cs309.service.EventInviteService;
 import cs309.service.EventService;
 import cs309.service.UserService;
 import org.hamcrest.Matchers;
@@ -16,6 +18,8 @@ import org.mockito.Mock;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import util.MockData;
+
+import java.security.Principal;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Matchers.any;
@@ -29,6 +33,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 public class EventRestControllerUTest extends UnitTestBase {
     private MockMvc mockMvc;
+
+    @Mock
+    private EventInviteService eventInviteService;
 
     @Mock
     private EventService eventService;
@@ -90,5 +97,18 @@ public class EventRestControllerUTest extends UnitTestBase {
                 .andExpect(status().isOk());
 
         verify(eventService, times(1)).saveEvent(any(Event.class));
+    }
+
+    @Test
+    public void addInvites() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        String ids = mapper.writeValueAsString(new int[]{1,2,3});
+
+        mockMvc.perform(post("/api/event/1/invites").principal(mock(Principal.class))
+        .content(ids)
+        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk());
+
+        verify(eventInviteService, times(3)).saveEventInvite(any(EventInvite.class));
     }
 }

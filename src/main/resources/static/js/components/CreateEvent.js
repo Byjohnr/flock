@@ -1,5 +1,11 @@
 var CreateEvent = React.createClass({
-    mixins: [Reflux.connect(EventStore, 'form')],
+    mixins: [Reflux.connect(EventStore, 'errors')],
+    getInitialState: function() {
+        return {
+            errors: undefined,
+            invites : []
+        }
+    },
     onSubmit: function () {
         var formData = {
             eventName: this.refs.eventName.value,
@@ -9,7 +15,7 @@ var CreateEvent = React.createClass({
             type: this.refs.type.value,
             address: this.refs.address.value
         };
-        EventActions.createEvent(formData);
+        EventActions.createEvent(formData, this.state.invites);
     },
     timePicker: function (id) {
         $('#' + id).pickatime();
@@ -17,7 +23,19 @@ var CreateEvent = React.createClass({
     datePicker: function (id) {
         $('#' + id).pickadate();
     },
+    handleInvite : function(connection) {
+        var newInvites = this.state.invites;
+        newInvites.push(connection);
+        console.log(newInvites);
+        this.setState({invites : newInvites});
+        //console.log(connection);
+    },
     render: function () {
+        console.log("Rendering create event");
+        var invites = this.state.invites.map(function(connection) {
+                return (" " + connection.firstName + " " + connection.lastName);
+            });
+        invites = invites.toString().substring(1);
         return (
             <div>
                 <NavBar/>
@@ -28,7 +46,6 @@ var CreateEvent = React.createClass({
                     <div className="row">
                         <div className="col-sm-7">
                             <div className="form-horizontal">
-                                LEFT SIDE
                                 <div className="form-group">
                                     <div>
                                         <label className="col-sm-2 control-label" htmlFor="name">Name of Event</label>
@@ -87,8 +104,16 @@ var CreateEvent = React.createClass({
                                         </select>
                                     </div>
                                 </div>
+                                <ConnectionList handleInvite={this.handleInvite}/>
+                                <div className="form-group">
+                                    <div>
+                                        <label className="col-sm-2 control-label" htmlFor="invites"> Invite List </label>
+                                    </div>
+                                    <div className="col-sm-8">
+                                        <textarea id="invites" readOnly="readonly" className="form-control" rows="3" value={invites} />
+                                    </div>
+                                </div>
                             </div>
-                            <input type="button" value="Create Event" onClick={this.onSubmit}/>
                         </div>
                         <div className="col-sm-5">
                             <div className="form-horizontal">
@@ -103,6 +128,7 @@ var CreateEvent = React.createClass({
                             </div>
                         </div>
                     </div>
+                    <input type="button" className="btn btn-default" value="Create Event" onClick={this.onSubmit}/>
                 </form>
             </div>
         );
