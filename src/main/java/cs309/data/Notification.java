@@ -9,6 +9,9 @@ import java.util.jar.Attributes;
 @Table(name = "Notification")
 public class Notification {
 
+    public static final Integer EVENTINVITE = 1;
+    public static final Integer USERCONNECTION = 2;
+
     @Id
     @Column(name = "id")
     private Integer id;
@@ -25,7 +28,7 @@ public class Notification {
     private Integer type;
 
     @Column(name = "type_id")
-    private Integer type_id;
+    private Integer typeId;
 
     @Column(name = "time")
     private Date dateCreated;
@@ -77,12 +80,12 @@ public class Notification {
         this.type = type;
     }
 
-    public Integer getType_id() {
-        return type_id;
+    public Integer getTypeId() {
+        return typeId;
     }
 
-    public void setType_id(Integer type_id) {
-        this.type_id = type_id;
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 
     public Date getDateCreated() {
