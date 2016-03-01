@@ -94,7 +94,7 @@ var EventStore = Reflux.createStore({
         })
     },
     pushEvent: function (data) {
-        console.log(data);
+        console.log("triggered");
         this.trigger(data);
     },
     onCreateComment: function (data) {
@@ -105,9 +105,17 @@ var EventStore = Reflux.createStore({
                 'Content-Type': 'application/json'
             },
             url: '/api/event/createComment/' + id,
-            datatype: 'text',
             type: 'POST',
-            data: JSON.stringify(data)
+            dataType: 'text',
+            data: data,
+            success: function() {
+                console.log("reload");
+                window.location.reload(true);
+            },
+            error: function(status, thrownError) {
+                console.log(thrownError)
+                console.log(status);
+            }
         })
     }
 });

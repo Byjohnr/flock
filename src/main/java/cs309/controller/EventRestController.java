@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -74,7 +75,8 @@ public class EventRestController {
         Event event = eventService.getEvent(id);
         comment.setEvent(event);
         comment.setComment(string);
-        //comment.setOwner(userService.getUserByEmail(principal.getName()));
+        comment.setDateCreated(new Date());
+        comment.setOwner(userService.getUserByEmail(principal.getName()));
         commentService.saveComment(comment);
         event.getCommentList().add(comment);
         LOG.info(eventService.getEvent(id).getCommentList());
