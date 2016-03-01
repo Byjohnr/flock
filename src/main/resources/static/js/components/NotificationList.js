@@ -2,6 +2,7 @@
  * Created by John on 2/11/2016.
  */
 
+
 var NotificationList = React.createClass({
     mixins: [Reflux.connect(NotificationStore,'notifications')],
     getInitialState: function() {
@@ -27,6 +28,7 @@ var NotificationList = React.createClass({
         if(notificationNodes.length === 0) {
             return(<div className="text-center">You have no notifications!</div>)
         }
+        //$.bootstrapSortable()   add this table later after backend works.
         return (
             <div>
                 <NavBar/>
