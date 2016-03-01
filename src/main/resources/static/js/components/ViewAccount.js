@@ -8,12 +8,19 @@ var ViewAccount = React.createClass({
     },
     componentDidMount: function() {
         console.log('componentMounted');
-        UserActions.getUserInformation();
+        if(this.props.account === true) {
+            console.log("truuu");
+            UserActions.getUserInformation();
+        } else {
+            console.log("falseee");
+            UserActions.getOtherUserInfo();
+        }
     },
     render: function () {
         if (this.state.userInformation !== undefined) {
             return (
                 <div>
+                    <NavBar />
                     <h1 className="text-center">
                         {this.state.userInformation.firstName} {this.state.userInformation.lastName}
                     </h1>
@@ -30,10 +37,11 @@ var ViewAccount = React.createClass({
             );
         } else {
             return (
-                <h1 className="text-center">Loading <i className="fa fa-spin fa-refresh"/> </h1>
+                <div>
+                    <NavBar />
+                    <h1 className="text-center">Loading <i className="fa fa-spin fa-refresh"/> </h1>
+                </div>
             )
         }
     }
 });
-
-ReactDOM.render(<ViewAccount />, document.getElementById('view_account'));
