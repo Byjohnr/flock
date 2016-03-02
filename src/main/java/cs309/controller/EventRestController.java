@@ -83,6 +83,34 @@ public class EventRestController {
         return "/";
     }
 
+    @RequestMapping(value = "/api/event/setAttending/{id}", method = RequestMethod.POST)
+    public String setAttending(@RequestBody String string, @PathVariable Integer id, Principal principal) {
+        Event event = eventService.getEvent(id);
+        EventInvite invite = eventInviteService.getEventInvite(event.getEventInvites(), principal);
+        LOG.info(invite.getUserInvited().getEmail());
+        LOG.info(principal.getName());
+        if (string.equals("Going")) {
+            invite.setInviteStatus(invite.GOING);
+            LOG.info(invite.getInviteStatus());
+        }
+        else if(string.equals("Maybe")) {
+            invite.setInviteStatus(invite.UNDECIDED);
+        }
+        else if(string.equals("Not Going")) {
+            invite.setInviteStatus(invite.NOT_GOING);
+            LOG.info(invite.getInviteStatus());
+        }
+        eventInviteService.saveEventInvite(invite);
+        return "/";
+    }
+
+    @RequestMapping(value = "/api/event/setAttending/{id}", method = RequestMethod.GET)
+    public Integer getAttending(@RequestBody String string, @PathVariable Integer id, Principal principal) {
+        Event event = eventService.getEvent(id);
+        EventInvite invite = eventInviteService.getEventInvite(event.getEventInvites(), principal);
+        return invite.getInviteStatus();
+    }
+
     @RequestMapping(value = "/api/create", method = RequestMethod.POST)
     public List<ErrorsDTO> createEvent(@Valid @RequestBody final CreateEventDTO createEventDTO, BindingResult result) throws IOException, ParseException {
         LOG.error(result.getFieldErrors());

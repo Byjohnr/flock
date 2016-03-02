@@ -30,6 +30,24 @@ var EventPage = React.createClass({
         var comment = this.refs.commentString.value;
         EventActions.createComment(comment);
     },
+    handleGoing: function() {
+        EventActions.setAttending("Going");
+    },
+    handleMaybe: function() {
+        EventActions.setAttending("Maybe");
+    },
+    handleNotGoing: function() {
+        EventActions.setAttending("Not Going");
+    },
+    checkVisibilityGoing: function() {
+        if (EventActions.getAttending() === 1) {
+            return {visibility:'visible'};
+        }
+        else{
+            return {visibility:'hidden'};
+        }
+    },
+
 
     render: function() {
         if (this.state.event === undefined) {
@@ -40,9 +58,13 @@ var EventPage = React.createClass({
                 <NavBar/>
                 <div className="col-sm-5 col-sm-offset-3">
                     <h1 className="text-center"> Event </h1>
-
                     <div>
                         <h3> {this.state.event.eventName} </h3>
+                        <div className="btn-group" role="group">
+                            <input type="button" className="btn btn-success" id="Going" onClick={this.handleGoing}>Going</input>
+                            <button type="button" className="btn btn-primary" id="Maybe" onClick={this.handleMaybe}>Maybe</button>
+                            <button type="button" className="btn btn-danger" id="Not Going" onClick={this.handleNotGoing}>Not Going</button>
+                        </div>
 
                         <h3> {this.state.event.eventDescription} </h3>
 
