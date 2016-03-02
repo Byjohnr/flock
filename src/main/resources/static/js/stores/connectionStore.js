@@ -13,5 +13,15 @@ var ConnectionStore = Reflux.createStore({
     },
     onGetConnectionGroups : function() {
 
+    },
+    onGetConnectionStatus : function() {
+
+    },
+    onRejectConnection : function() {
+
+    },
+    onRemoveConnection : function() {
+
     }
+
 });

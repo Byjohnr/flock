@@ -2,5 +2,8 @@ var ConnectionActions = Reflux.createActions([
     'getConnections',
     'addConnection',
     'getConnectionGroups',
-    'addConnectionGroups'
+    'addConnectionGroup',
+    'getConnectionStatus',
+    'rejectConnection',
+    'removeConnection'
 ]);

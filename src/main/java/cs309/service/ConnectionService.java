@@ -18,4 +18,23 @@ public class ConnectionService {
         return connectionRepository.getConnections(email);
     }
 
+    public boolean hasRequested(User userSignedIn, User otherUser) {
+        return false;
+    }
+
+    public boolean hasBeenRequested(User userSignedIn, User otherUser) {
+        return false;
+    }
+
+    public boolean isAlreadyConnected(User userSignedIn, User otherUser) {
+        return false;
+    }
+
+    public boolean deleteConnection(User userSignedIn, User otherUser) {
+        return false;
+    }
+
+    public boolean saveConnection(User userSignedIn, User otherUser) {
+        return false;
+    }
 }
