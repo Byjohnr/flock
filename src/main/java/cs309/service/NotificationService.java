@@ -26,19 +26,20 @@ public class NotificationService {
     public List<Notification> getNotificationDTOs(String email) {
         String message;
         String url;
+        List<Notification> notificationDTO;
         for (Notification notification : notificationRepository.getNotificationsByEmail(email)) {
-            if(notification.getType().equals(Notification.EVENTINVITE)){
+            if (notification.getType().equals(Notification.EVENTINVITE)) {
                 Event event = eventService.getEvent(notification.getTypeId());
                 message = "You have been invited to " + event.getEventName();
-                url = "/event/"+notification.getTypeId();
+                url = "/event/" + notification.getTypeId();
                 //urls would be /event/id  /user/{id}
             }
             if (notification.getType().equals(Notification.USERCONNECTION)) {
                 User user = userService.getUser(notification.getTypeId());
-                message = user.getFirstName()+user.getLastName()+" wants to be a connection";
-                url = "/user/"+user.getId();
+                message = user.getFirstName() + user.getLastName() + " wants to be a connection";
+                url = "/user/" + user.getId();
             }
         }
-        return
+    return notificationDTO.geturl();
     }
 }
