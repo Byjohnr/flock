@@ -1,5 +1,6 @@
 package cs309.data;
 
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -8,6 +9,7 @@ import java.util.Date;
 public class ConnectionRequest {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     public Integer id;
 
@@ -24,6 +26,12 @@ public class ConnectionRequest {
 
     public ConnectionRequest() {
 
+    }
+
+    public ConnectionRequest(User userSending, User userReceiving) {
+        this.userReceiving = userReceiving;
+        this.userSending = userSending;
+        this.date = new Date();
     }
 
     public Integer getId() {

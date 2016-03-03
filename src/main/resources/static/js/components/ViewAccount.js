@@ -17,10 +17,18 @@ var ViewAccount = React.createClass({
         }
     },
     render: function () {
+        var connectionStatus = "";
+        if(this.props.account != true) {
+            connectionStatus = <ConnectionStatus />;
+
+        }
         if (this.state.userInformation !== undefined) {
             return (
                 <div>
                     <NavBar />
+                    <div className="text-right">
+                        {connectionStatus}
+                    </div>
                     <h1 className="text-center">
                         {this.state.userInformation.firstName} {this.state.userInformation.lastName}
                     </h1>
