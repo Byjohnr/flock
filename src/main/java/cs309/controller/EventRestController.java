@@ -84,19 +84,19 @@ public class EventRestController {
     }
 
     @RequestMapping(value = "/api/event/setAttending/{id}", method = RequestMethod.POST)
-    public String setAttending(@RequestBody String string, @PathVariable Integer id, Principal principal) {
+    public String setAttending(@RequestBody int status, @PathVariable Integer id, Principal principal) {
         Event event = eventService.getEvent(id);
-        EventInvite invite = eventInviteService.getEventInvite(event.getEventInvites(), principal);
+        EventInvite invite = eventInviteService.getEventInvite(userService.getUserByEmail(principal.getName()), eventService.getEvent(id));
         LOG.info(invite.getUserInvited().getEmail());
         LOG.info(principal.getName());
-        if (string.equals("Going")) {
+        if (status == 1) {
             invite.setInviteStatus(invite.GOING);
             LOG.info(invite.getInviteStatus());
         }
-        else if(string.equals("Maybe")) {
+        else if(status == 2) {
             invite.setInviteStatus(invite.UNDECIDED);
         }
-        else if(string.equals("Not Going")) {
+        else if(status == 3) {
             invite.setInviteStatus(invite.NOT_GOING);
             LOG.info(invite.getInviteStatus());
         }
@@ -104,10 +104,10 @@ public class EventRestController {
         return "/";
     }
 
-    @RequestMapping(value = "/api/event/setAttending/{id}", method = RequestMethod.GET)
-    public Integer getAttending(@RequestBody String string, @PathVariable Integer id, Principal principal) {
+    @RequestMapping(value = "/api/event/getAttending/{id}", method = RequestMethod.GET)
+    public int getInvite(@PathVariable Integer id, Principal principal) {
         Event event = eventService.getEvent(id);
-        EventInvite invite = eventInviteService.getEventInvite(event.getEventInvites(), principal);
+        EventInvite invite = eventInviteService.getEventInvite(userService.getUserByEmail(principal.getName()), eventService.getEvent(id));
         return invite.getInviteStatus();
     }
 

@@ -113,7 +113,7 @@ var EventStore = Reflux.createStore({
                 window.location.reload(true);
             },
             error: function(status, thrownError) {
-                console.log(thrownError)
+                console.log(thrownError);
                 console.log(status);
             }
         })
@@ -138,18 +138,6 @@ var EventStore = Reflux.createStore({
                 console.log(status);
             }
         })
-    },
-    onGetAttending() {
-        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
-        $.ajax({
-            url: '/api/event/getAttending/' + id,
-            type: 'POST',
-            dataType: 'text',
-            success: this.pushAttending
-        })
-    },
-    pushAttending (data) {
-        this.trigger(data);
     }
 
 });

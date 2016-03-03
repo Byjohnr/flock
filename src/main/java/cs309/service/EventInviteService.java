@@ -1,6 +1,8 @@
 package cs309.service;
 
+import cs309.data.Event;
 import cs309.data.EventInvite;
+import cs309.data.User;
 import cs309.repo.EventInviteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +21,8 @@ public class EventInviteService {
         eventInviteRepository.save(eventInvite);
     }
 
-    public EventInvite getEventInvite(List<EventInvite> list, Principal principal) {
-        for (EventInvite i : list) {
-            if(i.getUserInvited().getEmail() == principal.getName()) {
-                return i;
-            }
-        }
-        return null;
+    public EventInvite getEventInvite(User user, Event event) {
+        return eventInviteRepository.findEventInviteByUserAndEvent(user, event);
     }
 
 }
