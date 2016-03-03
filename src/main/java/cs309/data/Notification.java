@@ -1,5 +1,7 @@
 package cs309.data;
 
+import cs309.dto.NotificationDTO;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.jar.Attributes;
