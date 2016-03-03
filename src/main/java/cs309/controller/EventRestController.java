@@ -1,12 +1,17 @@
 package cs309.controller;
 
+import cs309.data.EventInvite;
+import cs309.data.User;
+import cs309.data.Comment;
 import cs309.dto.CreateEventDTO;
 import cs309.dto.ErrorsDTO;
 import cs309.dto.EventDTO;
+import cs309.service.EventInviteService;
 import cs309.service.UserService;
 import cs309.validator.CreateEventValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,6 +21,7 @@ import cs309.service.EventService;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.security.Principal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +41,12 @@ public class EventRestController {
     @Autowired
     private CreateEventValidator eventValidator;
 
+    @Autowired
+    private EventInviteService eventInviteService;
+
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.GET)
     public Event getEvent(@PathVariable Integer id) {
+        LOG.info(eventService.getEvent(id).getCommentList());
         return eventService.getEvent(id);
     }
 
@@ -67,6 +77,18 @@ public class EventRestController {
         List<ErrorsDTO> noErrors = new ArrayList<>();
         noErrors.add(new ErrorsDTO("success", event.getId() + ""));
         return noErrors;
+    }
+
+    @RequestMapping(value = "/api/event/{eventId}/invites", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void addInvites(@PathVariable Integer eventId, @RequestBody final Integer[] userIds, Principal principal) {
+        Event event = eventService.getEvent(eventId);
+        User inviter = userService.getUserByEmail(principal.getName());
+        for(Integer userId : userIds) {
+            User invitedUser = userService.getUser(userId);
+            EventInvite eventInvite = new EventInvite(inviter,invitedUser,event);
+            eventInviteService.saveEventInvite(eventInvite);
+        }
     }
 
     @InitBinder(value = "createEventDTO")

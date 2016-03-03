@@ -36,6 +36,7 @@ public class EventControllerUTest extends UnitTestBase {
 
     @Test
     public void eventPage() throws Exception {
+        when(eventService.getEvent(1)).thenReturn(MockData.getEvent(1));
         this.mockMvc.perform(get("/event/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("eventPage"));

@@ -1,5 +1,5 @@
 var NavBar = React.createClass({
-    mixins: [Reflux.connect(UserStore,'user')],
+    mixins: [Reflux.connect(NavStore,'user')],
     getInitialState: function() {
         return {user : undefined};
     },
@@ -43,7 +43,7 @@ var NavBar = React.createClass({
             )
         } else {
             if (this.state.user === undefined) {
-                UserActions.getUserInfo();
+                NavActions.getUserInfo();
             }
             else {
                 navbar = (<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -63,7 +63,7 @@ var NavBar = React.createClass({
                                aria-haspopup="true" aria-expanded="false">{this.state.user.firstName} {this.state.user.lastName} <span
                                 className="caret"/></a>
                             <ul className="dropdown-menu">
-                                <li><a href={'/user/' + this.state.user.id}>My Profile</a></li>
+                                <li><a href='/account'>My Profile</a></li>
                                 <li><a href="#">Notifications</a></li>
                                 <li><a href="#">Settings</a></li>
                                 <li role="separator" className="divider"/>

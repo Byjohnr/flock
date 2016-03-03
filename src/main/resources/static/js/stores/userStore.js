@@ -22,17 +22,19 @@ var UserStore = Reflux.createStore({
         console.log('success');
         this.trigger('yoloswag');
     },
-    onGetUserInfo : function() {
-        $.ajax({
-            url: '/api/user/info',
-            dataType:'json',
-            success : this.handleUserInfo
-        })
-    },
-    handleUserInfo: function(data) {
-        console.log(data);
-        this.trigger(data);
-    },
+    //TODO jeffreyh duplicate?
+    //onGetUserInfo : function() {
+    //    $.ajax({
+    //        url: '/api/user/info',
+    //        dataType:'json',
+    //        success : this.handleUserInfo
+    //    })
+    //},
+    //handleUserInfo: function(data) {
+    //    console.log(data);
+    //    this.trigger(data);
+    //},
+    //TODO jeffreyh duplicate?
     onGetUserInformation: function () {
         $.ajax({
             headers: {
@@ -49,5 +51,13 @@ var UserStore = Reflux.createStore({
     },
     returnInformationSuccess: function (data) {
         this.trigger(data);
+    },
+    onGetOtherUserInfo: function() {
+        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        $.ajax({
+            url: '/api/user/' + id,
+            dataType:'json',
+            success : this.returnInformationSuccess
+        })
     }
 });

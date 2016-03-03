@@ -11,17 +11,16 @@ var EventPage = React.createClass({
     },
     componentDidMount: function() {
         EventActions.getEvent();
-        console.log("lol")
     },
     handleNameChange: function(event) {
         console.log("event name change");
-        this.setState({event:{eventName: event.target.value, eventDescription: this.state.event.eventDescription, location: this.state.event.location, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type}});
+        this.setState({event:{eventName: event.target.value, eventDescription: this.state.event.eventDescription, location: this.state.event.location, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type, commentList: this.state.event.commentList, inviteList: this.state.event.inviteList}});
     },
     handleDescriptionChange: function(event) {
-        this.setState({event:{eventDescription: event.target.value, eventName: this.state.event.eventName, location: this.state.event.location, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type}});
+        this.setState({event:{eventDescription: event.target.value, eventName: this.state.event.eventName, location: this.state.event.location, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type, commentList: this.state.event.commentList, inviteList: this.state.event.inviteList}});
     },
     handleLocationChange: function(event) {
-        this.setState({event:{location: event.target.value, eventDescription: this.state.event.eventDescription, eventName: this.state.event.eventName, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type}});
+        this.setState({event:{location: event.target.value, eventDescription: this.state.event.eventDescription, eventName: this.state.event.eventName, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type, commentList: this.state.event.commentList, inviteList: this.state.event.inviteList}});
     },
     onSubmit: function (){
         console.log("submitting");
@@ -58,6 +57,14 @@ var EventPage = React.createClass({
                             data-target="#EditModal">
                         Edit
                     </button>
+                    <div>
+                        <h2 className="text-center"> Comments </h2>
+                        <CommentList comments={this.state.event.commentList}/>
+                    </div>
+                    <div>
+                        <h2 className="text-center"> Invited </h2>
+                        <InviteList invites={this.state.event.eventInvites}/>
+                    </div>
                     <div className="modal fade" id="EditModal" tabIndex="-1" role="dialog"
                          aria-labelledby="EditModalLabel">
                         <div className="modal-dialog" role="document">
@@ -114,5 +121,5 @@ var EventPage = React.createClass({
             </div>
         );
     }
-})
+});
 ReactDOM.render(<EventPage />, document.getElementById('event_div'));
