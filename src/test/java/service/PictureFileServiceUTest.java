@@ -102,23 +102,4 @@ public class PictureFileServiceUTest extends UnitTestBase {
         filePicture = null;
         reset(pictureFileRepo);
     }
-
-//    private boolean bufferedImagesEqual(BufferedImage base, BufferedImage toCompare) {
-//        boolean returnedValue = false;
-//        if (base.getWidth() == toCompare.getWidth() && base.getHeight() == toCompare.getHeight()) {
-//            int width = base.getWidth();
-//            int height = base.getHeight();
-//            returnedValue = true;
-//            for (int y = 0; y < height && returnedValue; ++y) {
-//                for (int x = 0; x < width && returnedValue; ++x) {
-//                    int rgbBase = base.getRGB(x, y);
-//                    int rgbToCompare = toCompare.getRGB(x, y);
-//                    if (base.getRGB(x, y) != toCompare.getRGB(x, y)) {
-//                        returnedValue = false;
-//                    }
-//                }
-//            }
-//        }
-//        return returnedValue;
-//    }
 }
