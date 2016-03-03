@@ -44,7 +44,7 @@ public class PictureUploadControllerUTest extends UnitTestBase {
         ImageIO.write(ImageIO.read(file), file.getName().substring(file.getName().indexOf('.') + 1), byteArrayOutputStream);
         when(pictureFileService.savePictureFile(any())).thenReturn(new PictureFile(file.getName(), byteArrayOutputStream.toByteArray()));
 
-        ResultActions results = this.mockMvc.perform(get("/picture_upload/test").accept(MediaType.TEXT_HTML).principal(SecurityContextHolder.getContext().getAuthentication()));
+        ResultActions results = this.mockMvc.perform(get("/picture_upload/test").accept(MediaType.TEXT_HTML));
 
         results
                 .andExpect(status().is3xxRedirection())
