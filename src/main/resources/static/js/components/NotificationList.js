@@ -19,31 +19,33 @@ var NotificationList = React.createClass({
         }
 
         var notificationNodes = this.state.notifications.map(function (notification){
-            return <tr key={notification.id}>  <td>{notification.type}</td><td>{notification.notificationName}</td>
+            return (<tr key={notification.id}>
+                <td>{notification.type}</td>
+                <td>{notification.notificationName}</td>
                 <td> <a className="btn btn-info active" href="events" role="button">View</a>
                     <button type="button" className="btn btn-success">Accept</button>
                     <button type="button" className="btn btn-primary">Decline</button>
-                     </td></tr>});
+                     </td>
+            </tr>);
+        }, this);
 
         if(notificationNodes.length === 0) {
             return(<div className="text-center">You have no notifications!</div>)
         }
         //$.bootstrapSortable()   add this table later after backend works.
         return (
-            <div>
+          notificationNodes=   <div>
                 <NavBar/>
                 <table className="table table-hover bg-info">
-                    <thead>
-                    <tr>
-                        <th data-firstsort="desc">
-                            Type
-                        </th>
-                        <th>
-                            Name
-                        </th>
-                    </tr>
-                    </thead>
                     <tbody>
+                    <tr>
+                        <td data-firstsort="desc">
+                            Type
+                        </td>
+                        <td>
+                            Name
+                        </td>
+                    </tr>
                     {notificationNodes}
                     </tbody>
                 </table>

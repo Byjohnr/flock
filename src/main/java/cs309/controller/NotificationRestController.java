@@ -23,5 +23,5 @@ public class NotificationRestController {
     @RequestMapping ("/api/notifications")
     public List<NotificationDTO> getNotifications(Principal principal) {
         return notificationService.getNotificationDTOs(principal.getName());
-    }//this is wrong ig
+    }
 }
