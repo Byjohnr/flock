@@ -13,6 +13,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/picture_upload")
@@ -25,7 +26,7 @@ public class PictureUploadController {
     private PictureFileService pictureFileService;
 
     @RequestMapping("/test")
-    public String pictureUploadTest() {
+    public String pictureUploadTest(Principal principal) {
         Class classType = this.getClass();
         URL url = classType.getResource(TEST_PICTURE_PATH);
         String filePath = url.getFile();
@@ -35,7 +36,7 @@ public class PictureUploadController {
             ImageIO.write(ImageIO.read(new ByteArrayInputStream(pictureFile.getPicture())), file.getName().substring(file.getName().indexOf('.') + 1),
                     new File(this.getClass().getResource("/img/").getFile() + "test_" + pictureFile.getFileName()));
         } catch (IOException ex) {
-            LOG.error("IOException thrown in PictureUploadController.pictureUploadTest() when trying to read a pictureFile's InputStream", ex);
+            LOG.error("IOException thrown in PictureUploadController.pictureUploadTest() when trying to read a pictureFile's bytes", ex);
         }
         return "redirect:/";
     }
