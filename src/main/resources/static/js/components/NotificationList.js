@@ -22,7 +22,7 @@ var NotificationList = React.createClass({
             return (<tr key={notification.id}>
                 <td>{notification.type}</td>
                 <td>{notification.message}</td>
-                <td> <a className="btn btn-info active" href="/events/notification.getUrl()" role="button">View</a>
+                <td> <a className="btn btn-info active" href={notification.url} role="button">View</a>
                     <button type="button" className="btn btn-success">Accept</button>
                     <button type="button" className="btn btn-primary">Decline</button>
                      </td>
