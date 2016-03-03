@@ -1,5 +1,7 @@
 package cs309.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -17,6 +19,7 @@ public class Comment {
     private User owner;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "event_id", referencedColumnName = "id")
     private Event event;
 
@@ -37,11 +40,11 @@ public class Comment {
         this.id = id;
     }
 
-    public User getUser() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setUser(User owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 
@@ -61,11 +64,11 @@ public class Comment {
         this.comment = comment;
     }
 
-    public Date getTime() {
+    public Date getDateCreated() {
         return dateCreated;
     }
 
-    public void setTime(Date dateCreated) {
+    public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
 }

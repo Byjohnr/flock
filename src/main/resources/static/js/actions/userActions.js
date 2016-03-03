@@ -1,7 +1,8 @@
 var UserActions = Reflux.createActions(
     [
-    "createUser",
-    "getUserInfo",
-    "getUserInformation"
+        "createUser",
+        "getUserInfo",
+        "getUserInformation",
+        "getOtherUserInfo"
     ]
 );

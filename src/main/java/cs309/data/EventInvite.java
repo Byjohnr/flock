@@ -1,5 +1,7 @@
 package cs309.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,6 +13,13 @@ public class EventInvite {
     public static final Integer EVENT_INVITE_ROLE_ADMIN = 2;
     public static final Integer EVENT_INVITE_ROLE_INVITEE = 3;
 
+    public static final Integer INVITED = 0;
+    public static final Integer GOING = 1;
+    public static final Integer UNDECIDED = 2;
+    public static final Integer NOT_GOING = 3;
+
+
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,6 +27,7 @@ public class EventInvite {
 
     @ManyToOne
     @JoinColumn(name = "inviter_id", referencedColumnName = "id")
+    @JsonIgnore
     private User inviter;
 
     @ManyToOne
@@ -28,11 +38,24 @@ public class EventInvite {
     private Date dateInvited;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "event_id", referencedColumnName = "id")
     private Event event;
 
     @Column(name = "invite_status")
     private Integer inviteStatus;
+
+    public EventInvite() {
+
+    }
+
+    public EventInvite(User inviter, User userInvited, Event event) {
+        this.inviter = inviter;
+        this.userInvited = userInvited;
+        this.event = event;
+        this.dateInvited = new Date();
+        this.inviteStatus = INVITED;
+    }
 
     public Integer getId() {
         return id;

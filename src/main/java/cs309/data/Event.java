@@ -1,5 +1,6 @@
 package cs309.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cs309.dto.CreateEventDTO;
 
 import javax.persistence.*;
@@ -34,11 +35,14 @@ public class Event {
     private Integer type;
 //    TODO jeffreyh 1-28-16 wait for tags to be implemented
 //    private List<Tags> tagsList
-//    TODO jeffreyh 1-28-16 wait for users to be implemented
+
+
     @OneToMany(mappedBy = "event")
+    @JsonIgnore
     private List<EventInvite> eventInvites;
-//    TODO jeffreyh 1-28-16 wait for comments to be implemented
-//    private List<Comment> commentList;
+
+    @OneToMany (mappedBy = "event")
+    private List<Comment> commentList;
 
     @Column(name = "location")
     private String location;
@@ -54,8 +58,6 @@ public class Event {
 
     public Event(CreateEventDTO eventDTO, User user) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy HH:mm a");
-//        TODO jeffreyh 2-6-16, need to set up spring security before we can grab user from the session
-//        this.creator = new User();
         this.eventStart = eventDTO.getStartDate() == null || eventDTO.getStartDate().equals(" ") ? null : dateFormat.parse(eventDTO.getStartDate());
         this.eventEnd = eventDTO.getEndDate() == null || eventDTO.getEndDate().equals(" ") ? null : dateFormat.parse(eventDTO.getEndDate());
         this.eventDescription = eventDTO.getDescription();
@@ -129,6 +131,22 @@ public class Event {
 
     public void setEventDescription(String eventDescription) {
         this.eventDescription = eventDescription;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
+    public List<EventInvite> getEventInvites() {
+        return eventInvites;
+    }
+
+    public void setEventInvites(List<EventInvite> eventInvites) {
+        this.eventInvites = eventInvites;
     }
 
     @Override

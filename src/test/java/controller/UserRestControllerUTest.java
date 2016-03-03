@@ -64,4 +64,11 @@ public class UserRestControllerUTest extends UnitTestBase {
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.id", Matchers.equalTo(1)));
     }
+
+    @Test
+    public void getOtherUser() throws Exception {
+        when(userService.getUserByEmail(anyString())).thenReturn(MockData.getUser(1));
+        this.mockMvc.perform(get("/api/user/1").principal(mock(Principal.class)))
+                .andExpect(status().isOk());
+    }
 }

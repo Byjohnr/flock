@@ -39,10 +39,9 @@ public class User {
     //TODO tstack 2/4/16 implement saving of any further location information
 //    private Long cityXCoordinate;
 //    private Long cityYCoordinate;
-//    @OneToMany
-//    private List<Connection> connections;
-//    @OneToMany
-//    private List<EventInvite> events;
+    @OneToMany(mappedBy = "userInvited")
+    @JsonIgnore
+    private List<EventInvite> events;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
@@ -99,22 +98,14 @@ public class User {
         this.currentCity = currentCity;
     }
 
-    //    public List<Connection> getConnections() {
-//        return connections;
-//    }
-//
-//    public void setConnections(List<Connection> connections) {
-//        this.connections = connections;
-//    }
-//
-//    public List<EventInvite> getEvents() {
-//        return events;
-//    }
-//
-//    public void setEvents(List<EventInvite> events) {
-//        this.events = events;
-//    }
-//
+    public List<EventInvite> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<EventInvite> events) {
+        this.events = events;
+    }
+
 
 
     public String getPassword() {

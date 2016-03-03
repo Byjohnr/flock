@@ -17,4 +17,5 @@ databaseChangeLog:
       file: db/sql/connectionGroupUsers.sql
   - include:
       file: db/sql/userRoles.sql
-
+  - include:
+      file: db/sql/comments.sql
