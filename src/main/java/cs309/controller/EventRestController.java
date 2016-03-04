@@ -78,7 +78,6 @@ public class EventRestController {
         comment.setDateCreated(new Date());
         comment.setOwner(userService.getUserByEmail(principal.getName()));
         commentService.saveComment(comment);
-        event.getCommentList().add(comment);
         return "/";
     }
 
@@ -104,7 +103,6 @@ public class EventRestController {
 
     @RequestMapping(value = "/api/event/getAttending/{id}", method = RequestMethod.GET)
     public int getInvite(@PathVariable Integer id, Principal principal) {
-        Event event = eventService.getEvent(id);
         EventInvite invite = eventInviteService.getEventInvite(userService.getUserByEmail(principal.getName()), eventService.getEvent(id));
         return invite.getInviteStatus();
     }
