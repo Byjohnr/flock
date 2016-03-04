@@ -127,6 +127,7 @@ public class EventRestControllerUTest extends UnitTestBase {
         when(userService.getUserByEmail(principal.getName())).thenReturn(mock(User.class));
         this.mockMvc.perform(post("/api/event/createComment/1")
                 .content(string)
+                .principal(principal)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 

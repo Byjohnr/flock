@@ -78,7 +78,6 @@ public class EventRestController {
         comment.setDateCreated(new Date());
         comment.setOwner(userService.getUserByEmail(principal.getName()));
         commentService.saveComment(comment);
-        LOG.info(eventService.getEvent(id).getCommentList());
         return "/";
     }
 
