@@ -60,17 +60,18 @@ var EventPage = React.createClass({
                         <button type="button" className="btn btn-danger" id="Not Going" onClick={this.handleNotGoing}>Not Going</button>
                     </div>
                 );
-            }
+            };
         }
         if (this.state.eventInvite.toString() === "1") {
             console.log("yes");
             attending = function() {
                 return (
-                    <div className="btn-group" role="group">
+                    <div>
                         <input type="button" className="btn btn-success" id="Going" onClick={this.handleGoing}>Going</input>
                     </div>
-                )
-            }
+                );
+            };
+            console.log(attending);
         }
         if (this.state.eventInvite.toString() === "2") {
             attending = function() {
@@ -78,8 +79,8 @@ var EventPage = React.createClass({
                     <div className="btn-group" role="group">
                         <button type="button" className="btn btn-primary" id="Maybe" onClick={this.handleMaybe}>Maybe</button>
                     </div>
-                )
-            }
+                );
+            };
         }
         else {
             attending = function() {
@@ -87,8 +88,8 @@ var EventPage = React.createClass({
                     <div className="btn-group" role="group">
                         <button type="button" className="btn btn-danger" id="Not Going" onClick={this.handleNotGoing}>Not Going</button>
                     </div>
-                )
-            }
+                );
+            };
         }
 
         return (
@@ -98,6 +99,7 @@ var EventPage = React.createClass({
                     <h1 className="text-center"> Event </h1>
                     <div>
                         <h3> {this.state.event.eventName} </h3>
+
                         <div>
                             {attending}
                         </div>
@@ -114,7 +116,7 @@ var EventPage = React.createClass({
                             Edit
                         </button>
                         <div>
-                            <h2 className="text-center"> Comments </h2>
+                            <h2> Comments </h2>
                             <CommentList comments={this.state.event.commentList}/>
 
                             <form>
