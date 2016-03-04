@@ -17,9 +17,9 @@ import java.security.Principal;
 
 @Controller
 @RequestMapping("/picture_upload")
-public class PictureUploadController {
+public class PictureUploadRestController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PictureUploadController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PictureUploadRestController.class);
     private static final String TEST_PICTURE_PATH = "/img/SecureAllTheThings.jpeg";
 
     @Autowired

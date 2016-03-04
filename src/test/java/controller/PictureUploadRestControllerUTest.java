@@ -1,7 +1,7 @@
 package controller;
 
 import config.UnitTestBase;
-import cs309.controller.PictureUploadController;
+import cs309.controller.PictureUploadRestController;
 import cs309.data.PictureFile;
 import cs309.service.PictureFileService;
 import org.junit.Before;
@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -23,18 +22,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-public class PictureUploadControllerUTest extends UnitTestBase {
+public class PictureUploadRestControllerUTest extends UnitTestBase {
 
     @Mock
     private PictureFileService pictureFileService;
     @InjectMocks
-    private PictureUploadController pictureUploadController;
+    private PictureUploadRestController pictureUploadRestController;
 
     private MockMvc mockMvc;
 
     @Before
     public void setup() {
-        this.mockMvc = standaloneSetup(pictureUploadController).build();
+        this.mockMvc = standaloneSetup(pictureUploadRestController).build();
     }
 
     @Test

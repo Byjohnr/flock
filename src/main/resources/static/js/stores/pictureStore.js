@@ -1,26 +1,21 @@
-var UserStore = Reflux.createStore({
-    listenables: [UserActions],
-    createUser(data) {
-        console.log("create user in store");
+var PictureStore = Reflux.createStore({
+    listenables: [PictureActions],
+    savePicture(data) {
         console.log(data);
         $.ajax({
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            url: '/api/user/create',
+            url: 'http://requestb.in/10hi8gy1',
             dataType: 'text',
             type: 'POST',
             data: JSON.stringify(data),
-            success: this.createUserSuccess,
+            success: this.handleFile,
             error: function () {
-                console.log("error bruh");
+                console.log("There was an error uploading the picture to the server.");
             }
         });
-    },
-    createUserSuccess: function() {
-        console.log('success');
-        this.trigger('yoloswag');
     },
     onGetUserInformation: function () {
         $.ajax({

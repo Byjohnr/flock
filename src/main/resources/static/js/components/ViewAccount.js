@@ -1,14 +1,11 @@
-/**
- * Created by Thomas on 2/9/2016.
- */
 var ViewAccount = React.createClass({
     mixins: [Reflux.connect(UserStore, 'userInformation')],
-    getInitialState: function() {
-        return {userInformation : undefined};
+    getInitialState: function () {
+        return {userInformation: undefined};
     },
-    componentDidMount: function() {
+    componentDidMount: function () {
         console.log('componentMounted');
-        if(this.props.account === true) {
+        if (this.props.account === true) {
             console.log("truuu");
             UserActions.getUserInformation();
         } else {
@@ -21,6 +18,7 @@ var ViewAccount = React.createClass({
             return (
                 <div>
                     <NavBar />
+                    <Picture />
                     <h1 className="text-center">
                         {this.state.userInformation.firstName} {this.state.userInformation.lastName}
                     </h1>
@@ -39,7 +37,7 @@ var ViewAccount = React.createClass({
             return (
                 <div>
                     <NavBar />
-                    <h1 className="text-center">Loading <i className="fa fa-spin fa-refresh"/> </h1>
+                    <h1 className="text-center">Loading <i className="fa fa-spin fa-refresh"/></h1>
                 </div>
             )
         }
