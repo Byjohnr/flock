@@ -24,4 +24,7 @@ public class NotificationRestController {
     public List<NotificationDTO> getNotifications(Principal principal) {
         return notificationService.getNotificationDTOs(principal.getName());
     }
+    public void deleteNotification(Integer id){
+        notificationService.deleteNotification(id);
+    }
 }

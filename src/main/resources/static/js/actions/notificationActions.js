@@ -4,6 +4,7 @@
 
 var NotificationActions = Reflux.createActions(
     [
-        "fetchNotifications"
+        "fetchNotifications",
+        "deleteNotification"
     ]
 );

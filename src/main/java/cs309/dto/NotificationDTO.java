@@ -7,6 +7,15 @@ package cs309.dto;
 public class NotificationDTO {
     private String url;
     private String message;
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getUrl() {
         return url;

@@ -20,6 +20,14 @@ var NotificationStore = Reflux.createStore({
     },
     addNotifications: function(data) {
         this.trigger(data);
+    },
+
+    onDeleteNotification: function() {
+        $.ajax({
+            url: '/api/notifications',
+            type: 'POST',
+            dataType: 'json'
+        })
     }
     //ToDO allow users to delete notifications
 });

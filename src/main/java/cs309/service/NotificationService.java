@@ -28,6 +28,7 @@ public class NotificationService {
     public List<NotificationDTO> getNotificationDTOs(String email) {
         String message;
         String url;
+        Integer id;
         List<NotificationDTO> notificationDtoList = new ArrayList<>();
 
         for (Notification notification : notificationRepository.getNotificationsByEmail(email)) {
@@ -36,6 +37,8 @@ public class NotificationService {
                 Event event = eventService.getEvent(notification.getTypeId());
                 message = "You have been invited to " + event.getEventName();
                 url = "/event/" + notification.getTypeId();
+                id = notification.getId();
+                notificationDTO.setId(id);
                 notificationDTO.setUrl(url);
                 notificationDTO.setMessage(message);
                 notificationDtoList.add(notificationDTO);
@@ -45,6 +48,8 @@ public class NotificationService {
                 User user = userService.getUser(notification.getTypeId());
                 message = user.getFirstName() + user.getLastName() + " wants to be your connection";
                 url = "/user/" + user.getId();
+                id = notification.getId();
+                notificationDTO.setId(id);
                 notificationDTO.setUrl(url);
                 notificationDTO.setMessage(message);
                 notificationDtoList.add(notificationDTO);
@@ -52,4 +57,11 @@ public class NotificationService {
         }
     return notificationDtoList;
     }
+    public void deleteNotification(Integer id){
+        notificationRepository.delete(id);
+    }
+
+//    public Notification findNotification(Integer id){
+//        return notificationRepository.findOne(id);
+//    }
 }

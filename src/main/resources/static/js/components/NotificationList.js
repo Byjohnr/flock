@@ -4,52 +4,53 @@
 
 
 var NotificationList = React.createClass({
-    mixins: [Reflux.connect(NotificationStore,'notifications')],
-    getInitialState: function() {
-        return {notifications : undefined};
+    mixins: [Reflux.connect(NotificationStore, 'notifications')],
+    getInitialState: function () {
+        return {notifications: undefined};
     },
-    componentDidMount: function() {
+    componentDidMount: function () {
         console.log('componentMounted');
         NotificationActions.fetchNotifications();
     },
-    render: function() {
+    handleDelete: function (id){
+        NotificationActions.deleteNotification(1);
+        console.log('deleting');
+    },
+    render: function () {
         console.log('rendering');
-        if(this.state.notifications === undefined) {
-            return <div> Loading <i className="fa fa-spin fa-refresh -align-center"/> </div>;
+        if (this.state.notifications === undefined) {
+            return <div> Loading <i className="fa fa-spin fa-refresh -align-center"/></div>;
         }
-
-        var notificationNodes = this.state.notifications.map(function (notification){
+        var notificationNodes = this.state.notifications.map(function (notification) {
             return (<tr key={notification.id}>
                 <td>{notification.type}</td>
                 <td>{notification.message}</td>
-                <td> <a className="btn btn-info active" href={notification.url} role="button">View</a>
+                <td><a className="btn btn-info active" href={notification.url} role="button">View</a>
                     <button type="button" className="btn btn-success">Accept</button>
                     <button type="button" className="btn btn-primary">Decline</button>
-                     </td>
+                    <button type="button" className="btn btn-danger" Value="1" onClick={handleDelete(notification.id)}>Delete</button>
+                </td>
             </tr>);
-        }, this);
+        });
 
-        if(notificationNodes.length === 0) {
-            return(<div className="text-center">You have no notifications!</div>)
+        if (notificationNodes.length === 0) {
+            return (<div className="text-center">You have no notifications!</div>)
         }
         //$.bootstrapSortable()   add this table later after backend works.
         return (
-          <div>
+            <div>
                 <NavBar/>
-                <table className="table table-hover bg-info">
-                    <tbody>
-                    <tr>
-                        <td data-firstsort="desc">
-                            Type
-                        </td>
-                        <td>
-                            Name
-                        </td>
-                    </tr>
-                    {notificationNodes}
-                    </tbody>
-                </table>
-          </div>)
+                <div className="col-md-6 col-sm-offset-3">
+                    <table className="table table-hover bg-info table-condensed">
+                        <tbody>
+                        <tr data-firstsort="desc" className="text-center">
+                            Notifications
+                        </tr>
+                        {notificationNodes}
+                        </tbody>
+                    </table>
+                </div>
+            </div>)
     }
 });
 ReactDOM.render(<NotificationList />, document.getElementById("list_notification"));
