@@ -4,6 +4,7 @@ import cs309.data.EventInvite;
 import cs309.repo.EventInviteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EventInviteService {
@@ -12,6 +13,7 @@ public class EventInviteService {
     private EventInviteRepository eventInviteRepository;
 
 
+    @Transactional
     public void saveEventInvite(EventInvite eventInvite) {
         eventInviteRepository.save(eventInvite);
     }
