@@ -26,7 +26,8 @@ var NotificationStore = Reflux.createStore({
         $.ajax({
             url: '/api/notifications',
             type: 'POST',
-            dataType: 'json'
+            dataType: 'json',
+            success: this.addNotifications
         })
     }
     //ToDO allow users to delete notifications
