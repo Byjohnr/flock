@@ -3,7 +3,5 @@ var EventActions = Reflux.createActions([
     "createEvent",
     "getEvent",
     "editEvent",
-    "createComment",
-    "setAttending",
-    "getAttending"
+    "createComment"
 ]);

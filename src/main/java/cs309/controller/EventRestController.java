@@ -79,29 +79,27 @@ public class EventRestController {
         comment.setOwner(userService.getUserByEmail(principal.getName()));
         commentService.saveComment(comment);
         event.getCommentList().add(comment);
-        LOG.info(eventService.getEvent(id).getCommentList());
         return "/";
     }
 
     @RequestMapping(value = "/api/event/setAttending/{id}", method = RequestMethod.POST)
-    public String setAttending(@RequestBody int status, @PathVariable Integer id, Principal principal) {
-        Event event = eventService.getEvent(id);
+    public int setAttending(@RequestBody String status, @PathVariable Integer id, Principal principal) {
         EventInvite invite = eventInviteService.getEventInvite(userService.getUserByEmail(principal.getName()), eventService.getEvent(id));
         LOG.info(invite.getUserInvited().getEmail());
         LOG.info(principal.getName());
-        if (status == 1) {
+        if (status.equals("Going")) {
             invite.setInviteStatus(invite.GOING);
             LOG.info(invite.getInviteStatus());
         }
-        else if(status == 2) {
+        else if(status.equals("Maybe")) {
             invite.setInviteStatus(invite.UNDECIDED);
         }
-        else if(status == 3) {
+        else if(status.equals("Not Going")) {
             invite.setInviteStatus(invite.NOT_GOING);
             LOG.info(invite.getInviteStatus());
         }
         eventInviteService.saveEventInvite(invite);
-        return "/";
+        return invite.getInviteStatus();
     }
 
     @RequestMapping(value = "/api/event/getAttending/{id}", method = RequestMethod.GET)

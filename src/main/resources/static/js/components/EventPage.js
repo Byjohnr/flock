@@ -24,7 +24,6 @@ var EventPage = React.createClass({
         this.setState({event:{location: event.target.value, eventDescription: this.state.event.eventDescription, eventName: this.state.event.eventName, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type, commentList: this.state.event.commentList, eventInvites: this.state.event.eventInvites}});
     },
     onSubmit: function (){
-        console.log("submitting");
         EventActions.editEvent(this.state.event);
     },
     createComment: function(){
@@ -32,13 +31,13 @@ var EventPage = React.createClass({
         EventActions.createComment(comment);
     },
     handleGoing: function() {
-        EventActions.setAttending(1);
+        EventInviteActions.setAttending("Going");
     },
     handleMaybe: function() {
-        EventActions.setAttending(2);
+        EventInviteActions.setAttending("Maybe");
     },
     handleNotGoing: function() {
-        EventActions.setAttending(3);
+        EventInviteActions.setAttending("Not Going");
     },
 
 
@@ -46,50 +45,34 @@ var EventPage = React.createClass({
         if (this.state.event === undefined) {
             return <div>Loading <i className="fa fa-spin fa-refresh"/></div>;
         }
-        console.log(this.state.event);
-        console.log(this.state.eventInvite);
-        console.log(this.state.eventInvite.toString() === "1");
         var attending;
         if (this.state.eventInvite.toString() === "0") {
-            attending = function()
-            {
-                return (
+            attending = (
                     <div className="btn-group" role="group">
-                        <input type="button" className="btn btn-success" id="Going" onClick={this.handleGoing}>Going</input>
+                        <button type="button" className="btn btn-success" id="Going" onClick={this.handleGoing}>Going</button>
                         <button type="button" className="btn btn-primary" id="Maybe" onClick={this.handleMaybe}>Maybe</button>
                         <button type="button" className="btn btn-danger" id="Not Going" onClick={this.handleNotGoing}>Not Going</button>
-                    </div>
-                );
-            };
+                    </div>);
         }
         if (this.state.eventInvite.toString() === "1") {
-            console.log("yes");
-            attending = function() {
-                return (
+            attending = (
                     <div>
-                        <input type="button" className="btn btn-success" id="Going" onClick={this.handleGoing}>Going</input>
-                    </div>
-                );
-            };
-            console.log(attending);
+                        <button type="button" className="btn btn-success" id="Going">Going</button>
+                    </div>);
         }
         if (this.state.eventInvite.toString() === "2") {
-            attending = function() {
-                return (
+            attending = (
                     <div className="btn-group" role="group">
-                        <button type="button" className="btn btn-primary" id="Maybe" onClick={this.handleMaybe}>Maybe</button>
+                        <button type="button" className="btn btn-primary" id="Maybe">Maybe</button>
                     </div>
-                );
-            };
+                )
         }
-        else {
-            attending = function() {
-                return (
+        if (this.state.eventInvite.toString() === "3") {
+            attending = (
                     <div className="btn-group" role="group">
-                        <button type="button" className="btn btn-danger" id="Not Going" onClick={this.handleNotGoing}>Not Going</button>
+                        <button type="button" className="btn btn-danger" id="Not Going">Not Going</button>
                     </div>
-                );
-            };
+                )
         }
 
         return (
