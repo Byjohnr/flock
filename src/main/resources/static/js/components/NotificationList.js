@@ -14,15 +14,16 @@ var NotificationList = React.createClass({
     },
     handleDelete: function () {
         console.log('deleting');
-       // NotificationActions.deleteNotification(id);onClick={handleDelete(notification.id)
+        //NotificationActions.deleteNotification(id);
     },
+
     render: function () {
         console.log('rendering');
         if (this.state.notifications === undefined) {
             return <div> Loading <i className="fa fa-spin fa-refresh align-center"/></div>;
         }
         var notificationNodes = this.state.notifications.map(function (notification) {
-            //var onClick = this.handleDelete.bind();
+            //var onClick = this.handleDelete.bind(handleDelete(notification.id));onClick={handleDelete(notification.id)
             return (<tr key={notification.id}>
                 <td>{notification.type}</td>
                 <td>{notification.message}</td>

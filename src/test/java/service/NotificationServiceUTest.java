@@ -32,7 +32,10 @@ public class NotificationServiceUTest extends UnitTestBase {
     }
     @Test
     public void deleteNotification() {
-
+        when(notificationRepo.findAll()).thenReturn(new ArrayList<>(MockData.getMockNotifications(10)));
+        List<Notification> notification = notificationService.getNotifications();
+        notificationService.deleteNotification(1);
+        assertEquals(notification.size(), 9);
     }
     @Test
     public void getNotificationDTOs(String email) {
