@@ -23,6 +23,15 @@ public class Connection {
     @JoinColumn(name = "user_2_id", referencedColumnName = "id")
     private User user2;
 
+    public Connection() {
+
+    }
+
+    public Connection(User user1, User user2) {
+        this.user1 = user1;
+        this.user2 = user2;
+    }
+
     public Integer getId() {
         return id;
     }
