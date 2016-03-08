@@ -28,6 +28,7 @@ var EventPage = React.createClass({
     },
     createComment: function(){
         var comment = this.refs.commentString.value;
+        console.log(comment.length);
         EventActions.createComment(comment);
     },
     handleGoing: function() {
@@ -86,7 +87,8 @@ var EventPage = React.createClass({
                         <div>
                             {attending}
                         </div>
-                        <h3> {this.state.event.description} </h3>
+
+                        <h3> {this.state.event.eventDescription} </h3>
 
                         <h3> Start: {this.state.event.eventStart} </h3>
 
