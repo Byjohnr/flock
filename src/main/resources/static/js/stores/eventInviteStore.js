@@ -19,7 +19,6 @@ var EventInviteStore = Reflux.createStore({
         })
     },
     pushAttending (data) {
-        console.log("triggered 2");
         this.trigger (data);
     },
     onSetAttending(data) {
