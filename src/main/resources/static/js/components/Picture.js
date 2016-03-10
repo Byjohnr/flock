@@ -7,27 +7,16 @@ var Picture = React.createClass({
         var self = this;
         var reader = new FileReader();
         var file = e.target.files[0];
-        console.log(file);
+        console.log("File: " + file);
 
-        //console.log(this.state.picture);
-        //this.state.picture = (reader.readAsDataURL(file)).result;
-        console.log(this.state.picture);
         reader.onload = function (upload) {
-            self.state.picture = upload.target.result;
+            var fileDataUrl = upload.target.result;
+            alert("File data url: " + fileDataUrl.toString());
+            PictureStore.onSavePicture(fileDataUrl);
         };
-        console.log(this.state.picture);
         reader.readAsDataURL(file);
-        console.log(this.state.picture);
         this.render();
     },
-    //updatePictureState: function(reader) {
-    //    var self = this;
-    //    console.log(this.state.picture);
-    //    reader.onload = function (upload) {
-    //        self.state.picture = upload.target.result;
-    //    };
-    //    console.log(this.state.picture);
-    //},
     render: function () {
         if (this.state.picture !== undefined) {
             return (

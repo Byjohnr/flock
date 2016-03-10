@@ -5,8 +5,8 @@ import cs309.service.PictureFileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
 import java.io.ByteArrayInputStream;
@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.Principal;
 
-@Controller
-@RequestMapping("/picture_upload")
+@RestController
+@RequestMapping("/api/picture_upload")
 public class PictureUploadRestController {
 
     private static final Logger LOG = LoggerFactory.getLogger(PictureUploadRestController.class);
@@ -25,7 +25,13 @@ public class PictureUploadRestController {
     @Autowired
     private PictureFileService pictureFileService;
 
-    @RequestMapping("/test")
+    @RequestMapping("/profile_picture")
+    public String profilePictureUpload(String pictureData) {
+        return pictureData;
+    }
+
+    /*
+    @RequestMapping("//*test")
     public String pictureUploadTest(Principal principal) {
         Class classType = this.getClass();
         URL url = classType.getResource(TEST_PICTURE_PATH);
@@ -40,4 +46,5 @@ public class PictureUploadRestController {
         }
         return "redirect:/";
     }
+    */
 }
