@@ -10,15 +10,15 @@ var PictureStore = Reflux.createStore({
         //};
         //reader.readAsDataURL(toUpload);
         $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            url: 'http://requestb.in/1j6qvbx1',///api/picture_upload/profile_picture',
-            //dataType: 'text',
-            method: "POST",
+            //headers: {
+            //    'Accept': 'application/json',
+            //    'Content-Type': 'application/json'
+            //},
+            url: '/api/picture_upload/profile_picture',
+            dataType: 'json',
+            method: 'POST',
             data: {
-                pictureData: '\"' + toUpload + '\"'
+                pictureData: toUpload
             },
             success: function (file) {
                 alert("success");
