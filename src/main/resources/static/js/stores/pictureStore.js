@@ -20,16 +20,11 @@ var PictureStore = Reflux.createStore({
             data: {
                 pictureData: toUpload
             },
-            success: function (file) {
-                alert("success");
-                this.handleFile
-            }
-            ,
+            success: alert("success"),
             error: function () {
                 console.log("There was an error uploading the picture to the server.");
             }
-        })
-        ;
+        });
     },
     handleFile: function (file) {
         alert("handleFile file: " + file);

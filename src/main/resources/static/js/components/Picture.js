@@ -11,7 +11,7 @@ var Picture = React.createClass({
 
         reader.onload = function (upload) {
             var fileDataUrl = upload.target.result;
-            alert("File data url: " + fileDataUrl.toString());
+            //alert("File data url: " + fileDataUrl.toString());
             PictureStore.onSavePicture(fileDataUrl);
         };
         reader.readAsDataURL(file);
@@ -38,3 +38,25 @@ var Picture = React.createClass({
         }
     }
 });
+
+Picture.styles = {
+        btn-file: {
+    position: relative,
+    overflow: hidden
+},
+ btn-file-input: {
+    position: absolute,
+    top: 0,
+    right: 0,
+    min-width: 100%,
+    min-height: 100%,
+    font-size: 100px,
+    text-align: right,
+    filter: alpha(opacity=0),
+    opacity: 0,
+    outline: none,
+    background: white,
+    cursor: inherit,
+    display: block
+}
+};
