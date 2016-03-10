@@ -14,9 +14,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by chasekoehler on 3/3/16.
- */
 public class CommentServiceUTest extends UnitTestBase {
     @Mock
     private CommentRepository commentRepository;
