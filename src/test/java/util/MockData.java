@@ -1,9 +1,6 @@
 package util;
 
-import cs309.data.Connection;
-import cs309.data.Event;
-import cs309.data.Notification;
-import cs309.data.User;
+import cs309.data.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +50,7 @@ public class MockData {
 
     public static List<User> getUsers(int k) {
         List<User> mockUsers = new ArrayList<>();
-        IntStream.range(0,k).forEach( i -> mockUsers.add(getUser(k)));
+        IntStream.range(0,k).forEach(i -> mockUsers.add(getUser(k)));
         return mockUsers;
     }
 
@@ -61,13 +58,20 @@ public class MockData {
         Connection connection = new Connection();
         connection.setId(k);
         connection.setUser1(getUser(k));
-        connection.setUser2(getUser(k+1));
+        connection.setUser2(getUser(k + 1));
         return connection;
     }
 
     public static List<Connection> getConnections(int k) {
         List<Connection> mockConnections = new ArrayList<>();
-        IntStream.range(0,k).forEach( i -> mockConnections.add(getConnection(k)));
+        IntStream.range(0,k).forEach(i -> mockConnections.add(getConnection(k)));
         return mockConnections;
+    }
+
+    public static Comment getComment(int k) {
+        Comment comment = new Comment();
+        comment.setId(k);
+        comment.setComment("Hey");
+        return  comment;
     }
 }

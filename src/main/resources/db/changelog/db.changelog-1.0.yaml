@@ -175,7 +175,7 @@ databaseChangeLog:
                   type: varchar(1000)
               - column:
                   name: time
-                  type: date
+                  type: datetime
 
    - changeSet:
            id: 4

@@ -6,6 +6,7 @@ import cs309.data.Comment;
 import cs309.dto.CreateEventDTO;
 import cs309.dto.ErrorsDTO;
 import cs309.dto.EventDTO;
+import cs309.service.CommentService;
 import cs309.service.EventInviteService;
 import cs309.service.UserService;
 import cs309.validator.CreateEventValidator;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -37,6 +39,9 @@ public class EventRestController {
 
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    private CommentService commentService;
 
     @Autowired
     private CreateEventValidator eventValidator;
@@ -62,6 +67,18 @@ public class EventRestController {
         List<EventDTO> eventDTOs = new ArrayList<>();
         eventService.getEvents().stream().forEach(event -> eventDTOs.add(new EventDTO(event)));
         return eventDTOs;
+    }
+
+    @RequestMapping(value = "/api/event/createComment/{id}", method = RequestMethod.POST)
+    public String createComment(@RequestBody String string, @PathVariable Integer id, Principal principal) {
+        Comment comment = new Comment();
+        Event event = eventService.getEvent(id);
+        comment.setEvent(event);
+        comment.setComment(string);
+        comment.setDateCreated(new Date());
+        comment.setOwner(userService.getUserByEmail(principal.getName()));
+        commentService.saveComment(comment);
+        return "/";
     }
 
     @RequestMapping(value = "/api/create", method = RequestMethod.POST)

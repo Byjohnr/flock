@@ -7,29 +7,30 @@ var EventPage = React.createClass({
         $('#' + id).pickadate();
     },
     getInitialState: function() {
-        return {event : undefined };
+        return {event : undefined};
     },
     componentDidMount: function() {
         EventActions.getEvent();
     },
     handleNameChange: function(event) {
         console.log("event name change");
-        this.setState({event:{eventName: event.target.value, eventDescription: this.state.event.eventDescription, location: this.state.event.location, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type, commentList: this.state.event.commentList, inviteList: this.state.event.inviteList}});
+        this.setState({event:{eventName: event.target.value, eventDescription: this.state.event.eventDescription, location: this.state.event.location, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type, commentList: this.state.event.commentList, eventInvites: this.state.event.eventInvites}});
     },
     handleDescriptionChange: function(event) {
-        this.setState({event:{eventDescription: event.target.value, eventName: this.state.event.eventName, location: this.state.event.location, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type, commentList: this.state.event.commentList, inviteList: this.state.event.inviteList}});
+        this.setState({event:{eventDescription: event.target.value, eventName: this.state.event.eventName, location: this.state.event.location, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type, commentList: this.state.event.commentList, eventInvites: this.state.event.eventInvites}});
     },
     handleLocationChange: function(event) {
-        this.setState({event:{location: event.target.value, eventDescription: this.state.event.eventDescription, eventName: this.state.event.eventName, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type, commentList: this.state.event.commentList, inviteList: this.state.event.inviteList}});
+        this.setState({event:{location: event.target.value, eventDescription: this.state.event.eventDescription, eventName: this.state.event.eventName, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type, commentList: this.state.event.commentList, eventInvites: this.state.event.eventInvites}});
     },
     onSubmit: function (){
         console.log("submitting");
-        var formData = {
-            eventName: this.refs.eventName,
-            description: this.refs.description,
-            location: this.refs.location
-        };
         EventActions.editEvent(this.state.event);
+    },
+    createComment: function(){
+        var comment = this.refs.commentString.value;
+        if (comment.length != 0) {
+            EventActions.createComment(comment);
+        }
     },
 
     render: function() {
@@ -60,6 +61,13 @@ var EventPage = React.createClass({
                     <div>
                         <h2 className="text-center"> Comments </h2>
                         <CommentList comments={this.state.event.commentList}/>
+                        <form>
+                            <div className="form-group">
+                                <label htmlFor="createComment">Create Comment</label>
+                                <input type="text" className="form-control" id="createComment" ref="commentString"/>
+                            </div>
+                        </form>
+                        <input type="button" className="btn btn-default" value="Submit" onClick={this.createComment}/>
                     </div>
                     <div>
                         <h2 className="text-center"> Invited </h2>
