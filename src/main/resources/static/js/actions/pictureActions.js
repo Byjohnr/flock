@@ -1,7 +1,7 @@
 var PictureActions = Reflux.createActions(
     [
-        "savePicture"//,
-        //"getPictureForUser",
-        //"getPictureForEvent"
+        "savePicture",
+        "getPictureForUser",
+        "getPictureForEvent"
     ]
 );

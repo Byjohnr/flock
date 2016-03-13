@@ -24,14 +24,14 @@ var btnFileInput = {
 };
 
 var Picture = React.createClass({
-    mixins: [Reflux.connect(PictureStore, 'savePicture')],
+    mixins: [Reflux.connect(PictureStore, 'picture')],
     getInitialState: function () {
         return {picture: undefined};
     },
     handleFile: function (e) {
         var reader = new FileReader();
         var file = e.target.files[0];
-
+        //PictureActions.savePicture(file);
         reader.onload = function (upload) {
             var fileDataUrl = upload.target.result;
             PictureActions.savePicture(fileDataUrl);
@@ -41,19 +41,23 @@ var Picture = React.createClass({
     render: function () {
         if (this.state.picture !== undefined) {
             return (
-                <div className="-align-center">
-                    <img src={this.state.picture}/>
-                    <span className="btn-sm btn-default btnFile text-center" style={btnFile}>Edit Picture<input style={btnFileInput} type="file"
-                                                                                                 multiple={false}
-                                                                                                 onChange={this.handleFile}/>
-                    </span>
+                <div className="container-fluid">
+                    <div className="row">
+                        <img src={this.state.picture} alt="NO PICTURE"/>
+                    </div>
+                    <div className="row btn btn-default btnFile" style={btnFile}>Edit Picture<input
+                        style={btnFileInput} type="file"
+                        multiple={false}
+                        onChange={this.handleFile}/>
+                    </div>
                 </div>
             );
         } else {
             return (
-                <div className="btn btn-default btnFile text-center" style={btnFile}>Upload Picture<input style={btnFileInput} type="file"
-                                                                                             multiple={false}
-                                                                                             onChange={this.handleFile}/>
+                <div className="btn btn-default btnFile" style={btnFile}>Upload Picture<input
+                    style={btnFileInput} type="file"
+                    multiple={false}
+                    onChange={this.handleFile}/>
                 </div>
             )
         }

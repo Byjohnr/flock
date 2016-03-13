@@ -18,20 +18,26 @@ var ViewAccount = React.createClass({
             return (
                 <div>
                     <NavBar />
-                    <div className="text-center">
-                        <Picture className="text-center" />
-                        <h1 className="text-center">
-                            {this.state.userInformation.firstName} {this.state.userInformation.lastName}
-                        </h1>
-                        <h2 className="text-center">
-                            {this.state.userInformation.email}
-                        </h2>
-                        <h2 className="text-center">
-                            {this.state.userInformation.description}
-                        </h2>
-                        <h2 className="text-center">
-                            {this.state.userInformation.currentCity}
-                        </h2>
+                    <div className="text-center container">
+                        <div className="row">
+                            <div className="col-md-6 col-xs-12">
+                                <Picture/>
+                            </div>
+                            <div className="col-md-6 col-xs-12">
+                                <h1>
+                                    {this.state.userInformation.firstName} {this.state.userInformation.lastName}
+                                </h1>
+                                <h2>
+                                    {this.state.userInformation.email}
+                                </h2>
+                                <h2>
+                                    {this.state.userInformation.description}
+                                </h2>
+                                <h2>
+                                    {this.state.userInformation.currentCity}
+                                </h2>
+                            </div>
+                        </div>
                     </div>
                 </div>
             );

@@ -1,33 +1,31 @@
 var PictureStore = Reflux.createStore({
     listenables: [PictureActions],
     onSavePicture: function (toUpload) {
-        console.log("toUpload: " + toUpload);
-        //var reader = new FileReader();
-        //var toUpload = e.target.files[0];
-        //reader.onload = function (upload) {
-        //    var fileDataUrl = upload.target.result;
-        //    alert("File data url: " + fileDataUrl.toString());
-        //};
-        //reader.readAsDataURL(toUpload);
+        console.log("toUpload: " + toUpload.toString());
         $.ajax({
-            //headers: {
-            //    'Accept': 'application/json',
-            //    'Content-Type': 'application/json'
-            //},
             url: '/api/picture_upload/profile_picture',
-            dataType: 'json',
             method: 'POST',
+            //processData: false,
+            //contentType: false,
             data: {
                 pictureData: toUpload
             },
-            success: alert("success"),
+            success: this.handleFile,
             error: function () {
                 console.log("There was an error uploading the picture to the server.");
             }
         });
     },
-    handleFile: function (file) {
-        alert("handleFile file: " + file);
-        this.trigger(file);
+    handleFile: function (data) {
+        //var self = this;
+        //var reader = new FileReader();
+        console.log("handleFile file: " + data);
+        //reader.onload = function (upload) {
+        //    var fileDataUrl = upload.target.result;
+        //    console.log("handleFile fileDataUrl: " + fileDataUrl);
+        //    self.trigger(fileDataUrl);
+        //};
+        //reader.readAsDataURL(data);
+        this.trigger(data);
     }
 });
