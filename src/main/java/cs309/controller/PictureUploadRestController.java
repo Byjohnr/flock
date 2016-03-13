@@ -29,6 +29,7 @@ public class PictureUploadRestController {
     @ResponseBody
     @RequestMapping("/profile_picture")
     public String profilePictureUpload(String pictureData) {
+        //Logic to parse the awesome picture encoded string
         return pictureData;
     }
 

@@ -1,28 +1,49 @@
+var btnFile = {
+    position: 'relative',
+    overflow: 'hidden',
+    alignSelf: 'center',
+    alignItems: 'center'
+};
+
+var btnFileInput = {
+    position: 'absolute',
+    top: '0',
+    right: '0',
+    bottom: '0',
+    left: '0',
+    minWidth: '100%',
+    minHeight: '100%',
+    fontSize: '100px',
+    textAlign: 'right',
+    filter: 'alpha(opacity=0)',
+    opacity: '0',
+    outline: 'none',
+    background: 'white',
+    cursor: 'inherit',
+    display: 'block'
+};
+
 var Picture = React.createClass({
     mixins: [Reflux.connect(PictureStore, 'savePicture')],
     getInitialState: function () {
         return {picture: undefined};
     },
     handleFile: function (e) {
-        var self = this;
         var reader = new FileReader();
         var file = e.target.files[0];
-        console.log("File: " + file);
 
         reader.onload = function (upload) {
             var fileDataUrl = upload.target.result;
-            //alert("File data url: " + fileDataUrl.toString());
-            PictureStore.onSavePicture(fileDataUrl);
+            PictureActions.savePicture(fileDataUrl);
         };
         reader.readAsDataURL(file);
-        this.render();
     },
     render: function () {
         if (this.state.picture !== undefined) {
             return (
-                <div className="text-center">
+                <div className="-align-center">
                     <img src={this.state.picture}/>
-                    <span className="btn-sm btn-default btn-file text-center">Edit Picture<input type="file"
+                    <span className="btn-sm btn-default btnFile text-center" style={btnFile}>Edit Picture<input style={btnFileInput} type="file"
                                                                                                  multiple={false}
                                                                                                  onChange={this.handleFile}/>
                     </span>
@@ -30,7 +51,7 @@ var Picture = React.createClass({
             );
         } else {
             return (
-                <div className="btn btn-default btn-file -align-center">Upload Picture<input type="file"
+                <div className="btn btn-default btnFile text-center" style={btnFile}>Upload Picture<input style={btnFileInput} type="file"
                                                                                              multiple={false}
                                                                                              onChange={this.handleFile}/>
                 </div>
@@ -38,25 +59,3 @@ var Picture = React.createClass({
         }
     }
 });
-
-Picture.styles = {
-        btn-file: {
-    position: relative,
-    overflow: hidden
-},
- btn-file-input: {
-    position: absolute,
-    top: 0,
-    right: 0,
-    min-width: 100%,
-    min-height: 100%,
-    font-size: 100px,
-    text-align: right,
-    filter: alpha(opacity=0),
-    opacity: 0,
-    outline: none,
-    background: white,
-    cursor: inherit,
-    display: block
-}
-};

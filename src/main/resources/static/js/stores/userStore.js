@@ -45,6 +45,6 @@ var UserStore = Reflux.createStore({
             url: '/api/user/' + id,
             dataType:'json',
             success : this.returnInformationSuccess
-        })
+        });
     }
 });
