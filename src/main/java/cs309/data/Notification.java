@@ -11,8 +11,8 @@ import java.util.jar.Attributes;
 @Table(name = "Notification")
 public class Notification {
 
-    public static final Integer EVENTINVITE = 1;
-    public static final Integer USERCONNECTION = 2;
+    public static final Integer EVENT_INVITE = 1;
+    public static final Integer USER_CONNECTION = 2;
 
     @Id
     @Column(name = "id")
@@ -34,9 +34,6 @@ public class Notification {
 
     @Column(name = "time")
     private Date dateCreated;
-
-    @Column(name = "notification_name")
-    private String notificationName;
 
     public Notification() {
 
@@ -64,14 +61,6 @@ public class Notification {
 
     public void setCreator(User creator) {
         this.creator = creator;
-    }
-
-    public String getNotificationName() {
-        return notificationName;
-    }
-
-    public void setNotificationName(String notificationName) {
-        this.notificationName = notificationName;
     }
 
     public Integer getType() {

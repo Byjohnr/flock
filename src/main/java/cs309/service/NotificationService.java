@@ -33,7 +33,7 @@ public class NotificationService {
 
         for (Notification notification : notificationRepository.getNotificationsByEmail(email)) {
             NotificationDTO notificationDTO = new NotificationDTO();
-            if (notification.getType().equals(Notification.EVENTINVITE)) {
+            if (notification.getType().equals(Notification.EVENT_INVITE)) {
                 Event event = eventService.getEvent(notification.getTypeId());
                 message = "You have been invited to " + event.getEventName();
                 url = "/event/" + notification.getTypeId();
@@ -44,9 +44,9 @@ public class NotificationService {
                 notificationDtoList.add(notificationDTO);
                 //urls would be /event/id  /user/{id}
             }
-            if (notification.getType().equals(Notification.USERCONNECTION)) {
+            if (notification.getType().equals(Notification.USER_CONNECTION)) {
                 User user = userService.getUser(notification.getTypeId());
-                message = user.getFirstName() + user.getLastName() + " wants to be your connection";
+                message = user.getFirstName() + " " + user.getLastName() + " wants to be your connection";
                 url = "/user/" + user.getId();
                 id = notification.getId();
                 notificationDTO.setId(id);

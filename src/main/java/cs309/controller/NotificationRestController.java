@@ -11,9 +11,6 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by John on 2/18/2016.
- */
 @RestController
 public class NotificationRestController {
 
@@ -25,7 +22,7 @@ public class NotificationRestController {
         return notificationService.getNotificationDTOs(principal.getName());
     }
     //@RequestMapping ("/api/notifications")
-    public void deleteNotification(Integer id){
-        notificationService.deleteNotification(id);
-    }
+    //public void deleteNotification(Integer id){
+    //    notificationService.deleteNotification(id);
+    //}
 }

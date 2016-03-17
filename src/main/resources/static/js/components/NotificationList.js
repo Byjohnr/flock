@@ -1,8 +1,3 @@
-/**
- * Created by John on 2/11/2016.
- */
-
-
 var NotificationList = React.createClass({
     mixins: [Reflux.connect(NotificationStore, 'notifications')],
     getInitialState: function () {

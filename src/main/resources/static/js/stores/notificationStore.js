@@ -1,7 +1,3 @@
-/**
- * Created by John on 2/11/2016.
- */
-
 var NotificationStore = Reflux.createStore({
     listenables: [NotificationActions],
     init : function() {

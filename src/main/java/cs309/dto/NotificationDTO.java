@@ -1,9 +1,5 @@
 package cs309.dto;
 
-/**
- * Created by John on 2/29/2016.
- */
-
 public class NotificationDTO {
     private String url;
     private String message;
