@@ -12,7 +12,11 @@ var ConnectionStore = Reflux.createStore({
         this.trigger(data);
     },
     onGetConnectionGroups : function() {
-
+        $.ajax({
+            url: "/api/connectionGroups",
+            dataType: 'json',
+            success : this.triggerConnections
+        });
     },
     onGetConnectionStatus : function() {
         var parent = this;
@@ -25,6 +29,28 @@ var ConnectionStore = Reflux.createStore({
                 console.log("ya dun goofed");
             }
         });
+    },
+    onAddConnectionGroup : function(groupName, groupId) {
+        console.log(groupName);
+        console.log(groupId);
+        var url = '/api/connectionGroup/create';
+        if (groupName != undefined) {
+            url = '/api/connectionGroup/' + groupId + '/edit'
+        }
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: url,
+            data: groupName,
+            type: 'POST',
+            success : function() {
+                console.log("success dude");
+                window.location.reload(true);
+                //location.reload();
+            }
+        })
     },
     onRejectConnection : function() {
         this.handleConnectionAjax('/api/connection/reject/', 'POST');

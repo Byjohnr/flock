@@ -1,8 +1,10 @@
 package cs309.service;
 
 import cs309.data.Connection;
+import cs309.data.ConnectionGroup;
 import cs309.data.ConnectionRequest;
 import cs309.data.User;
+import cs309.repo.ConnectionGroupRepository;
 import cs309.repo.ConnectionRepository;
 import cs309.repo.ConnectionRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class ConnectionService {
 
     @Autowired
     private ConnectionRequestRepository connectionRequestRepository;
+
+    @Autowired
+    private ConnectionGroupRepository connectionGroupRepository;
 
     public List<User> getConnections(String email) {
         return connectionRepository.getConnections(email);
@@ -61,5 +66,14 @@ public class ConnectionService {
     @Transactional
     public void saveConnectionRequest(ConnectionRequest connectionRequest) {
         connectionRequestRepository.save(connectionRequest);
+    }
+
+    public List<ConnectionGroup> getConnectionGroupByEmail(String email) {
+        return connectionGroupRepository.getConnectionGroupsByEmail(email);
+    }
+
+    @Transactional
+    public void saveConnectionGroup(ConnectionGroup connectionGroup) {
+        connectionGroupRepository.save(connectionGroup);
     }
 }

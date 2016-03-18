@@ -1,16 +1,14 @@
 package cs309.controller;
 
 import cs309.data.Connection;
+import cs309.data.ConnectionGroup;
 import cs309.data.ConnectionRequest;
 import cs309.data.User;
 import cs309.dto.ConnectionDTO;
 import cs309.service.ConnectionService;
 import cs309.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ public class ConnectionRestController {
     @RequestMapping("/connections/get")
     public List<ConnectionDTO> getConnections(Principal principal) {
         List<ConnectionDTO> connections = new ArrayList<>();
-        if(principal != null) {
+        if (principal != null) {
             connectionService.getConnections(principal.getName()).stream().forEach(user ->
                     connections.add(new ConnectionDTO(user.getId(), user.getFirstName(), user.getLastName())));
         }
@@ -56,7 +54,7 @@ public class ConnectionRestController {
     public String requestConnection(@PathVariable int userId, Principal principal) {
         User userSignedIn = userService.getUserByEmail(principal.getName());
         User otherUser = userService.getUser(userId);
-        connectionService.saveConnectionRequest(new ConnectionRequest(userSignedIn,otherUser));
+        connectionService.saveConnectionRequest(new ConnectionRequest(userSignedIn, otherUser));
         return "requesting";
     }
 
@@ -83,5 +81,32 @@ public class ConnectionRestController {
         User otherUser = userService.getUser(userId);
         connectionService.deleteConnectionRequest(userSignedIn, otherUser);
         return "nothing";
+    }
+
+    @RequestMapping(value = "/connectionGroups", method = RequestMethod.GET)
+    public List<ConnectionGroup> connectionGroups(Principal principal) {
+        return connectionService.getConnectionGroupByEmail(principal.getName());
+    }
+
+    @RequestMapping(value = "/connectionGroup/create", method = RequestMethod.POST)
+    public void createConnectionGroup(@RequestBody String groupName, Principal principal) {
+        User groupCreator = userService.getUserByEmail(principal.getName());
+        ConnectionGroup connectionGroup = new ConnectionGroup(groupName, groupCreator);
+        connectionService.saveConnectionGroup(connectionGroup);
+    }
+
+    @RequestMapping(value = "/connectionGroup/{groupId}/edit")
+    public void editConnectionGroupName(@RequestBody String groupName, @PathVariable int groupId) {
+//        TODO jeffreyh 3/16/16
+    }
+
+    @RequestMapping(value = "/connectionGroup/{groupId}/add", method = RequestMethod.POST)
+    public void addConnectionToConnectionGroup(@RequestBody int userId, Principal principal) {
+//        TODO jeffreyh 3/16/16
+    }
+
+    @RequestMapping(value = "/connectionGroup/{groupId}/remove", method = RequestMethod.POST)
+    public void removeConnectionFromConnectionGroup(@RequestBody int userId, Principal principal) {
+        // TODO jeffreyh 3/16/16
     }
 }
