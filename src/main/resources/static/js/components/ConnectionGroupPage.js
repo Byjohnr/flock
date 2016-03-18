@@ -1,5 +1,5 @@
 var ConnectionGroupPage = React.createClass({
-    mixins: [React.connect(ConnectionStore, 'connectionGroup')],
+    mixins: [Reflux.connect(ConnectionStore, 'connectionGroup')],
     getInitialState : function() {
         return {connectionGroup : undefined};
     },
@@ -10,8 +10,17 @@ var ConnectionGroupPage = React.createClass({
         if(this.state.connectionGroup === undefined) {
             return <div>Loading</div>
         } else {
-        //     TODO
+            return (
+                <div>
+                    <div>
+                        <h2>Added Connections</h2>
+                    </div>
+                    <div>
+                        <h2>Unadded Connections</h2>
+                    </div>
+                </div>
+            );
         }
     }
 });
-ReactDOM.create(<ConnectionGroupPage />, document.getElementById("connection_group"))
+ReactDOM.create(<ConnectionGroupPage />, document.getElementById("connection_group"));

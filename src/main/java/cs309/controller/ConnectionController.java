@@ -13,7 +13,7 @@ public class ConnectionController {
         return "connectionGroups";
     }
 
-    @RequestMapping("/connectionGroup/{id}")
+    @RequestMapping("/account/connectionGroup/{id}")
     public String connectionGroup() {
         return "connectionGroup";
     }

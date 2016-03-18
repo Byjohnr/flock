@@ -8,6 +8,7 @@ import cs309.dto.ConnectionDTO;
 import cs309.service.ConnectionService;
 import cs309.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -95,9 +96,20 @@ public class ConnectionRestController {
         connectionService.saveConnectionGroup(connectionGroup);
     }
 
+    @RequestMapping(value = "/connectionGroup/delete", method = RequestMethod.POST)
+    public void deleteConnectionGroup(@RequestBody String groupId) {
+        ConnectionGroup connectionGroup = connectionService.getConnectionGroupById(Integer.decode(groupId));
+        connectionService.deleteConnectionGroup(connectionGroup);
+    }
+
     @RequestMapping(value = "/connectionGroup/{groupId}/edit")
+    @ResponseStatus(value = HttpStatus.OK)
     public void editConnectionGroupName(@RequestBody String groupName, @PathVariable int groupId) {
-//        TODO jeffreyh 3/16/16
+        ConnectionGroup connectionGroup = connectionService.getConnectionGroupById(groupId);
+        if (groupName != null) {
+            connectionGroup.setGroupName(groupName);
+            connectionService.saveConnectionGroup(connectionGroup);
+        }
     }
 
     @RequestMapping(value = "/connectionGroup/{groupId}/add", method = RequestMethod.POST)

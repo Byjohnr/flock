@@ -13,6 +13,14 @@ var ConnectionGroupPage = React.createClass({
         this.setState({groupName : groupName});
         this.setState({groupId : groupId});
     },
+    handleNewGroup : function() {
+        this.setState({groupName : undefined});
+        this.setState({groupId : undefined});
+
+    },
+    handleDelete : function(groupId) {
+        ConnectionActions.deleteConnectionGroup(groupId);
+    },
     createGroup : function() {
         ConnectionActions.addConnectionGroup(this.state.groupName, this.state.groupId);
     },
@@ -33,7 +41,7 @@ var ConnectionGroupPage = React.createClass({
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={this.createGroup}>Create Group</button>
+                            <button type="button" className="btn btn-primary" onClick={this.createGroup}>Save Group</button>
                         </div>
                     </div>
                 </div>
@@ -48,12 +56,11 @@ var ConnectionGroupPage = React.createClass({
             var connectionGroups = this.state.groups.map(function(connectionGroup) {
                 return (
                     <div key={connectionGroup.id} className="col-md-8 col-md-offset-1">
-                        {modalCreate}
                         <div className="col-sm-8">
                             {connectionGroup.groupName}
                             <a href={'/account/connectionGroup/' + connectionGroup.id} className="btn btn-default">Manage Connections</a>
                             <button onClick={blah.handleEditNameChange.bind(blah, connectionGroup.id, connectionGroup.groupName)} className="btn btn-default"  data-toggle="modal" data-target="#createModal">Change Name</button>
-                            <button className="btn btn-danger">Delete</button>
+                            <button className="btn btn-danger" onClick={blah.handleDelete.bind(blah, connectionGroup.id)}>Delete</button>
                         </div>
                     </div>
                 );
@@ -61,10 +68,11 @@ var ConnectionGroupPage = React.createClass({
             return (
                 <div className="row">
                     <NavBar />
+                    {modalCreate}
                     <div className="col-md-8 col-md-offset-2">
                         <h2>Connection Groups
-                            <span><t/>
-                                <button type="button" className="btn btn-primary btn-lg" data-toggle="modal" data-target="#createModal">
+                            <span>
+                                <button type="button" className="btn btn-primary btn-lg" data-toggle="modal" data-target="#createModal" onClick={this.handleNewGroup}>
                                     Create Connection Group
                                 </button>
                             </span>

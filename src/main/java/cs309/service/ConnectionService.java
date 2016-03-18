@@ -76,4 +76,13 @@ public class ConnectionService {
     public void saveConnectionGroup(ConnectionGroup connectionGroup) {
         connectionGroupRepository.save(connectionGroup);
     }
+
+    public ConnectionGroup getConnectionGroupById(int id) {
+        return connectionGroupRepository.findOne(id);
+    }
+
+    @Transactional
+    public void deleteConnectionGroup(ConnectionGroup connectionGroup) {
+        connectionGroupRepository.delete(connectionGroup);
+    }
 }

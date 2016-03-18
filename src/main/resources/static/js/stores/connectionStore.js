@@ -34,7 +34,7 @@ var ConnectionStore = Reflux.createStore({
         console.log(groupName);
         console.log(groupId);
         var url = '/api/connectionGroup/create';
-        if (groupName != undefined) {
+        if (groupId != undefined) {
             url = '/api/connectionGroup/' + groupId + '/edit'
         }
         $.ajax({
@@ -48,7 +48,22 @@ var ConnectionStore = Reflux.createStore({
             success : function() {
                 console.log("success dude");
                 window.location.reload(true);
-                //location.reload();
+            }
+        })
+    },
+    onDeleteConnectionGroup : function(groupId) {
+        console.log(groupId);
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: '/api/connectionGroup/delete',
+            data: JSON.stringify(groupId),
+            type: 'POST',
+            success : function() {
+                console.log("success dude");
+                window.location.reload(true);
             }
         })
     },
