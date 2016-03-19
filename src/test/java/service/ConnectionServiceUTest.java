@@ -34,8 +34,8 @@ public class ConnectionServiceUTest extends UnitTestBase {
 
     @Test
     public void getConnections() {
-        when(connectionRepository.getConnections("jabba")).thenReturn(MockData.getUsers(3));
-        List<User> users = connectionService.getConnections("jabba");
+        when(connectionRepository.getConnectionsByEmail("jabba")).thenReturn(MockData.getUsers(3));
+        List<User> users = connectionService.getConnectionsByEmail("jabba");
         assertTrue(users.size() == 3);
     }
 

@@ -19,7 +19,6 @@ var ConnectionStore = Reflux.createStore({
         });
     },
     onGetConnectionStatus : function() {
-        var parent = this;
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
         $.ajax({
             url: '/api/connection/status/' + id,
@@ -29,6 +28,15 @@ var ConnectionStore = Reflux.createStore({
                 console.log("ya dun goofed");
             }
         });
+    },
+    onGetConnectionGroup : function() {
+        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+
+        $.ajax({
+            url: '/api/connectionGroup/' + id,
+            dataType: 'json',
+            success : this.triggerStatus
+        })
     },
     onAddConnectionGroup : function(groupName, groupId) {
         console.log(groupName);
@@ -93,6 +101,12 @@ var ConnectionStore = Reflux.createStore({
     },
     triggerStatus : function(data) {
         this.trigger(data);
+    },
+    onAddConnectionToGroup : function(userId) {
+    //    TODO jeffreyh 3/18/16
+    },
+    onRemoveConnectionFromGroup : function(userId) {
+    //    TODO jeffreyh 3/18/16
     }
 
 });

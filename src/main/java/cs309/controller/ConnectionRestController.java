@@ -5,6 +5,7 @@ import cs309.data.ConnectionGroup;
 import cs309.data.ConnectionRequest;
 import cs309.data.User;
 import cs309.dto.ConnectionDTO;
+import cs309.dto.ConnectionGroupDTO;
 import cs309.service.ConnectionService;
 import cs309.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class ConnectionRestController {
     public List<ConnectionDTO> getConnections(Principal principal) {
         List<ConnectionDTO> connections = new ArrayList<>();
         if (principal != null) {
-            connectionService.getConnections(principal.getName()).stream().forEach(user ->
+            connectionService.getConnectionsByEmail(principal.getName()).stream().forEach(user ->
                     connections.add(new ConnectionDTO(user.getId(), user.getFirstName(), user.getLastName())));
         }
         return connections;
@@ -120,5 +121,24 @@ public class ConnectionRestController {
     @RequestMapping(value = "/connectionGroup/{groupId}/remove", method = RequestMethod.POST)
     public void removeConnectionFromConnectionGroup(@RequestBody int userId, Principal principal) {
         // TODO jeffreyh 3/16/16
+    }
+
+    @RequestMapping(value = "/connectionGroup/{groupId}")
+    public ConnectionGroupDTO getConnectionGroupUsers(@PathVariable int groupId, Principal principal) {
+        List<ConnectionDTO> connectionsInGroup = new ArrayList<>();
+        List<ConnectionDTO> connectionsNotInGroup = new ArrayList<>();
+        connectionService.getConnectionsInConnectionGroupByGroupId(groupId).stream().forEach(
+                user -> connectionsInGroup.add(
+                        new ConnectionDTO(user.getId(),user.getFirstName(),user.getLastName())
+                )
+        );
+        connectionService.getConnectionsNotInGroupByGroupIdAndEmail(groupId, principal.getName())
+                .stream().forEach(
+                user -> connectionsNotInGroup.add(
+                        new ConnectionDTO(user.getId(), user.getFirstName(), user.getLastName())
+                )
+        );
+
+        return new ConnectionGroupDTO(connectionsInGroup, connectionsNotInGroup);
     }
 }

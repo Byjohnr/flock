@@ -24,7 +24,7 @@ public class ConnectionGroup {
     private String groupName;
 
     @OneToMany(mappedBy = "connectionGroup")
-    private List<ConnectionGroupUser> groupUsers = new ArrayList<ConnectionGroupUser>();
+    private List<ConnectionGroupUser> groupUsers = new ArrayList<>();
 
     public ConnectionGroup() {
 

@@ -45,7 +45,7 @@ public class ConnectionRestControllerUTest extends UnitTestBase {
     @Test
     public void getConnections() throws Exception{
         Principal principal = mock(Principal.class);
-        when(connectionService.getConnections(principal.getName())).thenReturn(MockData.getUsers(4));
+        when(connectionService.getConnectionsByEmail(principal.getName())).thenReturn(MockData.getUsers(4));
         this.mockMvc.perform(get("/api/connections/get").accept(MediaType.APPLICATION_JSON).principal(principal))
 
                 .andExpect(status().isOk())

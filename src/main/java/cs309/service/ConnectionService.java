@@ -5,6 +5,7 @@ import cs309.data.ConnectionGroup;
 import cs309.data.ConnectionRequest;
 import cs309.data.User;
 import cs309.repo.ConnectionGroupRepository;
+import cs309.repo.ConnectionGroupUserRepository;
 import cs309.repo.ConnectionRepository;
 import cs309.repo.ConnectionRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,11 @@ public class ConnectionService {
     @Autowired
     private ConnectionGroupRepository connectionGroupRepository;
 
-    public List<User> getConnections(String email) {
-        return connectionRepository.getConnections(email);
+    @Autowired
+    private ConnectionGroupUserRepository connectionGroupUserRepository;
+
+    public List<User> getConnectionsByEmail(String email) {
+        return connectionRepository.getConnectionsByEmail(email);
     }
 
     /**
@@ -84,5 +88,13 @@ public class ConnectionService {
     @Transactional
     public void deleteConnectionGroup(ConnectionGroup connectionGroup) {
         connectionGroupRepository.delete(connectionGroup);
+    }
+
+    public List<User> getConnectionsInConnectionGroupByGroupId(int groupId) {
+        return connectionGroupUserRepository.getUsersInConnectionGroup(groupId);
+    }
+
+    public List<User> getConnectionsNotInGroupByGroupIdAndEmail(int groupId, String email) {
+        return connectionGroupUserRepository.getUsersNotInConnectionGroupByGroupIdAndEmail(groupId, email);
     }
 }
