@@ -94,4 +94,49 @@ public class ConnectionServiceUTest extends UnitTestBase {
         connectionService.saveConnectionRequest(connectionRequest);
         verify(connectionRequestRepository, times(1)).save(connectionRequest);
     }
+
+    @Test
+    public void getConnectionGroupByEmail() {
+//        TODO
+    }
+
+    @Test
+    public void saveConnectionGroup() {
+//        TODO
+    }
+
+    @Test
+    public void getConnectionGroupById() {
+//        TODO
+    }
+
+    @Test
+    public void deleteConnectionGroup() {
+//        TODO
+    }
+
+    @Test
+    public void getConnectionsInConnectionGroupByGroupId() {
+//        TODO
+    }
+
+    @Test
+    public void getConnectionsNotInGroupBtGroupIdAndEmail() {
+//        TODO
+    }
+
+    @Test
+    public void saveConnectionGroupUser() {
+//        TODO
+    }
+
+    @Test
+    public void deleteConnectionGroupUser() {
+//        TODO
+    }
+
+    @Test
+    public void getConnectionGroupUserByUserIdAndGroupId() {
+//        TODO
+    }
 }

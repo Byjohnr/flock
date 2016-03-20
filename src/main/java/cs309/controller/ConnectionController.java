@@ -9,12 +9,12 @@ public class ConnectionController {
 
 
     @RequestMapping("/account/connectionGroups")
-    public String connectionGroupPage() {
+    public String connectionGroupListPage() {
         return "connectionGroups";
     }
 
     @RequestMapping("/account/connectionGroup/{id}")
-    public String connectionGroup() {
+    public String connectionGroupPage() {
         return "connectionGroup";
     }
 }

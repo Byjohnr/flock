@@ -102,4 +102,39 @@ public class ConnectionRestControllerUTest extends UnitTestBase {
                 .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(content().string("nothing"));
     }
+
+    @Test
+    public void connectionGroups() throws Exception {
+//        TODO
+    }
+
+    @Test
+    public void createConnectionGroup() throws Exception {
+//        TODO
+    }
+
+    @Test
+    public void deleteConnectionGroup() throws Exception {
+//        TODO
+    }
+
+    @Test
+    public void editConnectionGroupName() throws Exception {
+//        TODO
+    }
+
+    @Test
+    public void addConnectionToConnectionGroup() throws Exception {
+//        TODO
+    }
+
+    @Test
+    public void removeConnectionFromConnectionGroup() throws Exception {
+//        TODO
+    }
+
+    @Test
+    public void getConnectionGroupUsers() throws Exception {
+//        TODO
+    }
 }
