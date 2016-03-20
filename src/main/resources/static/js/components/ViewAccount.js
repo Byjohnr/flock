@@ -18,29 +18,36 @@ var ViewAccount = React.createClass({
     },
     render: function () {
         var connectionStatus = "";
+        var connectionGroupLink = <a href="/account/connectionGroups">My Connection Groups</a> ;
         if(this.props.account != true) {
             connectionStatus = <ConnectionStatus />;
-
+            connectionGroupLink = "";
         }
+
         if (this.state.userInformation !== undefined) {
             return (
-                <div>
+                <div className="row">
                     <NavBar />
-                    <div className="text-right">
-                        {connectionStatus}
+                    <div className="col-md-2">
+                        {connectionGroupLink}
                     </div>
-                    <h1 className="text-center">
-                        {this.state.userInformation.firstName} {this.state.userInformation.lastName}
-                    </h1>
-                    <h2 className="text-center">
-                        {this.state.userInformation.email}
-                    </h2>
-                    <h2 className="text-center">
-                        {this.state.userInformation.description}
-                    </h2>
-                    <h2 className="text-center">
-                        {this.state.userInformation.currentCity}
-                    </h2>
+                    <div className="col-md-8">
+                        <div className="text-right">
+                            {connectionStatus}
+                        </div>
+                        <h1 className="text-center">
+                            {this.state.userInformation.firstName} {this.state.userInformation.lastName}
+                        </h1>
+                        <h2 className="text-center">
+                            {this.state.userInformation.email}
+                        </h2>
+                        <h2 className="text-center">
+                            {this.state.userInformation.description}
+                        </h2>
+                        <h2 className="text-center">
+                            {this.state.userInformation.currentCity}
+                        </h2>
+                    </div>
                 </div>
             );
         } else {

@@ -10,6 +10,7 @@ public class ConnectionGroupUser {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue
     @JsonIgnore
     private Integer id;
 
@@ -21,6 +22,15 @@ public class ConnectionGroupUser {
     @JoinColumn(name = "connection_group_id", referencedColumnName = "id")
     @JsonIgnore
     private ConnectionGroup connectionGroup;
+
+    public ConnectionGroupUser() {
+
+    }
+
+    public ConnectionGroupUser(User user, ConnectionGroup connectionGroup) {
+        this.user = user;
+        this.connectionGroup = connectionGroup;
+    }
 
     public Integer getId() {
         return id;

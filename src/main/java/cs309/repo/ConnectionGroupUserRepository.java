@@ -13,6 +13,6 @@ public interface ConnectionGroupUserRepository extends JpaRepository<ConnectionG
     @Query("select u from ConnectionGroupUser c, User u where c.user.id = u.id and c.connectionGroup.id = :groupId")
     List<User> getUsersInConnectionGroup(@Param("groupId") int groupId);
 
-    @Query("select u from ConnectionGroup cg, ConnectionGroupUser cgu, Connection c, User u where (c.user1.id = u.id and c.user2.email =:email or c.user2.id = u.id and c.user1.email =:email) and (cg.id =:groupId and cgu.connectionGroup.id = :groupId) and u.id <> cgu.user.id")
-    List<User> getUsersNotInConnectionGroupByGroupIdAndEmail(@Param("groupId") int groupId, @Param("email") String email);
+    @Query("select cgu from ConnectionGroupUser cgu where cgu.connectionGroup.id =:groupId and cgu.user.id =:userId")
+    ConnectionGroupUser getConnectionGroupUserByUserIdAndGroupId(@Param("userId") int userId, @Param("groupId") int groupId);
 }

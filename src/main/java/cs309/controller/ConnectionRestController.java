@@ -1,9 +1,6 @@
 package cs309.controller;
 
-import cs309.data.Connection;
-import cs309.data.ConnectionGroup;
-import cs309.data.ConnectionRequest;
-import cs309.data.User;
+import cs309.data.*;
 import cs309.dto.ConnectionDTO;
 import cs309.dto.ConnectionGroupDTO;
 import cs309.service.ConnectionService;
@@ -114,13 +111,15 @@ public class ConnectionRestController {
     }
 
     @RequestMapping(value = "/connectionGroup/{groupId}/add", method = RequestMethod.POST)
-    public void addConnectionToConnectionGroup(@RequestBody int userId, Principal principal) {
-//        TODO jeffreyh 3/16/16
+    public void addConnectionToConnectionGroup(@RequestBody String userId, @PathVariable int groupId, Principal principal) {
+        ConnectionGroupUser connectionGroupUser = new ConnectionGroupUser(userService.getUser(Integer.decode(userId)), connectionService.getConnectionGroupById(groupId));
+        connectionService.saveConnectionGroupUser(connectionGroupUser);
     }
 
     @RequestMapping(value = "/connectionGroup/{groupId}/remove", method = RequestMethod.POST)
-    public void removeConnectionFromConnectionGroup(@RequestBody int userId, Principal principal) {
-        // TODO jeffreyh 3/16/16
+    public void removeConnectionFromConnectionGroup(@RequestBody String userId, @PathVariable int groupId, Principal principal) {
+        ConnectionGroupUser connectionGroupUser = connectionService.getConnectionGroupUserByUserIdAndGroupId(Integer.decode(userId), groupId);
+        connectionService.deleteConnectionGroupUser(connectionGroupUser);
     }
 
     @RequestMapping(value = "/connectionGroup/{groupId}")

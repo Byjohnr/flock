@@ -55,9 +55,9 @@ var ConnectionGroupPage = React.createClass({
             var blah = this;
             var connectionGroups = this.state.groups.map(function(connectionGroup) {
                 return (
-                    <div key={connectionGroup.id} className="col-md-8 col-md-offset-1">
-                        <div className="col-sm-8">
-                            {connectionGroup.groupName}
+                    <div key={connectionGroup.id} className="col-md-4 col-md-offset-2">
+                        <div>
+                            <h2>{connectionGroup.groupName}</h2>
                             <a href={'/account/connectionGroup/' + connectionGroup.id} className="btn btn-default">Manage Connections</a>
                             <button onClick={blah.handleEditNameChange.bind(blah, connectionGroup.id, connectionGroup.groupName)} className="btn btn-default"  data-toggle="modal" data-target="#createModal">Change Name</button>
                             <button className="btn btn-danger" onClick={blah.handleDelete.bind(blah, connectionGroup.id)}>Delete</button>
@@ -72,7 +72,7 @@ var ConnectionGroupPage = React.createClass({
                     <div className="col-md-8 col-md-offset-2">
                         <h2>Connection Groups
                             <span>
-                                <button type="button" className="btn btn-primary btn-lg" data-toggle="modal" data-target="#createModal" onClick={this.handleNewGroup}>
+                                <button type="button" className="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#createModal" onClick={this.handleNewGroup}>
                                     Create Connection Group
                                 </button>
                             </span>

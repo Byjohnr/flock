@@ -14,7 +14,7 @@ var ConnectionGroupPage = React.createClass({
         });
         this.setState({connectionGroup : {connectionsAdded : updatedAddedList, connectionsNotAdded: updatedNotAddedList}});
 
-        ConnectionActions
+        ConnectionActions.removeConnectionFromGroup(connection.id);
     },
     addConnection : function(connection) {
         var updatedAddedList = this.state.connectionGroup.connectionsAdded;
@@ -24,6 +24,7 @@ var ConnectionGroupPage = React.createClass({
         });
         this.setState({connectionGroup : {connectionsAdded : updatedAddedList, connectionsNotAdded: updatedNotAddedList}});
         console.log("added lol");
+        ConnectionActions.addConnectionToGroup(connection.id);
     },
     render: function() {
         if(this.state.connectionGroup === undefined) {
@@ -34,7 +35,7 @@ var ConnectionGroupPage = React.createClass({
                 return (
                     <tr key={user.id}>
                         <td>{user.firstName} {user.lastName}</td>
-                        <td><button onClick={removeConnection}>Remove User</button></td>
+                        <td><button className="btn btn-danger" onClick={removeConnection}>Remove User</button></td>
                     </tr>
 
                 );
@@ -44,16 +45,17 @@ var ConnectionGroupPage = React.createClass({
                 return (
                     <tr key={user.id}>
                         <td>{user.firstName} {user.lastName}</td>
-                        <td><button onClick={addConnection}>Add User</button></td>
+                        <td><button className="btn btn-success" onClick={addConnection}>Add User</button></td>
                     </tr>
                 );
             }, this);
             return (
                 <div>
                     <NavBar />
+                    <a href="/account/connectionGroups">Return to Connection Groups</a>
                     <div>
                         <h2>Added Connections</h2>
-                        <table>
+                        <table className="table table-bordered">
                             <tbody>
                             <tr>
                                 <td>User</td>
@@ -65,7 +67,7 @@ var ConnectionGroupPage = React.createClass({
                     </div>
                     <div>
                         <h2>Unadded Connections</h2>
-                        <table>
+                        <table className="table table-bordered">
                             <tbody>
                             <tr>
                                 <td>User</td>

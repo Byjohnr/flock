@@ -61,19 +61,23 @@ var ConnectionStore = Reflux.createStore({
     },
     onDeleteConnectionGroup : function(groupId) {
         console.log(groupId);
-        $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            url: '/api/connectionGroup/delete',
-            data: JSON.stringify(groupId),
-            type: 'POST',
-            success : function() {
-                console.log("success dude");
-                window.location.reload(true);
-            }
-        })
+        this.ajaxRequestWithIntValue(groupId, '/api/connectionGroup/delete', 'POST', function() {
+            console.log('Deleted');
+            window.location.reload(true);
+        });
+        //$.ajax({
+        //    headers: {
+        //        'Accept': 'application/json',
+        //        'Content-Type': 'application/json'
+        //    },
+        //    url: '/api/connectionGroup/delete',
+        //    data: JSON.stringify(groupId),
+        //    type: 'POST',
+        //    success : function() {
+        //        console.log("success dude");
+        //        window.location.reload(true);
+        //    }
+        //})
     },
     onRejectConnection : function() {
         this.handleConnectionAjax('/api/connection/reject/', 'POST');
@@ -87,6 +91,18 @@ var ConnectionStore = Reflux.createStore({
     onAddConnection : function() {
         this.handleConnectionAjax('/api/connection/add/', 'POST');
     },
+    onAddConnectionToGroup : function(userId) {
+        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        this.ajaxRequestWithIntValue(userId, '/api/connectionGroup/' + id + '/add', 'POST', function() {
+            console.log('Added');
+        });
+    },
+    onRemoveConnectionFromGroup : function(userId) {
+        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        this.ajaxRequestWithIntValue(userId, '/api/connectionGroup/' + id + '/remove', 'POST', function() {
+            console.log('Removed');
+        });
+    },
     handleConnectionAjax : function(url, type) {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
         $.ajax({
@@ -99,14 +115,19 @@ var ConnectionStore = Reflux.createStore({
             }
         });
     },
+    ajaxRequestWithIntValue : function(intValue, url, type, successFunction) {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: url,
+            data: JSON.stringify(intValue),
+            type: type,
+            success : successFunction
+        });
+    },
     triggerStatus : function(data) {
         this.trigger(data);
-    },
-    onAddConnectionToGroup : function(userId) {
-    //    TODO jeffreyh 3/18/16
-    },
-    onRemoveConnectionFromGroup : function(userId) {
-    //    TODO jeffreyh 3/18/16
     }
-
 });

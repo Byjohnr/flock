@@ -1,9 +1,6 @@
 package cs309.service;
 
-import cs309.data.Connection;
-import cs309.data.ConnectionGroup;
-import cs309.data.ConnectionRequest;
-import cs309.data.User;
+import cs309.data.*;
 import cs309.repo.ConnectionGroupRepository;
 import cs309.repo.ConnectionGroupUserRepository;
 import cs309.repo.ConnectionRepository;
@@ -13,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ConnectionService {
@@ -95,6 +93,22 @@ public class ConnectionService {
     }
 
     public List<User> getConnectionsNotInGroupByGroupIdAndEmail(int groupId, String email) {
-        return connectionGroupUserRepository.getUsersNotInConnectionGroupByGroupIdAndEmail(groupId, email);
+        List<User> connectionGroupUsers = connectionGroupUserRepository.getUsersInConnectionGroup(groupId);
+        List<User> connections = connectionRepository.getConnectionsByEmail(email);
+        return connections.stream().filter(user -> !connectionGroupUsers.contains(user)).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void saveConnectionGroupUser(ConnectionGroupUser connectionGroupUser) {
+        connectionGroupUserRepository.save(connectionGroupUser);
+    }
+
+    @Transactional
+    public void deleteConnectionGroupUser(ConnectionGroupUser connectionGroupUser) {
+        connectionGroupUserRepository.delete(connectionGroupUser);
+    }
+
+    public ConnectionGroupUser getConnectionGroupUserByUserIdAndGroupId(int userId, int groupId) {
+        return connectionGroupUserRepository.getConnectionGroupUserByUserIdAndGroupId(userId, groupId);
     }
 }
