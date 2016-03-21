@@ -43,6 +43,9 @@ public class EventRestControllerUTest extends UnitTestBase {
     @Mock
     private UserService userService;
 
+    @Mock
+    private EventInviteService inviteService;
+
     @InjectMocks
     private EventRestController eventController;
 
@@ -107,6 +110,17 @@ public class EventRestControllerUTest extends UnitTestBase {
         mockMvc.perform(post("/api/event/1/invites").principal(mock(Principal.class))
         .content(ids)
         .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk());
+
+        verify(eventInviteService, times(3)).saveEventInvite(any(EventInvite.class));
+    }
+
+    @Test
+    public void getAttending() {
+        when(inviteService.getEventInvite(1)).thenReturn(MockData.getEvent(1));
+        mockMvc.perform(post("/api/event/getAttending/1").principal(mock(Principal.class))
+                        .content(ids)
+                        .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk());
 
         verify(eventInviteService, times(3)).saveEventInvite(any(EventInvite.class));
