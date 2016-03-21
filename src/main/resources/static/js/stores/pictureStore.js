@@ -5,10 +5,12 @@ var PictureStore = Reflux.createStore({
         $.ajax({
             url: '/api/picture_upload/profile_picture',
             method: 'POST',
-            //processData: false,
-            //contentType: false,
+            dataType: 'text',
+            processData: false,
+            cache: false,
+            contentType: false,
             data: {
-                pictureData: toUpload
+                picture: toUpload
             },
             success: this.handleFile,
             error: function () {

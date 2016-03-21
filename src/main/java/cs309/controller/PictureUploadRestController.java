@@ -2,6 +2,7 @@ package cs309.controller;
 
 import cs309.data.PictureFile;
 import cs309.service.PictureFileService;
+import javassist.bytecode.ByteArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +37,13 @@ public class PictureUploadRestController {
 
     @ResponseBody
     @RequestMapping("/profile_picture")
-    public Object profilePictureUpload(URI pictureData) {
+    public Object profilePictureUpload(File picture) {
         //Logic to parse the awesome picture encoded string
-        System.out.println("pictureData: " + pictureData);
+        System.out.println("pictureData: " + picture);
 
-//        PictureFile pictureFile = pictureFileService.savePictureFile(new File(pictureData.normalize()));
+//        PictureFile pictureFile = pictureFileService.savePictureFile(picture);
 
-        return pictureData;
+        return picture;
     }
 
     /*

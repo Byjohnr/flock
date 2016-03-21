@@ -31,12 +31,12 @@ var Picture = React.createClass({
     handleFile: function (e) {
         var reader = new FileReader();
         var file = e.target.files[0];
-        //PictureActions.savePicture(file);
-        reader.onload = function (upload) {
-            var fileDataUrl = upload.target.result;
-            PictureActions.savePicture(fileDataUrl);
-        };
-        reader.readAsDataURL(file);
+        PictureActions.savePicture(file);
+        // reader.onload = function (upload) {
+        //     var fileData = upload.target.result;
+        //     PictureActions.savePicture(fileData);
+        // };
+        // reader.readAsDataURL(file);
     },
     render: function () {
         if (this.state.picture !== undefined) {
