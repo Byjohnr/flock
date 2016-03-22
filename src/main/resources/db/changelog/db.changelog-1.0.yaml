@@ -230,3 +230,27 @@ databaseChangeLog:
                     type: varchar(50)
                     constraints:
                         nullable: false
+
+
+   - changeSet:
+          id: 6
+          author: jeffreyh
+          changes:
+            - createTable:
+                tableName: connection_request
+                columns:
+                - column:
+                    name: id
+                    type: int
+                    autoIncrement: true
+                    constraints:
+                        nullable: false
+                - column:
+                    name: user_receiving_id
+                    type: int
+                - column:
+                    name: user_sending_id
+                    type: int
+                - column:
+                    name: date_sent
+                    type: date

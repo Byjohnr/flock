@@ -3,10 +3,12 @@ package controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.UnitTestBase;
 import cs309.controller.EventRestController;
+import cs309.data.Comment;
 import cs309.data.Event;
 import cs309.data.EventInvite;
 import cs309.data.User;
 import cs309.dto.CreateEventDTO;
+import cs309.service.CommentService;
 import cs309.service.EventInviteService;
 import cs309.service.EventService;
 import cs309.service.UserService;
@@ -48,6 +50,9 @@ public class EventRestControllerUTest extends UnitTestBase {
 
     @InjectMocks
     private EventRestController eventController;
+
+    @Mock
+    private CommentService commentService;
 
     @Before
     public void setup() {
@@ -124,5 +129,22 @@ public class EventRestControllerUTest extends UnitTestBase {
         ).andExpect(status().isOk());
 
         verify(eventInviteService, times(3)).saveEventInvite(any(EventInvite.class));
+    }
+
+    @Test
+    public void createComment() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        Principal principal = mock(Principal.class);
+        when(commentService.saveComment(any(Comment.class))).thenReturn(MockData.getComment(1));
+        Comment comment = new Comment();
+        String string = mapper.writeValueAsString(comment);
+        when(userService.getUserByEmail(principal.getName())).thenReturn(mock(User.class));
+        this.mockMvc.perform(post("/api/event/createComment/1")
+                .content(string)
+                .principal(principal)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(commentService, times(1)).saveComment(any(Comment.class));
     }
 }

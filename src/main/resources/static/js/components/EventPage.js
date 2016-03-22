@@ -27,7 +27,9 @@ var EventPage = React.createClass({
     },
     createComment: function(){
         var comment = this.refs.commentString.value;
-        EventActions.createComment(comment);
+        if (comment.length != 0) {
+            EventActions.createComment(comment);
+        }
     },
     handleGoing: function() {
         EventInviteActions.setAttending("Going");
