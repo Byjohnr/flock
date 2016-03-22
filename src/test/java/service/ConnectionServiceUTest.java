@@ -1,9 +1,9 @@
 package service;
 
 import config.UnitTestBase;
-import cs309.data.Connection;
-import cs309.data.ConnectionRequest;
-import cs309.data.User;
+import cs309.data.*;
+import cs309.repo.ConnectionGroupRepository;
+import cs309.repo.ConnectionGroupUserRepository;
 import cs309.repo.ConnectionRepository;
 import cs309.repo.ConnectionRequestRepository;
 import cs309.service.ConnectionService;
@@ -15,8 +15,7 @@ import util.MockData;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -28,6 +27,12 @@ public class ConnectionServiceUTest extends UnitTestBase {
 
     @Mock
     private ConnectionRequestRepository connectionRequestRepository;
+
+    @Mock
+    private ConnectionGroupRepository connectionGroupRepository;
+
+    @Mock
+    private ConnectionGroupUserRepository connectionGroupUserRepository;
 
     @InjectMocks
     private ConnectionService connectionService;
@@ -97,46 +102,67 @@ public class ConnectionServiceUTest extends UnitTestBase {
 
     @Test
     public void getConnectionGroupByEmail() {
-//        TODO
+        when(connectionGroupRepository.getConnectionGroupsByEmail("geeh")).thenReturn(new ArrayList<>());
+        List<ConnectionGroup> connectionGroups = connectionService.getConnectionGroupByEmail("geeh");
+        assertTrue(connectionGroups.isEmpty());
     }
 
     @Test
     public void saveConnectionGroup() {
-//        TODO
+        ConnectionGroup connectionGroup = new ConnectionGroup();
+        connectionService.saveConnectionGroup(connectionGroup);
+        verify(connectionGroupRepository, times(1)).save(connectionGroup);
     }
 
     @Test
     public void getConnectionGroupById() {
-//        TODO
+        ConnectionGroup connectionGroup = new ConnectionGroup();
+        when(connectionGroupRepository.findOne(1)).thenReturn(connectionGroup);
+        ConnectionGroup connectionGroup1 = connectionService.getConnectionGroupById(1);
+        assertEquals(connectionGroup, connectionGroup1);
     }
 
     @Test
     public void deleteConnectionGroup() {
-//        TODO
+        ConnectionGroup connectionGroup = new ConnectionGroup();
+        connectionService.deleteConnectionGroup(connectionGroup);
+        verify(connectionGroupRepository, times(1)).delete(connectionGroup);
     }
 
     @Test
     public void getConnectionsInConnectionGroupByGroupId() {
-//        TODO
+        when(connectionGroupUserRepository.getUsersInConnectionGroup(1)).thenReturn(new ArrayList<>());
+        List<User> users = connectionService.getConnectionsInConnectionGroupByGroupId(1);
+        assertTrue(users.isEmpty());
     }
 
     @Test
-    public void getConnectionsNotInGroupBtGroupIdAndEmail() {
-//        TODO
+    public void getConnectionsNotInGroupByGroupIdAndEmail() {
+        when(connectionGroupUserRepository.getUsersInConnectionGroup(2)).thenReturn(new ArrayList<>());
+        when(connectionRepository.getConnectionsByEmail("pickles")).thenReturn(new ArrayList<>());
+        List<User> user = connectionService.getConnectionsNotInGroupByGroupIdAndEmail(2, "pickles");
+        assertTrue(user.isEmpty());
     }
 
     @Test
     public void saveConnectionGroupUser() {
-//        TODO
+        ConnectionGroupUser connectionGroupUser = new ConnectionGroupUser();
+        connectionService.saveConnectionGroupUser(connectionGroupUser);
+        verify(connectionGroupUserRepository, times(1)).save(connectionGroupUser);
     }
 
     @Test
     public void deleteConnectionGroupUser() {
-//        TODO
+        ConnectionGroupUser connectionGroupUser = new ConnectionGroupUser();
+        connectionService.deleteConnectionGroupUser(connectionGroupUser);
+        verify(connectionGroupUserRepository, times(1)).delete(connectionGroupUser);
     }
 
     @Test
     public void getConnectionGroupUserByUserIdAndGroupId() {
-//        TODO
+        ConnectionGroupUser connectionGroupUser = new ConnectionGroupUser();
+        when(connectionGroupUserRepository.getConnectionGroupUserByUserIdAndGroupId(1,1)).thenReturn(connectionGroupUser);
+        ConnectionGroupUser connectionGroupUser1 = connectionService.getConnectionGroupUserByUserIdAndGroupId(1,1);
+        assertEquals(connectionGroupUser, connectionGroupUser1);
     }
 }
