@@ -27,9 +27,7 @@ var EventPage = React.createClass({
     },
     createComment: function(){
         var comment = this.refs.commentString.value;
-        if (comment.length != 0) {
-            EventActions.createComment(comment);
-        }
+        EventActions.createComment(comment);
     },
     handleGoing: function() {
         EventInviteActions.setAttending("Going");
@@ -39,6 +37,9 @@ var EventPage = React.createClass({
     },
     handleNotGoing: function() {
         EventInviteActions.setAttending("Not Going");
+    },
+    handleInviteChange: function() {
+        EventInviteActions.setAttending("Change");
     },
 
 
@@ -57,14 +58,16 @@ var EventPage = React.createClass({
         }
         if (this.state.eventInvite.toString() === "1") {
             attending = (
-                    <div>
+                    <div className="btn-group" role="group">
                         <button type="button" className="btn btn-success" id="Going">Going</button>
+                        <button type="button" className="btn btn-link" onClick={this.handleInviteChange}>Change</button>
                     </div>);
         }
         if (this.state.eventInvite.toString() === "2") {
             attending = (
                     <div className="btn-group" role="group">
                         <button type="button" className="btn btn-primary" id="Maybe">Maybe</button>
+                        <button type="button" className="btn btn-link" onClick={this.handleInviteChange}>Change</button>
                     </div>
                 )
         }
@@ -72,6 +75,7 @@ var EventPage = React.createClass({
             attending = (
                     <div className="btn-group" role="group">
                         <button type="button" className="btn btn-danger" id="Not Going">Not Going</button>
+                        <button type="button" className="btn btn-link" onClick={this.handleInviteChange}>Change</button>
                     </div>
                 )
         }

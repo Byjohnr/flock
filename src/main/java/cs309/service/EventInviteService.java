@@ -19,8 +19,8 @@ public class EventInviteService {
 
 
     @Transactional
-    public void saveEventInvite(EventInvite eventInvite) {
-        eventInviteRepository.save(eventInvite);
+    public EventInvite saveEventInvite(EventInvite eventInvite) {
+        return eventInviteRepository.save(eventInvite);
     }
 
     public EventInvite getEventInvite(User user, Event event) {

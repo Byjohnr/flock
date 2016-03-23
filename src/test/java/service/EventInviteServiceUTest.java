@@ -2,16 +2,18 @@ package service;
 
 
 import config.UnitTestBase;
+import cs309.data.Event;
 import cs309.data.EventInvite;
+import cs309.data.User;
 import cs309.repo.EventInviteRepository;
 import cs309.service.EventInviteService;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import util.MockData;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.mockito.Mockito.*;
 
 public class EventInviteServiceUTest extends UnitTestBase {
 
@@ -26,6 +28,12 @@ public class EventInviteServiceUTest extends UnitTestBase {
         EventInvite eventInvite = mock(EventInvite.class);
         eventInviteService.saveEventInvite(eventInvite);
         verify(eventInviteRepository, times(1)).save(eventInvite);
+    }
+
+    public void getEventInvite() {
+        when(eventInviteRepository.findEventInviteByUserAndEvent(mock(User.class), mock(Event.class))).thenReturn(MockData.getInvite(1));
+        EventInvite invite = eventInviteService.getEventInvite(mock(User.class), mock(Event.class));
+        assertNotNull(invite);
     }
 
 

@@ -84,18 +84,17 @@ public class EventRestController {
     @RequestMapping(value = "/api/event/setAttending/{id}", method = RequestMethod.POST)
     public int setAttending(@RequestBody String status, @PathVariable Integer id, Principal principal) {
         EventInvite invite = eventInviteService.getEventInvite(userService.getUserByEmail(principal.getName()), eventService.getEvent(id));
-        LOG.info(invite.getUserInvited().getEmail());
-        LOG.info(principal.getName());
         if (status.equals("Going")) {
             invite.setInviteStatus(invite.GOING);
-            LOG.info(invite.getInviteStatus());
         }
         else if(status.equals("Maybe")) {
             invite.setInviteStatus(invite.UNDECIDED);
         }
         else if(status.equals("Not Going")) {
             invite.setInviteStatus(invite.NOT_GOING);
-            LOG.info(invite.getInviteStatus());
+        }
+        else if(status.equals("Change")) {
+            invite.setInviteStatus(invite.INVITED);
         }
         eventInviteService.saveEventInvite(invite);
         return invite.getInviteStatus();

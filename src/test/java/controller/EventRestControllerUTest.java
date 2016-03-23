@@ -45,14 +45,12 @@ public class EventRestControllerUTest extends UnitTestBase {
     @Mock
     private UserService userService;
 
-    @Mock
-    private EventInviteService inviteService;
-
     @InjectMocks
     private EventRestController eventController;
 
     @Mock
     private CommentService commentService;
+
 
     @Before
     public void setup() {
@@ -121,14 +119,33 @@ public class EventRestControllerUTest extends UnitTestBase {
     }
 
     @Test
-    public void getAttending() {
-        when(inviteService.getEventInvite(1)).thenReturn(MockData.getEvent(1));
-        mockMvc.perform(post("/api/event/getAttending/1").principal(mock(Principal.class))
-                        .content(ids)
-                        .contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isOk());
+    public void getAttending() throws Exception {
+        Principal principal = mock(Principal.class);
+        when(eventInviteService.getEventInvite(any(User.class), any(Event.class))).thenReturn(MockData.getInvite(1));
+        mockMvc.perform(get("/api/event/getAttending/1")
+                .principal(principal))
+                .andExpect(status().isOk());
+                EventInvite invite = eventInviteService.getEventInvite(userService.getUserByEmail(principal.getName()), eventService.getEvent(1));
+                assertEquals(invite.getInviteStatus().toString(), "1");
 
-        verify(eventInviteService, times(3)).saveEventInvite(any(EventInvite.class));
+    }
+
+    @Test
+    public void setAttending() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        Principal principal = mock(Principal.class);
+        when(eventInviteService.getEventInvite(any(User.class), any(Event.class))).thenReturn(MockData.getInvite(1));
+        when(eventInviteService.saveEventInvite(any(EventInvite.class))).thenReturn(MockData.getInvite(1));
+        EventInvite invite = new EventInvite();
+        String string = mapper.writeValueAsString(invite);
+        when(userService.getUserByEmail(principal.getName())).thenReturn(mock(User.class));
+        this.mockMvc.perform(post("/api/event/setAttending/1")
+                .content(string)
+                .principal(principal)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(eventInviteService, times(1)).saveEventInvite(any(EventInvite.class));
     }
 
     @Test
