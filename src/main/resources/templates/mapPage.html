@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <head th:remove="tag" th:include="fragments/head :: title" />
+    <head th:remove="tag" th:include="fragments/head :: imports" />
+    <style type="text/css">
+        html, body { height: 100%; margin: 0; padding: 0; }
+        #map { height: 100%; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmY2VCKrLCs1xOLypS7v6AjifNp7s_sTY
+        &libraries=visualization&callback=initMap">
+    </script>
+</body>
+</html>
