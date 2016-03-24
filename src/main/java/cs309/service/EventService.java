@@ -24,9 +24,6 @@ public class EventService {
     @Autowired
     CommentRepository commentRepository;
 
-    @Autowired
-    SecurityService securityService;
-
     public List<Event> getEvents() {
         return eventRepository.findAll();
     }
