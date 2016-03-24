@@ -28,15 +28,19 @@ var EventPage = React.createClass({
     createComment: function(){
         var comment = this.refs.commentString.value;
         EventActions.createComment(comment);
+        EventActions.getEvent();
     },
     handleGoing: function() {
         EventInviteActions.setAttending("Going");
+        EventActions.getEvent();
     },
     handleMaybe: function() {
         EventInviteActions.setAttending("Maybe");
+        EventActions.getEvent();
     },
     handleNotGoing: function() {
         EventInviteActions.setAttending("Not Going");
+        EventActions.getEvent();
     },
     handleInviteChange: function() {
         EventInviteActions.setAttending("Change");
