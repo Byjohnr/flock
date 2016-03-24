@@ -13,6 +13,7 @@ import cs309.validator.CreateEventValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -51,13 +52,11 @@ public class EventRestController {
 
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.GET)
     public Event getEvent(@PathVariable Integer id) {
-        LOG.info(eventService.getEvent(id).getCommentList());
         return eventService.getEvent(id);
     }
 
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.POST)
     public String updateEvent(@RequestBody Event event) {
-        LOG.info(event.toString());
         eventService.saveEvent(event);
         return "/";
     }
