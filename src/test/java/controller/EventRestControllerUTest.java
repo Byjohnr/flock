@@ -67,8 +67,12 @@ public class EventRestControllerUTest extends UnitTestBase {
 
     @Test
     public void getEvents() throws Exception {
-        when(eventService.getEvents()).thenReturn(MockData.getMockEvents(4));
-        this.mockMvc.perform(get("/api/events").accept(MediaType.APPLICATION_JSON))
+        Principal principal = mock(Principal.class);
+        User user = new User();
+        user.setEvents(MockData.getEventInvites(4));
+        when(userService.getUserByEmail(principal.getName())).thenReturn(user);
+
+        this.mockMvc.perform(get("/api/events").accept(MediaType.APPLICATION_JSON).principal(principal))
 
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))

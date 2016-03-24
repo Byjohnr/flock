@@ -63,9 +63,10 @@ public class EventRestController {
     }
 
     @RequestMapping("/api/events")
-    public List<EventDTO> getEvents() {
+    public List<EventDTO> getEvents(Principal principal) {
         List<EventDTO> eventDTOs = new ArrayList<>();
-        eventService.getEvents().stream().forEach(event -> eventDTOs.add(new EventDTO(event)));
+        User user = userService.getUserByEmail(principal.getName());
+        user.getEvents().stream().forEach(event -> eventDTOs.add(new EventDTO(event.getEvent())));
         return eventDTOs;
     }
 
