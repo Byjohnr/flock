@@ -23,6 +23,12 @@ var btnFileInput = {
     display: 'block'
 };
 
+var pictureSizing = {
+    maxHeight: '500px',
+    width: 'auto',
+    maxWidth: '500px'
+};
+
 var Picture = React.createClass({
     mixins: [Reflux.connect(PictureStore, 'picture')],
     getInitialState: function () {
@@ -31,19 +37,20 @@ var Picture = React.createClass({
     handleFile: function (e) {
         var reader = new FileReader();
         var file = e.target.files[0];
-        PictureActions.savePicture(file);
-        // reader.onload = function (upload) {
-        //     var fileData = upload.target.result;
-        //     PictureActions.savePicture(fileData);
-        // };
-        // reader.readAsDataURL(file);
+        var sendingUrl = this.props.sendingUrl;
+        
+        reader.onload = function (upload) {
+            var fileData = upload.target.result;
+            PictureActions.savePicture(fileData, sendingUrl);
+        };
+        reader.readAsDataURL(file);
     },
     render: function () {
         if (this.state.picture !== undefined) {
             return (
                 <div className="container-fluid">
                     <div className="row">
-                        <img src={this.state.picture} alt="NO PICTURE"/>
+                        <img src={this.state.picture} style={pictureSizing} alt="NO PICTURE"/>
                     </div>
                     <div className="row btn btn-default btnFile" style={btnFile}>Edit Picture<input
                         style={btnFileInput} type="file"

@@ -21,7 +21,7 @@ var ViewAccount = React.createClass({
                     <div className="text-center container">
                         <div className="row">
                             <div className="col-md-6 col-xs-12">
-                                <Picture/>
+                                <Picture sendingUrl="/api/picture_upload/profile_picture" pictureEditable={this.props.account === true} getterUrl="/api/profile_picture"/>
                             </div>
                             <div className="col-md-6 col-xs-12">
                                 <h1>
