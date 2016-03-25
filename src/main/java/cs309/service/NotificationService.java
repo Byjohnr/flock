@@ -26,32 +26,23 @@ public class NotificationService {
     }
 
     public List<NotificationDTO> getNotificationDTOs(String email) {
-        String message;
-        String url;
-        Integer id;
         List<NotificationDTO> notificationDtoList = new ArrayList<>();
 
         for (Notification notification : notificationRepository.getNotificationsByEmail(email)) {
             NotificationDTO notificationDTO = new NotificationDTO();
             if (notification.getType().equals(Notification.EVENT_INVITE)) {
                 Event event = eventService.getEvent(notification.getTypeId());
-                message = "You have been invited to " + event.getEventName();
-                url = "/event/" + notification.getTypeId();
-                id = notification.getId();
-                notificationDTO.setId(id);
-                notificationDTO.setUrl(url);
-                notificationDTO.setMessage(message);
+                notificationDTO.setMessage("You have been invited to " + event.getEventName());
+                notificationDTO.setId(notification.getId());
+                notificationDTO.setUrl("/event/" + notification.getTypeId());
                 notificationDtoList.add(notificationDTO);
                 //urls would be /event/id  /user/{id}
             }
             if (notification.getType().equals(Notification.USER_CONNECTION)) {
                 User user = userService.getUser(notification.getTypeId());
-                message = user.getFirstName() + " " + user.getLastName() + " wants to be your connection";
-                url = "/user/" + user.getId();
-                id = notification.getId();
-                notificationDTO.setId(id);
-                notificationDTO.setUrl(url);
-                notificationDTO.setMessage(message);
+                notificationDTO.setId(notification.getId());
+                notificationDTO.setUrl("/user/" + user.getId());
+                notificationDTO.setMessage(user.getFirstName() + " " + user.getLastName() + " wants to be your connection");
                 notificationDtoList.add(notificationDTO);
             }
         }

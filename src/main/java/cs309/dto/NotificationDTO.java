@@ -5,6 +5,12 @@ public class NotificationDTO {
     private String message;
     private Integer id;
 
+    public void notificationDTO (String url, String message, Integer id) {
+        this.url=url;
+        this.message=message;
+        this.id=id;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -29,3 +35,4 @@ public class NotificationDTO {
         this.message = message;
     }
 }
+

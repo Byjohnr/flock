@@ -35,6 +35,9 @@ public class Notification {
     @Column(name = "time")
     private Date dateCreated;
 
+    @Column(name ="notification_name")
+    private String notificationName;
+
     public Notification() {
 
     }
@@ -85,5 +88,14 @@ public class Notification {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public String getNotificationName() {
+        return notificationName;
+    }
+
+    public void setNotificationName(String notificationName) {
+        this.notificationName = notificationName;
+
     }
 }

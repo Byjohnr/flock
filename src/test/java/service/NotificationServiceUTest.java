@@ -2,6 +2,7 @@ package service;
 
 import config.UnitTestBase;
 import cs309.data.Notification;
+import cs309.dto.NotificationDTO;
 import cs309.repo.NotificationRepository;
 import cs309.service.NotificationService;
 import org.junit.Test;
@@ -38,7 +39,9 @@ public class NotificationServiceUTest extends UnitTestBase {
 //        assertEquals(notification.size(), 9);
 //    }
     @Test
-    public void getNotificationDTOs(String email) {
-
+    public void getNotificationDTOs() {
+        when(notificationRepo.findAll()).thenReturn(new ArrayList<>(MockData.getMockNotifications(10)));
+        List<NotificationDTO> notificationDTOs = notificationService.getNotificationDTos(email);
+        assertEquals(notificationDTOs.size(), 10);
     }
 }
