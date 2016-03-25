@@ -42,7 +42,7 @@ public class PictureFileServiceUTest extends UnitTestBase {
         PictureFile testPicture = new PictureFile("testPicture.jpg", outputStream.toByteArray());
         testPicture.setId(2);
         when(pictureFileRepo.findByFileName(anyString())).thenReturn(testPicture);
-        BufferedImage methodReturn = pictureFileService.getPictureByFileName("testPicture.jpg");
+        BufferedImage methodReturn = pictureFileService.getPictureFileByFileName("testPicture.jpg");
         ByteArrayOutputStream methodOutputStream = new ByteArrayOutputStream();
         ImageIO.write(methodReturn, fileType, methodOutputStream);
         assertEquals(ImageIO.read(filePicture).getWidth(), methodReturn.getWidth());
@@ -63,7 +63,7 @@ public class PictureFileServiceUTest extends UnitTestBase {
         PictureFile testPicture = new PictureFile("testPicture.jpg", outputStream.toByteArray());
         testPicture.setUserId(3);
         when(pictureFileRepo.findByUserId(anyInt())).thenReturn(testPicture);
-        BufferedImage methodReturn = pictureFileService.getPictureByUserId(3);
+        BufferedImage methodReturn = pictureFileService.getPictureFileByUserId(3);
         ByteArrayOutputStream methodOutputStream = new ByteArrayOutputStream();
         ImageIO.write(methodReturn, fileType, methodOutputStream);
         assertEquals(ImageIO.read(filePicture).getWidth(), methodReturn.getWidth());
@@ -84,7 +84,7 @@ public class PictureFileServiceUTest extends UnitTestBase {
         PictureFile testPicture = new PictureFile("testPicture.jpg", outputStream.toByteArray());
         testPicture.setEventId(4);
         when(pictureFileRepo.findByEventId(anyInt())).thenReturn(testPicture);
-        BufferedImage methodReturn = pictureFileService.getPictureByEventId(4);
+        BufferedImage methodReturn = pictureFileService.getPictureFileByEventId(4);
         ByteArrayOutputStream methodOutputStream = new ByteArrayOutputStream();
         ImageIO.write(methodReturn, fileType, methodOutputStream);
         assertEquals(ImageIO.read(filePicture).getWidth(), methodReturn.getWidth());

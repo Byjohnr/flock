@@ -37,16 +37,17 @@ var Picture = React.createClass({
     handleFile: function (e) {
         var reader = new FileReader();
         var file = e.target.files[0];
+        var fileName = file.name;
         var sendingUrl = this.props.sendingUrl;
-        
+
         reader.onload = function (upload) {
             var fileData = upload.target.result;
-            PictureActions.savePicture(fileData, sendingUrl);
+            PictureActions.savePicture(fileData, fileName, sendingUrl);
         };
         reader.readAsDataURL(file);
     },
     render: function () {
-        if (this.state.picture !== undefined) {
+        if (this.props.pictureEditable === true) {
             return (
                 <div className="container-fluid">
                     <div className="row">
@@ -61,10 +62,10 @@ var Picture = React.createClass({
             );
         } else {
             return (
-                <div className="btn btn-default btnFile" style={btnFile}>Upload Picture<input
-                    style={btnFileInput} type="file"
-                    multiple={false}
-                    onChange={this.handleFile}/>
+                <div className="container-fluid">
+                    <div className="row">
+                        <img src={this.state.picture} style={pictureSizing} alt="NO PICTURE"/>
+                    </div>
                 </div>
             )
         }

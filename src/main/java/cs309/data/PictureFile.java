@@ -1,7 +1,5 @@
 package cs309.data;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
@@ -24,14 +22,14 @@ public class PictureFile {
 
     @Lob
     @Column(name = "picture")
-    private byte[] picture;
+    private String picture;
 
-    public PictureFile(String fileName, byte[] picture) {
+    public PictureFile(String fileName, String picture) {
         this.fileName = fileName;
         this.picture = picture;
     }
 
-    public PictureFile(String fileName, Integer userId, Integer eventId, byte[] picture) {
+    public PictureFile(String fileName, Integer userId, Integer eventId, String picture) {
         this.fileName = fileName;
         this.userId = userId;
         this.eventId = eventId;
@@ -70,11 +68,11 @@ public class PictureFile {
         this.eventId = eventId;
     }
 
-    public byte[] getPicture() {
+    public String getPicture() {
         return picture;
     }
 
-    public void setPicture(byte[] picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 

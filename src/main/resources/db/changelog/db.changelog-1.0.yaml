@@ -54,7 +54,7 @@ databaseChangeLog:
                   type: int
               - column:
                   name: picture
-                  type: blob
+                  type: clob
 
    - changeSet:
         id: 2

@@ -1,12 +1,13 @@
 var PictureStore = Reflux.createStore({
     listenables: [PictureActions],
-    onSavePicture: function (toUpload, uploadURL) {
+    onSavePicture: function (toUpload, fileName, uploadURL) {
         console.log("toUpload before ajax: " + toUpload.toString());
         $.ajax({
             url: uploadURL,
             method: 'POST',
             data: {
-                picture: toUpload
+                picture: toUpload,
+                fileName: fileName
             },
             success: this.handleFile,
             error: function () {
