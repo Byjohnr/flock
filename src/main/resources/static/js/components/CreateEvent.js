@@ -3,7 +3,8 @@ var CreateEvent = React.createClass({
     getInitialState: function() {
         return {
             errors: undefined,
-            invites : []
+            invites : [],
+            eventAdmins: []
         }
     },
     onSubmit: function () {
@@ -30,12 +31,21 @@ var CreateEvent = React.createClass({
         this.setState({invites : newInvites});
         //console.log(connection);
     },
+    handleEventAdmin : function(connection) {
+        var newEventAdmins = this.state.eventAdmins;
+        newEventAdmins.push(connection);
+        this.setState({eventAdmins : newEventAdmins});
+    },
     render: function () {
         console.log("Rendering create event");
         var invites = this.state.invites.map(function(connection) {
                 return (" " + connection.firstName + " " + connection.lastName);
             });
+        var eventAdmins = this.state.eventAdmins.map(function(connection) {
+           return (" " + connection.firstName + " " + connection.lastName);
+        });
         invites = invites.toString().substring(1);
+        eventAdmins = eventAdmins.toString().substring(1);
         return (
             <div>
                 <NavBar/>
@@ -104,7 +114,16 @@ var CreateEvent = React.createClass({
                                         </select>
                                     </div>
                                 </div>
-                                <ConnectionList handleInvite={this.handleInvite}/>
+                                <ConnectionList actionId="eventAdmins" handleInvite={this.handleEventAdmin} buttonName="Add Event Admins" actionName="Add as Event Admin" />
+                                <div className="form-group">
+                                    <div>
+                                        <label className="col-sm-2 control-label" htmlFor="invites"> Event Admins </label>
+                                    </div>
+                                    <div className="col-sm-8">
+                                        <textarea id="eventAdmins" readOnly="readonly" className="form-control" rows="3" value={eventAdmins} />
+                                    </div>
+                                </div>
+                                <ConnectionList actionId="inviteList" handleInvite={this.handleInvite} buttonName="Invite Connections" actionName="Add to Invite List" />
                                 <div className="form-group">
                                     <div>
                                         <label className="col-sm-2 control-label" htmlFor="invites"> Invite List </label>

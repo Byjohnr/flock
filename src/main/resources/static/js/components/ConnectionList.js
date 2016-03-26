@@ -18,11 +18,13 @@ var ConnectionList = React.createClass({
             console.log("undefined connections")
         } else {
             console.log("defined connections");
+            console.log(this.props.actionName);
             modalBody = this.state.connections.map(function (connection) {
                 var handleClick = this.handleClick.bind(this,connection);
+                console.log(this.props.actionName);
                 return (<tr key={connection.id}>
                     <td>{connection.firstName} {connection.lastName}</td>
-                    <td><button id={'invite' + connection.id} type="button" className="btn btn-primary" onClick={handleClick}>Add to Invite List</button></td>
+                    <td><button id={this.props.actionId + connection.id} type="button" className="btn btn-primary" onClick={handleClick}>{this.props.actionName}</button></td>
                 </tr>);
             }, this);
             modalBody = <table className="table" cols="2">
@@ -38,7 +40,7 @@ var ConnectionList = React.createClass({
         return (
             <div>
                 <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                    Invite Connections
+                    {this.props.buttonName}
                 </button>
 
                 <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
