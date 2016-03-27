@@ -1,21 +1,30 @@
 var PictureStore = Reflux.createStore({
     listenables: [PictureActions],
-    onSavePicture: function (toUpload, fileName, uploadURL) {
-        console.log("toUpload before ajax: " + toUpload.toString());
+    onSavePicture: function (pictureData, fileName, uploadURL) {
         $.ajax({
             url: uploadURL,
             method: 'POST',
             data: {
-                picture: toUpload,
+                picture: pictureData,
                 fileName: fileName
             },
-            success: this.handleFile,
+            success: this.returnPicture,
             error: function () {
                 console.log("There was an error uploading the picture to the server.");
             }
         });
     },
-    handleFile: function (data) {
+    onGetPicture: function (getterURL) {
+        $.ajax({
+            url: getterURL,
+            method: 'GET',
+            success: this.returnPicture,
+            error: function () {
+                console.log("There was an error retrieving the picture from the server.");
+            }
+        });
+    },
+    returnPicture: function (data) {
         this.trigger(data);
     }
 });

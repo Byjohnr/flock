@@ -24,6 +24,9 @@ public class PictureFile {
     @Column(name = "picture")
     private String picture;
 
+    public PictureFile() {
+    }
+
     public PictureFile(String fileName, String picture) {
         this.fileName = fileName;
         this.picture = picture;

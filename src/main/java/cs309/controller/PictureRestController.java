@@ -7,6 +7,7 @@ import cs309.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,20 +27,36 @@ public class PictureRestController {
 
     @ResponseBody
     @RequestMapping("/profile_picture")
-    public Object profilePictureGetter(Principal principal) {
-        User principalUser = userService.getUserByEmail(principal.getName());
-        PictureFile pictureFile = pictureFileService.getPictureFileByUserId(principalUser.getId());
-        return pictureFile.getPicture();
+    public String profilePictureGetter(Principal principal) {
+        String picture = null;
+        try {
+            User principalUser = userService.getUserByEmail(principal.getName());
+            PictureFile pictureFile = pictureFileService.getPictureFileByUserId(principalUser.getId());
+            picture = pictureFile.getPicture();
+        } catch (NullPointerException ex) {
+            LOG.error("No picture for user " + principal.getName());
+        }
+        return picture;
+    }
+
+    @ResponseBody
+    @RequestMapping("/user_profile_picture/{userId}")
+    public String userProfilePictureGetter(@PathVariable("userId") Integer userId) {
+        String picture = null;
+        try {
+            PictureFile pictureFile = pictureFileService.getPictureFileByUserId(userId);
+            picture = pictureFile.getPicture();
+        } catch (NullPointerException ex) {
+            LOG.error("No picture for user " + userId);
+        }
+        return picture;
     }
 
     @ResponseBody
     @RequestMapping("/picture_upload/profile_picture")
-    public Object profilePictureUpload(String picture, String fileName, Principal principal) {
-        System.out.println("pictureData: " + picture);
-        Integer pictureLengthChars = picture.length();
-
-        PictureFile pictureFile = pictureFileService.savePictureFile(fileName, null, null, picture);
-
+    public String profilePictureUpload(String picture, String fileName, Principal principal) {
+        User principalUser = userService.getUserByEmail(principal.getName());
+        PictureFile pictureFile = pictureFileService.savePictureFileForUser(fileName, principalUser.getId(), picture);
         return pictureFile.getPicture();
     }
 }

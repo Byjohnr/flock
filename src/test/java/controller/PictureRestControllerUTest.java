@@ -41,7 +41,7 @@ public class PictureRestControllerUTest extends UnitTestBase {
         File file = new File(this.getClass().getResource("/img/testPicture.jpg").getFile());
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(ImageIO.read(file), file.getName().substring(file.getName().indexOf('.') + 1), byteArrayOutputStream);
-        when(pictureFileService.savePictureFile(any())).thenReturn(new PictureFile(file.getName(), byteArrayOutputStream.toByteArray()));
+        when(pictureFileService.savePictureFileForUser(any())).thenReturn(new PictureFile(file.getName(), byteArrayOutputStream.toByteArray()));
 
         ResultActions results = this.mockMvc.perform(get("/picture_upload/test").accept(MediaType.TEXT_HTML));
 

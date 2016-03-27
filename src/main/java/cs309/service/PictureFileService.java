@@ -5,15 +5,7 @@ import cs309.repo.PictureFileRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 
 @Service
 public class PictureFileService {
@@ -23,8 +15,26 @@ public class PictureFileService {
     @Autowired
     private PictureFileRepository pictureFileRepo;
 
-    public PictureFile savePictureFile(String fileName, Integer userId, Integer eventId, String pictureData) {
-        return pictureFileRepo.save(new PictureFile(fileName, userId, eventId, pictureData));
+    public PictureFile savePictureFileForUser(String fileName, Integer userId, String pictureData) {
+        PictureFile returnedPictureFile = pictureFileRepo.findByUserId(userId);
+        if (returnedPictureFile == null) {
+            returnedPictureFile = new PictureFile(fileName, userId, null, pictureData);
+        } else {
+            returnedPictureFile.setFileName(fileName);
+            returnedPictureFile.setPicture(pictureData);
+        }
+        return pictureFileRepo.save(returnedPictureFile);
+    }
+
+    public PictureFile savePictureFileForEvent(String fileName, Integer eventId, String pictureData) {
+        PictureFile returnedPictureFile = pictureFileRepo.findByUserId(eventId);
+        if (returnedPictureFile == null) {
+            returnedPictureFile = new PictureFile(fileName, null, eventId, pictureData);
+        } else {
+            returnedPictureFile.setFileName(fileName);
+            returnedPictureFile.setPicture(pictureData);
+        }
+        return pictureFileRepo.save(returnedPictureFile);
     }
 
     public PictureFile getPictureFileByFileName(String fileName) {

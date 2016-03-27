@@ -32,7 +32,8 @@ var pictureSizing = {
 var Picture = React.createClass({
     mixins: [Reflux.connect(PictureStore, 'picture')],
     getInitialState: function () {
-        return {picture: undefined};
+        var actualPicture = PictureActions.getPicture(this.props.getterUrl);
+        return {picture: actualPicture != null ? actualPicture : undefined};
     },
     handleFile: function (e) {
         var reader = new FileReader();
