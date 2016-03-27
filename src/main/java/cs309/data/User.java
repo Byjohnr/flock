@@ -106,8 +106,6 @@ public class User {
         this.events = events;
     }
 
-
-
     public String getPassword() {
         return password;
     }
@@ -133,24 +131,26 @@ public class User {
         User user = (User) o;
 
         return new EqualsBuilder()
-                .append(id, user.id)
                 .append(firstName, user.firstName)
                 .append(lastName, user.lastName)
                 .append(email, user.email)
                 .append(description, user.description)
                 .append(currentCity, user.currentCity)
+                .append(events, user.events)
+                .append(connectionGroups, user.connectionGroups)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(id)
                 .append(firstName)
                 .append(lastName)
                 .append(email)
                 .append(description)
                 .append(currentCity)
+                .append(events)
+                .append(connectionGroups)
                 .toHashCode();
     }
 
@@ -163,6 +163,8 @@ public class User {
                 ", email='" + email + '\'' +
                 ", description='" + description + '\'' +
                 ", currentCity='" + currentCity + '\'' +
+                ", events=" + events +
+                ", connectionGroups=" + connectionGroups +
                 '}';
     }
 }

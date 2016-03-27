@@ -1,5 +1,8 @@
 package cs309.data;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 
 @Entity
@@ -23,9 +26,6 @@ public class PictureFile {
     @Lob
     @Column(name = "picture")
     private String picture;
-
-    public PictureFile() {
-    }
 
     public PictureFile(String fileName, String picture) {
         this.fileName = fileName;
@@ -77,6 +77,32 @@ public class PictureFile {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PictureFile that = (PictureFile) o;
+
+        return new EqualsBuilder()
+                .append(fileName, that.fileName)
+                .append(userId, that.userId)
+                .append(eventId, that.eventId)
+                .append(picture, that.picture)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(fileName)
+                .append(userId)
+                .append(eventId)
+                .append(picture)
+                .toHashCode();
     }
 
     @Override

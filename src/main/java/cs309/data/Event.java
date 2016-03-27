@@ -2,6 +2,8 @@ package cs309.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import cs309.dto.CreateEventDTO;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.text.ParseException;
@@ -147,6 +149,42 @@ public class Event {
 
     public void setEventInvites(List<EventInvite> eventInvites) {
         this.eventInvites = eventInvites;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Event event = (Event) o;
+
+        return new EqualsBuilder()
+                .append(creator, event.creator)
+                .append(eventName, event.eventName)
+                .append(eventStart, event.eventStart)
+                .append(eventEnd, event.eventEnd)
+                .append(type, event.type)
+                .append(eventInvites, event.eventInvites)
+                .append(commentList, event.commentList)
+                .append(location, event.location)
+                .append(eventDescription, event.eventDescription)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(creator)
+                .append(eventName)
+                .append(eventStart)
+                .append(eventEnd)
+                .append(type)
+                .append(eventInvites)
+                .append(commentList)
+                .append(location)
+                .append(eventDescription)
+                .toHashCode();
     }
 
     @Override
