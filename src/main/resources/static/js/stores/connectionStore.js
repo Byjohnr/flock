@@ -65,19 +65,6 @@ var ConnectionStore = Reflux.createStore({
             console.log('Deleted');
             window.location.reload(true);
         });
-        //$.ajax({
-        //    headers: {
-        //        'Accept': 'application/json',
-        //        'Content-Type': 'application/json'
-        //    },
-        //    url: '/api/connectionGroup/delete',
-        //    data: JSON.stringify(groupId),
-        //    type: 'POST',
-        //    success : function() {
-        //        console.log("success dude");
-        //        window.location.reload(true);
-        //    }
-        //})
     },
     onRejectConnection : function() {
         this.handleConnectionAjax('/api/connection/reject/', 'POST');
