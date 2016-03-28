@@ -87,8 +87,7 @@ public class EventRestController {
             result.getFieldErrors().stream().forEach(fieldError ->  errors.add(new ErrorsDTO(fieldError.getField(),fieldError.getCode())));
             return errors;
         }
-//        TODO jefffreyh 2-6/16 set the user by whoever is creating the event
-        Event event = eventService.saveEvent(new Event(createEventDTO, userService.getUser(1)));
+        Event event = eventService.saveEvent(new Event(createEventDTO, userService.getUserByEmail(principal.getName())));
         roleService.createRole(principal.getName(),Role.EVENT_ADMIN);
         List<ErrorsDTO> noErrors = new ArrayList<>();
         noErrors.add(new ErrorsDTO("success", event.getId() + ""));
@@ -101,23 +100,17 @@ public class EventRestController {
         Event event = eventService.getEvent(eventId);
         User inviter = userService.getUserByEmail(principal.getName());
         for(Integer userId : userIds) {
-            User invitedUser = userService.getUser(userId);
-            EventInvite eventInvite = new EventInvite(inviter,invitedUser,event);
-            eventInviteService.saveEventInvite(eventInvite);
+                User invitedUser = userService.getUser(userId);
+                EventInvite eventInvite = new EventInvite(inviter, invitedUser, event);
+                eventInviteService.saveEventInvite(eventInvite);
         }
     }
 
     @RequestMapping(value = "/api/event/{eventId}/admins", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void addEventAdmins(@PathVariable Integer eventId, @RequestBody final Integer[] userIds, Principal principal) {
-        Event event = eventService.getEvent(eventId);
-        User inviter = userService.getUserByEmail(principal.getName());
+    public void addEventAdmins(@RequestBody final Integer[] userIds) {
         for(Integer userId : userIds) {
             User invitedAdmin = userService.getUser(userId);
-            if(!eventInviteService.eventInviteExists(eventId, userId)) {
-                EventInvite eventInvite = new EventInvite(inviter, invitedAdmin, event);
-                eventInviteService.saveEventInvite(eventInvite);
-            }
             roleService.createRole(invitedAdmin.getEmail(), Role.EVENT_ADMIN);
         }
     }
