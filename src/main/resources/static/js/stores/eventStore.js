@@ -16,7 +16,7 @@ var EventStore = Reflux.createStore({
     addEvents: function (data) {
         this.trigger(data);
     },
-    onCreateEvent: function (data, invites) {
+    onCreateEvent: function (data, invites, eventAdmins) {
         console.log(data);
         var parent = this;
         $.ajax({
@@ -33,6 +33,7 @@ var EventStore = Reflux.createStore({
                 console.log(errors);
                 if(errors.length === 1 && errors[0].fieldId === "success") {
                     parent.handleInvites(errors[0].errorMessage, invites);
+                    parent.handleEventAdmins(errors[0].errorMessage, eventAdmins);
                 }
                 console.log("It worked?!?!?");
             },
@@ -50,24 +51,33 @@ var EventStore = Reflux.createStore({
         invites.map(function(invite) {
             userIds.push(invite.id);
         });
-        console.log(userIds);
+        this.handleAjaxInvites('/api/event/'+ eventId +'/invites', JSON.stringify(userIds), eventId);
+    },
+    handleEventAdmins : function(eventId, eventAdmins) {
+        var userIds = [];
+        eventAdmins.map(function(admin) {
+            userIds.push(admin.id);
+        });
+        this.handleAjaxInvites('/api/event/'+ eventId +'/admins', JSON.stringify(userIds), eventId);
+    },
+    handleAjaxInvites : function(url, data, eventId) {
         $.ajax({
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            url: '/api/event/'+ eventId +'/invites',
-            data: JSON.stringify(userIds),
+            url: url,
+            data: data,
             type: 'POST',
-            success: function() {
+            success: function () {
                 window.location.replace("/event/" + eventId);
             },
-            error : function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.log("Error adding invites");
                 console.log(status);
                 console.log(xhr.responseText)
             }
-        });
+        })
     },
     onEditEvent: function (data) {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);

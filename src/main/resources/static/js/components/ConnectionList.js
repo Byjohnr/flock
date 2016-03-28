@@ -6,8 +6,9 @@ var ConnectionList = React.createClass({
     handleClick : function(connection) {
       console.log(connection);
         this.props.handleInvite(connection);
-        $('#invite' + connection.id).prop("disabled", true);
-        $('#invite' + connection.id).html("Added");
+        var idName = this.props.actionId;
+        $('#' + idName + connection.id).prop("disabled", true);
+        $('#' + idName + connection.id).html("Added");
 
     },
     render: function() {
@@ -19,12 +20,13 @@ var ConnectionList = React.createClass({
         } else {
             console.log("defined connections");
             console.log(this.props.actionName);
+            var actionName = this.props.actionName;
             modalBody = this.state.connections.map(function (connection) {
                 var handleClick = this.handleClick.bind(this,connection);
                 console.log(this.props.actionName);
                 return (<tr key={connection.id}>
                     <td>{connection.firstName} {connection.lastName}</td>
-                    <td><button id={this.props.actionId + connection.id} type="button" className="btn btn-primary" onClick={handleClick}>{this.props.actionName}</button></td>
+                    <td><button id={this.props.actionId + connection.id} type="button" className="btn btn-primary" onClick={handleClick}>{actionName}</button></td>
                 </tr>);
             }, this);
             modalBody = <table className="table" cols="2">
@@ -39,11 +41,11 @@ var ConnectionList = React.createClass({
         }
         return (
             <div>
-                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                <button type="button" className="btn btn-primary" data-toggle="modal" data-target={'#' + this.props.modalId}>
                     {this.props.buttonName}
                 </button>
 
-                <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div className="modal fade" id={this.props.modalId} tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">

@@ -16,7 +16,7 @@ var CreateEvent = React.createClass({
             type: this.refs.type.value,
             address: this.refs.address.value
         };
-        EventActions.createEvent(formData, this.state.invites);
+        EventActions.createEvent(formData, this.state.invites, this.state.eventAdmins);
     },
     timePicker: function (id) {
         $('#' + id).pickatime();
@@ -114,7 +114,9 @@ var CreateEvent = React.createClass({
                                         </select>
                                     </div>
                                 </div>
-                                <ConnectionList actionId="eventAdmins" handleInvite={this.handleEventAdmin} buttonName="Add Event Admins" actionName="Add as Event Admin" />
+                                <div id="eventAdmin">
+                                    <ConnectionList actionId="eventAdmins" modalId="eventAdminModal" handleInvite={this.handleEventAdmin} buttonName="Add Event Admins" actionName="Add as Event Admin" />
+                                </div>
                                 <div className="form-group">
                                     <div>
                                         <label className="col-sm-2 control-label" htmlFor="invites"> Event Admins </label>
@@ -123,8 +125,10 @@ var CreateEvent = React.createClass({
                                         <textarea id="eventAdmins" readOnly="readonly" className="form-control" rows="3" value={eventAdmins} />
                                     </div>
                                 </div>
-                                <ConnectionList actionId="inviteList" handleInvite={this.handleInvite} buttonName="Invite Connections" actionName="Add to Invite List" />
-                                <div className="form-group">
+                                <div id="invites">
+                                    <ConnectionList actionId="inviteList" modalId="inviteModal" handleInvite={this.handleInvite} buttonName="Invite Connections" actionName="Add to Invite List" />
+                                </div>
+                                    <div className="form-group">
                                     <div>
                                         <label className="col-sm-2 control-label" htmlFor="invites"> Invite List </label>
                                     </div>
