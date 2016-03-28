@@ -1,6 +1,5 @@
 package cs309.data;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import cs309.dto.CreateEventDTO;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -168,6 +167,7 @@ public class Event {
                 .append(commentList, event.commentList)
                 .append(location, event.location)
                 .append(eventDescription, event.eventDescription)
+                .append(eventInvites, event.eventInvites)
                 .isEquals();
     }
 
@@ -183,6 +183,7 @@ public class Event {
                 .append(commentList)
                 .append(location)
                 .append(eventDescription)
+                .append(eventInvites)
                 .toHashCode();
     }
 

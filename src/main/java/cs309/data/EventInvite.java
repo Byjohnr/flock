@@ -1,6 +1,8 @@
 package cs309.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -46,7 +48,6 @@ public class EventInvite {
     private Integer inviteStatus;
 
     public EventInvite() {
-
     }
 
     public EventInvite(User inviter, User userInvited, Event event) {
@@ -103,5 +104,45 @@ public class EventInvite {
 
     public void setInviteStatus(Integer inviteStatus) {
         this.inviteStatus = inviteStatus;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EventInvite that = (EventInvite) o;
+
+        return new EqualsBuilder()
+                .append(inviter, that.inviter)
+                .append(userInvited, that.userInvited)
+                .append(dateInvited, that.dateInvited)
+                .append(event, that.event)
+                .append(inviteStatus, that.inviteStatus)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(inviter)
+                .append(userInvited)
+                .append(dateInvited)
+                .append(event)
+                .append(inviteStatus)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "EventInvite{" +
+                "id=" + id +
+                ", inviter=" + inviter +
+                ", userInvited=" + userInvited +
+                ", dateInvited=" + dateInvited +
+                ", event=" + event +
+                ", inviteStatus=" + inviteStatus +
+                '}';
     }
 }

@@ -136,8 +136,6 @@ public class User {
                 .append(email, user.email)
                 .append(description, user.description)
                 .append(currentCity, user.currentCity)
-                .append(events, user.events)
-                .append(connectionGroups, user.connectionGroups)
                 .isEquals();
     }
 
@@ -149,8 +147,6 @@ public class User {
                 .append(email)
                 .append(description)
                 .append(currentCity)
-                .append(events)
-                .append(connectionGroups)
                 .toHashCode();
     }
 
@@ -163,8 +159,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", description='" + description + '\'' +
                 ", currentCity='" + currentCity + '\'' +
-                ", events=" + events +
-                ", connectionGroups=" + connectionGroups +
                 '}';
     }
 }

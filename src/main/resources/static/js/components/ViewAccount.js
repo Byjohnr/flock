@@ -43,10 +43,10 @@ var ViewAccount = React.createClass({
                                 <h2>
                                     {this.state.userInformation.currentCity}
                                 </h2>
+                                <div>
+                                    {connectionStatus}
+                                </div>
                             </div>
-                        </div>
-                        <div className="text-right">
-                            {connectionStatus}
                         </div>
                     </div>
                 </div>
