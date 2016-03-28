@@ -3,6 +3,7 @@ package controller;
 import config.UnitTestBase;
 import cs309.controller.ConnectionRestController;
 import cs309.service.ConnectionService;
+import cs309.service.UserService;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +18,7 @@ import java.security.Principal;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,6 +30,9 @@ public class ConnectionRestControllerUTest extends UnitTestBase {
 
     @Mock
     private ConnectionService connectionService;
+
+    @Mock
+    private UserService userService;
 
     @InjectMocks
     private ConnectionRestController connectionRestController;
@@ -48,4 +53,53 @@ public class ConnectionRestControllerUTest extends UnitTestBase {
                 .andExpect(jsonPath("$", Matchers.hasSize(4)));
     }
 
+    @Test
+    public void getConnectionStatus() throws Exception {
+        Principal principal = mock(Principal.class);
+        when(userService.getUserByEmail(principal.getName())).thenReturn(MockData.getUser(2));
+        mockMvc.perform(post("/api/connection/status/1").principal(principal))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+                .andExpect(content().string("nothing"));
+    }
+
+    @Test
+    public void requestConnection() throws Exception {
+        Principal principal = mock(Principal.class);
+        when(userService.getUserByEmail(principal.getName())).thenReturn(MockData.getUser(2));
+        mockMvc.perform(post("/api/connection/request/1").principal(principal))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+                .andExpect(content().string("requesting"));
+    }
+
+    @Test
+    public void removeConnection() throws Exception {
+        Principal principal = mock(Principal.class);
+        when(userService.getUserByEmail(principal.getName())).thenReturn(MockData.getUser(2));
+        mockMvc.perform(post("/api/connection/remove/1").principal(principal))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+                .andExpect(content().string("nothing"));
+    }
+
+    @Test
+    public void addConnection() throws Exception {
+        Principal principal = mock(Principal.class);
+        when(userService.getUserByEmail(principal.getName())).thenReturn(MockData.getUser(2));
+        mockMvc.perform(post("/api/connection/add/1").principal(principal))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+                .andExpect(content().string("connected"));
+    }
+
+    @Test
+    public void rejectConnectionRequest() throws Exception {
+        Principal principal = mock(Principal.class);
+        when(userService.getUserByEmail(principal.getName())).thenReturn(MockData.getUser(2));
+        mockMvc.perform(post("/api/connection/reject/1").principal(principal))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+                .andExpect(content().string("nothing"));
+    }
 }

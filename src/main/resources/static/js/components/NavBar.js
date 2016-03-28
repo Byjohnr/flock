@@ -55,7 +55,7 @@ var NavBar = React.createClass({
                 navbar = (<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul className="nav navbar-nav">
                         <li><a href="/event/create">Create Event</a></li>
-                        <li><a href="#">Map</a></li>
+                        <li><a href="/map">Map</a></li>
                     </ul>
                     <form className="navbar-form navbar-left" role="search">
                         <div className="form-group">

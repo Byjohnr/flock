@@ -14,6 +14,11 @@ var ViewAccount = React.createClass({
         }
     },
     render: function () {
+        var connectionStatus = "";
+        if(this.props.account != true) {
+            connectionStatus = <ConnectionStatus />;
+
+        }
         if (this.state.userInformation !== undefined) {
             return (
                 <div>
@@ -39,6 +44,9 @@ var ViewAccount = React.createClass({
                                     {this.state.userInformation.currentCity}
                                 </h2>
                             </div>
+                        </div>
+                        <div className="text-right">
+                            {connectionStatus}
                         </div>
                     </div>
                 </div>

@@ -6,6 +6,7 @@ import cs309.data.Comment;
 import cs309.dto.CreateEventDTO;
 import cs309.dto.ErrorsDTO;
 import cs309.dto.EventDTO;
+import cs309.service.CommentService;
 import cs309.service.EventInviteService;
 import cs309.service.UserService;
 import cs309.validator.CreateEventValidator;
@@ -15,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
 import cs309.data.Event;
 import cs309.service.EventService;
 
@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -37,6 +38,9 @@ public class EventRestController {
 
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    private CommentService commentService;
 
     @Autowired
     private CreateEventValidator eventValidator;
@@ -58,10 +62,23 @@ public class EventRestController {
     }
 
     @RequestMapping("/api/events")
-    public List<EventDTO> getEvents() {
+    public List<EventDTO> getEvents(Principal principal) {
         List<EventDTO> eventDTOs = new ArrayList<>();
-        eventService.getEvents().stream().forEach(event -> eventDTOs.add(new EventDTO(event)));
+        User user = userService.getUserByEmail(principal.getName());
+        user.getEvents().stream().forEach(event -> eventDTOs.add(new EventDTO(event.getEvent())));
         return eventDTOs;
+    }
+
+    @RequestMapping(value = "/api/event/createComment/{id}", method = RequestMethod.POST)
+    public String createComment(@RequestBody String string, @PathVariable Integer id, Principal principal) {
+        Comment comment = new Comment();
+        Event event = eventService.getEvent(id);
+        comment.setEvent(event);
+        comment.setComment(string);
+        comment.setDateCreated(new Date());
+        comment.setOwner(userService.getUserByEmail(principal.getName()));
+        commentService.saveComment(comment);
+        return "/";
     }
 
     @RequestMapping(value = "/api/create", method = RequestMethod.POST)

@@ -94,7 +94,28 @@ var EventStore = Reflux.createStore({
         })
     },
     pushEvent: function (data) {
-        console.log(data);
+        console.log("triggered");
         this.trigger(data);
+    },
+    onCreateComment: function (data) {
+        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: '/api/event/createComment/' + id,
+            type: 'POST',
+            dataType: 'text',
+            data: data,
+            success: function() {
+                console.log("reload");
+                window.location.reload(true);
+            },
+            error: function(status, thrownError) {
+                console.log(thrownError)
+                console.log(status);
+            }
+        })
     }
 });

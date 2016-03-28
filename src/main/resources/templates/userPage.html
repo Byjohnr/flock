@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <head th:remove="tag" th:include="fragments/head :: title"/>
     <head th:remove="tag" th:include="fragments/head :: imports"/>
 </head>
 <body>
 <div id="user_info"></div>
+<script src="/js/components_compiled/ConnectionStatus.js"></script>
 <script src="/js/components_compiled/ViewAccount.js"></script>
 <script src="/js/components_compiled/UserPage.js"></script>
 <script src="/js/components_compiled/Picture.js"></script>
