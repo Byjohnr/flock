@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -50,5 +51,10 @@ public class UserRestController {
     @RequestMapping("/user/{id}")
     public User getOtherUser(@PathVariable int id) {
         return userService.getUser(id);
+    }
+
+    @RequestMapping("/user/search")
+    public List<User> getUsersOnSearch(@RequestBody String query) {
+        return userService.userSearch(query);
     }
 }
