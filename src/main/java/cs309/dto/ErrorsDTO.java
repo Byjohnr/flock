@@ -5,7 +5,6 @@ public class ErrorsDTO {
     private String errorMessage;
 
     public ErrorsDTO() {
-
     }
 
     public ErrorsDTO(String fieldId, String errorMessage) {
@@ -14,7 +13,6 @@ public class ErrorsDTO {
     }
 
     public String getFieldId() {
-
         return fieldId;
     }
 
