@@ -100,9 +100,11 @@ public class EventRestController {
         Event event = eventService.getEvent(eventId);
         User inviter = userService.getUserByEmail(principal.getName());
         for(Integer userId : userIds) {
+            if(!eventInviteService.eventInviteExists(eventId,userId)) {
                 User invitedUser = userService.getUser(userId);
                 EventInvite eventInvite = new EventInvite(inviter, invitedUser, event);
                 eventInviteService.saveEventInvite(eventInvite);
+            }
         }
     }
 

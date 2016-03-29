@@ -32,7 +32,7 @@ var EventStore = Reflux.createStore({
                 var errors = JSON.parse(data);
                 console.log(errors);
                 if(errors.length === 1 && errors[0].fieldId === "success") {
-                    parent.handleInvites(errors[0].errorMessage, invites);
+                    parent.handleInvites(errors[0].errorMessage, invites, eventAdmins);
                     parent.handleEventAdmins(errors[0].errorMessage, eventAdmins);
                 }
                 console.log("It worked?!?!?");
@@ -46,10 +46,13 @@ var EventStore = Reflux.createStore({
         });
         console.log('does it get here?');
     },
-    handleInvites: function(eventId, invites) {
+    handleInvites: function(eventId, invites, eventAdmins) {
         var userIds = [];
         invites.map(function(invite) {
             userIds.push(invite.id);
+        });
+        eventAdmins.map(function(admin) {
+            userIds.push(admin.id);
         });
         this.handleAjaxInvites('/api/event/'+ eventId +'/invites', JSON.stringify(userIds), eventId);
     },
