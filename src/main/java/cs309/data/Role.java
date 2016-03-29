@@ -1,5 +1,7 @@
 package cs309.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,6 +22,9 @@ public class Role {
 
     @Column(name = "role")
     private String roleName;
+
+    @Column(name = "targetId")
+    private Integer targetId;
 
     public Role() {
 
@@ -52,5 +57,13 @@ public class Role {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public Integer getTargetId() {
+        return targetId;
+    }
+
+    public void setTargetId(Integer targetId) {
+        this.targetId = targetId;
     }
 }

@@ -1,5 +1,5 @@
 var EventPage = React.createClass({
-    mixins: [Reflux.connect(EventStore,'event'), Reflux.connect(EventInviteStore, 'eventInvite')],
+    mixins: [Reflux.connect(EventStore,'event'), Reflux.connect(EventInviteStore, 'eventInvite'), Reflux.connect(RoleStore, 'role')],
     timePicker: function(id) {
         $('#' + id).pickatime();
     },
@@ -7,11 +7,12 @@ var EventPage = React.createClass({
         $('#' + id).pickadate();
     },
     getInitialState: function() {
-        return {event : undefined, eventInvite : undefined};
+        return {event : undefined, eventInvite : undefined, role : undefined};
     },
     componentDidMount: function() {
         EventActions.getEvent();
         EventInviteActions.getAttending();
+        RoleActions.getRole();
     },
     handleNameChange: function(event) {
         this.setState({event:{eventName: event.target.value, eventDescription: this.state.event.eventDescription, location: this.state.event.location, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type, commentList: this.state.event.commentList, eventInvites: this.state.event.eventInvites}});
@@ -45,6 +46,9 @@ var EventPage = React.createClass({
     handleInviteChange: function() {
         EventInviteActions.setAttending("Change");
     },
+    handleInvite : function() {
+
+    },
 
 
     render: function() {
@@ -52,6 +56,7 @@ var EventPage = React.createClass({
             return <div>Loading <i className="fa fa-spin fa-refresh"/></div>;
         }
         var attending;
+        var edit;
         if (this.state.eventInvite.toString() === "0") {
             attending = (
                     <div className="btn-group" role="group">
@@ -83,6 +88,17 @@ var EventPage = React.createClass({
                     </div>
                 )
         }
+        if (this.state.role.toString() === "ROLE_EVENT_ADMIN") {
+            edit = (
+                <div className="btn-group" role="group">
+                    <button type="button" className="btn btn-primary btn-lg" data-toggle="modal"
+                            data-target="#EditModal">
+                        Edit
+                    </button>
+                    <ConnectionList handleInvite={this.handleInvite}/>
+                </div>
+            )
+        }
 
         return (
             <div className="row">
@@ -103,12 +119,11 @@ var EventPage = React.createClass({
                         <h3> End: {this.state.event.eventEnd} </h3>
 
                         <h3> Location: {this.state.event.location} </h3>
+
                         </div>
-                        <button type="button" className="btn btn-primary btn-lg" data-toggle="modal"
-                                data-target="#EditModal">
-                            Edit
-                        </button>
+                            {edit}
                         <div>
+
                             <h2> Comments </h2>
                             <CommentList comments={this.state.event.commentList}/>
 

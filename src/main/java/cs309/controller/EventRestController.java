@@ -1,14 +1,10 @@
 package cs309.controller;
 
-import cs309.data.EventInvite;
-import cs309.data.User;
-import cs309.data.Comment;
+import cs309.data.*;
 import cs309.dto.CreateEventDTO;
 import cs309.dto.ErrorsDTO;
 import cs309.dto.EventDTO;
-import cs309.service.CommentService;
-import cs309.service.EventInviteService;
-import cs309.service.UserService;
+import cs309.service.*;
 import cs309.validator.CreateEventValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import cs309.data.Event;
-import cs309.service.EventService;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -49,6 +43,9 @@ public class EventRestController {
 
     @Autowired
     private EventInviteService eventInviteService;
+
+    @Autowired
+    private RoleService roleService;
 
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.GET)
     public Event getEvent(@PathVariable Integer id) {
@@ -103,6 +100,15 @@ public class EventRestController {
     public int getInvite(@PathVariable Integer id, Principal principal) {
         EventInvite invite = eventInviteService.getEventInvite(userService.getUserByEmail(principal.getName()), eventService.getEvent(id));
         return invite.getInviteStatus();
+    }
+
+    @RequestMapping(value = "/api/event/getRole/{id}", method = RequestMethod.GET)
+    public String getRole(@PathVariable Integer id, Principal principal) {
+        Role role = roleService.getRole(principal.getName(), eventService.getEvent(id));
+        if (role == null) {
+            return "User";
+        }
+        return role.getRoleName();
     }
 
     @RequestMapping(value = "/api/create", method = RequestMethod.POST)
