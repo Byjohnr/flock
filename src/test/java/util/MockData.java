@@ -4,6 +4,7 @@ import cs309.data.Connection;
 import cs309.data.Event;
 import cs309.data.Notification;
 import cs309.data.User;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
