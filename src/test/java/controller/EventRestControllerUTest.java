@@ -3,15 +3,9 @@ package controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import config.UnitTestBase;
 import cs309.controller.EventRestController;
-import cs309.data.Comment;
-import cs309.data.Event;
-import cs309.data.EventInvite;
-import cs309.data.User;
+import cs309.data.*;
 import cs309.dto.CreateEventDTO;
-import cs309.service.CommentService;
-import cs309.service.EventInviteService;
-import cs309.service.EventService;
-import cs309.service.UserService;
+import cs309.service.*;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,6 +45,9 @@ public class EventRestControllerUTest extends UnitTestBase {
     @Mock
     private CommentService commentService;
 
+    @Mock
+    private RoleService roleService;
+
     @Before
     public void setup() {
         this.mockMvc = standaloneSetup(eventController).build();
@@ -67,8 +64,12 @@ public class EventRestControllerUTest extends UnitTestBase {
 
     @Test
     public void getEvents() throws Exception {
-        when(eventService.getEvents()).thenReturn(MockData.getMockEvents(4));
-        this.mockMvc.perform(get("/api/events").accept(MediaType.APPLICATION_JSON))
+        Principal principal = mock(Principal.class);
+        User user = new User();
+        user.setEvents(MockData.getEventInvites(4));
+        when(userService.getUserByEmail(principal.getName())).thenReturn(user);
+
+        this.mockMvc.perform(get("/api/events").accept(MediaType.APPLICATION_JSON).principal(principal))
 
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
@@ -77,12 +78,14 @@ public class EventRestControllerUTest extends UnitTestBase {
 
     @Test
     public void createEvent() throws Exception {
+        Principal principal = mock(Principal.class);
         ObjectMapper mapper = new ObjectMapper();
         when(eventService.saveEvent(any(Event.class))).thenReturn(MockData.getEvent(1));
         CreateEventDTO eventDTO = new CreateEventDTO();
         String string = mapper.writeValueAsString(eventDTO);
         when(userService.getUser(1)).thenReturn(mock(User.class));
         this.mockMvc.perform(post("/api/create")
+                .principal(principal)
                 .content(string)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -132,5 +135,19 @@ public class EventRestControllerUTest extends UnitTestBase {
                 .andExpect(status().isOk());
 
         verify(commentService, times(1)).saveComment(any(Comment.class));
+    }
+
+    @Test
+    public void addEventAdmins() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        String ids = mapper.writeValueAsString(new int[]{1,2,3});
+        when(userService.getUser(anyInt())).thenReturn(MockData.getUser(2));
+
+        mockMvc.perform(post("/api/event/1/admins").principal(mock(Principal.class))
+                .content(ids)
+                .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk());
+
+        verify(roleService, times(3)).createRole("email2", Role.EVENT_ADMIN);
     }
 }

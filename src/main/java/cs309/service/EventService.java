@@ -11,9 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by jeffrey on 1/28/16.
- */
 @Service
 public class EventService {
 

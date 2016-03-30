@@ -9,9 +9,8 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 public class EventInviteServiceUTest extends UnitTestBase {
 
@@ -28,5 +27,11 @@ public class EventInviteServiceUTest extends UnitTestBase {
         verify(eventInviteRepository, times(1)).save(eventInvite);
     }
 
+    @Test
+    public void eventInvteExists() {
+        when(eventInviteRepository.userInviteExists(1,1234)).thenReturn(true);
+        boolean boo = eventInviteService.eventInviteExists(1,1234);
+        assertTrue(boo);
+    }
 
 }

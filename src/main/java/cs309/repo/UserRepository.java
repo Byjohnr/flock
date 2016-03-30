@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<User,Integer>{
+public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("select u from User u where u.currentCity = :currentCity")
     List<User> findByCurrentCity(@Param("currentCity") String currentCity);

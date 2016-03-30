@@ -1,6 +1,3 @@
-/**
- * Created by chasekoehler on 2/23/16.
- */
 var CommentList = React.createClass({
     render: function() {
         var commentNodes = this.props.comments.map(function (comment) {
