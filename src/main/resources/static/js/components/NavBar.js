@@ -3,6 +3,9 @@ var NavBar = React.createClass({
     getInitialState: function() {
         return {user : undefined};
     },
+    searchChange: function(query) {
+        console.log(query.target.value);
+    },
     render: function() {
         var navbar = null;
         if(this.props.hideInfo === "true") {
@@ -53,7 +56,7 @@ var NavBar = React.createClass({
                     </ul>
                     <form className="navbar-form navbar-left" role="search">
                         <div className="form-group">
-                            <input type="text" className="form-control" placeholder="Search"/>
+                            <input type="text" className="form-control" onChange={this.searchChange} placeholder="Search"/>
                         </div>
                         <button type="submit" className="btn btn-default">Submit</button>
                     </form>
