@@ -1,6 +1,4 @@
-/**
- * Created by chasekoehler on 3/2/16.
- */
+
 var EventInviteStore = Reflux.createStore({
     listenables: [EventInviteActions],
     init : function() {
