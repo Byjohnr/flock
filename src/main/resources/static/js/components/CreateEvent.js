@@ -3,7 +3,8 @@ var CreateEvent = React.createClass({
     getInitialState: function() {
         return {
             errors: undefined,
-            invites : []
+            invites : [],
+            eventAdmins: []
         }
     },
     onSubmit: function () {
@@ -15,7 +16,7 @@ var CreateEvent = React.createClass({
             type: this.refs.type.value,
             address: this.refs.address.value
         };
-        EventActions.createEvent(formData, this.state.invites);
+        EventActions.createEvent(formData, this.state.invites, this.state.eventAdmins);
     },
     timePicker: function (id) {
         $('#' + id).pickatime();
@@ -30,12 +31,21 @@ var CreateEvent = React.createClass({
         this.setState({invites : newInvites});
         //console.log(connection);
     },
+    handleEventAdmin : function(connection) {
+        var newEventAdmins = this.state.eventAdmins;
+        newEventAdmins.push(connection);
+        this.setState({eventAdmins : newEventAdmins});
+    },
     render: function () {
         console.log("Rendering create event");
         var invites = this.state.invites.map(function(connection) {
                 return (" " + connection.firstName + " " + connection.lastName);
             });
+        var eventAdmins = this.state.eventAdmins.map(function(connection) {
+           return (" " + connection.firstName + " " + connection.lastName);
+        });
         invites = invites.toString().substring(1);
+        eventAdmins = eventAdmins.toString().substring(1);
         return (
             <div>
                 <NavBar/>
@@ -104,8 +114,21 @@ var CreateEvent = React.createClass({
                                         </select>
                                     </div>
                                 </div>
-                                <ConnectionList handleInvite={this.handleInvite}/>
+                                <div id="eventAdmin">
+                                    <ConnectionList actionId="eventAdmins" modalId="eventAdminModal" handleInvite={this.handleEventAdmin} buttonName="Add Event Admins" actionName="Add as Event Admin" />
+                                </div>
                                 <div className="form-group">
+                                    <div>
+                                        <label className="col-sm-2 control-label" htmlFor="invites"> Event Admins </label>
+                                    </div>
+                                    <div className="col-sm-8">
+                                        <textarea id="eventAdmins" readOnly="readonly" className="form-control" rows="3" value={eventAdmins} />
+                                    </div>
+                                </div>
+                                <div id="invites">
+                                    <ConnectionList actionId="inviteList" modalId="inviteModal" handleInvite={this.handleInvite} buttonName="Invite Connections" actionName="Add to Invite List" />
+                                </div>
+                                    <div className="form-group">
                                     <div>
                                         <label className="col-sm-2 control-label" htmlFor="invites"> Invite List </label>
                                     </div>

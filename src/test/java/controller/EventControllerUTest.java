@@ -33,7 +33,6 @@ public class EventControllerUTest extends UnitTestBase {
         this.mockMvc = standaloneSetup(eventController).build();
     }
 
-
     @Test
     public void eventPage() throws Exception {
         when(eventService.getEvent(1)).thenReturn(MockData.getEvent(1));

@@ -1,14 +1,10 @@
 package cs309.controller;
 
-import cs309.data.EventInvite;
-import cs309.data.User;
-import cs309.data.Comment;
+import cs309.data.*;
 import cs309.dto.CreateEventDTO;
 import cs309.dto.ErrorsDTO;
 import cs309.dto.EventDTO;
-import cs309.service.CommentService;
-import cs309.service.EventInviteService;
-import cs309.service.UserService;
+import cs309.service.*;
 import cs309.validator.CreateEventValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import cs309.data.Event;
-import cs309.service.EventService;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -47,6 +41,9 @@ public class EventRestController {
 
     @Autowired
     private EventInviteService eventInviteService;
+
+    @Autowired
+    private RoleService roleService;
 
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.GET)
     public Event getEvent(@PathVariable Integer id) {
@@ -82,15 +79,16 @@ public class EventRestController {
     }
 
     @RequestMapping(value = "/api/create", method = RequestMethod.POST)
-    public List<ErrorsDTO> createEvent(@Valid @RequestBody final CreateEventDTO createEventDTO, BindingResult result) throws IOException, ParseException {
+    public List<ErrorsDTO> createEvent(@Valid @RequestBody final CreateEventDTO createEventDTO,
+                                       BindingResult result, Principal principal) throws IOException, ParseException {
         LOG.error(result.getFieldErrors());
         if(result.hasErrors()) {
             List<ErrorsDTO> errors = new ArrayList<>();
             result.getFieldErrors().stream().forEach(fieldError ->  errors.add(new ErrorsDTO(fieldError.getField(),fieldError.getCode())));
             return errors;
         }
-//        TODO jefffreyh 2-6/16 set the user by whoever is creating the event
-        Event event = eventService.saveEvent(new Event(createEventDTO, userService.getUser(1)));
+        Event event = eventService.saveEvent(new Event(createEventDTO, userService.getUserByEmail(principal.getName())));
+        roleService.createRole(principal.getName(),Role.EVENT_ADMIN);
         List<ErrorsDTO> noErrors = new ArrayList<>();
         noErrors.add(new ErrorsDTO("success", event.getId() + ""));
         return noErrors;
@@ -102,9 +100,20 @@ public class EventRestController {
         Event event = eventService.getEvent(eventId);
         User inviter = userService.getUserByEmail(principal.getName());
         for(Integer userId : userIds) {
-            User invitedUser = userService.getUser(userId);
-            EventInvite eventInvite = new EventInvite(inviter,invitedUser,event);
-            eventInviteService.saveEventInvite(eventInvite);
+            if(!eventInviteService.eventInviteExists(eventId,userId)) {
+                User invitedUser = userService.getUser(userId);
+                EventInvite eventInvite = new EventInvite(inviter, invitedUser, event);
+                eventInviteService.saveEventInvite(eventInvite);
+            }
+        }
+    }
+
+    @RequestMapping(value = "/api/event/{eventId}/admins", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void addEventAdmins(@RequestBody final Integer[] userIds) {
+        for(Integer userId : userIds) {
+            User invitedAdmin = userService.getUser(userId);
+            roleService.createRole(invitedAdmin.getEmail(), Role.EVENT_ADMIN);
         }
     }
 

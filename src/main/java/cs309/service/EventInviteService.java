@@ -18,4 +18,8 @@ public class EventInviteService {
         eventInviteRepository.save(eventInvite);
     }
 
+    public boolean eventInviteExists(int eventId, int userId) {
+        return eventInviteRepository.userInviteExists(eventId, userId);
+    }
+
 }
