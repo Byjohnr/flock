@@ -33,9 +33,10 @@ public class Role {
 
     }
 
-    public Role(String email, String roleName) {
+    public Role(String email, String roleName, Integer targetId) {
         this.email = email;
         this.roleName = roleName;
+        this.targetId = targetId;
     }
 
     public Integer getId() {

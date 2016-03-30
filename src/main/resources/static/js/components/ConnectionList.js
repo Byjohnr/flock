@@ -29,6 +29,18 @@ var ConnectionList = React.createClass({
                     <td><button id={this.props.actionId + connection.id} type="button" className="btn btn-primary" onClick={handleClick}>{actionName}</button></td>
                 </tr>);
             }, this);
+            console.log(this.state.connections.size);
+            if (this.state.connections.size === undefined) {
+                console.log('no connections');
+                modalBody = (
+                    <tr>
+                        <td>
+                            No connections to invite
+                        </td>
+                        <td></td>
+                    </tr>
+                );
+            }
             modalBody = <table className="table" cols="2">
                 <tbody>
                 <tr>

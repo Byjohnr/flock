@@ -15,8 +15,8 @@ public class RoleService {
     private RoleRepository roleRepository;
 
     @Transactional
-    public void createRole(String email, String role) {
-        roleRepository.save(new Role(email,role));
+    public void createRole(String email, String role, Integer id) {
+        roleRepository.save(new Role(email,role,id));
     }
 
     public Role getRole(String email, String roleName, Integer id) {

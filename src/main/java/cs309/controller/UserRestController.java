@@ -34,7 +34,7 @@ public class UserRestController {
 //        TODO jeffreyh 2/8/16 validation
 //        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
-        roleService.createRole(user.getEmail(), Role.USER);
+        roleService.createRole(user.getEmail(), Role.USER, null);
         return "success";
     }
 

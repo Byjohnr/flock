@@ -119,7 +119,7 @@ public class EventRestController {
             return errors;
         }
         Event event = eventService.saveEvent(new Event(createEventDTO, userService.getUserByEmail(principal.getName())));
-        roleService.createRole(principal.getName(),Role.EVENT_ADMIN);
+        roleService.createRole(principal.getName(),Role.EVENT_ADMIN, event.getId());
         List<ErrorsDTO> noErrors = new ArrayList<>();
         noErrors.add(new ErrorsDTO("success", event.getId() + ""));
         return noErrors;
@@ -141,10 +141,10 @@ public class EventRestController {
 
     @RequestMapping(value = "/api/event/{eventId}/admins", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void addEventAdmins(@RequestBody final Integer[] userIds) {
+    public void addEventAdmins(@RequestBody final Integer[] userIds, @PathVariable Integer eventId) {
         for(Integer userId : userIds) {
             User invitedAdmin = userService.getUser(userId);
-            roleService.createRole(invitedAdmin.getEmail(), Role.EVENT_ADMIN);
+            roleService.createRole(invitedAdmin.getEmail(), Role.EVENT_ADMIN, eventId);
         }
     }
 
