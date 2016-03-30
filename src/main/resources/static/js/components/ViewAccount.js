@@ -22,19 +22,19 @@ var ViewAccount = React.createClass({
         }
         if (this.state.userInformation !== undefined) {
             return (
-                <div className="row">
+                <div>
                     <NavBar />
-                    <div className="col-md-2">
-                        {connectionGroupLink}
-                    </div>
                     <div className="text-center container">
                         <div className="row">
+                            <div className="col-md-1 col-xs-12">
+                                {connectionGroupLink}
+                            </div>
                             <div className="col-md-6 col-xs-12">
                                 <Picture sendingUrl={this.props.account === true ? "/api/picture_upload/profile_picture" : ""}
                                          pictureEditable={this.props.account === true}
                                          getterUrl={this.props.account === true ? "/api/profile_picture" : "/api/user_profile_picture/" + this.state.userInformation.id} />
                             </div>
-                            <div className="col-md-6 col-xs-12">
+                            <div className="col-md-5 col-xs-12">
                                 <h1>
                                     {this.state.userInformation.firstName} {this.state.userInformation.lastName}
                                 </h1>
