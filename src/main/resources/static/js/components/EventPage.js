@@ -49,6 +49,9 @@ var EventPage = React.createClass({
     handleInvite : function() {
 
     },
+    handleEventAdmin : function() {
+
+    },
 
 
     render: function() {
@@ -57,6 +60,7 @@ var EventPage = React.createClass({
         }
         var attending;
         var edit;
+        var invite;
         if (this.state.eventInvite.toString() === "0") {
             attending = (
                     <div className="btn-group" role="group">
@@ -95,9 +99,18 @@ var EventPage = React.createClass({
                             data-target="#EditModal">
                         Edit
                     </button>
-                    <ConnectionList handleInvite={this.handleInvite}/>
                 </div>
-            )
+            );
+            invite = (
+                <div>
+                    <div id="eventAdmin">
+                        <ConnectionList actionId="eventAdmins" modalId="eventAdminModal" handleInvite={this.handleEventAdmin} buttonName="Add Event Admins" actionName="Add as Event Admin" />
+                    </div>
+                    <div id="invites">
+                        <ConnectionList actionId="inviteList" modalId="inviteModal" handleInvite={this.handleInvite} buttonName="Invite Connections" actionName="Add to Invite List" />
+                    </div>
+                </div>
+            );
         }
 
         return (
@@ -139,6 +152,9 @@ var EventPage = React.createClass({
                         <div>
                             <h2 className="text-center"> Invited </h2>
                             <InviteList invites={this.state.event.eventInvites}/>
+                        </div>
+                        <div>
+                            {invite}
                         </div>
                         <div className="modal fade" id="EditModal" tabIndex="-1" role="dialog"
                              aria-labelledby="EditModalLabel">
