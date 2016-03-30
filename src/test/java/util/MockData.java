@@ -89,4 +89,11 @@ public class MockData {
         comment.setComment("Hey");
         return  comment;
     }
+
+    public static EventInvite getInvite(int k) {
+        EventInvite invite = new EventInvite();
+        invite.setInviteStatus(1);
+        return invite;
+    }
+
 }

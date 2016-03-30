@@ -9,6 +9,7 @@ import cs309.validator.CreateEventValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -47,13 +48,11 @@ public class EventRestController {
 
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.GET)
     public Event getEvent(@PathVariable Integer id) {
-        LOG.info(eventService.getEvent(id).getCommentList());
         return eventService.getEvent(id);
     }
 
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.POST)
     public String updateEvent(@RequestBody Event event) {
-        LOG.info(event.toString());
         eventService.saveEvent(event);
         return "/";
     }
@@ -76,6 +75,31 @@ public class EventRestController {
         comment.setOwner(userService.getUserByEmail(principal.getName()));
         commentService.saveComment(comment);
         return "/";
+    }
+
+    @RequestMapping(value = "/api/event/setAttending/{id}", method = RequestMethod.POST)
+    public int setAttending(@RequestBody String status, @PathVariable Integer id, Principal principal) {
+        EventInvite invite = eventInviteService.getEventInvite(userService.getUserByEmail(principal.getName()), eventService.getEvent(id));
+        if (status.equals("Going")) {
+            invite.setInviteStatus(invite.GOING);
+        }
+        else if(status.equals("Maybe")) {
+            invite.setInviteStatus(invite.UNDECIDED);
+        }
+        else if(status.equals("Not Going")) {
+            invite.setInviteStatus(invite.NOT_GOING);
+        }
+        else if(status.equals("Change")) {
+            invite.setInviteStatus(invite.INVITED);
+        }
+        eventInviteService.saveEventInvite(invite);
+        return invite.getInviteStatus();
+    }
+
+    @RequestMapping(value = "/api/event/getAttending/{id}", method = RequestMethod.GET)
+    public int getInvite(@PathVariable Integer id, Principal principal) {
+        EventInvite invite = eventInviteService.getEventInvite(userService.getUserByEmail(principal.getName()), eventService.getEvent(id));
+        return invite.getInviteStatus();
     }
 
     @RequestMapping(value = "/api/create", method = RequestMethod.POST)
