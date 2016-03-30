@@ -7,7 +7,12 @@ var EventPage = React.createClass({
         $('#' + id).pickadate();
     },
     getInitialState: function() {
-        return {event : undefined, eventInvite : undefined, role : undefined};
+        return {event : undefined,
+            eventInvite : undefined,
+            role : undefined,
+            invites: [],
+            eventAdmins: []
+        };
     },
     componentDidMount: function() {
         EventActions.getEvent();
@@ -46,11 +51,22 @@ var EventPage = React.createClass({
     handleInviteChange: function() {
         EventInviteActions.setAttending("Change");
     },
-    handleInvite : function() {
-
+    handleInvite : function(connection) {
+        var newInvites = this.state.invites;
+        newInvites.push(connection);
+        this.setState({invites : newInvites});
+        EventActions.editInvites(this.state.invites, this.state.eventAdmins);
+        this.setState({invites : []});
+        EventActions.getEvent();
     },
-    handleEventAdmin : function() {
-
+    handleEventAdmin : function(connection) {
+        var newEventAdmins = this.state.eventAdmins;
+        newEventAdmins.push(connection);
+        this.setState({eventAdmins : newEventAdmins});
+        EventActions.editInvites(this.state.invites, this.state.eventAdmins);
+        EventActions.editEventAdmins(this.state.eventAdmins);
+        this.setState({eventAdmins : []});
+        EventActions.getEvent();
     },
 
 

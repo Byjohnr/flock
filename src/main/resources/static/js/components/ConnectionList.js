@@ -16,21 +16,16 @@ var ConnectionList = React.createClass({
         if(this.state.connections === undefined) {
             modalBody = (<div>Loading...</div>);
             ConnectionActions.getConnections();
-            console.log("undefined connections")
         } else {
-            console.log("defined connections");
-            console.log(this.props.actionName);
             var actionName = this.props.actionName;
             modalBody = this.state.connections.map(function (connection) {
                 var handleClick = this.handleClick.bind(this,connection);
-                console.log(this.props.actionName);
                 return (<tr key={connection.id}>
                     <td>{connection.firstName} {connection.lastName}</td>
                     <td><button id={this.props.actionId + connection.id} type="button" className="btn btn-primary" onClick={handleClick}>{actionName}</button></td>
                 </tr>);
             }, this);
-            console.log(this.state.connections.size);
-            if (this.state.connections.size === undefined) {
+            if (this.state.connections.length === 0) {
                 console.log('no connections');
                 modalBody = (
                     <tr>

@@ -35,6 +35,7 @@ var EventStore = Reflux.createStore({
                     parent.handleInvites(errors[0].errorMessage, invites, eventAdmins);
                     parent.handleEventAdmins(errors[0].errorMessage, eventAdmins);
                 }
+                window.location.replace("/event/" + eventId);
                 console.log("It worked?!?!?");
             },
             error : function (data) {
@@ -72,9 +73,6 @@ var EventStore = Reflux.createStore({
             url: url,
             data: data,
             type: 'POST',
-            success: function () {
-                window.location.replace("/event/" + eventId);
-            },
             error: function (xhr, status, error) {
                 console.log("Error adding invites");
                 console.log(status);
@@ -84,6 +82,7 @@ var EventStore = Reflux.createStore({
     },
     onEditEvent: function (data) {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        var parent = this;
         $.ajax({
             headers: {
                 'Accept': 'application/json',
@@ -93,9 +92,42 @@ var EventStore = Reflux.createStore({
             dataType: 'text',
             type: 'POST',
             data: JSON.stringify(data),
-            success: function(data) {
+            success: function() {
+                parent.pushEvent
             }
 
+        });
+    },
+    onEditInvites: function(invites, eventAdmins) {
+        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        var parent = this;
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            dataType: 'text',
+            type: 'POST',
+            success: function() {
+                parent.handleInvites(id, invites, eventAdmins)
+                parent.pushEvent
+            }
+        });
+    },
+    onEditEventAdmins: function(eventAdmins) {
+        var parent = this;
+        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            dataType: 'text',
+            type: 'POST',
+            success: function() {
+                parent.handleEventAdmins(id, eventAdmins)
+                parent.pushEvent
+            }
         });
     },
     onGetEvent: function () {
@@ -122,7 +154,7 @@ var EventStore = Reflux.createStore({
             dataType: 'text',
             data: data,
             success: function() {
-                console.log("reload");
+                this.pushEvent
             },
             error: function(status, thrownError) {
                 console.log(thrownError);
