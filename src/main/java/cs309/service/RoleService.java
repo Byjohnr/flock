@@ -19,7 +19,7 @@ public class RoleService {
         roleRepository.save(new Role(email,role));
     }
 
-    public Role getRole(String email, Event event) {
-        return roleRepository.getRole(email, event);
+    public Role getRole(String email, String roleName, Integer id) {
+        return roleRepository.getRole(email, roleName, id);
     }
 }

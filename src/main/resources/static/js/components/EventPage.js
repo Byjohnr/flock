@@ -12,7 +12,7 @@ var EventPage = React.createClass({
     componentDidMount: function() {
         EventActions.getEvent();
         EventInviteActions.getAttending();
-        RoleActions.getRole();
+        RoleActions.isEventAdmin();
     },
     handleNameChange: function(event) {
         this.setState({event:{eventName: event.target.value, eventDescription: this.state.event.eventDescription, location: this.state.event.location, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type, commentList: this.state.event.commentList, eventInvites: this.state.event.eventInvites}});
@@ -88,7 +88,7 @@ var EventPage = React.createClass({
                     </div>
                 )
         }
-        if (this.state.role.toString() === "ROLE_EVENT_ADMIN") {
+        if (this.state.role.toString() === "true") {
             edit = (
                 <div className="btn-group" role="group">
                     <button type="button" className="btn btn-primary btn-lg" data-toggle="modal"

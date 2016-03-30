@@ -6,10 +6,10 @@ var RoleStore = Reflux.createStore({
     getInitialState() {
         console.log('Initial State');
     },
-    onGetRole() {
+    onIsEventAdmin() {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
         $.ajax({
-            url: '/api/event/getRole/' + id,
+            url: '/api/event/isEventAdmin/' + id,
             type: 'GET',
             dataType: 'text',
             success: this.pushRole

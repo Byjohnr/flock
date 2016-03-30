@@ -1,4 +1,4 @@
 
 var RoleActions = Reflux.createActions([
-    "getRole"
+    "isEventAdmin"
 ]);

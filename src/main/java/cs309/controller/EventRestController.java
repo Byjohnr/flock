@@ -102,13 +102,10 @@ public class EventRestController {
         return invite.getInviteStatus();
     }
 
-    @RequestMapping(value = "/api/event/getRole/{id}", method = RequestMethod.GET)
-    public String getRole(@PathVariable Integer id, Principal principal) {
-        Role role = roleService.getRole(principal.getName(), eventService.getEvent(id));
-        if (role == null) {
-            return "User";
-        }
-        return role.getRoleName();
+    @RequestMapping(value = "/api/event/isEventAdmin/{id}", method = RequestMethod.GET)
+    public Boolean isEventAdmin(@PathVariable Integer id, Principal principal) {
+        Role role = roleService.getRole(principal.getName(),"ROLE_EVENT_ADMIN", id);
+        return role != null;
     }
 
     @RequestMapping(value = "/api/create", method = RequestMethod.POST)
