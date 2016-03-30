@@ -20,7 +20,8 @@ public class EventDTO {
     private int maybeAttending;
     private int notAttending;
 
-    public EventDTO(){}
+    public EventDTO(){
+    }
 
     public EventDTO(Event event) {
         eventId = event.getId();

@@ -17,6 +17,21 @@ public class MockData {
         return events;
     }
 
+    public static List<EventInvite> getEventInvites(int x) {
+        List<EventInvite> eventInvites = new ArrayList<>();
+        for(int i = 0; i < x; i++) {
+            eventInvites.add(getEventInvite(i));
+        }
+        return eventInvites;
+    }
+
+    public static EventInvite getEventInvite(int x) {
+        EventInvite eventInvite = new EventInvite();
+        eventInvite.setEvent(getEvent(x));
+        eventInvite.setId(x);
+        return eventInvite;
+    }
+
     public static Event getEvent(int x) {
         Event event = new Event();
         event.setId(x);

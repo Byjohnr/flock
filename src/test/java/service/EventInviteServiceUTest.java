@@ -14,6 +14,7 @@ import util.MockData;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertTrue;
 
 public class EventInviteServiceUTest extends UnitTestBase {
 
@@ -36,5 +37,11 @@ public class EventInviteServiceUTest extends UnitTestBase {
         assertNotNull(invite);
     }
 
+    @Test
+    public void eventInvteExists() {
+        when(eventInviteRepository.userInviteExists(1,1234)).thenReturn(true);
+        boolean boo = eventInviteService.eventInviteExists(1,1234);
+        assertTrue(boo);
+    }
 
 }

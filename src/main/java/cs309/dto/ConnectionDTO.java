@@ -8,7 +8,6 @@ public class ConnectionDTO {
 
     private String lastName;
 
-
     public ConnectionDTO(Integer id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;

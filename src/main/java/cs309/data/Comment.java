@@ -1,6 +1,8 @@
 package cs309.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -70,5 +72,39 @@ public class Comment {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Comment comment1 = (Comment) o;
+
+        return new EqualsBuilder()
+                .append(owner, comment1.owner)
+                .append(comment, comment1.comment)
+                .append(dateCreated, comment1.dateCreated)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(owner)
+                .append(comment)
+                .append(dateCreated)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", owner=" + owner +
+                ", comment='" + comment + '\'' +
+                ", dateCreated=" + dateCreated +
+                '}';
     }
 }

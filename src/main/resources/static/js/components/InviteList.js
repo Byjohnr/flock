@@ -1,6 +1,3 @@
-/**
- * Created by chasekoehler on 2/24/16.
- */
 var InviteList = React.createClass({
     render: function() {
         var symbol = this.props.invites.map(function (invite) {

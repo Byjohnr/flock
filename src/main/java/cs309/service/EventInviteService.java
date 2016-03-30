@@ -27,4 +27,8 @@ public class EventInviteService {
         return eventInviteRepository.findEventInviteByUserAndEvent(user, event);
     }
 
+    public boolean eventInviteExists(int eventId, int userId) {
+        return eventInviteRepository.userInviteExists(eventId, userId);
+    }
+
 }
