@@ -1,10 +1,12 @@
 var NavBar = React.createClass({
-    mixins: [Reflux.connect(NavStore, 'user')],
+    mixins: [Reflux.connect(NavStore, 'user'), Reflux.connect(SearchStore, 'searchResults')],
     getInitialState: function () {
         return {user: undefined};
     },
     searchChange: function(query) {
         console.log(query.target.value);
+        SearchActions.search(query.target.value);
+
     },
     render: function() {
         var navbar = null;

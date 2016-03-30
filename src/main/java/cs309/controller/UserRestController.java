@@ -1,8 +1,11 @@
 package cs309.controller;
 
+import cs309.data.Event;
 import cs309.data.Role;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cs309.data.User;
+import cs309.dto.SearchDTO;
+import cs309.service.EventService;
 import cs309.service.RoleService;
 import cs309.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,9 @@ public class UserRestController {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private EventService eventService;
+
     @RequestMapping("/user/create")
     public String createUser(@RequestBody User user) {
 //        TODO jeffreyh 2/8/16 validation
@@ -56,5 +62,13 @@ public class UserRestController {
     @RequestMapping("/user/search")
     public List<User> getUsersOnSearch(@RequestBody String query) {
         return userService.userSearch(query);
+    }
+
+    @RequestMapping("/home/search")
+    public SearchDTO handleSearch(@RequestBody String query) {
+        query = query.toLowerCase();
+        List<User> users = userService.userSearch(query);
+        List<Event> events = eventService.getEventSearch(query);
+        return new SearchDTO(events, users);
     }
 }

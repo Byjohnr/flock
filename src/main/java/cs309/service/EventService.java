@@ -1,15 +1,16 @@
 package cs309.service;
 
 import cs309.data.Event;
-import cs309.data.specifications.EventSpecification;
 import cs309.repo.CommentRepository;
 import cs309.repo.EventRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -35,7 +36,13 @@ public class EventService {
     }
 
     public List<Event> getEventSearch(String query) {
-        Specification<Event> specification = new EventSpecification(query);
-        return eventRepository.findAll(specification);
+        if(StringUtils.isBlank(query)) {
+            return eventRepository.findAll();
+        }
+        Specification<Event> eventNameSpecification = (root, query1, cb) -> cb.like(cb.lower(root.get("eventName")), "%" + query + "%");
+        Specification<Event> location = (root, query1, cb) -> cb.like(cb.lower(root.get("location")), query + "%");
+        List<Event> events = eventRepository.findAll(eventNameSpecification);
+        events.addAll(eventRepository.findAll(location).stream().filter(event -> !events.contains(event)).collect(Collectors.toList()));
+        return events;
     }
 }

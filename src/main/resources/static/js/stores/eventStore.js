@@ -126,7 +126,7 @@ var EventStore = Reflux.createStore({
                 window.location.reload(true);
             },
             error: function(status, thrownError) {
-                console.log(thrownError)
+                console.log(thrownError);
                 console.log(status);
             }
         })
