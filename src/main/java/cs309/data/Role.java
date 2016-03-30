@@ -2,6 +2,9 @@ package cs309.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 
 @Entity
@@ -65,5 +68,36 @@ public class Role {
 
     public void setTargetId(Integer targetId) {
         this.targetId = targetId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Role role = (Role) o;
+
+        return new EqualsBuilder()
+                .append(email, role.email)
+                .append(roleName, role.roleName)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(email)
+                .append(roleName)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", roleName='" + roleName + '\'' +
+                '}';
     }
 }
