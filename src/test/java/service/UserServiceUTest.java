@@ -17,6 +17,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class UserServiceUTest extends UnitTestBase {
@@ -91,6 +92,13 @@ public class UserServiceUTest extends UnitTestBase {
         when(userRepository.findAll()).thenReturn(MockData.getUsers(5));
         List<User> users = userService.getUsers();
         assertEquals(5, users.size());
+    }
+
+    @Test
+    public void userSearch() {
+        String query = "he really is";
+        List<User> users = userService.userSearch(query);
+        assertTrue(users.isEmpty());
     }
 
     @After
