@@ -1,3 +1,7 @@
+var spacedRow = {
+    paddingBottom: '25px'
+};
+
 var ViewAccount = React.createClass({
     mixins: [Reflux.connect(UserStore, 'userInformation')],
     getInitialState: function () {
@@ -16,7 +20,7 @@ var ViewAccount = React.createClass({
     render: function () {
         var connectionStatus = "";
         var connectionGroupLink = <a href="/account/connectionGroups">My Connection Groups</a> ;
-        if(this.props.account != true) {
+        if(this.props.account !== true) {
             connectionStatus = <ConnectionStatus />;
             connectionGroupLink = "";
         }
@@ -25,16 +29,13 @@ var ViewAccount = React.createClass({
                 <div>
                     <NavBar />
                     <div className="text-center container">
-                        <div className="row">
-                            <div className="col-md-1 col-xs-12">
-                                {connectionGroupLink}
-                            </div>
+                        <div className="row" style={spacedRow}>
                             <div className="col-md-6 col-xs-12">
                                 <Picture sendingUrl={this.props.account === true ? "/api/picture_upload/profile_picture" : ""}
                                          pictureEditable={this.props.account === true}
                                          getterUrl={this.props.account === true ? "/api/profile_picture" : "/api/user_profile_picture/" + this.state.userInformation.id} />
                             </div>
-                            <div className="col-md-5 col-xs-12">
+                            <div className="col-md-6 col-xs-12">
                                 <h1>
                                     {this.state.userInformation.firstName} {this.state.userInformation.lastName}
                                 </h1>
@@ -50,6 +51,16 @@ var ViewAccount = React.createClass({
                                 <div>
                                     {connectionStatus}
                                 </div>
+                            </div>
+                        </div>
+                        <div className="row" style={spacedRow}>
+                            <div className="col-md-12">
+                                {connectionGroupLink}
+                            </div>
+                        </div>
+                        <div className="row" style={{spacedRow, borderStyle: 'solid', borderWidth: '1px'}}>
+                            <div className="col-md-12" style={{width: '100%', height: '400px', overflowY: 'scroll'}}>
+                                <EventList />
                             </div>
                         </div>
                     </div>
