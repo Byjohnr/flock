@@ -161,6 +161,13 @@ var EventStore = Reflux.createStore({
                 console.log(status);
             }
         })
+    },
+    onListAllEvents: function() {
+        $.ajax({
+            url: '/api/admin/events',
+            dataType: 'json',
+            success: this.addEvents
+        });
     }
 
 });
