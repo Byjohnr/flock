@@ -47,6 +47,7 @@ public class UserService {
         Specification<User> lastNameSpecification = (root, query1, cb) -> cb.like(cb.lower(root.get("lastName")), query + "%");
         List<User> users = userRepo.findAll(firstNameSpecification);
         users.addAll(userRepo.findAll(lastNameSpecification).stream().filter(user -> !users.contains(user)).collect(Collectors.toList()));
-        return users;
+        int userSize = users.size();
+        return userSize > 9 ? users.subList(0,5) : users;
     }
 }

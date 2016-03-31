@@ -12,12 +12,16 @@ var SearchStore = Reflux.createStore({
             url : '/api/home/search',
             type: 'POST',
             data : query,
-            dataType: 'application/json',
-            success: this.triggerState
+            dataType: 'json',
+            success: this.triggerState,
+            error : function() {
+                console.log("ya dun goofed");
+            }
         });
     },
-    triggerState : function() {
-        console.log("teeheeee");
+    triggerState : function(searchResults) {
+        this.trigger(searchResults);
+        console.log(searchResults);
     }
 
 

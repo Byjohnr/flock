@@ -43,6 +43,7 @@ public class EventService {
         Specification<Event> location = (root, query1, cb) -> cb.like(cb.lower(root.get("location")), query + "%");
         List<Event> events = eventRepository.findAll(eventNameSpecification);
         events.addAll(eventRepository.findAll(location).stream().filter(event -> !events.contains(event)).collect(Collectors.toList()));
-        return events;
+        int eventSize = events.size();
+        return eventSize > 5 ? events.subList(0,5) : events;
     }
 }
