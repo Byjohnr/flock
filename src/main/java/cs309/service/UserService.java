@@ -43,11 +43,20 @@ public class UserService {
         if(StringUtils.isBlank(query)) {
             return userRepo.findAll();
         }
-        Specification<User> firstNameSpecification = (root, query1, cb) -> cb.like(cb.lower(root.get("firstName")), query + "%");
-        Specification<User> lastNameSpecification = (root, query1, cb) -> cb.like(cb.lower(root.get("lastName")), query + "%");
+        final String queryString = query.trim();
+        String[] spacedQuery = queryString.split("\\s+");
+        Specification<User> firstNameSpecification;
+        Specification<User> lastNameSpecification = (root, query1, cb) -> cb.like(cb.lower(root.get("lastName")), queryString + "%");
+
+        if (spacedQuery.length == 2) {
+            firstNameSpecification = (root, query1, cb) -> cb.and(cb.like(cb.lower(root.get("firstName")), spacedQuery[0] + "%"), cb.like(cb.lower(root.get("lastName")), spacedQuery[1] + "%"));
+
+        } else {
+            firstNameSpecification = (root, query1, cb) -> cb.like(cb.lower(root.get("firstName")), queryString + "%");
+        }
         List<User> users = userRepo.findAll(firstNameSpecification);
         users.addAll(userRepo.findAll(lastNameSpecification).stream().filter(user -> !users.contains(user)).collect(Collectors.toList()));
         int userSize = users.size();
-        return userSize > 9 ? users.subList(0,5) : users;
+        return userSize > 5 ? users.subList(0,5) : users;
     }
 }
