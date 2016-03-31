@@ -117,11 +117,6 @@ public class EventRestController {
         }
     }
 
-    @RequestMapping(value = "/api/event/search")
-    public List<Event> getEventsOnSearch(@RequestBody String query) {
-        return eventService.getEventSearch(query);
-    }
-
     @InitBinder(value = "createEventDTO")
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(eventValidator);

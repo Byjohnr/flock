@@ -59,11 +59,6 @@ public class UserRestController {
         return userService.getUser(id);
     }
 
-    @RequestMapping("/user/search")
-    public List<User> getUsersOnSearch(@RequestBody String query) {
-        return userService.userSearch(query);
-    }
-
     @RequestMapping("/home/search")
     public SearchDTO handleSearch(@RequestBody String query) {
         query = query.toLowerCase();
