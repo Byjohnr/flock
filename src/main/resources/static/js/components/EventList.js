@@ -22,6 +22,6 @@ var EventList = React.createClass({
             return (
             <div>
                 {eventNodes}
-            </div>)
+            </div>);
     }
 });

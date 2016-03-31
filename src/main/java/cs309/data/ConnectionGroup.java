@@ -13,6 +13,7 @@ import java.util.List;
 public class ConnectionGroup {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
@@ -25,10 +26,19 @@ public class ConnectionGroup {
     private String groupName;
 
     @OneToMany(mappedBy = "connectionGroup")
-    private List<ConnectionGroupUser> groupUsers = new ArrayList<ConnectionGroupUser>();
+    private List<ConnectionGroupUser> groupUsers = new ArrayList<>();
 
     public ConnectionGroup() {
 
+    }
+
+    public ConnectionGroup(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public ConnectionGroup(String groupName, User user) {
+        this.groupName = groupName;
+        this.user = user;
     }
 
     public Integer getId() {
