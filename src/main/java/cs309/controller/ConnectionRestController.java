@@ -29,7 +29,7 @@ public class ConnectionRestController {
         List<ConnectionDTO> connections = new ArrayList<>();
         if(principal != null) {
             if (eventId == null) {
-                connectionService.getConnections(principal.getName()).stream().forEach(user ->
+                connectionService.getConnectionsByEmail(principal.getName()).stream().forEach(user ->
                         connections.add(new ConnectionDTO(user.getId(), user.getFirstName(), user.getLastName())));
             }
             else {
