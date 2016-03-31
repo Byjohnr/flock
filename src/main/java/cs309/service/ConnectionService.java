@@ -1,8 +1,8 @@
 package cs309.service;
 
-import cs309.data.Connection;
-import cs309.data.ConnectionRequest;
-import cs309.data.User;
+import cs309.data.*;
+import cs309.repo.ConnectionGroupRepository;
+import cs309.repo.ConnectionGroupUserRepository;
 import cs309.repo.ConnectionRepository;
 import cs309.repo.ConnectionRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ConnectionService {
@@ -20,8 +21,14 @@ public class ConnectionService {
     @Autowired
     private ConnectionRequestRepository connectionRequestRepository;
 
-    public List<User> getConnections(String email) {
-        return connectionRepository.getConnections(email);
+    @Autowired
+    private ConnectionGroupRepository connectionGroupRepository;
+
+    @Autowired
+    private ConnectionGroupUserRepository connectionGroupUserRepository;
+
+    public List<User> getConnectionsByEmail(String email) {
+        return connectionRepository.getConnectionsByEmail(email);
     }
 
     /**
@@ -61,5 +68,47 @@ public class ConnectionService {
     @Transactional
     public void saveConnectionRequest(ConnectionRequest connectionRequest) {
         connectionRequestRepository.save(connectionRequest);
+    }
+
+    public List<ConnectionGroup> getConnectionGroupByEmail(String email) {
+        return connectionGroupRepository.getConnectionGroupsByEmail(email);
+    }
+
+    @Transactional
+    public void saveConnectionGroup(ConnectionGroup connectionGroup) {
+        connectionGroupRepository.save(connectionGroup);
+    }
+
+    public ConnectionGroup getConnectionGroupById(int id) {
+        return connectionGroupRepository.findOne(id);
+    }
+
+    @Transactional
+    public void deleteConnectionGroup(ConnectionGroup connectionGroup) {
+        connectionGroupRepository.delete(connectionGroup);
+    }
+
+    public List<User> getConnectionsInConnectionGroupByGroupId(int groupId) {
+        return connectionGroupUserRepository.getUsersInConnectionGroup(groupId);
+    }
+
+    public List<User> getConnectionsNotInGroupByGroupIdAndEmail(int groupId, String email) {
+        List<User> connectionGroupUsers = connectionGroupUserRepository.getUsersInConnectionGroup(groupId);
+        List<User> connections = connectionRepository.getConnectionsByEmail(email);
+        return connections.stream().filter(user -> !connectionGroupUsers.contains(user)).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void saveConnectionGroupUser(ConnectionGroupUser connectionGroupUser) {
+        connectionGroupUserRepository.save(connectionGroupUser);
+    }
+
+    @Transactional
+    public void deleteConnectionGroupUser(ConnectionGroupUser connectionGroupUser) {
+        connectionGroupUserRepository.delete(connectionGroupUser);
+    }
+
+    public ConnectionGroupUser getConnectionGroupUserByUserIdAndGroupId(int userId, int groupId) {
+        return connectionGroupUserRepository.getConnectionGroupUserByUserIdAndGroupId(userId, groupId);
     }
 }
