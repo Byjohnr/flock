@@ -1,7 +1,9 @@
 package cs309.service;
 
+import cs309.data.Connection;
 import cs309.data.Event;
 import cs309.data.EventInvite;
+import cs309.repo.ConnectionRepository;
 import cs309.repo.EventInviteRepository;
 import cs309.repo.EventRepository;
 import cs309.repo.UserRepository;
@@ -29,11 +31,18 @@ public class SecurityService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ConnectionRepository connectionRepository;
+
     public boolean isInvited(Integer id, Principal principal) {
         Event event = eventRepository.findOne(id);
         EventInvite invite = inviteRepository.findEventInviteByUserAndEvent(userRepository.findUserByEmail(principal.getName()), event);
+        Boolean connected = connectionRepository.isConnected(event.getCreator(), userRepository.findUserByEmail(principal.getName()));
         LOG.info(invite);
-        if (invite != null) {
+        if (invite != null || event.getType() == event.OPEN) {
+            return true;
+        }
+        if (event.getType() == 2 && connected == true) {
             return true;
         }
         return false;

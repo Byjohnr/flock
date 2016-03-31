@@ -33,6 +33,7 @@ var AdminEventsPage = React.createClass({
         }
         return (
             <div>
+                <NavBar/>
                 <table className="table" cols="3">
                     <tbody>
                     <tr>
