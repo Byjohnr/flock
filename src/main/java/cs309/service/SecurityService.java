@@ -11,9 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 
-/**
- * Created by chasekoehler on 3/23/16.
- */
 
 @Service
 public class SecurityService {
@@ -32,10 +29,6 @@ public class SecurityService {
     public boolean isInvited(Integer id, Principal principal) {
         Event event = eventRepository.findOne(id);
         EventInvite invite = inviteRepository.findEventInviteByUserAndEvent(userRepository.findUserByEmail(principal.getName()), event);
-        LOG.info(invite);
-        if (invite != null) {
-            return true;
-        }
-        return false;
+        return invite != null;
     }
 }
