@@ -2,6 +2,7 @@ package controller;
 
 import config.UnitTestBase;
 import cs309.controller.ConnectionRestController;
+import cs309.data.ConnectionGroup;
 import cs309.service.ConnectionService;
 import cs309.service.UserService;
 import org.hamcrest.Matchers;
@@ -14,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import util.MockData;
 
 import java.security.Principal;
+import java.util.ArrayList;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -45,7 +47,7 @@ public class ConnectionRestControllerUTest extends UnitTestBase {
     @Test
     public void getConnections() throws Exception{
         Principal principal = mock(Principal.class);
-        when(connectionService.getConnections(principal.getName())).thenReturn(MockData.getUsers(4));
+        when(connectionService.getConnectionsByEmail(principal.getName())).thenReturn(MockData.getUsers(4));
         this.mockMvc.perform(get("/api/connections/get").accept(MediaType.APPLICATION_JSON).principal(principal))
 
                 .andExpect(status().isOk())
@@ -102,4 +104,55 @@ public class ConnectionRestControllerUTest extends UnitTestBase {
                 .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
                 .andExpect(content().string("nothing"));
     }
+
+    @Test
+    public void connectionGroups() throws Exception {
+        Principal principal = mock(Principal.class);
+        when(connectionService.getConnectionGroupByEmail(principal.getName())).thenReturn(new ArrayList<>());
+        mockMvc.perform(get("/api/connectionGroups").principal(principal))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void createConnectionGroup() throws Exception {
+        Principal principal = mock(Principal.class);
+        mockMvc.perform(post("/api/connectionGroup/create").principal(principal).content("blah"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteConnectionGroup() throws Exception {
+        Principal principal = mock(Principal.class);
+        mockMvc.perform(post("/api/connectionGroup/delete").principal(principal).content("1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void editConnectionGroupName() throws Exception {
+        Principal principal = mock(Principal.class);
+        when(connectionService.getConnectionGroupById(4)).thenReturn(new ConnectionGroup());
+        mockMvc.perform(post("/api/connectionGroup/4/edit").principal(principal).content("new name"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void addConnectionToConnectionGroup() throws Exception {
+        Principal principal = mock(Principal.class);
+        mockMvc.perform(post("/api/connectionGroup/4/add").principal(principal).content("7"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void removeConnectionFromConnectionGroup() throws Exception {
+        Principal principal = mock(Principal.class);
+        when(connectionService.getConnectionGroupById(4)).thenReturn(new ConnectionGroup());
+        mockMvc.perform(post("/api/connectionGroup/4/edit").principal(principal).content("890"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void getConnectionGroupUsers() throws Exception {
+        Principal principal = mock(Principal.class);
+        mockMvc.perform(post("/api/connectionGroup/4").principal(principal).content("new name"))
+                .andExpect(status().isOk());    }
 }
