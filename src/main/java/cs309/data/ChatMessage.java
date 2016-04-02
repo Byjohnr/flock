@@ -26,6 +26,14 @@ public class ChatMessage {
     @Column(name = "date_sent")
     private Date dateSent;
 
+    public ChatMessage() {
+        dateSent = new Date();
+    }
+
+    public ChatMessage(String message, ChatGroup chatGroup, ChatUser chatUser) {
+
+    }
+
     public Integer getId() {
         return id;
     }

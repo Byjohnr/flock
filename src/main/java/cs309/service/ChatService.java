@@ -30,10 +30,7 @@ public class ChatService {
     public void saveChatMessage(String message, int chatGroupId, String userEmail) {
         ChatGroup chatGroup = chatGroupRepository.findOne(chatGroupId);
         ChatUser chatUser = chatUserRepository.getChatUserByUserEmailAndChatGroupId(userEmail, chatGroupId);
-        ChatMessage chatMessage = new ChatMessage();
-        chatMessage.setDateSent(new Date());
-        chatMessage.setChatGroup(chatGroup);
-        chatMessage.setMessageSender(chatUser);
+        ChatMessage chatMessage = new ChatMessage(message, chatGroup, chatUser);
         chatMessageRepository.save(chatMessage);
     }
 
@@ -43,5 +40,13 @@ public class ChatService {
 
     public void saveChatUser(ChatUser chatUser) {
         chatUserRepository.save(chatUser);
+    }
+
+    public ChatUser getChatUserByEmailAndGroupId(String email, int groupId) {
+        return chatUserRepository.getChatUserByUserEmailAndChatGroupId(email, groupId);
+    }
+
+    public void deleteChatUser(ChatUser chatUser) {
+        chatUserRepository.delete(chatUser);
     }
 }

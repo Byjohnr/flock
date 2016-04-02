@@ -5,6 +5,7 @@ import cs309.data.ChatUser;
 import cs309.data.User;
 import cs309.service.ChatService;
 import cs309.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,8 @@ import java.util.List;
 
 @RestController(value = "/api")
 public class ChatRestController {
+//TODO jeffreyh 4/1/16 add security to the pages
+
 
     @Autowired
     private UserService userService;
@@ -43,6 +46,28 @@ public class ChatRestController {
         ChatGroup chatGroup = chatService.getChatGroupById(groupId);
         ChatUser chatUser = new ChatUser(chatGroup, ChatUser.STATUS_INVITED, userService.getUser(Integer.decode(userId)));
         chatService.saveChatUser(chatUser);
+    }
+
+    @RequestMapping(value = "/chat/group/create")
+    public void createChatGroup(@RequestBody String groupName, Principal principal) {
+        ChatGroup chatGroup = new ChatGroup(groupName, userService.getUserByEmail(principal.getName()));
+        chatService.saveChatGroup(chatGroup);
+    }
+
+    @RequestMapping(value = "/chat/group/{groupId}/invite/respond")
+    public void respondToChatInvite(@RequestBody String response, @PathVariable int groupId, Principal principal) {
+        ChatUser chatUser = chatService.getChatUserByEmailAndGroupId(principal.getName(), groupId);
+        if(StringUtils.equals("accept", response)) {
+            chatUser.setStatus(ChatUser.STATUS_ACCEPTED);
+            chatService.saveChatUser(chatUser);
+        } else {
+            chatService.deleteChatUser(chatUser);
+        }
+    }
+
+    @RequestMapping(value = "/chat/group/{groupId}/message")
+    public void saveMessage(@RequestBody String message, @PathVariable int groupId, Principal principal) {
+        chatService.saveChatMessage(message, groupId, principal.getName());
     }
 
 }
