@@ -18,12 +18,17 @@ var NotificationStore = Reflux.createStore({
         this.trigger(data);
     },
 
-    onDeleteNotification: function() {
+    onDeleteNotification: function(data) {
         $.ajax({
-            url: '/api/notifications',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: '/api/notifications/delete',
             type: 'POST',
-            dataType: 'json',
-            success: this.addNotifications
+            dataType: 'text',
+            data:JSON.stringify(data),
+            success: this.onFetchNotifications
         })
     }
     //ToDO allow users to delete notifications

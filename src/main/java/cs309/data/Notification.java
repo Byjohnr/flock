@@ -80,11 +80,11 @@ public class Notification {
         this.type = type;
     }
 
-    public Integer getType_id() {
+    public Integer getTypeId() {
         return type_id;
     }
 
-    public void setType_id(Integer type_id) {
+    public void setTypeId(Integer type_id) {
         this.type_id = type_id;
     }
 
@@ -100,10 +100,6 @@ public class Notification {
         return notificationName;
     }
 
-    public void setNotificationName(String notificationName) {
-        this.notificationName = notificationName;
-
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -48,8 +48,11 @@ public class NotificationService {
         }
     return notificationDtoList;
     }
-    public void deleteNotification(Integer id){
-        notificationRepository.delete(id);
+    public void deleteNotification(Notification notification){
+        notificationRepository.delete(notification);
+    }
+    public Notification getNotification(int id){
+        return notificationRepository.findOne(id);
     }
 
 //    public Notification findNotification(Integer id){
