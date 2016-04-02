@@ -1,7 +1,7 @@
 package cs309.data;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "chat_message")
