@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.imageio.ImageIO;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +32,6 @@ public class User {
 //    @JsonIgnore
     @Column(name = "password")
     private String password;
-
-    //TODO tstack 2/4/16 figure out how images should be stored in the database
-//    private ImageIO profilePicture;
 
     @Column(name = "current_city")
     private String currentCity;
@@ -110,8 +106,6 @@ public class User {
         this.events = events;
     }
 
-
-
     public String getPassword() {
         return password;
     }
@@ -137,7 +131,6 @@ public class User {
         User user = (User) o;
 
         return new EqualsBuilder()
-                .append(id, user.id)
                 .append(firstName, user.firstName)
                 .append(lastName, user.lastName)
                 .append(email, user.email)
@@ -149,7 +142,6 @@ public class User {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(id)
                 .append(firstName)
                 .append(lastName)
                 .append(email)

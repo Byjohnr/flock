@@ -1,6 +1,8 @@
 package cs309.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.List;
 public class ConnectionGroup {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
@@ -23,10 +26,19 @@ public class ConnectionGroup {
     private String groupName;
 
     @OneToMany(mappedBy = "connectionGroup")
-    private List<ConnectionGroupUser> groupUsers = new ArrayList<ConnectionGroupUser>();
+    private List<ConnectionGroupUser> groupUsers = new ArrayList<>();
 
     public ConnectionGroup() {
 
+    }
+
+    public ConnectionGroup(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public ConnectionGroup(String groupName, User user) {
+        this.groupName = groupName;
+        this.user = user;
     }
 
     public Integer getId() {
@@ -59,6 +71,30 @@ public class ConnectionGroup {
 
     public void setGroupUsers(List<ConnectionGroupUser> groupUsers) {
         this.groupUsers = groupUsers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ConnectionGroup that = (ConnectionGroup) o;
+
+        return new EqualsBuilder()
+                .append(user, that.user)
+                .append(groupName, that.groupName)
+                .append(groupUsers, that.groupUsers)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(user)
+                .append(groupName)
+                .append(groupUsers)
+                .toHashCode();
     }
 
     @Override

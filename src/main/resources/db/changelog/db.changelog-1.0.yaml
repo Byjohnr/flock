@@ -32,6 +32,29 @@ databaseChangeLog:
               - column:
                   name: password
                   type: varchar(100)
+          - createTable:
+              tableName: picture_file
+              columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_picture_file
+              - column:
+                  name: file_name
+                  type: varchar(100)
+              - column:
+                  name: user_id
+                  type: int
+              - column:
+                  name: event_id
+                  type: int
+              - column:
+                  name: picture
+                  type: clob
 
    - changeSet:
         id: 2
@@ -175,7 +198,7 @@ databaseChangeLog:
                   type: varchar(1000)
               - column:
                   name: time
-                  type: date
+                  type: datetime
 
    - changeSet:
            id: 4
@@ -233,3 +256,27 @@ databaseChangeLog:
                     type: varchar(50)
                     constraints:
                         nullable: false
+
+
+   - changeSet:
+          id: 6
+          author: jeffreyh
+          changes:
+            - createTable:
+                tableName: connection_request
+                columns:
+                - column:
+                    name: id
+                    type: int
+                    autoIncrement: true
+                    constraints:
+                        nullable: false
+                - column:
+                    name: user_receiving_id
+                    type: int
+                - column:
+                    name: user_sending_id
+                    type: int
+                - column:
+                    name: date_sent
+                    type: date

@@ -22,19 +22,6 @@ var UserStore = Reflux.createStore({
         console.log('success');
         this.trigger('yoloswag');
     },
-    //TODO jeffreyh duplicate?
-    //onGetUserInfo : function() {
-    //    $.ajax({
-    //        url: '/api/user/info',
-    //        dataType:'json',
-    //        success : this.handleUserInfo
-    //    })
-    //},
-    //handleUserInfo: function(data) {
-    //    console.log(data);
-    //    this.trigger(data);
-    //},
-    //TODO jeffreyh duplicate?
     onGetUserInformation: function () {
         $.ajax({
             headers: {
@@ -58,6 +45,6 @@ var UserStore = Reflux.createStore({
             url: '/api/user/' + id,
             dataType:'json',
             success : this.returnInformationSuccess
-        })
+        });
     }
 });

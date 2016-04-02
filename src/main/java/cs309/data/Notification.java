@@ -2,10 +2,11 @@ package cs309.data;
 
 import cs309.dto.NotificationDTO;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 import java.util.Date;
-import java.util.jar.Attributes;
-
 
 @Entity
 @Table(name = "Notification")
@@ -39,7 +40,6 @@ public class Notification {
     private String notificationName;
 
     public Notification() {
-
     }
 
     public Integer getId() {
@@ -97,5 +97,48 @@ public class Notification {
     public void setNotificationName(String notificationName) {
         this.notificationName = notificationName;
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Notification that = (Notification) o;
+
+        return new EqualsBuilder()
+                .append(receiver, that.receiver)
+                .append(creator, that.creator)
+                .append(type, that.type)
+                .append(type_id, that.type_id)
+                .append(dateCreated, that.dateCreated)
+                .append(notificationName, that.notificationName)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(receiver)
+                .append(creator)
+                .append(type)
+                .append(type_id)
+                .append(dateCreated)
+                .append(notificationName)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Notification{" +
+                "id=" + id +
+                ", receiver=" + receiver +
+                ", creator=" + creator +
+                ", type=" + type +
+                ", type_id=" + type_id +
+                ", dateCreated=" + dateCreated +
+                ", notificationName='" + notificationName + '\'' +
+                '}';
     }
 }
