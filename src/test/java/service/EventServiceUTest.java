@@ -7,15 +7,15 @@ import cs309.service.EventService;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.data.jpa.domain.Specification;
 import util.MockData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class EventServiceUTest extends UnitTestBase {
 
@@ -43,6 +43,13 @@ public class EventServiceUTest extends UnitTestBase {
     public void saveEvent() {
         Event event = MockData.getEvent(1);
         eventService.saveEvent(event);
-        verify(eventRepo,times(1)).save(event);
+        verify(eventRepo, times(1)).save(event);
+    }
+
+    @Test
+    public void getEventSearch() {
+        String query ="jeffIsAwesome";
+        List<Event> events = eventService.getEventSearch(query);
+        assertTrue(events.isEmpty());
     }
 }
