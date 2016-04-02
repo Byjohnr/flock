@@ -3,6 +3,7 @@ package util;
 import cs309.data.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -79,7 +80,7 @@ public class MockData {
 
     public static List<Connection> getConnections(int k) {
         List<Connection> mockConnections = new ArrayList<>();
-        IntStream.range(0,k).forEach(i -> mockConnections.add(getConnection(k)));
+        IntStream.range(0,k).forEach(i -> mockConnections.add(getConnection(i)));
         return mockConnections;
     }
 
@@ -94,6 +95,27 @@ public class MockData {
         EventInvite invite = new EventInvite();
         invite.setInviteStatus(1);
         return invite;
+    }
+
+    public static ChatGroup getChatGroup(int k) {
+        ChatGroup chatGroup = new ChatGroup();
+        chatGroup.setId(k);
+        chatGroup.setChatName(k + "");
+        chatGroup.setDateCreated( new Date());
+        return chatGroup;
+    }
+
+    public static List<ChatGroup> getChatGroups(int k) {
+        List<ChatGroup> chatGroups = new ArrayList<>();
+        IntStream.range(0,k).forEach(i -> chatGroups.add(getChatGroup(i)));
+        return chatGroups;
+    }
+
+    public static ChatUser getChatUser(int k) {
+        ChatUser chatUser = new ChatUser();
+        chatUser.setId(k);
+        chatUser.setStatus(ChatUser.STATUS_INVITED);
+        return chatUser;
     }
 
 }
