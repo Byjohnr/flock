@@ -7,9 +7,9 @@ var NotificationList = React.createClass({
         console.log('componentMounted');
         NotificationActions.fetchNotifications();
     },
-    handleDelete: function () {
+    handleDelete: function (id) {
         console.log('deleting');
-        //NotificationActions.deleteNotification(id);
+        NotificationActions.deleteNotification(id);
     },
 
     render: function () {
@@ -18,17 +18,25 @@ var NotificationList = React.createClass({
             return <div> Loading <i className="fa fa-spin fa-refresh align-center"/></div>;
         }
         var notificationNodes = this.state.notifications.map(function (notification) {
-            //var onClick = this.handleDelete.bind(handleDelete(notification.id));onClick={handleDelete(notification.id)
+            var parent = this;
+            var handleClick = parent.handleDelete.bind(parent,notification.id);
+            //handleClick=handleDelete(parent,id);
+
             return (<tr key={notification.id}>
                 <td>{notification.type}</td>
                 <td>{notification.message}</td>
                 <td><a className="btn btn-info active btn-lg" href={notification.url} role="button">View</a>
                 </td>
+                <td><Button id={notification.id} key={notification.id} type="button" className="btn btn-danger" handleClick={onClick> Delete}>
+                </Button>
+                </td>
+
             </tr>);
         });
         //<button type="button" className="btn btn-success">Accept</button>
         //<button type="button" className="btn btn-primary">Decline</button>
-        //<button type="button" className="btn btn-danger">Delete</button>
+
+
         if (notificationNodes.length === 0) {
             return (<div className="text-center">You have no notifications!</div>)
         }
@@ -46,7 +54,7 @@ var NotificationList = React.createClass({
                         </tbody>
                     </table>
                 </div>
-            </div>)
+            </div>);
     }
 });
 ReactDOM.render(<NotificationList />, document.getElementById("list_notification"));

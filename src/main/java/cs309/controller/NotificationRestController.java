@@ -21,8 +21,8 @@ public class NotificationRestController {
     public List<NotificationDTO> getNotifications(Principal principal) {
         return notificationService.getNotificationDTOs(principal.getName());
     }
-    //@RequestMapping ("/api/notifications")
-    //public void deleteNotification(Integer id){
-    //    notificationService.deleteNotification(id);
-    //}
+    @RequestMapping ("/api/notifications")
+    public void deleteNotification(Integer id){
+        notificationService.deleteNotification(id);
+    }
 }
