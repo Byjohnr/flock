@@ -56,6 +56,7 @@ var NavBar = React.createClass({
                     <ul className="nav navbar-nav">
                         <li><a href="/event/create">Create Event</a></li>
                         <li><a href="/map">Map</a></li>
+                        <li><a href="/chat/list">My Chats</a></li>
                     </ul>
                     <form className="navbar-form navbar-left" role="search">
                         <div className="form-group">
