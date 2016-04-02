@@ -8,7 +8,7 @@ import java.util.List;
 public class ChatUser {
 
     public static final int STATUS_INVITED = 1;
-    public static final int STATUS_ACCEPTED = 1;
+    public static final int STATUS_ACCEPTED = 2;
 
     @Id
     @GeneratedValue

@@ -1,5 +1,7 @@
 package cs309.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,9 +16,11 @@ public class ChatGroup {
     @Column(name = "id")
     private Integer id;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "chatGroup")
     private List<ChatUser> chatUsers;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "chatGroup")
     private List<ChatMessage> chatMessages;
 

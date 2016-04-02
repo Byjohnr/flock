@@ -34,8 +34,8 @@ public class ChatService {
         chatMessageRepository.save(chatMessage);
     }
 
-    public void saveChatGroup(ChatGroup chatGroup) {
-        chatGroupRepository.save(chatGroup);
+    public ChatGroup saveChatGroup(ChatGroup chatGroup) {
+        return chatGroupRepository.save(chatGroup);
     }
 
     public void saveChatUser(ChatUser chatUser) {
@@ -44,6 +44,10 @@ public class ChatService {
 
     public ChatUser getChatUserByEmailAndGroupId(String email, int groupId) {
         return chatUserRepository.getChatUserByUserEmailAndChatGroupId(email, groupId);
+    }
+
+    public ChatUser getChatUserById(int chatUserId) {
+        return chatUserRepository.findOne(chatUserId);
     }
 
     public void deleteChatUser(ChatUser chatUser) {
