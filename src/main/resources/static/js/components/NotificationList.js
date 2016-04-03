@@ -27,10 +27,13 @@ var NotificationList = React.createClass({
             return (<tr key={notification.id}>
                 <td>{notification.type}</td>
                 <td>{notification.message}</td>
-                <td><a className="btn btn-info active btn-lg" href={notification.url} role="button">View</a>
+                <td>
+                    <a className="btn btn-info active btn-lg" href={notification.url} role="button">View</a>
+                    <button id={notification.id} key={notification.id} type="button" className="btn btn-lg btn-danger" onClick={handleClick}> Delete
+                    </button>
                 </td>
-                <td><button id={notification.id} key={notification.id} type="button" className="btn btn-danger" onClick={handleClick}> Delete
-                </button>
+                <td>
+
                 </td>
 
             </tr>);
