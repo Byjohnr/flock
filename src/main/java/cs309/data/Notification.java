@@ -4,11 +4,10 @@ import cs309.dto.NotificationDTO;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+>>>>>>> Temporary merge branch 2
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.jar.Attributes;
-
 
 @Entity
 @Table(name = "Notification")
@@ -33,12 +32,12 @@ public class Notification {
     private Integer type;
 
     @Column(name = "type_id")
-    private Integer type_id;
+    private Integer typeId;
 
     @Column(name = "time")
     private Date dateCreated;
 
-    @Column(name = "notification_name")
+    @Column(name ="notification_name")
     private String notificationName;
 
     public Notification() {
@@ -68,10 +67,6 @@ public class Notification {
         this.creator = creator;
     }
 
-    public void setNotificationName(String notificationName) {
-        this.notificationName = notificationName;
-    }
-
     public Integer getType() {
         return type;
     }
@@ -81,11 +76,11 @@ public class Notification {
     }
 
     public Integer getTypeId() {
-        return type_id;
+        return typeId;
     }
 
-    public void setTypeId(Integer type_id) {
-        this.type_id = type_id;
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 
     public Date getDateCreated() {
@@ -96,10 +91,15 @@ public class Notification {
         this.dateCreated = dateCreated;
     }
 
+<<<<<<< Temporary merge branch 1
     public String getNotificationName() {
         return notificationName;
     }
 
+    public void setNotificationName(String notificationName) {
+        this.notificationName = notificationName;
+
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -142,5 +142,6 @@ public class Notification {
                 ", dateCreated=" + dateCreated +
                 ", notificationName='" + notificationName + '\'' +
                 '}';
+>>>>>>> Temporary merge branch 2
     }
 }
