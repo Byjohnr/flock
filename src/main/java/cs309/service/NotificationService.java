@@ -29,20 +29,16 @@ public class NotificationService {
         List<NotificationDTO> notificationDtoList = new ArrayList<>();
 
         for (Notification notification : notificationRepository.getNotificationsByEmail(email)) {
-            NotificationDTO notificationDTO = new NotificationDTO();
+            NotificationDTO notificationDTO;
             if (notification.getType().equals(Notification.EVENT_INVITE)) {
                 Event event = eventService.getEvent(notification.getTypeId());
-                notificationDTO.setMessage("You have been invited to " + event.getEventName());
-                notificationDTO.setId(notification.getId());
-                notificationDTO.setUrl("/event/" + notification.getTypeId());
+                notificationDTO= new NotificationDTO("/event/" + notification.getTypeId(),"You have been invited to " + event.getEventName(),notification.getId());
                 notificationDtoList.add(notificationDTO);
-                //urls would be /event/id  /user/{id}
             }
             if (notification.getType().equals(Notification.USER_CONNECTION)) {
                 User user = userService.getUser(notification.getTypeId());
-                notificationDTO.setId(notification.getId());
-                notificationDTO.setUrl("/user/" + user.getId());
-                notificationDTO.setMessage(user.getFirstName() + " " + user.getLastName() + " wants to be your connection");
+                notificationDTO = new NotificationDTO("/user/" + user.getId(),user.getFirstName() + " " + user.getLastName() + " wants to be your connection",notification.getId());
+
                 notificationDtoList.add(notificationDTO);
             }
         }
@@ -55,7 +51,4 @@ public class NotificationService {
         return notificationRepository.findOne(id);
     }
 
-//    public Notification findNotification(Integer id){
-//        return notificationRepository.findOne(id);
-//    }
 }

@@ -2,13 +2,14 @@ package service;
 
 import config.UnitTestBase;
 import cs309.data.Notification;
-import cs309.dto.NotificationDTO;
 import cs309.repo.NotificationRepository;
 import cs309.service.NotificationService;
 import org.junit.After;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import util.MockData;
 
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ public class NotificationServiceUTest extends UnitTestBase {
     @InjectMocks
     private NotificationService notificationService;
 
-
     @Test
     public void getNotifications() {
         when(notificationRepo.findAll()).thenReturn(new ArrayList<>(MockData.getMockNotifications(10)));
@@ -38,17 +38,10 @@ public class NotificationServiceUTest extends UnitTestBase {
     public void resetMocks() {
         reset(notificationRepo);
     }
-//    @Test
-//    public void deleteNotification() {
-//        when(notificationRepo.findAll()).thenReturn(new ArrayList<>(MockData.getMockNotifications(10)));
-//        List<Notification> notification = notificationService.getNotifications();
-//        notificationService.deleteNotification(1);
-//        assertEquals(notification.size(), 9);
-//    }
-//    @Test
-//    public void getNotificationDTOs(String email) {
-//        when(notificationRepo.findAll()).thenReturn(new ArrayList<>(MockData.getMockNotificationDTOs(email)));
-//        List<NotificationDTO> notificationDTOs = notificationService.getNotificationDTOs(email);
-//        assertEquals(notificationDTOs.size(), 10);
-//    }
+    @Test
+    public void deleteNotification() {
+        Notification notification = MockData.getNotification(1);
+        notificationService.deleteNotification(notification);
+        verify(notificationRepo,times(1)).delete(notification);
+    }
 }

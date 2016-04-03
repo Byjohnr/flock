@@ -4,8 +4,6 @@ import cs309.dto.NotificationDTO;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
->>>>>>> Temporary merge branch 2
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -90,16 +88,11 @@ public class Notification {
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
-
-<<<<<<< Temporary merge branch 1
     public String getNotificationName() {
         return notificationName;
     }
 
-    public void setNotificationName(String notificationName) {
-        this.notificationName = notificationName;
-
-    }
+    public void setNotificationName(String notificationName) {this.notificationName = notificationName;}
 
     @Override
     public boolean equals(Object o) {
@@ -113,7 +106,7 @@ public class Notification {
                 .append(receiver, that.receiver)
                 .append(creator, that.creator)
                 .append(type, that.type)
-                .append(type_id, that.type_id)
+                .append(typeId, that.typeId)
                 .append(dateCreated, that.dateCreated)
                 .append(notificationName, that.notificationName)
                 .isEquals();
@@ -125,7 +118,7 @@ public class Notification {
                 .append(receiver)
                 .append(creator)
                 .append(type)
-                .append(type_id)
+                .append(typeId)
                 .append(dateCreated)
                 .append(notificationName)
                 .toHashCode();
@@ -138,10 +131,9 @@ public class Notification {
                 ", receiver=" + receiver +
                 ", creator=" + creator +
                 ", type=" + type +
-                ", type_id=" + type_id +
+                ", type_id=" + typeId +
                 ", dateCreated=" + dateCreated +
                 ", notificationName='" + notificationName + '\'' +
                 '}';
->>>>>>> Temporary merge branch 2
     }
 }
