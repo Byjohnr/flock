@@ -35,7 +35,7 @@ var EventStore = Reflux.createStore({
                     parent.handleInvites(errors[0].errorMessage, invites, eventAdmins);
                     parent.handleEventAdmins(errors[0].errorMessage, eventAdmins);
                 }
-                window.location.replace("/event/" + eventId);
+                window.location.replace("/event/" + errors[0].errorMessage);
                 console.log("It worked?!?!?");
             },
             error : function (data) {
@@ -73,6 +73,7 @@ var EventStore = Reflux.createStore({
             url: url,
             data: data,
             type: 'POST',
+            success: this.onGetEvent,
             error: function (xhr, status, error) {
                 console.log("Error adding invites");
                 console.log(status);
@@ -82,7 +83,6 @@ var EventStore = Reflux.createStore({
     },
     onEditEvent: function (data) {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
-        var parent = this;
         $.ajax({
             headers: {
                 'Accept': 'application/json',
@@ -92,10 +92,7 @@ var EventStore = Reflux.createStore({
             dataType: 'text',
             type: 'POST',
             data: JSON.stringify(data),
-            success: function() {
-                parent.pushEvent
-            }
-
+            success: this.onGetEvent
         });
     },
     onEditInvites: function(invites, eventAdmins) {
@@ -109,8 +106,8 @@ var EventStore = Reflux.createStore({
             dataType: 'text',
             type: 'POST',
             success: function() {
-                parent.handleInvites(id, invites, eventAdmins)
-                parent.pushEvent
+                parent.handleInvites(id, invites, eventAdmins);
+                parent.onGetEvent();
             }
         });
     },
@@ -125,18 +122,19 @@ var EventStore = Reflux.createStore({
             dataType: 'text',
             type: 'POST',
             success: function() {
-                parent.handleEventAdmins(id, eventAdmins)
-                parent.pushEvent
+                parent.handleEventAdmins(id, eventAdmins);
             }
         });
     },
     onGetEvent: function () {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
-        $.ajax({
-            url: '/api/event/' + id,
-            datatype: 'json',
-            success: this.pushEvent
-        })
+        if (id != 'create') {
+            $.ajax({
+                url: '/api/event/' + id,
+                datatype: 'json',
+                success: this.pushEvent
+            });
+        }
     },
     pushEvent: function (data) {
         console.log("triggered");
@@ -153,9 +151,7 @@ var EventStore = Reflux.createStore({
             type: 'POST',
             dataType: 'text',
             data: data,
-            success: function() {
-                this.pushEvent
-            },
+            success: this.onGetEvent,
             error: function(status, thrownError) {
                 console.log(thrownError);
                 console.log(status);
@@ -167,6 +163,20 @@ var EventStore = Reflux.createStore({
             url: '/api/admin/events',
             dataType: 'json',
             success: this.addEvents
+        });
+    },
+    onDeleteEvent: function(data) {
+        console.log(data);
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: '/api/admin/events/delete',
+            type: 'POST',
+            dataType: 'text',
+            data: JSON.stringify(data),
+            success: this.onListAllEvents
         });
     }
 

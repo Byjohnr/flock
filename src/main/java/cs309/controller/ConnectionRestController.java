@@ -24,12 +24,12 @@ public class ConnectionRestController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/connections/get")
+    @RequestMapping(value = "/connections/get", method = RequestMethod.GET)
     public List<ConnectionDTO> getConnections(Principal principal, @RequestParam(name = "eventId", required = false) Integer eventId) {
         List<ConnectionDTO> connections = new ArrayList<>();
         if(principal != null) {
             if (eventId == null) {
-                connectionService.getConnections(principal.getName()).stream().forEach(user ->
+                connectionService.getConnectionsByEmail(principal.getName()).stream().forEach(user ->
                         connections.add(new ConnectionDTO(user.getId(), user.getFirstName(), user.getLastName())));
             }
             else {

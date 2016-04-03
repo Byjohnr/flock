@@ -6,8 +6,8 @@ var AdminEventsPage = React.createClass({
     componentDidMount: function() {
         EventActions.listAllEvents();
     },
-    handleClick: function(event) {
-
+    handleDelete: function(id) {
+        EventActions.deleteEvent(id);
     },
     render: function() {
         var eventNodes;
@@ -17,13 +17,13 @@ var AdminEventsPage = React.createClass({
         else {
             var parent = this;
             eventNodes = this.state.events.map(function (event) {
-                var handleClick = parent.handleClick.bind(this, event);
+                var handleClick = parent.handleDelete.bind(parent,event.id);
                 return (
-                    <tr key={event.eventId}>
+                    <tr key={event.id}>
                         <td>{event.eventName}</td>
                         <td>{event.creator.firstName} {event.creator.lastName}</td>
                         <td>
-                            <button id={event.eventId} type="button" className="btn btn-primary" onClick={handleClick}>
+                            <button id={event.id} key={event.id} type="button" className="btn btn-primary" onClick={handleClick}>
                                 Delete
                             </button>
                         </td>
@@ -36,7 +36,7 @@ var AdminEventsPage = React.createClass({
                 <NavBar/>
                 <table className="table" cols="3">
                     <tbody>
-                    <tr>
+                    <tr >
                         <td> Event Name </td>
                         <td> Creator </td>
                         <td> Remove </td>

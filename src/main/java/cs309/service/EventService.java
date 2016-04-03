@@ -34,4 +34,9 @@ public class EventService {
     public Event saveEvent(Event event) {
         return eventRepository.save(event);
     }
+
+    @Transactional
+    public void deleteEvent(Event event) {
+        eventRepository.delete(event);
+    }
 }
