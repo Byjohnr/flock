@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @RequestMapping("/admin/user_list")
-//    @PreAuthorize("@securityService.isAdmin(#principal)")
+    @PreAuthorize("@securityService.isAdmin(#principal)")
     public String adminUserPage(Principal principal) {
         return "adminUserPage";
     }

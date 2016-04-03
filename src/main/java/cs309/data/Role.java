@@ -25,7 +25,6 @@ public class Role {
     private String roleName;
 
     public Role() {
-
     }
 
     public Role(String email, String roleName) {
