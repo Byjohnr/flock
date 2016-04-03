@@ -26,7 +26,7 @@ public class Role {
     @Column(name = "role")
     private String roleName;
 
-    @Column(name = "targetId")
+    @Column(name = "target_id")
     private Integer targetId;
 
     public Role() {
