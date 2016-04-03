@@ -1,5 +1,7 @@
 package util;
 
+import cs309.data.Notification;
+import cs309.data.User;
 import cs309.data.*;
 
 import java.util.ArrayList;

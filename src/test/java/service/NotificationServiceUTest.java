@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import util.MockData;
 
 import java.util.ArrayList;
@@ -26,14 +28,20 @@ public class NotificationServiceUTest extends UnitTestBase {
     private NotificationService notificationService;
 
     @Test
-    public void getNotifications(){
-    when(notificationRepo.findAll()).thenReturn(new ArrayList<>(MockData.getMockNotifications(5)));
-    List<Notification> notification = notificationService.getNotifications();
-    assertEquals(notification.size(),5);
+    public void getNotifications() {
+        when(notificationRepo.findAll()).thenReturn(new ArrayList<>(MockData.getMockNotifications(10)));
+        List<Notification> notification = notificationService.getNotifications();
+        assertEquals(notification.size(), 10);
     }
 
     @After
     public void resetMocks() {
         reset(notificationRepo);
+    }
+    @Test
+    public void deleteNotification() {
+        Notification notification = MockData.getNotification(1);
+        notificationService.deleteNotification(notification);
+        verify(notificationRepo,times(1)).delete(notification);
     }
 }
