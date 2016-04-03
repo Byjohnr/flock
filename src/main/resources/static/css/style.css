@@ -1,0 +1,10 @@
+#chat_area {
+    height : 400px;
+    position : fixed;
+    overflow: scroll;
+    width: 400px;
+}
+
+#chat_bar {
+    margin-top: 400px;
+}

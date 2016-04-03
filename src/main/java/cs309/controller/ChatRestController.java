@@ -1,8 +1,10 @@
 package cs309.controller;
 
 import cs309.data.ChatGroup;
+import cs309.data.ChatMessage;
 import cs309.data.ChatUser;
 import cs309.data.User;
+import cs309.dto.ChatGroupDTO;
 import cs309.service.ChatService;
 import cs309.service.UserService;
 import org.apache.commons.lang3.StringUtils;
@@ -28,8 +30,9 @@ public class ChatRestController {
     }
 
     @RequestMapping(value = "/api/chat/group/{groupId}")
-    public ChatGroup getChatGroup(@PathVariable int groupId) {
-        return chatService.getChatGroupById(groupId);
+    public ChatGroupDTO getChatGroup(@PathVariable int groupId) {
+        ChatGroup chatGroup = chatService.getChatGroupById(groupId);
+        return new ChatGroupDTO(chatGroup.getId(), chatGroup.getChatName(), chatGroup.getChatUsers(), chatGroup.getChatMessages());
     }
 
     @RequestMapping(value = "/api/chat/group/{groupId}/updateName")
@@ -66,8 +69,8 @@ public class ChatRestController {
     }
 
     @RequestMapping(value = "/api/chat/group/{groupId}/message", method = RequestMethod.POST)
-    public void saveMessage(@RequestBody String message, @PathVariable int groupId, Principal principal) {
-        chatService.saveChatMessage(message, groupId, principal.getName());
+    public ChatMessage saveMessage(@RequestBody String message, @PathVariable int groupId, Principal principal) {
+        return chatService.saveChatMessage(message, groupId, principal.getName());
     }
 
 }

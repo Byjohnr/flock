@@ -1,5 +1,7 @@
 package cs309.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class ChatUser {
     private ChatGroup chatGroup;
 
     @OneToMany(mappedBy = "messageSender")
+    @JsonIgnore
     private List<ChatMessage> chatMessages;
 
     @Column(name = "status")
