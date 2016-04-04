@@ -35,7 +35,7 @@ var EventStore = Reflux.createStore({
                     parent.handleInvites(errors[0].errorMessage, invites, eventAdmins);
                     parent.handleEventAdmins(errors[0].errorMessage, eventAdmins);
                 }
-                window.location.replace("/event/" + eventId);
+                window.location.replace("/event/" + errors[0].errorMessage);
                 console.log("It worked?!?!?");
             },
             error : function (data) {
