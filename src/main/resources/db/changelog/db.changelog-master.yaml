@@ -21,3 +21,7 @@ databaseChangeLog:
       file: db/sql/comments.sql
   - include:
       file: db/sql/connectionRequests.sql
+  - include:
+      file: db/sql/chatGroups.sql
+  - include:
+      file: db/sql/chatUsers.sql

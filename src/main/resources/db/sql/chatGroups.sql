@@ -1,0 +1,2 @@
+INSERT into chat_group(id, chat_admin_id, date_created, last_updated, chat_name) VALUES (1,1,null,null,'Coolio Chat');
+INSERT into chat_group(id, chat_admin_id, date_created, last_updated, chat_name) VALUES (2,3,null,null,'Ravioli Chat');
