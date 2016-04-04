@@ -27,4 +27,5 @@ public class NotificationRestController {
     public void deleteNotification(@RequestBody Integer id){
         notificationService.deleteNotification(notificationService.getNotification(id));
     }
+
 }

@@ -13,8 +13,11 @@ public class Notification {
 
     public static final Integer EVENT_INVITE = 1;
     public static final Integer USER_CONNECTION = 2;
+    public static final Integer ADD_EVENT_ADMIN = 3;
+    public static final Integer ACCEPT_USER_CONNECTION = 4;
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     private Integer id;
 
@@ -39,6 +42,7 @@ public class Notification {
     private String notificationName;
 
     public Notification() {
+        dateCreated = new Date();
     }
 
     public Integer getId() {

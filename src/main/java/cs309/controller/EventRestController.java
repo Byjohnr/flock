@@ -46,6 +46,9 @@ public class EventRestController {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.GET)
     public Event getEvent(@PathVariable Integer id) {
         return eventService.getEvent(id);
@@ -127,6 +130,14 @@ public class EventRestController {
             if(!eventInviteService.eventInviteExists(eventId,userId)) {
                 User invitedUser = userService.getUser(userId);
                 EventInvite eventInvite = new EventInvite(inviter, invitedUser, event);
+
+                Notification notification = new Notification();
+                notification.setReceiver(invitedUser);
+                notification.setCreator(inviter);
+                notification.setType(Notification.EVENT_INVITE);
+                notification.setTypeId(event.getId());
+
+                notificationService.saveNotification(notification);
                 eventInviteService.saveEventInvite(eventInvite);
             }
         }
@@ -134,10 +145,18 @@ public class EventRestController {
 
     @RequestMapping(value = "/api/event/{eventId}/admins", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void addEventAdmins(@RequestBody final Integer[] userIds) {
+    public void addEventAdmins(@RequestBody final Integer[] userIds, Principal principal, @PathVariable Integer eventId) {
         for(Integer userId : userIds) {
             User invitedAdmin = userService.getUser(userId);
             roleService.createRole(invitedAdmin.getEmail(), Role.EVENT_ADMIN);
+
+            Notification notification = new Notification();
+            notification.setReceiver(invitedAdmin);
+            notification.setCreator(userService.getUserByEmail(principal.getName()));
+            notification.setType(Notification.EVENT_INVITE);
+            notification.setTypeId(eventId);
+
+            notificationService.saveNotification(notification);
         }
     }
 

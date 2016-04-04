@@ -110,7 +110,7 @@ var NavBar = React.createClass({
                                 className="caret"/></a>
                             <ul className="dropdown-menu">
                                 <li><a href='/account'>My Profile</a></li>
-                                <li><a href="#">Notifications</a></li>
+                                <li><a href="/notifications">Notifications</a></li>
                                 <li><a href="#">Settings</a></li>
                                 <li role="separator" className="divider"/>
                                 <li>

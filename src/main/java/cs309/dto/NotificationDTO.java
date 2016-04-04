@@ -4,12 +4,30 @@ public class NotificationDTO {
     private String url;
     private String message;
     private Integer id;
+    private Integer type;
+    private Integer typeId;
 
-    public NotificationDTO (String url, String message, Integer id) {
+
+
+    public NotificationDTO (String url, String message, Integer id, Integer type, Integer typeId) {
         this.url=url;
         this.message=message;
         this.id=id;
+        this.type=type;
+        this.typeId=typeId;
     }
+
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
+    }
+
+    public Integer getType() {return type;}
+
+    public void setType(Integer type) {this.type = type;}
 
     public Integer getId() {
         return id;
