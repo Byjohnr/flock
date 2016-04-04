@@ -256,6 +256,9 @@ databaseChangeLog:
                     type: varchar(50)
                     constraints:
                         nullable: false
+                - column:
+                    name: target_id
+                    type: int
 
    - changeSet:
           id: 6

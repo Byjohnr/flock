@@ -1,5 +1,5 @@
 var EventPage = React.createClass({
-    mixins: [Reflux.connect(EventStore,'event'), Reflux.connect(EventInviteStore, 'eventInvite')],
+    mixins: [Reflux.connect(EventStore,'event'), Reflux.connect(EventInviteStore, 'eventInvite'), Reflux.connect(RoleStore, 'role')],
     timePicker: function(id) {
         $('#' + id).pickatime();
     },
@@ -7,11 +7,17 @@ var EventPage = React.createClass({
         $('#' + id).pickadate();
     },
     getInitialState: function() {
-        return {event : undefined, eventInvite : undefined};
+        return {event : undefined,
+            eventInvite : undefined,
+            role : undefined,
+            invites: [],
+            eventAdmins: []
+        };
     },
     componentDidMount: function() {
         EventActions.getEvent();
         EventInviteActions.getAttending();
+        RoleActions.isEventAdmin();
     },
     handleNameChange: function(event) {
         this.setState({event:{eventName: event.target.value, eventDescription: this.state.event.eventDescription, location: this.state.event.location, id: this.state.event.id, creator: this.state.event.creator, eventStart: this.state.event.eventStart, eventEnd: this.state.event.eventEnd, type: this.state.event.type, commentList: this.state.event.commentList, eventInvites: this.state.event.eventInvites}});
@@ -45,6 +51,23 @@ var EventPage = React.createClass({
     handleInviteChange: function() {
         EventInviteActions.setAttending("Change");
     },
+    handleInvite : function(connection) {
+        var newInvites = this.state.invites;
+        newInvites.push(connection);
+        this.setState({invites : newInvites});
+        EventActions.editInvites(this.state.invites, this.state.eventAdmins);
+        this.setState({invites : []});
+        EventActions.getEvent();
+    },
+    handleEventAdmin : function(connection) {
+        var newEventAdmins = this.state.eventAdmins;
+        newEventAdmins.push(connection);
+        this.setState({eventAdmins : newEventAdmins});
+        EventActions.editInvites(this.state.invites, this.state.eventAdmins);
+        EventActions.editEventAdmins(this.state.eventAdmins);
+        this.setState({eventAdmins : []});
+        EventActions.getEvent();
+    },
 
 
     render: function() {
@@ -52,6 +75,8 @@ var EventPage = React.createClass({
             return <div>Loading <i className="fa fa-spin fa-refresh"/></div>;
         }
         var attending;
+        var edit;
+        var invite;
         if (this.state.eventInvite.toString() === "0") {
             attending = (
                     <div className="btn-group" role="group">
@@ -83,6 +108,26 @@ var EventPage = React.createClass({
                     </div>
                 )
         }
+        if (this.state.role.toString() === "true") {
+            edit = (
+                <div className="btn-group" role="group">
+                    <button type="button" className="btn btn-primary btn-lg" data-toggle="modal"
+                            data-target="#EditModal">
+                        Edit
+                    </button>
+                </div>
+            );
+            invite = (
+                <div>
+                    <div id="eventAdmin">
+                        <ConnectionList actionId="eventAdmins" modalId="eventAdminModal" handleInvite={this.handleEventAdmin} buttonName="Add Event Admins" actionName="Add as Event Admin" />
+                    </div>
+                    <div id="invites">
+                        <ConnectionList actionId="inviteList" modalId="inviteModal" handleInvite={this.handleInvite} buttonName="Invite Connections" actionName="Add to Invite List" />
+                    </div>
+                </div>
+            );
+        }
 
         return (
             <div className="row">
@@ -103,12 +148,11 @@ var EventPage = React.createClass({
                         <h3> End: {this.state.event.eventEnd} </h3>
 
                         <h3> Location: {this.state.event.location} </h3>
+
                         </div>
-                        <button type="button" className="btn btn-primary btn-lg" data-toggle="modal"
-                                data-target="#EditModal">
-                            Edit
-                        </button>
+                            {edit}
                         <div>
+
                             <h2> Comments </h2>
                             <CommentList comments={this.state.event.commentList}/>
 
@@ -124,6 +168,9 @@ var EventPage = React.createClass({
                         <div>
                             <h2 className="text-center"> Invited </h2>
                             <InviteList invites={this.state.event.eventInvites}/>
+                        </div>
+                        <div>
+                            {invite}
                         </div>
                         <div className="modal fade" id="EditModal" tabIndex="-1" role="dialog"
                              aria-labelledby="EditModalLabel">
