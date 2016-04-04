@@ -112,6 +112,7 @@ var NavBar = React.createClass({
                                 <li><a href='/account'>My Profile</a></li>
                                 <li><a href="#">Notifications</a></li>
                                 <li><a href="#">Settings</a></li>
+                                <li><a href="/admin/user_list">Admin: Users</a></li>
                                 <li role="separator" className="divider"/>
                                 <li>
                                     <form action="/logout">

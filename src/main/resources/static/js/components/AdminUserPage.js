@@ -21,11 +21,11 @@ var AdminUserPage = React.createClass({
                 <NavBar />
                 <div className="text-center container">
                     <div className="row">
-                        <div className="col-md-12">
-                            <h1>List of all users</h1>
-                        </div>
+                        <h1>List of all users</h1>
                     </div>
-                    {userListNodes}
+                    <div className="row" style={{height: '700px', overflowY: 'scroll'}}>
+                        {userListNodes}
+                    </div>
                 </div>
             </div>
         );
