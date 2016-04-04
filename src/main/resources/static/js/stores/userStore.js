@@ -46,5 +46,12 @@ var UserStore = Reflux.createStore({
             dataType:'json',
             success : this.returnInformationSuccess
         });
+    },
+    onGetAllUsers: function() {
+        $.ajax({
+            url: '/api/list_all_users',
+            dataType:'json',
+            success : this.returnInformationSuccess
+        });
     }
 });

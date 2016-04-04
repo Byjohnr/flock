@@ -47,10 +47,6 @@ public class UserRestController {
 
     @RequestMapping("/user/info")
     public User getUser(Principal principal) {
-//        TODO jeffreyh 2/22/16 remove this when we decide to enable authentication
-        if(principal == null) {
-            return userService.getUser(1);
-        }
         return userService.getUserByEmail(principal.getName());
     }
 
@@ -65,5 +61,11 @@ public class UserRestController {
         List<User> users = userService.userSearch(query);
         List<Event> events = eventService.getEventSearch(query);
         return new SearchDTO(events, users);
+    }
+
+    @RequestMapping("/list_all_users")
+    @PreAuthorize("@securityService.isAdmin(#principal)")
+    public List<User> listAllUsers(Principal principal) {
+        return userService.getUsers();
     }
 }
