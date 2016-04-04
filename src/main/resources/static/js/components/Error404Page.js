@@ -5,7 +5,7 @@ var Error404Page = React.createClass({
                 <h1 className="text-center">
                     ERROR: 404 - YOU BROKE THE INTERNET
                 </h1>
-                <a href="home">
+                <a href="">
                     <img src="https://pbs.twimg.com/media/CbSg8UkUYAE6Lht.jpg" alt="IDK" width="600" height="800"/>
                 </a>
             </div>

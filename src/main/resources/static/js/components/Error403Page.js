@@ -5,7 +5,7 @@ var Error403Page = React.createClass({
                 <h1 className="text-center">
                     ERROR: 403 - ACCESS DENIED
                 </h1>
-                <a href="home">
+                <a href="">
                 <img src="https://pbs.twimg.com/media/CbSg8UkUYAE6Lht.jpg" alt="IDK" width="600" height="800"/>
                 </a>
             </div>

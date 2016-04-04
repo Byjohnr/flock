@@ -26,8 +26,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-
-
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -47,6 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .csrf()
                     .disable();
+                    //.exceptionHandling().accessDeniedPage("/403");
+
 
         httpSecurity.headers().frameOptions().disable();
 

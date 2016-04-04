@@ -55,13 +55,9 @@ var NotificationList = React.createClass({
         //$.bootstrapSortable()   add this table later after backend works.
         return (
             <div>
-                <NavBar/>
                 <div className="col-md-6 col-sm-offset-3">
                     <table className="table table-hover bg-info table-condensed">
                         <tbody>
-                        <tr data-firstsort="desc" className="text-center">
-                            Notifications
-                        </tr>
                         {notificationNodes}
                         </tbody>
                     </table>
@@ -69,4 +65,3 @@ var NotificationList = React.createClass({
             </div>);
     }
 });
-ReactDOM.render(<NotificationList />, document.getElementById("list_notification"));
