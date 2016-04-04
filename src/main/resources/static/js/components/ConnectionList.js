@@ -1,3 +1,13 @@
+/**
+ * Uses the following props:
+ * actionId : helpful when there are more than one connection lists on the page, it is for handling the disabling of the buttons
+ * actionName : The name of the button inside of the modal
+ *
+ * buttonName : The name of the visable button this places on the page
+ * modalId : what id you want to give the id, make sure if you have more than 1 connection lists on the page you use different modalIds
+ *
+ * handleInvite : a function passed from the parent function to do something in the parent component
+ */
 var ConnectionList = React.createClass({
    mixins: [Reflux.connect(ConnectionStore, 'connections')],
     getInitialState : function() {
