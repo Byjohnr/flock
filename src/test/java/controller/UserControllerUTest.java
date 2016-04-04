@@ -36,6 +36,14 @@ public class UserControllerUTest extends UnitTestBase {
     }
 
     @Test
+    public void userAccountPage() throws Exception {
+        Principal principal = mock(Principal.class);
+        this.mockMvc.perform(get("/account").principal(principal))
+                .andExpect(status().isOk())
+                .andExpect(view().name("viewAccount"));
+    }
+
+    @Test
     public void userPage() throws Exception {
         Principal principal = mock(Principal.class);
         when(principal.getName()).thenReturn("bloop");
@@ -44,5 +52,13 @@ public class UserControllerUTest extends UnitTestBase {
         this.mockMvc.perform(get("/user/72").principal(principal))
                 .andExpect(status().isOk())
                 .andExpect(view().name("userPage"));
+    }
+
+    @Test
+    public void adminUserPage() throws Exception {
+        Principal principal = mock(Principal.class);
+        this.mockMvc.perform(get("/admin/user_list").principal(principal))
+                .andExpect(status().isOk())
+                .andExpect(view().name("adminUserPage"));
     }
 }
