@@ -1,12 +1,22 @@
 var NavBar = React.createClass({
-    mixins: [Reflux.connect(NavStore, 'user')],
+    mixins: [Reflux.connect(NavStore, 'user'), Reflux.connect(SearchStore, 'searchResults')],
     getInitialState: function () {
-        return {user: undefined};
+        return {user: undefined, searchResults : undefined};
     },
-    render: function () {
+    searchChange: function(query) {
+        console.log(query.target.value);
+        if(query.target.value == "") {
+            this.setState({searchResults : undefined});
+        } else {
+            SearchActions.search(query.target.value);
+        }
+
+    },
+    render: function() {
+        var searchResults = "";
         var navbar = null;
         if (this.props.hideInfo === "true") {
-            navbar = (<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            navbar = (<div className="collapse navbar-collapse navbar-static-top" id="bs-example-navbar-collapse-1">
                     <ul className="nav navbar-nav navbar-right">
                         <li className="dropdown">
                             <button className="btn btn-primary navbar-btn" data-toggle="modal"
@@ -48,20 +58,49 @@ var NavBar = React.createClass({
                 </div>
             )
         } else {
+            var events = "";
+            var users = "";
+            if(this.state.searchResults != undefined) {
+                users = this.state.searchResults.users.map(function(user) {
+                    return <a href={'/user/' + user.id} key={'user' + user.id}><li className="list-group-item">{user.firstName} {user.lastName}</li></a>
+                });
+                events = this.state.searchResults.events.map(function(event) {
+                   return <a href={'/event/' + event.id} key={'event' + event.id} ><li className="list-group-item"> {event.eventName} </li></a>
+                });
+            }
             if (this.state.user === undefined) {
                 NavActions.getUserInfo();
             }
             else {
-                navbar = (<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                if(this.state.searchResults != undefined) {
+                    searchResults = <div className="panel panel-default col-md-offset-2 col-md-4"
+                                         style={{zIndex: '100', position : 'fixed', marginLeft: '26%', marginTop : '-2.1em'}}>
+                        <div>
+                        <div className="panel-body">
+                            <h4><strong>Users</strong></h4>
+                        </div>
+                        <ul className="list-group">
+                            {users}
+                        </ul>
+                        <div className="panel-body">
+                            <h4><strong>Events</strong></h4>
+                        </div>
+                        <ul className="list-group">
+                            {events}
+                        </ul>
+                        </div>
+                    </div>;
+                }
+                navbar = (<div>
+                    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul className="nav navbar-nav">
                         <li><a href="/event/create">Create Event</a></li>
                         <li><a href="/map">Map</a></li>
                     </ul>
                     <form className="navbar-form navbar-left" role="search">
                         <div className="form-group">
-                            <input type="text" className="form-control" placeholder="Search"/>
+                            <input type="text" className="form-control" onChange={this.searchChange} placeholder="Search"/>
                         </div>
-                        <button type="submit" className="btn btn-default">Submit</button>
                     </form>
                     <ul className="nav navbar-nav navbar-right">
                         <li className="dropdown">
@@ -83,10 +122,12 @@ var NavBar = React.createClass({
                             </ul>
                         </li>
                     </ul>
-                </div>);
+                </div>
+            </div>
+                );
             }
         }
-        return (
+        return (<div>
             <nav className="navbar navbar-inverse">
                 <div className="container-fluid">
                     <div className="navbar-header">
@@ -101,6 +142,8 @@ var NavBar = React.createClass({
                     </div>
                     {navbar}
                 </div>
-            </nav>);
+            </nav>
+            {searchResults}
+            </div>);
     }
 });

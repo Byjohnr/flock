@@ -19,10 +19,26 @@ var ViewAccount = React.createClass({
     },
     render: function () {
         var connectionStatus = "";
-        var connectionGroupLink = <a href="/account/connectionGroups">My Connection Groups</a> ;
-        if(this.props.account !== true) {
-            connectionStatus = <ConnectionStatus />;
+        var listOfEvents = "";
+        var connectionGroupLink =
+            <div className="row" style={spacedRow}>
+                <div className="col-md-12">
+                    <a href="/account/connectionGroups">My Connection Groups</a>
+                </div>
+            </div>;
+        if (this.props.account !== true) {
+            connectionStatus =
+                <div>
+                    <ConnectionStatus />
+                </div>;
             connectionGroupLink = "";
+        } else {
+            listOfEvents =
+                <div className="row" style={{spacedRow, borderStyle: 'solid', borderWidth: '1px'}}>
+                    <div className="col-md-12" style={{width: '100%', height: '400px', overflowY: 'scroll'}}>
+                        <EventList />
+                    </div>
+                </div>;
         }
         if (this.state.userInformation !== undefined) {
             return (
@@ -31,9 +47,10 @@ var ViewAccount = React.createClass({
                     <div className="text-center container">
                         <div className="row" style={spacedRow}>
                             <div className="col-md-6 col-xs-12">
-                                <Picture sendingUrl={this.props.account === true ? "/api/picture_upload/profile_picture" : ""}
-                                         pictureEditable={this.props.account === true}
-                                         getterUrl={this.props.account === true ? "/api/profile_picture" : "/api/user_profile_picture/" + this.state.userInformation.id} />
+                                <Picture
+                                    sendingUrl={this.props.account === true ? "/api/picture_upload/profile_picture" : ""}
+                                    pictureEditable={this.props.account === true}
+                                    getterUrl={this.props.account === true ? "/api/profile_picture" : "/api/user_profile_picture/" + this.state.userInformation.id}/>
                             </div>
                             <div className="col-md-6 col-xs-12">
                                 <h1>
@@ -48,21 +65,11 @@ var ViewAccount = React.createClass({
                                 <h2>
                                     {this.state.userInformation.currentCity}
                                 </h2>
-                                <div>
-                                    {connectionStatus}
-                                </div>
+                                {connectionStatus}
                             </div>
                         </div>
-                        <div className="row" style={spacedRow}>
-                            <div className="col-md-12">
-                                {connectionGroupLink}
-                            </div>
-                        </div>
-                        <div className="row" style={{spacedRow, borderStyle: 'solid', borderWidth: '1px'}}>
-                            <div className="col-md-12" style={{width: '100%', height: '400px', overflowY: 'scroll'}}>
-                                <EventList />
-                            </div>
-                        </div>
+                        {connectionGroupLink}
+                        {listOfEvents}
                     </div>
                 </div>
             );
