@@ -51,7 +51,6 @@ public class SecurityService {
 
     public boolean isAdmin(Principal principal) {
         Role role = roleRepository.getAdmin(principal.getName());
-        LOG.info(role);
         return role != null;
     }
 }

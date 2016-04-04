@@ -59,4 +59,21 @@ public class PictureRestController {
         PictureFile pictureFile = pictureFileService.savePictureFileForUser(fileName, principalUser.getId(), picture);
         return pictureFile.getPicture();
     }
+
+    @RequestMapping("/event_picture/{eventId}")
+    public String eventPictureGetter(@PathVariable("eventId") Integer eventId) {
+        String picture = null;
+        try {
+            picture = pictureFileService.getPictureFileByEventId(eventId).getPicture();
+        } catch (NullPointerException ex) {
+            LOG.error("No picture for user " + eventId);
+        }
+        return picture;
+    }
+
+    @RequestMapping("/picture_upload/event_picture/{eventId}")
+    public String eventPictureUpload(String picture, String fileName, @PathVariable("eventId") Integer eventId) {
+        PictureFile pictureFile = pictureFileService.savePictureFileForEvent(fileName, eventId, picture);
+        return pictureFile.getPicture();
+    }
 }
