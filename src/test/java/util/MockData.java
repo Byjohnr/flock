@@ -1,5 +1,7 @@
 package util;
 
+import cs309.data.Notification;
+import cs309.data.User;
 import cs309.data.*;
 
 import java.util.ArrayList;
@@ -37,6 +39,10 @@ public class MockData {
         Event event = new Event();
         event.setId(x);
         event.setEventName("event" + x);
+        EventInvite invite = new EventInvite();
+        List<EventInvite> list = new ArrayList<>();
+        list.add(invite);
+        event.setEventInvites(list);
         return event;
     }
 
@@ -95,6 +101,11 @@ public class MockData {
         EventInvite invite = new EventInvite();
         invite.setInviteStatus(1);
         return invite;
+    }
+
+    public static Role getEventAdmin(int k) {
+        Role role = new Role("chase@test.com","ROLE_EVENT_ADMIN",1);
+        return role;
     }
 
     public static ChatGroup getChatGroup(int k) {

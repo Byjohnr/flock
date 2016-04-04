@@ -5,6 +5,7 @@ import config.UnitTestBase;
 import cs309.controller.UserRestController;
 import cs309.data.Role;
 import cs309.data.User;
+import cs309.service.EventService;
 import cs309.service.RoleService;
 import cs309.service.UserService;
 import org.hamcrest.Matchers;
@@ -35,6 +36,9 @@ public class UserRestControllerUTest extends UnitTestBase {
     @Mock
     private RoleService roleService;
 
+    @Mock
+    private EventService eventService;
+
     @InjectMocks
     private UserRestController userRestController;
 
@@ -53,7 +57,7 @@ public class UserRestControllerUTest extends UnitTestBase {
 
 
         verify(userService, times(1)).saveUser(user);
-        verify(roleService, times(1)).createRole("email1", Role.USER);
+        verify(roleService, times(1)).createRole("email1", Role.USER,1);
     }
 
     @Test
@@ -69,6 +73,16 @@ public class UserRestControllerUTest extends UnitTestBase {
     public void getOtherUser() throws Exception {
         when(userService.getUserByEmail(anyString())).thenReturn(MockData.getUser(1));
         this.mockMvc.perform(get("/api/user/1").principal(mock(Principal.class)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void handleSearch() throws Exception {
+        when(userService.userSearch(anyString())).thenReturn(MockData.getUsers(3));
+        when(eventService.getEventSearch(anyString())).thenReturn(MockData.getMockEvents(4));
+        this.mockMvc.perform(get("/api/home/search").principal(mock(Principal.class))
+                .content("a string")
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 }

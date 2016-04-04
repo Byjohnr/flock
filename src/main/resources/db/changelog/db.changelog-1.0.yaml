@@ -229,6 +229,9 @@ databaseChangeLog:
                  - column:
                      name: type_id
                      type: int
+                 - column:
+                     name: notification_name
+                     type: varchar(500)
 
    - changeSet:
           id: 5
@@ -253,6 +256,9 @@ databaseChangeLog:
                     type: varchar(50)
                     constraints:
                         nullable: false
+                - column:
+                    name: target_id
+                    type: int
 
    - changeSet:
           id: 6
