@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -102,6 +103,12 @@ public class EventRestController {
         return invite.getInviteStatus();
     }
 
+    @RequestMapping(value = "/api/event/isEventAdmin/{id}", method = RequestMethod.GET)
+    public Boolean isEventAdmin(@PathVariable Integer id, Principal principal) {
+        Role role = roleService.getRole(principal.getName(), Role.EVENT_ADMIN, id);
+        return role != null;
+    }
+
     @RequestMapping(value = "/api/create", method = RequestMethod.POST)
     public List<ErrorsDTO> createEvent(@Valid @RequestBody final CreateEventDTO createEventDTO,
                                        BindingResult result, Principal principal) throws IOException, ParseException {
@@ -112,7 +119,7 @@ public class EventRestController {
             return errors;
         }
         Event event = eventService.saveEvent(new Event(createEventDTO, userService.getUserByEmail(principal.getName())));
-        roleService.createRole(principal.getName(),Role.EVENT_ADMIN);
+        roleService.createRole(principal.getName(),Role.EVENT_ADMIN, event.getId());
         List<ErrorsDTO> noErrors = new ArrayList<>();
         noErrors.add(new ErrorsDTO("success", event.getId() + ""));
         return noErrors;
@@ -134,10 +141,10 @@ public class EventRestController {
 
     @RequestMapping(value = "/api/event/{eventId}/admins", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void addEventAdmins(@RequestBody final Integer[] userIds) {
+    public void addEventAdmins(@RequestBody final Integer[] userIds, @PathVariable Integer eventId) {
         for(Integer userId : userIds) {
             User invitedAdmin = userService.getUser(userId);
-            roleService.createRole(invitedAdmin.getEmail(), Role.EVENT_ADMIN);
+            roleService.createRole(invitedAdmin.getEmail(), Role.EVENT_ADMIN, eventId);
         }
     }
 

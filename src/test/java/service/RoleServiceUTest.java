@@ -19,7 +19,13 @@ public class RoleServiceUTest extends UnitTestBase {
 
     @Test
     public void createRole() {
-        roleService.createRole("google@bing.com", Role.ADMIN);
+        roleService.createRole("google@bing.com", Role.ADMIN,1);
         Mockito.verify(roleRepository, Mockito.times(1)).save(Mockito.any(Role.class));
+    }
+
+    @Test
+    public void getRole() {
+        roleService.getRole("chase@test.com", "ROLE_EVENT_ADMIN", 1);
+        Mockito.verify(roleRepository, Mockito.times(1)).getRole("chase@test.com", "ROLE_EVENT_ADMIN", 1);
     }
 }
