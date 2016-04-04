@@ -3,10 +3,8 @@ package cs309.service;
 import cs309.data.Connection;
 import cs309.data.Event;
 import cs309.data.EventInvite;
-import cs309.repo.ConnectionRepository;
-import cs309.repo.EventInviteRepository;
-import cs309.repo.EventRepository;
-import cs309.repo.UserRepository;
+import cs309.data.Role;
+import cs309.repo.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +32,9 @@ public class SecurityService {
     @Autowired
     ConnectionRepository connectionRepository;
 
+    @Autowired
+    RoleRepository roleRepository;
+
     public boolean isInvited(Integer id, Principal principal) {
         Event event = eventRepository.findOne(id);
         EventInvite invite = inviteRepository.findEventInviteByUserAndEvent(userRepository.findUserByEmail(principal.getName()), event);
@@ -46,5 +47,11 @@ public class SecurityService {
             return true;
         }
         return false;
+    }
+
+    public boolean isAdmin(Principal principal) {
+        Role role = roleRepository.getAdmin(principal.getName());
+        LOG.info(role);
+        return role != null;
     }
 }
