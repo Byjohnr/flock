@@ -11,10 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 
-/**
- * Created by chasekoehler on 3/23/16.
- */
-
 @Service
 public class SecurityService {
 
@@ -47,11 +43,5 @@ public class SecurityService {
             return true;
         }
         return false;
-    }
-
-    public boolean isAdmin(Principal principal) {
-        Role role = roleRepository.getAdmin(principal.getName());
-        LOG.info(role);
-        return role != null;
     }
 }

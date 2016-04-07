@@ -10,7 +10,7 @@ import java.security.Principal;
 @Controller
 public class AdminController {
 
-    @PreAuthorize("@securityService.isAdmin(#principal)")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/admin/events")
     public String adminEventsPage(Principal principal) {
         return "adminEventsPage";
