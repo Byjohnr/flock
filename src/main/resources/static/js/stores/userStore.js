@@ -56,7 +56,9 @@ var UserStore = Reflux.createStore({
     },
     onGetAdminAuthentication: function() {
         $.ajax({
-            url: 'api/admin/authentication'
+            url: 'api/admin/authentication',
+            dataType:'text',
+            success : this.returnInformationSuccess
         })
     }
 });

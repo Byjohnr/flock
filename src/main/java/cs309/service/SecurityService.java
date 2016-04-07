@@ -40,10 +40,4 @@ public class SecurityService {
         }
         return false;
     }
-
-    public boolean isAdmin(Principal principal) {
-        Role role = roleRepository.getAdmin(principal.getName());
-        LOG.info(principal.getName() + " has role " + role);
-        return role != null;
-    }
 }

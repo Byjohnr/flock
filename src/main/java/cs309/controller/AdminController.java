@@ -1,5 +1,6 @@
 package cs309.controller;
 
+import cs309.data.Role;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,7 +10,7 @@ import java.security.Principal;
 
 @Controller
 @RequestMapping("/admin")
-@PreAuthorize("@securityService.isAdmin(#principal)")
+@PreAuthorize("hasRole('" + Role.ADMIN + "')")
 public class AdminController {
 
     @RequestMapping(value = "/events")

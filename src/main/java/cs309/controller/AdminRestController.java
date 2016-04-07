@@ -1,8 +1,10 @@
 package cs309.controller;
 
 import cs309.data.Event;
+import cs309.data.Role;
 import cs309.data.User;
 import cs309.service.EventService;
+import cs309.service.RoleService;
 import cs309.service.SecurityService;
 import cs309.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class AdminRestController {
     @Autowired
     private UserService userService;
     @Autowired
-    private SecurityService securityService;
+    private RoleService roleService;
 
     @RequestMapping("/events")
     public List<Event> getAllEvents() {
@@ -35,11 +37,12 @@ public class AdminRestController {
 
     @RequestMapping(value = "/authentication")
     public String adminAuthentication(Principal principal) {
-        return (securityService.isAdmin(principal) ? "true" : "false");
+        User principalUser = userService.getUserByEmail(principal.getName());
+        return (roleService.isAdmin(principalUser) ? "true" : "false");
     }
 
     @RequestMapping("/list_all_users")
-    @PreAuthorize("@securityService.isAdmin(#principal)")
+    @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     public List<User> listAllUsers(Principal principal) {
         return userService.getUsers();
     }

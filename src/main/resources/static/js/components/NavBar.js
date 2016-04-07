@@ -1,7 +1,8 @@
 var NavBar = React.createClass({
-    mixins: [Reflux.connect(NavStore, 'user'), Reflux.connect(SearchStore, 'searchResults')],
+    mixins: [Reflux.connect(NavStore, 'user'), Reflux.connect(SearchStore, 'searchResults'), Reflux.connect(UserStore, 'adminAuthentication')],
     getInitialState: function () {
-        return {user: undefined, searchResults : undefined};
+        var authentication = UserActions.getAdminAuthentication();
+        return {user: undefined, searchResults : undefined, adminAuthentication : (authentication ? authentication : 'false')};
     },
     searchChange: function(query) {
         console.log(query.target.value);
@@ -91,6 +92,12 @@ var NavBar = React.createClass({
                         </div>
                     </div>;
                 }
+                var adminLinks = "";
+                if (this.state.adminAuthentication === 'true') {
+                    adminLinks = (
+                        <li><a href="/admin/user_list">Admin: Users</a></li>
+                    );
+                }
                 navbar = (<div>
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul className="nav navbar-nav">
@@ -112,7 +119,7 @@ var NavBar = React.createClass({
                                 <li><a href='/account'>My Profile</a></li>
                                 <li><a href="#">Notifications</a></li>
                                 <li><a href="#">Settings</a></li>
-                                <li><a href="/admin/user_list">Admin: Users</a></li>
+                                {adminLinks}
                                 <li role="separator" className="divider"/>
                                 <li>
                                     <form action="/logout">
