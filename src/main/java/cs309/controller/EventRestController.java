@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -99,7 +100,13 @@ public class EventRestController {
     @RequestMapping(value = "/api/event/getAttending/{id}", method = RequestMethod.GET)
     public int getInvite(@PathVariable Integer id, Principal principal) {
         EventInvite invite = eventInviteService.getEventInvite(userService.getUserByEmail(principal.getName()), eventService.getEvent(id));
-        return invite.getInviteStatus();
+        return invite != null ? invite.getInviteStatus() : 4;
+    }
+
+    @RequestMapping(value = "/api/event/isEventAdmin/{id}", method = RequestMethod.GET)
+    public Boolean isEventAdmin(@PathVariable Integer id, Principal principal) {
+        Role role = roleService.getRole(principal.getName(),"ROLE_EVENT_ADMIN", id);
+        return role != null;
     }
 
     @RequestMapping(value = "/api/create", method = RequestMethod.POST)
@@ -111,8 +118,12 @@ public class EventRestController {
             result.getFieldErrors().stream().forEach(fieldError ->  errors.add(new ErrorsDTO(fieldError.getField(),fieldError.getCode())));
             return errors;
         }
-        Event event = eventService.saveEvent(new Event(createEventDTO, userService.getUserByEmail(principal.getName())));
-        roleService.createRole(principal.getName(),Role.EVENT_ADMIN);
+        User creator = userService.getUserByEmail(principal.getName());
+        Event event = eventService.saveEvent(new Event(createEventDTO, creator));
+        roleService.createRole(principal.getName(), Role.EVENT_ADMIN, event.getId());
+        EventInvite invite = new EventInvite(creator, creator, event);
+        invite.setInviteStatus(EventInvite.GOING);
+        eventInviteService.saveEventInvite(invite);
         List<ErrorsDTO> noErrors = new ArrayList<>();
         noErrors.add(new ErrorsDTO("success", event.getId() + ""));
         return noErrors;
@@ -134,10 +145,10 @@ public class EventRestController {
 
     @RequestMapping(value = "/api/event/{eventId}/admins", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void addEventAdmins(@RequestBody final Integer[] userIds) {
+    public void addEventAdmins(@RequestBody final Integer[] userIds, @PathVariable Integer eventId) {
         for(Integer userId : userIds) {
             User invitedAdmin = userService.getUser(userId);
-            roleService.createRole(invitedAdmin.getEmail(), Role.EVENT_ADMIN);
+            roleService.createRole(invitedAdmin.getEmail(), Role.EVENT_ADMIN, eventId);
         }
     }
 

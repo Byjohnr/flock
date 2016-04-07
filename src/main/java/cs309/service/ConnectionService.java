@@ -1,10 +1,12 @@
 package cs309.service;
 
 import cs309.data.*;
+import cs309.data.*;
 import cs309.repo.ConnectionGroupRepository;
 import cs309.repo.ConnectionGroupUserRepository;
 import cs309.repo.ConnectionRepository;
 import cs309.repo.ConnectionRequestRepository;
+import cs309.repo.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,9 @@ public class ConnectionService {
     private ConnectionRequestRepository connectionRequestRepository;
 
     @Autowired
+    private EventRepository eventRepository;
+    
+    @Autowired
     private ConnectionGroupRepository connectionGroupRepository;
 
     @Autowired
@@ -31,6 +36,19 @@ public class ConnectionService {
         return connectionRepository.getConnectionsByEmail(email);
     }
 
+    public List<User> getConnectionsNotInvited(String email, Integer eventId) {
+        List<User> list = connectionRepository.getConnectionsByEmail(email);
+        Event event = eventRepository.findOne(eventId);
+        for(EventInvite invite : event.getEventInvites()) {
+            if (list.contains(invite.getUserInvited())) {
+                list.remove(invite.getUserInvited());
+            }
+        }
+        if (list.contains(event.getCreator())) {
+            list.remove(event.getCreator());
+        }
+        return list;
+    }
     /**
      * Checks if user1 has requested to be connected to user2
      */

@@ -1,5 +1,7 @@
 package cs309.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -24,12 +26,16 @@ public class Role {
     @Column(name = "role")
     private String roleName;
 
+    @Column(name = "targetId")
+    private Integer targetId;
+
     public Role() {
     }
 
-    public Role(String email, String roleName) {
+    public Role(String email, String roleName, Integer targetId) {
         this.email = email;
         this.roleName = roleName;
+        this.targetId = targetId;
     }
 
     public Integer getId() {
@@ -54,6 +60,14 @@ public class Role {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public Integer getTargetId() {
+        return targetId;
+    }
+
+    public void setTargetId(Integer targetId) {
+        this.targetId = targetId;
     }
 
     @Override

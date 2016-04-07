@@ -253,7 +253,9 @@ databaseChangeLog:
                     type: varchar(50)
                     constraints:
                         nullable: false
-
+                - column:
+                    name: target_id
+                    type: int
 
    - changeSet:
           id: 6
@@ -277,3 +279,74 @@ databaseChangeLog:
                 - column:
                     name: date_sent
                     type: date
+
+   - changeSet:
+          id: 7
+          author: jeffreyh
+          changes:
+            - createTable:
+                tableName: chat_group
+                columns:
+                - column:
+                    name: id
+                    type: int
+                    autoIncrement: true
+                    constraints:
+                        nullable: false
+                        primaryKey: true
+                        primaryKeyName: pk_chat_group
+                - column:
+                    name: chat_admin_id
+                    type: int
+                - column:
+                    name: date_created
+                    type: datetime
+                - column:
+                    name: last_updated
+                    type: datetime
+                - column:
+                    name: chat_name
+                    type: varchar(200)
+            - createTable:
+                tableName: chat_group_user
+                columns:
+                - column:
+                    name: id
+                    type: int
+                    autoIncrement: true
+                    constraints:
+                        nullable: false
+                        primaryKey: true
+                        primaryKeyName: pk_chat_group_user
+                - column:
+                    name: user_id
+                    type: int
+                - column:
+                    name: chat_group_id
+                    type: int
+                - column:
+                    name: status
+                    type: int
+            - createTable:
+                tableName: chat_message
+                columns:
+                - column:
+                    name: id
+                    type: int
+                    autoIncrement: true
+                    constraints:
+                        nullable: false
+                        primaryKey: true
+                        primaryKeyName: pk_chat_message
+                - column:
+                    name: chat_group_id
+                    type: int
+                - column:
+                    name: chat_user_id
+                    type: int
+                - column:
+                    name: message
+                    type: varchar(5000)
+                - column:
+                    name: date_sent
+                    type: datetime

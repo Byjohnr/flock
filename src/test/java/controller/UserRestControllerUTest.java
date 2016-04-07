@@ -57,7 +57,7 @@ public class UserRestControllerUTest extends UnitTestBase {
 
 
         verify(userService, times(1)).saveUser(user);
-        verify(roleService, times(1)).createRole("email1", Role.USER);
+        verify(roleService, times(1)).createRole("email1", Role.USER,1);
     }
 
     @Test
