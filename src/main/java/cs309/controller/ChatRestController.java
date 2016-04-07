@@ -9,6 +9,8 @@ import cs309.service.ChatService;
 import cs309.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -68,6 +70,8 @@ public class ChatRestController {
         }
     }
 
+    @MessageMapping("/chat")
+    @SendTo("/topic/message")
     @RequestMapping(value = "/api/chat/group/{groupId}/message", method = RequestMethod.POST)
     public ChatMessage saveMessage(@RequestBody String message, @PathVariable int groupId, Principal principal) {
         return chatService.saveChatMessage(message, groupId, principal.getName());
