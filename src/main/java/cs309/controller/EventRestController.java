@@ -105,7 +105,7 @@ public class EventRestController {
 
     @RequestMapping(value = "/api/event/isEventAdmin/{id}", method = RequestMethod.GET)
     public Boolean isEventAdmin(@PathVariable Integer id, Principal principal) {
-        Role role = roleService.getRole(principal.getName(), "ROLE_EVENT_ADMIN", id);
+        Role role = roleService.getRole(principal.getName(), Role.EVENT_ADMIN, id);
         return role != null;
     }
 

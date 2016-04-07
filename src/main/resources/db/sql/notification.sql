@@ -1,3 +1,3 @@
-INSERT INTO notification(id, receiver_id, creator_id, type, type_id, time) VALUES (1, 1, 1, 1, 1, null);
-INSERT INTO notification(id, receiver_id, creator_id,  type, type_id, time) VALUES (2, 2, 2, 2, 2, null);
-INSERT INTO notification(id, receiver_id, creator_id,  type, type_id, time) VALUES (3, 3, 3, 3, 3, null);
+INSERT INTO notification(id, receiver_id, creator_id, type, type_id, time, notification_name) VALUES (3,1,3,1,3,null,'invite');
+INSERT INTO notification(id, receiver_id, creator_id,  type, type_id, time, notification_name) VALUES (1,3,2,1,1,null,'event');
+INSERT INTO notification(id, receiver_id, creator_id,  type, type_id, time, notification_name) VALUES (2,3,4,2,1,null,'comment');
