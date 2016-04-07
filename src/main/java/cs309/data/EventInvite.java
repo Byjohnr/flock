@@ -19,6 +19,7 @@ public class EventInvite {
     public static final Integer GOING = 1;
     public static final Integer UNDECIDED = 2;
     public static final Integer NOT_GOING = 3;
+    public static final Integer JOINABLE = 4;
 
 
 

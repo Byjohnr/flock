@@ -100,7 +100,7 @@ public class EventRestController {
     @RequestMapping(value = "/api/event/getAttending/{id}", method = RequestMethod.GET)
     public int getInvite(@PathVariable Integer id, Principal principal) {
         EventInvite invite = eventInviteService.getEventInvite(userService.getUserByEmail(principal.getName()), eventService.getEvent(id));
-        return invite != null ? invite.getInviteStatus() : 4;
+        return invite != null ? invite.getInviteStatus() : EventInvite.JOINABLE;
     }
 
     @RequestMapping(value = "/api/event/isEventAdmin/{id}", method = RequestMethod.GET)

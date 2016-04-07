@@ -1,9 +1,7 @@
 package cs309.service;
 
-import cs309.data.Connection;
 import cs309.data.Event;
 import cs309.data.EventInvite;
-import cs309.data.Role;
 import cs309.repo.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 
-/**
- * Created by chasekoehler on 3/23/16.
- */
 
 @Service
 public class SecurityService {
@@ -49,8 +44,4 @@ public class SecurityService {
         return false;
     }
 
-    public boolean isAdmin(Principal principal) {
-        Role role = roleRepository.getAdmin(principal.getName());
-        return role != null;
-    }
 }
