@@ -29,7 +29,8 @@ var NotificationList = React.createClass({
             var handleClick = parent.handleDelete.bind(parent,notification.id);
             var handleAcceptClick = parent.handleAccept.bind(parent,notification.typeId);
             var buttonType;
-            console.log(notification.type)
+
+
             if(notification.type === 2){
                 console.log('it hit button type 2')
                 buttonType = (<button type="button" className="btn btn-lg btn-success" onClick={handleAcceptClick}>Accept</button>);

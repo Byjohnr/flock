@@ -64,6 +64,7 @@ public class NotificationService {
     public void deleteNotification(Notification notification){
         notificationRepository.delete(notification);
     }
+
     public Notification getNotification(int id){
         return notificationRepository.findOne(id);
     }
