@@ -1,6 +1,8 @@
 package cs309.service;
 
+import cs309.data.Event;
 import cs309.data.Role;
+import cs309.data.User;
 import cs309.repo.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,11 @@ public class RoleService {
     private RoleRepository roleRepository;
 
     @Transactional
-    public void createRole(String email, String role) {
-        roleRepository.save(new Role(email,role));
+    public void createRole(String email, String role, Integer id) {
+        roleRepository.save(new Role(email,role,id));
+    }
+
+    public Role getRole(String email, String roleName, Integer id) {
+        return roleRepository.getRole(email, roleName, id);
     }
 }

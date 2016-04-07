@@ -45,6 +45,10 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
+    private List<ChatUser> chatUsers;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<ConnectionGroup> connectionGroups = new ArrayList<ConnectionGroup>();
 
     public User() {
@@ -120,6 +124,14 @@ public class User {
 
     public void setConnectionGroups(List<ConnectionGroup> connectionGroups) {
         this.connectionGroups = connectionGroups;
+    }
+
+    public List<ChatUser> getChatUsers() {
+        return chatUsers;
+    }
+
+    public void setChatUsers(List<ChatUser> chatUsers) {
+        this.chatUsers = chatUsers;
     }
 
     @Override

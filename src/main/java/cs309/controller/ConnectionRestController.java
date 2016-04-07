@@ -9,6 +9,7 @@ import cs309.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -29,11 +30,17 @@ public class ConnectionRestController {
 
 
     @RequestMapping("/connections/get")
-    public List<ConnectionDTO> getConnections(Principal principal) {
+    public List<ConnectionDTO> getConnections(Principal principal, @RequestParam(name = "eventId", required = false) Integer eventId) {
         List<ConnectionDTO> connections = new ArrayList<>();
-        if (principal != null) {
-            connectionService.getConnectionsByEmail(principal.getName()).stream().forEach(user ->
-                    connections.add(new ConnectionDTO(user.getId(), user.getFirstName(), user.getLastName())));
+        if(principal != null) {
+            if (eventId == null) {
+                connectionService.getConnectionsByEmail(principal.getName()).stream().forEach(user ->
+                        connections.add(new ConnectionDTO(user.getId(), user.getFirstName(), user.getLastName())));
+            }
+            else {
+                connectionService.getConnectionsNotInvited(principal.getName(), eventId).stream().forEach(user ->
+                        connections.add(new ConnectionDTO(user.getId(), user.getFirstName(), user.getLastName())));
+            }
         }
         return connections;
     }

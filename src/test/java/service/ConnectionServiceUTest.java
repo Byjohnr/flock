@@ -6,6 +6,7 @@ import cs309.repo.ConnectionGroupRepository;
 import cs309.repo.ConnectionGroupUserRepository;
 import cs309.repo.ConnectionRepository;
 import cs309.repo.ConnectionRequestRepository;
+import cs309.repo.EventRepository;
 import cs309.service.ConnectionService;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -29,6 +30,9 @@ public class ConnectionServiceUTest extends UnitTestBase {
     private ConnectionRequestRepository connectionRequestRepository;
 
     @Mock
+    private EventRepository eventRepository;
+
+    @Mock
     private ConnectionGroupRepository connectionGroupRepository;
 
     @Mock
@@ -48,8 +52,8 @@ public class ConnectionServiceUTest extends UnitTestBase {
     public void hasRequested() {
         User user1 = MockData.getUser(2);
         User user2 = MockData.getUser(9);
-        when(connectionRequestRepository.hasRequested(user1,user2)).thenReturn(true);
-        boolean boo = connectionService.hasRequested(user1,user2);
+        when(connectionRequestRepository.hasRequested(user1, user2)).thenReturn(true);
+        boolean boo = connectionService.hasRequested(user1, user2);
         assertTrue(boo);
     }
 
@@ -57,8 +61,8 @@ public class ConnectionServiceUTest extends UnitTestBase {
     public void isAlreadyConnected() {
         User user1 = MockData.getUser(3);
         User user2 = MockData.getUser(-42);
-        when(connectionRepository.isConnected(user1,user2)).thenReturn(false);
-        boolean boo = connectionService.isAlreadyConnected(user1,user2);
+        when(connectionRepository.isConnected(user1, user2)).thenReturn(false);
+        boolean boo = connectionService.isAlreadyConnected(user1, user2);
         assertFalse(boo);
     }
 
@@ -98,6 +102,15 @@ public class ConnectionServiceUTest extends UnitTestBase {
         ConnectionRequest connectionRequest = new ConnectionRequest();
         connectionService.saveConnectionRequest(connectionRequest);
         verify(connectionRequestRepository, times(1)).save(connectionRequest);
+    }
+
+    @Test
+    public void getConnectionsNotInvtied() {
+        when(connectionRepository.getConnectionsByEmail("name")).thenReturn(MockData.getUsers(3));
+        when(eventRepository.findOne(1)).thenReturn(MockData.getEvent(1));
+        List<User> users = connectionService.getConnectionsNotInvited("name", 1);
+        verify(connectionRepository, times(1)).getConnectionsByEmail("name");
+        verify(eventRepository, times(1)).findOne(1);
     }
 
     @Test
