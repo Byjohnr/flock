@@ -1,7 +1,10 @@
 package cs309.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -13,9 +16,11 @@ public class ChatGroup {
     @Column(name = "id")
     private Integer id;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "chatGroup")
     private List<ChatUser> chatUsers;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "chatGroup")
     private List<ChatMessage> chatMessages;
 
@@ -32,6 +37,19 @@ public class ChatGroup {
     @Column(name = "chat_name")
     private String chatName;
 
+    public ChatGroup() {
+        chatMessages = new ArrayList<>();
+        chatUsers = new ArrayList<>();
+        dateCreated = new Date();
+    }
+
+    public ChatGroup(String chatName, User chatAdmin) {
+        chatMessages = new ArrayList<>();
+        chatUsers = new ArrayList<>();
+        this.chatName = chatName;
+        this.chatAdmin = chatAdmin;
+        this.dateCreated = new Date();
+    }
 
     public Integer getId() {
         return id;
