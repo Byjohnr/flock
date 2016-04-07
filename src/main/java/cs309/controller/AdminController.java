@@ -8,12 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.security.Principal;
 
 @Controller
+@RequestMapping("/admin")
+@PreAuthorize("@securityService.isAdmin(#principal)")
 public class AdminController {
 
-    @PreAuthorize("@securityService.isAdmin(#principal)")
-    @RequestMapping(value = "/admin/events")
+    @RequestMapping(value = "/events")
     public String adminEventsPage(Principal principal) {
         return "adminEventsPage";
     }
 
+    @RequestMapping("/user_list")
+    public String adminUserPage(Principal principal) {
+        return "adminUserPage";
+    }
 }

@@ -1,6 +1,5 @@
 package cs309.service;
 
-import cs309.data.Connection;
 import cs309.data.Event;
 import cs309.data.EventInvite;
 import cs309.data.Role;
@@ -44,7 +43,7 @@ public class SecurityService {
 
     public boolean isAdmin(Principal principal) {
         Role role = roleRepository.getAdmin(principal.getName());
-        LOG.info(role);
+        LOG.info(principal.getName() + " has role " + role);
         return role != null;
     }
 }

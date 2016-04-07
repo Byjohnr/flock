@@ -49,9 +49,14 @@ var UserStore = Reflux.createStore({
     },
     onGetAllUsers: function() {
         $.ajax({
-            url: '/api/list_all_users',
+            url: '/api/admin/list_all_users',
             dataType:'json',
             success : this.returnInformationSuccess
         });
+    },
+    onGetAdminAuthentication: function() {
+        $.ajax({
+            url: 'api/admin/authentication'
+        })
     }
 });

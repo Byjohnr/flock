@@ -1,8 +1,6 @@
 package cs309.service;
 
-import cs309.data.Event;
 import cs309.data.Role;
-import cs309.data.User;
 import cs309.repo.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

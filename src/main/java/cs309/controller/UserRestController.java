@@ -62,10 +62,4 @@ public class UserRestController {
         List<Event> events = eventService.getEventSearch(query);
         return new SearchDTO(events, users);
     }
-
-    @RequestMapping("/list_all_users")
-    @PreAuthorize("@securityService.isAdmin(#principal)")
-    public List<User> listAllUsers(Principal principal) {
-        return userService.getUsers();
-    }
 }

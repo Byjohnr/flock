@@ -89,7 +89,7 @@ public class UserRestControllerUTest extends UnitTestBase {
     @Test
     public void listAllUsers() throws Exception {
         when(userService.getUsers()).thenReturn(MockData.getUsers(5));
-        this.mockMvc.perform(get("/api/list_all_users").principal(mock(Principal.class)))
+        this.mockMvc.perform(get("/api/admin/list_all_users").principal(mock(Principal.class)))
                 .andExpect(status().isOk());
     }
 }

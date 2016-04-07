@@ -27,10 +27,4 @@ public class UserController {
         }
         return userService.getUser(id) != null ? "userPage" : "redirect:/404";
     }
-
-    @RequestMapping("/admin/user_list")
-    @PreAuthorize("@securityService.isAdmin(#principal)")
-    public String adminUserPage(Principal principal) {
-        return "adminUserPage";
-    }
 }
