@@ -6,6 +6,7 @@ import cs309.dto.ConnectionGroupDTO;
 import cs309.service.ConnectionService;
 import cs309.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class ConnectionRestController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/connections/get")
+    @RequestMapping(value = "/connections/get", method = RequestMethod.GET)
     public List<ConnectionDTO> getConnections(Principal principal, @RequestParam(name = "eventId", required = false) Integer eventId) {
         List<ConnectionDTO> connections = new ArrayList<>();
         if(principal != null) {
