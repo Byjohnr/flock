@@ -5,15 +5,18 @@ import cs309.data.ChatMessage;
 import cs309.data.ChatUser;
 import cs309.data.User;
 import cs309.dto.ChatGroupDTO;
+import cs309.dto.ChatMessageInput;
 import cs309.service.ChatService;
 import cs309.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.security.Security;
 import java.util.List;
 
 @RestController
@@ -72,9 +75,9 @@ public class ChatRestController {
 
     @MessageMapping("/chat")
     @SendTo("/topic/message")
-    @RequestMapping(value = "/api/chat/group/{groupId}/message", method = RequestMethod.POST)
-    public ChatMessage saveMessage(@RequestBody String message, @PathVariable int groupId, Principal principal) {
-        return chatService.saveChatMessage(message, groupId, principal.getName());
+//    @RequestMapping(value = "/api/chat/group/{groupId}/message", method = RequestMethod.POST)
+    public ChatMessage saveMessage(ChatMessageInput message, @PathVariable int groupId, Principal principal) {
+        return chatService.saveChatMessage(message.getMessage(), groupId, principal.getName());
     }
 
 }

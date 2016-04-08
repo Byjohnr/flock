@@ -6,11 +6,30 @@ var ChatPage = React.createClass({
     componentDidMount : function() {
         ChatActions.getChatGroup();
         $("#message_btn").attr("disabled", true);
-
+        //stompClient.register([
+        //    {route: '/topic/newMessage', callback: this.refreshCurrentPage}
+        //]);
+        this.connect();
+    },
+    connect : function() {
+        var socket = new SockJS('/app/add');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function(frame) {
+            setConnected(true);
+            console.log("connected: " + frame);
+            stompClient.subscribe('/topic/message', function(message) {
+               var newList = this.state.chatGroup.chatMessages;
+                var newState = this.state.chatGroup;
+                newList.push(message);
+                newState.chatMessages = newList;
+                this.setState({chatGroup: newState});
+            });
+        })
     },
     handleMessage : function(e) {
         if(e.keyCode == undefined || e.keyCode == 13 && this.state.message != "") {
-            ChatActions.sendMessage(this.state.message);
+
+            //ChatActions.sendMessage(this.state.message);
             $("#message_btn").attr("disabled", true);
             $("#chat_input").val('');
             this.setState({message: ''});

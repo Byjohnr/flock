@@ -17,4 +17,6 @@ public class ChatController {
     public String chatGroupPage() {
         return "chatGroupPage";
     }
+
+
 }
