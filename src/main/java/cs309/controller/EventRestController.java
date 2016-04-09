@@ -152,12 +152,11 @@ public class EventRestController {
 
     @RequestMapping(value = "/api/event/{eventId}/admins", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void addEventAdmins(@RequestBody final Integer[] userIds, @PathVariable Integer eventId) {
     public void addEventAdmins(@RequestBody final Integer[] userIds, Principal principal, @PathVariable Integer eventId) {
         for(Integer userId : userIds) {
             User invitedAdmin = userService.getUser(userId);
             roleService.createRole(invitedAdmin.getEmail(), Role.EVENT_ADMIN, eventId);
-            roleService.createRole(invitedAdmin.getEmail(), Role.EVENT_ADMIN);
+//            roleService.createRole(invitedAdmin.getEmail(), Role.EVENT_ADMIN);
 
             Notification notification = new Notification();
             notification.setReceiver(invitedAdmin);

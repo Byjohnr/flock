@@ -48,13 +48,9 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.11'
 }
-//babel src/main/resources/static/js/components -w -d src/main/resources/static/js/components_compiled
+
 task compileComponents(type:Exec) {
     commandLine "babel.cmd", "src/main/resources/static/js/components", "-w", "-d", "src/main/resources/static/js/components_compiled"
     //The below code may be run in the terminal if the above task does not work on your machine
     //babel src/main/resources/static/js/components -w -d src/main/resources/static/js/components_compiled
-}
-
-task compileComponentsWindows(type:Exec) {
-    commandLine "babel.cmd", "src/main/resources/static/js/components", "-w", "-d", "src/main/resources/static/js/components_compiled"
 }

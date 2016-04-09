@@ -14,7 +14,6 @@ var NotificationList = React.createClass({
     handleAccept: function (id) {
         console.log('accepting');
         ConnectionStore.onAcceptConnection(id);
-        //this.handleDelete(id);
     },
 
     render: function () {
@@ -46,9 +45,6 @@ var NotificationList = React.createClass({
                 </td>
             </tr>);
         });
-        //
-        //<button type="button" className="btn btn-primary">Decline</button>
-
 
         if (notificationNodes.length === 0) {
             return (<div className="text-center">You have no notifications!</div>)

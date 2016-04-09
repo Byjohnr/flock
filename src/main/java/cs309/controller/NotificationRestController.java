@@ -1,6 +1,5 @@
 package cs309.controller;
 
-import cs309.data.Notification;
 import cs309.dto.NotificationDTO;
 import cs309.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
