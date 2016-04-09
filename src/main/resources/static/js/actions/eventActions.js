@@ -5,5 +5,7 @@ var EventActions = Reflux.createActions([
     "editEvent",
     "createComment",
     "editEventAdmins",
-    "editInvites"
+    "editInvites",
+    "listAllEvents",
+    "deleteEvent"
 ]);

@@ -103,7 +103,7 @@ public class EventRestController {
     @RequestMapping(value = "/api/event/getAttending/{id}", method = RequestMethod.GET)
     public int getInvite(@PathVariable Integer id, Principal principal) {
         EventInvite invite = eventInviteService.getEventInvite(userService.getUserByEmail(principal.getName()), eventService.getEvent(id));
-        return invite.getInviteStatus();
+        return invite != null ? invite.getInviteStatus() : EventInvite.JOINABLE;
     }
 
     @RequestMapping(value = "/api/event/isEventAdmin/{id}", method = RequestMethod.GET)
@@ -121,8 +121,12 @@ public class EventRestController {
             result.getFieldErrors().stream().forEach(fieldError ->  errors.add(new ErrorsDTO(fieldError.getField(),fieldError.getCode())));
             return errors;
         }
-        Event event = eventService.saveEvent(new Event(createEventDTO, userService.getUserByEmail(principal.getName())));
-        roleService.createRole(principal.getName(),Role.EVENT_ADMIN, event.getId());
+        User creator = userService.getUserByEmail(principal.getName());
+        Event event = eventService.saveEvent(new Event(createEventDTO, creator));
+        roleService.createRole(principal.getName(), Role.EVENT_ADMIN, event.getId());
+        EventInvite invite = new EventInvite(creator, creator, event);
+        invite.setInviteStatus(EventInvite.GOING);
+        eventInviteService.saveEventInvite(invite);
         List<ErrorsDTO> noErrors = new ArrayList<>();
         noErrors.add(new ErrorsDTO("success", event.getId() + ""));
         return noErrors;
