@@ -36,9 +36,9 @@ public class AdminRestController {
     }
 
     @RequestMapping(value = "/authentication")
-    public String adminAuthentication(Principal principal) {
+    public Boolean adminAuthentication(Principal principal) {
         User principalUser = userService.getUserByEmail(principal.getName());
-        return (roleService.isAdmin(principalUser) ? "true" : "false");
+        return roleService.isAdmin(principalUser);
     }
 
     @RequestMapping("/list_all_users")
