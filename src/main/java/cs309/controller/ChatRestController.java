@@ -9,6 +9,8 @@ import cs309.dto.ChatMessageInput;
 import cs309.service.ChatService;
 import cs309.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -21,6 +23,8 @@ import java.util.List;
 
 @RestController
 public class ChatRestController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ChatRestController.class);
 
     @Autowired
     private UserService userService;
@@ -73,11 +77,12 @@ public class ChatRestController {
         }
     }
 
-    @MessageMapping("/chat")
+    @MessageMapping("/add")
     @SendTo("/topic/message")
 //    @RequestMapping(value = "/api/chat/group/{groupId}/message", method = RequestMethod.POST)
-    public ChatMessage saveMessage(ChatMessageInput message, @PathVariable int groupId, Principal principal) {
-        return chatService.saveChatMessage(message.getMessage(), groupId, principal.getName());
+    public ChatMessage saveMessage(ChatMessageInput message,  Principal principal) {
+        LOG.info("HIIIT");
+        return chatService.saveChatMessage(message.getMessage(), 1, principal.getName());
     }
 
 }

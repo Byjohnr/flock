@@ -12,23 +12,31 @@ var ChatPage = React.createClass({
         this.connect();
     },
     connect : function() {
-        var socket = new SockJS('/app/add');
+        var handleReturn = this.handleReturn;
+        var socket = new SockJS('/chat');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function(frame) {
-            setConnected(true);
+            //stompClient.setConnected(true);
             console.log("connected: " + frame);
             stompClient.subscribe('/topic/message', function(message) {
-               var newList = this.state.chatGroup.chatMessages;
-                var newState = this.state.chatGroup;
-                newList.push(message);
-                newState.chatMessages = newList;
-                this.setState({chatGroup: newState});
+                console.log("HIT!");
+                handleReturn(JSON.parse(message.body));
             });
         })
     },
+    handleReturn : function(message) {
+        var newList = this.state.chatGroup.chatMessages;
+        var newState = this.state.chatGroup;
+        console.log(newState);
+        newList.push(message);
+        console.log(newList);
+        newState.chatMessages = newList;
+        console.log(newState);
+        this.setState({chatGroup: newState});
+    },
     handleMessage : function(e) {
         if(e.keyCode == undefined || e.keyCode == 13 && this.state.message != "") {
-
+            stompClient.send("/add", {}, JSON.stringify({message : this.state.message}));
             //ChatActions.sendMessage(this.state.message);
             $("#message_btn").attr("disabled", true);
             $("#chat_input").val('');
