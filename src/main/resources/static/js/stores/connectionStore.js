@@ -1,13 +1,19 @@
 var ConnectionStore = Reflux.createStore({
     listenables: [ConnectionActions],
-    onGetConnections : function() {
+
+    onGetConnections : function(type) {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
-        if (id === 'create') {
-            id = undefined;
+        var data = {};
+        if(type == "create") {
+            data = undefined;
+        } else if(type == "event") {
+            data.eventId = id;
+        } else if (type == "chat") {
+            data.chatId = id;
         }
         $.ajax({
             url: "/api/connections/get",
-            data: {eventId : id},
+            data: data,
             dataType: 'json',
             success : this.triggerConnections
         })

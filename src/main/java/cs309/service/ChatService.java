@@ -38,8 +38,8 @@ public class ChatService {
         return chatGroupRepository.save(chatGroup);
     }
 
-    public void saveChatUser(ChatUser chatUser) {
-        chatUserRepository.save(chatUser);
+    public ChatUser saveChatUser(ChatUser chatUser) {
+        return chatUserRepository.save(chatUser);
     }
 
     public ChatUser getChatUserByEmailAndGroupId(String email, int groupId) {

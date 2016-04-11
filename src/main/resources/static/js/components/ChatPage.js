@@ -17,7 +17,11 @@ var ChatPage = React.createClass({
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function(frame) {
             //stompClient.setConnected(true);
-            console.log("connected: " + frame);
+            console.log(frame.headers);
+            console.log(frame.headers['user-name']);
+            //var userName = frame.headers['user-name'].replace("@", "_").replace(".", "_");
+            //console.log(userName);
+            //$("#chat" + userName).append("(Online)");
             stompClient.subscribe('/topic/message', function(message) {
                 console.log("HIT!");
                 handleReturn(JSON.parse(message.body));
@@ -46,7 +50,7 @@ var ChatPage = React.createClass({
         }
     },
     handleInvite : function(connection) {
-    //    TODO jeffreyh 4/3/16 need to change how the list is grabbed
+        ChatActions.inviteConnection(connection.id);
     },
     handleChange : function(input) {
         if(input.target.value != "") {
@@ -76,6 +80,9 @@ var ChatPage = React.createClass({
                 if(user.status == 1) {
                     userAdded = <td>Invited</td>
                 }
+                console.log(user);
+                console.log(user.user.email);
+                //var id = user.user.email.replace("@", "_").replace(".", "_");
                 return (
                     <tr key={user.id}>
                         <td>{user.user.firstName} {user.user.lastName}</td>
@@ -112,7 +119,7 @@ var ChatPage = React.createClass({
                                 </div>
                                 <ConnectionList actionId="connection" actionName="Invite to Chat"
                                                 buttonName="Invite to Chat" modalId="chatInvite"
-                                                handleInvite={this.handleInvite}/>
+                                                handleInvite={this.handleInvite} type="chat" />
                             </div>
                         </div>
                     </div>

@@ -52,10 +52,10 @@ public class ChatRestController {
     }
 
     @RequestMapping(value = "/api/chat/group/{groupId}/invite", method = RequestMethod.POST)
-    public void inviteUser(@RequestBody String userId, @PathVariable int groupId) {
+    public ChatUser inviteUser(@RequestBody String userId, @PathVariable int groupId) {
         ChatGroup chatGroup = chatService.getChatGroupById(groupId);
         ChatUser chatUser = new ChatUser(chatGroup, ChatUser.STATUS_INVITED, userService.getUser(Integer.decode(userId)));
-        chatService.saveChatUser(chatUser);
+        return chatService.saveChatUser(chatUser);
     }
 
     @RequestMapping(value = "/api/chat/group/create", method = RequestMethod.POST)

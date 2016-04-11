@@ -25,7 +25,7 @@ var ConnectionList = React.createClass({
         var modalBody;
         if(this.state.connections === undefined) {
             modalBody = (<div>Loading...</div>);
-            ConnectionActions.getConnections();
+            ConnectionActions.getConnections(this.props.type);
         } else {
             var actionName = this.props.actionName;
             modalBody = this.state.connections.map(function (connection) {

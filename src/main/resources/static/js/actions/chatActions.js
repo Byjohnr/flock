@@ -3,6 +3,7 @@ var ChatActions = Reflux.createActions([
     'getChatGroup',
     'handleResponse',
     'createGroup',
-    'sendMessage'
+    'sendMessage',
+    'inviteConnection'
 
 ]);
