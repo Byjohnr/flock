@@ -9,10 +9,13 @@ var MapPage = React.createClass({
         EventActions.listEvents();
     },
     render: function() {
+        if (this.state.events === undefined) {
+            return <div>Loading <i className="fa fa-spin fa-refresh"/></div>;
+        }
         return(
             <div>
                 <NavBar />
-                <Map events={this.state.events}/>
+                <Map events={this.state.events} height='800px'/>
             </div>
         );
     }
