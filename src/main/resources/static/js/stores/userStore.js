@@ -59,6 +59,6 @@ var UserStore = Reflux.createStore({
             url: 'api/admin/authentication',
             type: 'GET',
             success : this.returnInformationSuccess
-        })
+        });
     }
 });
