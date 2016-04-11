@@ -1,10 +1,11 @@
 var NavBar = React.createClass({
     mixins: [Reflux.connect(NavStore, 'user'), Reflux.connect(SearchStore, 'searchResults'), Reflux.connect(UserStore, 'adminAuthentication')],
     getInitialState: function () {
+        var auth = UserActions.getAdminAuthentication();
         return {
             user: undefined,
             searchResults: undefined,
-            adminAuthentication: false
+            adminAuthentication: auth
         };
     },
     searchChange: function (query) {
@@ -17,7 +18,6 @@ var NavBar = React.createClass({
 
     },
     render: function () {
-        UserActions.getAdminAuthentication();
         var searchResults = "";
         var navbar = null;
         if (this.props.hideInfo === "true") {
@@ -102,7 +102,7 @@ var NavBar = React.createClass({
                         </div>
                     );
                 }
-                if (this.state.adminAuthentication) {
+                if (this.state.adminAuthentication !== false) {
                     adminLinks = (
                         <li><a href="/admin/user_list">Admin: Users</a></li>
                     );
