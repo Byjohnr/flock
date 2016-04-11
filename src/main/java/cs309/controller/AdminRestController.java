@@ -7,6 +7,7 @@ import cs309.service.EventService;
 import cs309.service.RoleService;
 import cs309.service.SecurityService;
 import cs309.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +45,57 @@ public class AdminRestController {
             adminAuth = roleService.isAdmin(principalUser);
         }
         return adminAuth;
+    }
+
+    @PreAuthorize(("hasRole('" + Role.ADMIN + "')"))
+    @RequestMapping(value = "/authentication/{userId}")
+    public String authenticationLevel(@PathVariable("userId") Integer userId, Principal principal) {
+        String authenticationLevel = "";
+        User user = userService.getUser(userId);
+        if (user != null) {
+            Role userRole = roleService.getRole(user.getEmail(), Role.USER, null);
+            Role adminRole = roleService.getRole(user.getEmail(), Role.ADMIN, null);
+            if (adminRole != null) {
+                authenticationLevel = Role.ADMIN;
+            } else if (userRole != null) {
+                authenticationLevel = Role.USER;
+            }
+        }
+        return authenticationLevel;
+    }
+
+    @PreAuthorize(("hasRole('" + Role.ADMIN + "')"))
+    @RequestMapping(value = "/authentication/{userId}/make_admin")
+    public String makeUserAdmin(@PathVariable("userId") Integer userId, Principal principal) {
+        String returnedMessage = "";
+        User user = userService.getUser(userId);
+        if (user != null) {
+            Role savedRole = roleService.updateRolePrivilages(user.getEmail(), Role.ADMIN);
+            if (savedRole != null && StringUtils.equalsIgnoreCase(Role.ADMIN, savedRole.getRoleName())) {
+                returnedMessage = user.getFirstName() + " " + user.getLastName() + " has been made an admin.";
+            } else {
+                returnedMessage = user.getFirstName() + " " + user.getLastName() + " was not made an admin.";
+            }
+        }
+        return returnedMessage;
+    }
+
+    @PreAuthorize(("hasRole('" + Role.ADMIN + "')"))
+    @RequestMapping(value = "/authentication/{userId}/make_user")
+    public String makeAdminUser(@PathVariable("userId") Integer userId, Principal principal) {
+        String returnedMessage = "";
+        User user = userService.getUser(userId);
+        if (user != null && StringUtils.equalsIgnoreCase(user.getEmail(), principal.getName())) {
+            Role savedRole = roleService.updateRolePrivilages(user.getEmail(), Role.USER);
+            if (savedRole != null && StringUtils.equalsIgnoreCase(Role.USER, savedRole.getRoleName())) {
+                returnedMessage = user.getFirstName() + " " + user.getLastName() + " has been made a user.";
+            } else {
+                returnedMessage = user.getFirstName() + " " + user.getLastName() + " was not made a user.";
+            }
+        } else if (user != null) {
+            returnedMessage = "You cannot take admin privilages away from yourself.";
+        }
+        return returnedMessage;
     }
 
     @RequestMapping("/list_all_users")

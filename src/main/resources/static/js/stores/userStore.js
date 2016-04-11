@@ -18,9 +18,12 @@ var UserStore = Reflux.createStore({
             }
         });
     },
-    createUserSuccess: function() {
+    createUserSuccess: function () {
         console.log('success');
         this.trigger('yoloswag');
+    },
+    returnInformationSuccess: function (data) {
+        this.trigger(data);
     },
     onGetUserInformation: function () {
         $.ajax({
@@ -36,29 +39,54 @@ var UserStore = Reflux.createStore({
             }
         });
     },
-    returnInformationSuccess: function (data) {
-        this.trigger(data);
-    },
-    onGetOtherUserInfo: function() {
+    onGetOtherUserInfo: function () {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
         $.ajax({
             url: '/api/user/' + id,
-            dataType:'json',
-            success : this.returnInformationSuccess
+            dataType: 'json',
+            success: this.returnInformationSuccess
         });
     },
-    onGetAllUsers: function() {
+    onGetAllUsers: function () {
         $.ajax({
             url: '/api/admin/list_all_users',
-            dataType:'json',
-            success : this.returnInformationSuccess
+            dataType: 'json',
+            success: this.returnInformationSuccess
         });
     },
-    onGetAdminAuthentication: function() {
+    onGetAdminAuthentication: function () {
         $.ajax({
-            url: 'api/admin/authentication',
+            url: '/api/admin/authentication',
             type: 'GET',
-            success : this.returnInformationSuccess
+            success: this.returnInformationSuccess
+        });
+    },
+    onGetUserAuthenticationLevel: function (userId) {
+        $.ajax({
+            url: '/api/admin/authentication/' + userId,
+            dataType: 'text',
+            type: 'GET',
+            success: this.returnInformationSuccess
+        });
+    },
+    onMakeUserAuthenticationLevelAdmin: function (userId) {
+        $.ajax({
+            url: '/api/admin/authentication/' + userId + '/make_admin',
+            dataType: 'text',
+            type: 'GET',
+            success: function (resultingMessage) {
+                console.log(resultingMessage);
+            }
+        });
+    },
+    onMakeUserAuthenticationLevelUser: function (userId) {
+        $.ajax({
+            url: '/api/admin/authentication/' + userId + '/make_user',
+            dataType: 'text',
+            type: 'GET',
+            success: function (resultingMessage) {
+                console.log(resultingMessage);
+            }
         });
     }
 });

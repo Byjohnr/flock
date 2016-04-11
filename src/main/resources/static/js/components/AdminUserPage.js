@@ -11,7 +11,7 @@ var AdminUserPage = React.createClass({
 
         if (this.state.allUsers !== undefined && this.state.allUsers.length === 0) {
             userListNodes = <div>No Users Found</div>;
-        } else if (this.state.allUsers !== undefined) {
+        } else if (this.state.allUsers !== undefined && this.state.allUsers.length > 0) {
             userListNodes = this.state.allUsers.map(function (user) {
                 return (<AdminUserLine key={user.email} data={user}/>);
             });

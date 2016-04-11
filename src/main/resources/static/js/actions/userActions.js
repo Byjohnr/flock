@@ -4,6 +4,9 @@ var UserActions = Reflux.createActions(
         "getUserInformation",
         "getOtherUserInfo",
         "getAllUsers",
-        "getAdminAuthentication"
+        "getAdminAuthentication",
+        "getUserAuthenticationLevel",
+        "makeUserAuthenticationLevelAdmin",
+        "makeUserAuthenticationLevelUser"
     ]
 );
