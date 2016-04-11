@@ -30,6 +30,7 @@ public class AdminRestController {
         return eventService.getEvents();
     }
 
+    @PreAuthorize(("hasRole('" + Role.ADMIN + "')"))
     @RequestMapping(value = "/events/delete", method = RequestMethod.POST)
     public void deleteEvent(@RequestBody Integer id) {
         eventService.deleteEvent(eventService.getEvent(id));

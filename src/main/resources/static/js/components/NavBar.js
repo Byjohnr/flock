@@ -107,42 +107,41 @@ var NavBar = React.createClass({
                         <li><a href="/admin/user_list">Admin: Users</a></li>
                     );
                 }
-                navbar = (
-                    <div>
-                        <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul className="nav navbar-nav">
-                                <li><a href="/event/create">Create Event</a></li>
-                                <li><a href="/map">Map</a></li>
-                            </ul>
-                            <form className="navbar-form navbar-left" role="search">
-                                <div className="form-group">
-                                    <input type="text" className="form-control" onChange={this.searchChange}
-                                           placeholder="Search"/>
-                                </div>
-                            </form>
-                            <ul className="nav navbar-nav navbar-right">
-                                <li className="dropdown">
-                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button"
-                                       aria-haspopup="true"
-                                       aria-expanded="false">{this.state.user.firstName} {this.state.user.lastName} <span
-                                        className="caret"/></a>
-                                    <ul className="dropdown-menu">
-                                        <li><a href='/account'>My Profile</a></li>
-                                        <li><a href="#">Notifications</a></li>
-                                        <li><a href="#">Settings</a></li>
-                                        {adminLinks}
-                                        <li role="separator" className="divider"/>
-                                        <li>
-                                            <form action="/logout">
-                                                <input className="form-control btn btn-default btn-block" type="submit"
-                                                       value="Logout"/>
-                                            </form>
-                                        </li>
-                                    </ul>
+                navbar = (<div>
+                    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul className="nav navbar-nav">
+                        <li><a href="/event/create">Create Event</a></li>
+                        <li><a href="/map">Map</a></li>
+                        <li><a href="/chat/list">My Chats</a></li>
+                    </ul>
+                    <form className="navbar-form navbar-left" role="search">
+                        <div className="form-group">
+                            <input type="text" className="form-control" onChange={this.searchChange} placeholder="Search"/>
+                        </div>
+                    </form>
+                    <ul className="nav navbar-nav navbar-right">
+                        <li className="dropdown">
+                            <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">{this.state.user.firstName} {this.state.user.lastName} <span
+                                className="caret"/></a>
+                            <ul className="dropdown-menu">
+                                <li><a href='/account'>My Profile</a></li>
+                                <li><a href="#">Notifications</a></li>
+                                <li><a href="#">Settings</a></li>
+                                {adminLinks}
+                                <li role="separator" className="divider"/>
+                                <li>
+                                    <form action="/logout">
+                                        <input className="form-control btn btn-default btn-block" type="submit"
+                                               value="Logout"/>
+                                    </form>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
                 );
             }
         }

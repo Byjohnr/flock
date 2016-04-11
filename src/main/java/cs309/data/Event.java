@@ -15,8 +15,8 @@ import java.util.List;
 public class Event {
 
     public static final int OPEN = 1;
-    public static final int CONNECTIONSONLY = 2;
-    public static final int INVITEONLY = 3;
+    public static final int CONNECTIONS_ONLY = 2;
+    public static final int INVITE_ONLY = 3;
 
     @Id
     @Column(name = "id")

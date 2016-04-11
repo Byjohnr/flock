@@ -7,6 +7,9 @@ import java.util.List;
 @Table(name = "chat_group_user")
 public class ChatUser {
 
+    public static final int STATUS_INVITED = 1;
+    public static final int STATUS_ACCEPTED = 2;
+
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -25,6 +28,16 @@ public class ChatUser {
 
     @Column(name = "status")
     private Integer status;
+
+    public ChatUser() {
+
+    }
+
+    public ChatUser(ChatGroup chatGroup, Integer status, User user) {
+        this.chatGroup = chatGroup;
+        this.status = status;
+        this.user = user;
+    }
 
     public Integer getId() {
         return id;
