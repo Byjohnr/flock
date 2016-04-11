@@ -32,16 +32,19 @@ public class SecurityService {
 
     public boolean isInvited(Integer id, Principal principal) {
         Event event = eventRepository.findOne(id);
-        EventInvite invite = inviteRepository.findEventInviteByUserAndEvent(userRepository.findUserByEmail(principal.getName()), event);
-        Boolean connected = connectionRepository.isConnected(event.getCreator(), userRepository.findUserByEmail(principal.getName()));
-        LOG.info(invite);
-        if (invite != null || event.getType() == event.OPEN) {
-            return true;
-        }
-        if (event.getType() == 2 && connected == true) {
-            return true;
+        if (event != null) {
+            EventInvite invite = inviteRepository.findEventInviteByUserAndEvent(userRepository.findUserByEmail(principal.getName()), event);
+            Boolean connected = connectionRepository.isConnected(event.getCreator(), userRepository.findUserByEmail(principal.getName()));
+            LOG.info(invite);
+            if (invite != null || event.getType() == event.OPEN) {
+                return true;
+            }
+            if (event.getType() == 2 && connected == true) {
+                return true;
+            }
+            return false;
         }
         return false;
     }
-
+    
 }
