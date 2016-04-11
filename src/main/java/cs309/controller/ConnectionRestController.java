@@ -29,8 +29,6 @@ public class ConnectionRestController {
     @Autowired
     private NotificationService notificationService;
 
-
-    @RequestMapping("/connections/get")
     @RequestMapping(value = "/connections/get", method = RequestMethod.GET)
     public List<ConnectionDTO> getConnections(Principal principal, @RequestParam(name = "eventId", required = false) Integer eventId) {
         List<ConnectionDTO> connections = new ArrayList<>();
