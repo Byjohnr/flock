@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -77,12 +78,12 @@ public class ChatRestController {
         }
     }
 
-    @MessageMapping("/add")
-    @SendTo("/topic/message")
+    @MessageMapping("/add/{chatId}")
+    @SendTo("/topic/message/{chatId}")
 //    @RequestMapping(value = "/api/chat/group/{groupId}/message", method = RequestMethod.POST)
-    public ChatMessage saveMessage(ChatMessageInput message,  Principal principal) {
+    public ChatMessage saveMessage(@DestinationVariable int chatId, ChatMessageInput message, Principal principal) {
         LOG.info("HIIIT");
-        return chatService.saveChatMessage(message.getMessage(), 1, principal.getName());
+        return chatService.saveChatMessage(message.getMessage(), chatId, principal.getName());
     }
 
 }
