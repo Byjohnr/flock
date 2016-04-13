@@ -53,12 +53,10 @@ public class AdminRestController {
         String authenticationLevel = "";
         User user = userService.getUser(userId);
         if (user != null) {
-            Role userRole = roleService.getRole(user.getEmail(), Role.USER, null);
-            Role adminRole = roleService.getRole(user.getEmail(), Role.ADMIN, null);
-            if (adminRole != null) {
-                authenticationLevel = Role.ADMIN;
-            } else if (userRole != null) {
-                authenticationLevel = Role.USER;
+            if (roleService.isAdmin(user)) {
+                authenticationLevel = "Admin";
+            } else {
+                authenticationLevel = "User";
             }
         }
         return authenticationLevel;

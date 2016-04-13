@@ -1,7 +1,7 @@
 var NavBar = React.createClass({
-    mixins: [Reflux.connect(NavStore, 'user'), Reflux.connect(SearchStore, 'searchResults'), Reflux.connect(UserStore, 'adminAuthentication')],
+    mixins: [Reflux.connect(NavStore, 'user'), Reflux.connect(SearchStore, 'searchResults'), Reflux.connect(RoleStore, 'adminAuthentication')],
     getInitialState: function () {
-        var auth = UserActions.getAdminAuthentication();
+        var auth = RoleActions.getAdminAuthentication();
         return {
             user: undefined,
             searchResults: undefined,

@@ -1,10 +1,10 @@
 var AdminUserLine = React.createClass({
-    mixins: [Reflux.connect(UserStore, 'userAuthLevel')],
+    mixins: [Reflux.connect(RoleStore, 'userAuthLevel')],
     getInitialState: function () {
         return {userAuthLevel: undefined};
     },
     componentDidMount: function () {
-        UserActions.getUserAuthenticationLevel(this.props.data.id);
+        RoleActions.getUserAuthenticationLevel(this.props.data.id);
     },
     render: function () {
         var displayedAuth = (<div>Loading <i className="fa fa-spin fa-refresh"/></div>);

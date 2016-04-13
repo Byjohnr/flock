@@ -15,6 +15,41 @@ var RoleStore = Reflux.createStore({
             success: this.pushRole
         })
     },
+    onGetAdminAuthentication: function () {
+        $.ajax({
+            url: '/api/admin/authentication',
+            type: 'GET',
+            success: this.returnInformationSuccess
+        });
+    },
+    onGetUserAuthenticationLevel: function (userId) {
+        $.ajax({
+            url: '/api/admin/authentication/' + userId,
+            dataType: 'text',
+            type: 'GET',
+            success: this.pushRole
+        });
+    },
+    onMakeUserAuthenticationLevelAdmin: function (userId) {
+        $.ajax({
+            url: '/api/admin/authentication/' + userId + '/make_admin',
+            dataType: 'text',
+            type: 'GET',
+            success: function (resultingMessage) {
+                console.log(resultingMessage);
+            }
+        });
+    },
+    onMakeUserAuthenticationLevelUser: function (userId) {
+        $.ajax({
+            url: '/api/admin/authentication/' + userId + '/make_user',
+            dataType: 'text',
+            type: 'GET',
+            success: function (resultingMessage) {
+                console.log(resultingMessage);
+            }
+        });
+    },
     pushRole (data) {
         this.trigger(data);
     }

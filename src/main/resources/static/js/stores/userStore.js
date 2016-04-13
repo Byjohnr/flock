@@ -53,40 +53,5 @@ var UserStore = Reflux.createStore({
             dataType: 'json',
             success: this.returnInformationSuccess
         });
-    },
-    onGetAdminAuthentication: function () {
-        $.ajax({
-            url: '/api/admin/authentication',
-            type: 'GET',
-            success: this.returnInformationSuccess
-        });
-    },
-    onGetUserAuthenticationLevel: function (userId) {
-        $.ajax({
-            url: '/api/admin/authentication/' + userId,
-            dataType: 'text',
-            type: 'GET',
-            success: this.returnInformationSuccess
-        });
-    },
-    onMakeUserAuthenticationLevelAdmin: function (userId) {
-        $.ajax({
-            url: '/api/admin/authentication/' + userId + '/make_admin',
-            dataType: 'text',
-            type: 'GET',
-            success: function (resultingMessage) {
-                console.log(resultingMessage);
-            }
-        });
-    },
-    onMakeUserAuthenticationLevelUser: function (userId) {
-        $.ajax({
-            url: '/api/admin/authentication/' + userId + '/make_user',
-            dataType: 'text',
-            type: 'GET',
-            success: function (resultingMessage) {
-                console.log(resultingMessage);
-            }
-        });
     }
 });
