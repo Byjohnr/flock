@@ -128,7 +128,7 @@ public class PictureRestControllerUTest extends UnitTestBase {
         results
                 .andExpect(status().isOk())
                 .andExpect(content().string(returnedPictureFile.getPicture()));
-        
+
         verify(pictureFileService, times(1)).savePictureFileForEvent(returnedPictureFile.getFileName(), 1, returnedPictureFile.getPicture());
         verifyNoMoreInteractions(userService, pictureFileService);
     }
