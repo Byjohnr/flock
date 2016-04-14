@@ -1,7 +1,7 @@
 var AdminUserPage = React.createClass({
-    mixins: [Reflux.connect(UserStore, 'allUsers')],
+    mixins: [Reflux.connect(UserStore, 'allUsers'), Reflux.connect(RoleStore, 'usersAuthLevel')],
     getInitialState: function () {
-        return {allUsers: undefined};
+        return {allUsers: undefined, usersAuthLevel: undefined};
     },
     componentDidMount: function () {
         UserActions.getAllUsers();
@@ -11,9 +11,11 @@ var AdminUserPage = React.createClass({
 
         if (this.state.allUsers !== undefined && this.state.allUsers.length === 0) {
             userListNodes = <div>No Users Found</div>;
+        } else if (this.state.allUsers !== undefined && this.state.allUsers.length > 0 && this.state.usersAuthLevel === undefined) {
+            RoleActions.getUsersAuthenticationLevel();
         } else if (this.state.allUsers !== undefined && this.state.allUsers.length > 0) {
             userListNodes = this.state.allUsers.map(function (user) {
-                return (<AdminUserLine key={user.email} data={user}/>);
+                return (<AdminUserLine key={user.email} data={user} authorityLevel={{'USER'}}/>);
             });
         }
         return (

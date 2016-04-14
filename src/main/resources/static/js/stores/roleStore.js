@@ -1,6 +1,6 @@
 var RoleStore = Reflux.createStore({
     listenables: [RoleActions],
-    init : function() {
+    init: function () {
         console.log('Init');
     },
     getInitialState() {
@@ -19,14 +19,15 @@ var RoleStore = Reflux.createStore({
         $.ajax({
             url: '/api/admin/authentication',
             type: 'GET',
-            success: this.returnInformationSuccess
+            success: this.pushRole
         });
     },
-    onGetUserAuthenticationLevel: function (userId) {
+    onGetUsersAuthenticationLevel: function (userIds) {
         $.ajax({
-            url: '/api/admin/authentication/' + userId,
+            url: '/api/admin/authentication_levels',
             dataType: 'text',
-            type: 'GET',
+            type: 'POST',
+            data: {userIds: userIds},
             success: this.pushRole
         });
     },

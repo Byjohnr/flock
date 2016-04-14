@@ -48,10 +48,11 @@ public class AdminRestController {
     }
 
     @PreAuthorize(("hasRole('" + Role.ADMIN + "')"))
-    @RequestMapping(value = "/authentication/{userId}")
-    public String authenticationLevel(@PathVariable("userId") Integer userId, Principal principal) {
+    @RequestMapping(value = "/authentication_levels")
+    public String authenticationLevel(@RequestBody List<Integer> userIds, Principal principal) {
         String authenticationLevel = "";
-        User user = userService.getUser(userId);
+        //TODO tstack make this return a map for all users with user ID as the key and authLevel as the data
+        User user = userService.getUser(userIds.get(0));
         if (user != null) {
             if (roleService.isAdmin(user)) {
                 authenticationLevel = "Admin";
