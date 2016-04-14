@@ -84,6 +84,10 @@ var ConnectionStore = Reflux.createStore({
     onAddConnection : function() {
         this.handleConnectionAjax('/api/connection/add/', 'POST');
     },
+    onAcceptConnection : function(userId) {
+        this.handleConnectionAjax('/api/connection/add/'+userId, 'POST');
+    },
+
     onAddConnectionToGroup : function(userId) {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
         this.ajaxRequestWithIntValue(userId, '/api/connectionGroup/' + id + '/add', 'POST', function() {
@@ -98,6 +102,9 @@ var ConnectionStore = Reflux.createStore({
     },
     handleConnectionAjax : function(url, type) {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        if (id == 'notifications'){
+            id = '';
+        }
         $.ajax({
             url: url + id,
             dataType: 'text',

@@ -26,15 +26,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-
-
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeRequests()
                     .antMatchers("/bower_components/**","/console/**", "/js/**").permitAll()
                     .anyRequest()
-//                    .permitAll()
+                  //  .permitAll()
                     .authenticated()
                     .and()
                 .formLogin()
@@ -46,7 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                     .and()
                 .csrf()
-                    .disable();
+                    .disable()
+                    .exceptionHandling().accessDeniedPage("/403");
+
 
         httpSecurity.headers().frameOptions().disable();
 

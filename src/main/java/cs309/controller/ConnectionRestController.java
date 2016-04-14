@@ -4,6 +4,7 @@ import cs309.data.*;
 import cs309.dto.ConnectionDTO;
 import cs309.dto.ConnectionGroupDTO;
 import cs309.service.ConnectionService;
+import cs309.service.NotificationService;
 import cs309.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,9 @@ public class ConnectionRestController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @RequestMapping(value = "/connections/get", method = RequestMethod.GET)
     public List<ConnectionDTO> getConnections(Principal principal, @RequestParam(name = "eventId", required = false) Integer eventId) {
@@ -62,6 +66,14 @@ public class ConnectionRestController {
         User userSignedIn = userService.getUserByEmail(principal.getName());
         User otherUser = userService.getUser(userId);
         connectionService.saveConnectionRequest(new ConnectionRequest(userSignedIn, otherUser));
+
+        Notification notification = new Notification();
+        notification.setReceiver(otherUser);
+        notification.setCreator(userSignedIn);
+        notification.setType(Notification.USER_CONNECTION);
+        notification.setTypeId(userId);
+        notificationService.saveNotification(notification);
+
         return "requesting";
     }
 
@@ -79,6 +91,14 @@ public class ConnectionRestController {
         User otherUser = userService.getUser(userId);
         connectionService.saveConnection(new Connection(userSignedIn, otherUser));
         connectionService.deleteConnectionRequest(userSignedIn, otherUser);
+
+        Notification notification = new Notification();
+        notification.setReceiver(otherUser);
+        notification.setCreator(userSignedIn);
+        notification.setType(Notification.ACCEPT_USER_CONNECTION);
+        notification.setTypeId(userId);
+        notificationService.saveNotification(notification);
+
         return "connected";
     }
 
