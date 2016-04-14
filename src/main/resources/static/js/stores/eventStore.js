@@ -107,7 +107,6 @@ var EventStore = Reflux.createStore({
             type: 'POST',
             success: function() {
                 parent.handleInvites(id, invites, eventAdmins);
-                parent.onGetEvent();
             }
         });
     },
@@ -157,6 +156,18 @@ var EventStore = Reflux.createStore({
                 console.log(status);
             }
         })
+    },
+    onJoinEvent: function() {
+        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: '/api/event/join/' + id,
+            type: 'POST',
+            success: this.onGetEvent
+        });
     },
     onListAllEvents: function() {
         $.ajax({

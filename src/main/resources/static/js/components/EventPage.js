@@ -57,6 +57,7 @@ var EventPage = React.createClass({
         this.setState({invites : newInvites});
         EventActions.editInvites(this.state.invites, this.state.eventAdmins);
         this.setState({invites : []});
+
     },
     handleEventAdmin : function(connection) {
         var newEventAdmins = this.state.eventAdmins;
@@ -66,7 +67,10 @@ var EventPage = React.createClass({
         EventActions.editEventAdmins(this.state.eventAdmins);
         this.setState({eventAdmins : []});
     },
-
+    handleJoin : function() {
+        EventActions.joinEvent();
+        this.setState({eventInvite : 1})
+    },
 
     render: function() {
         if (this.state.event === undefined) {
@@ -75,6 +79,7 @@ var EventPage = React.createClass({
         var attending;
         var edit;
         var invite;
+        var picture;
         if (this.state.eventInvite.toString() === "0") {
             attending = (
                     <div className="btn-group" role="group">
@@ -106,6 +111,11 @@ var EventPage = React.createClass({
                     </div>
                 )
         }
+        if (this.state.eventInvite.toString() === "4") {
+            attending = (
+                <button type="button" className="btn btn-primary" id="Join" onClick={this.handleJoin}>Join</button>
+            )
+        }
         if (this.state.role.toString() === "true") {
             edit = (
                 <div className="btn-group" role="group">
@@ -125,15 +135,27 @@ var EventPage = React.createClass({
                     </div>
                 </div>
             );
+            picture = (<Picture
+                sendingUrl={"/api/picture_upload/event_picture/" + this.state.event.id}
+                pictureEditable={true}
+                getterUrl={"/api/event_picture/" + this.state.event.id}/>);
+        }
+        else {
+            picture = (<Picture
+                sendingUrl={""}
+                pictureEditable={false}
+                getterUrl={"/api/event_picture/" + this.state.event.id}/>);
         }
 
         return (
             <div className="row">
                 <NavBar/>
                 <div className="col-sm-5 col-sm-offset-3">
-                    <h1 className="text-center"> Event </h1>
+                    <h1 className="text-center"> {this.state.event.eventName} </h1>
                     <div>
-                        <h3> {this.state.event.eventName} </h3>
+                        {picture}
+                    </div>
+                    <div>
 
                         <div>
                             {attending}

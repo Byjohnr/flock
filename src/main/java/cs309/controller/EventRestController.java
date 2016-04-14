@@ -172,6 +172,13 @@ public class EventRestController {
         }
     }
 
+    @RequestMapping(value = "/api/event/join/{id}", method = RequestMethod.POST)
+    public void joinEvent(@PathVariable Integer id, Principal principal) {
+        EventInvite invite = new EventInvite(eventService.getEvent(id).getCreator(), userService.getUserByEmail(principal.getName()), eventService.getEvent(id));
+        invite.setInviteStatus(EventInvite.GOING);
+        eventInviteService.saveEventInvite(invite);
+    }
+
     @InitBinder(value = "createEventDTO")
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(eventValidator);

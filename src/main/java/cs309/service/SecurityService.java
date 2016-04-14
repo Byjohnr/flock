@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 
+
 @Service
 public class SecurityService {
 
@@ -45,4 +46,5 @@ public class SecurityService {
         }
         return false;
     }
+    
 }
