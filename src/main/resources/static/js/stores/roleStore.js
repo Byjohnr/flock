@@ -22,12 +22,11 @@ var RoleStore = Reflux.createStore({
             success: this.pushRole
         });
     },
-    onGetUsersAuthenticationLevel: function (userIds) {
+    onGetUsersAuthenticationLevel: function () {
         $.ajax({
             url: '/api/admin/authentication_levels',
             dataType: 'text',
-            type: 'POST',
-            data: {userIds: userIds},
+            type: 'GET',
             success: this.pushRole
         });
     },

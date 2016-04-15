@@ -13,7 +13,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -49,18 +52,18 @@ public class AdminRestController {
 
     @PreAuthorize(("hasRole('" + Role.ADMIN + "')"))
     @RequestMapping(value = "/authentication_levels")
-    public String authenticationLevel(@RequestBody List<Integer> userIds, Principal principal) {
-        String authenticationLevel = "";
-        //TODO tstack make this return a map for all users with user ID as the key and authLevel as the data
-        User user = userService.getUser(userIds.get(0));
-        if (user != null) {
+    public Map<Integer, String> authenticationLevel(Principal principal) {
+        List<User> allUsers = userService.getUsers();
+        Map<Integer, String> authenticationLevels = new LinkedHashMap<>();
+        authenticationLevels.put(0, "Base");
+        for (User user : allUsers) {
             if (roleService.isAdmin(user)) {
-                authenticationLevel = "Admin";
+                authenticationLevels.put(user.getId(), "Admin");
             } else {
-                authenticationLevel = "User";
+                authenticationLevels.put(user.getId(), "User");
             }
         }
-        return authenticationLevel;
+        return authenticationLevels;
     }
 
     @PreAuthorize(("hasRole('" + Role.ADMIN + "')"))
