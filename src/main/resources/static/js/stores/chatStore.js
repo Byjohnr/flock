@@ -79,6 +79,24 @@ var ChatStore = Reflux.createStore({
         this.state.chatUsers.push(user);
         this.triggerUpdate(this.state);
     },
+    updateChatName : function(chatName) {
+      this.state.chatName = newName;
+        this.triggerUpdate(this.state);
+    },
+    onEditGroupName : function(newName) {
+        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url : '/api/chat/group/'+ id +'/updateName',
+            type: 'POST',
+            data: newName,
+            dataType: 'text',
+            success: this.updateChatName
+        })
+    },
     onInviteConnection : function(userId) {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
         console.log(userId);

@@ -64,6 +64,14 @@ var ChatPage = React.createClass({
         }
         this.setState({message : input.target.value});
     },
+    handleNameChange: function(input) {
+        var newState = this.state.chatGroup;
+        newState.chatName = input.target.value;
+        this.setState({chatGroup : newState})
+    },
+    changeGroupName : function() {
+      ChatActions.editGroupName(this.state.chatGroup.chatName);
+    },
     render : function() {
         if(this.state.chatGroup === undefined) {
             return <div>Loading...</div>
@@ -94,10 +102,31 @@ var ChatPage = React.createClass({
                     </tr>
                 );
             });
+            var modal = <div id="chatNameModal" className="modal fade" tabIndex="-1" role="dialog">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 className="modal-title">Chat Group Name</h4>
+                        </div>
+                        <div className="modal-body">
+                            <div className="form-group">
+                                <label className="control-label" htmlFor="groupName">Name of Connection Group</label>
+                                <input id="groupName" className="form-control" type="text" value={this.state.chatGroup.chatName} onChange={this.handleNameChange}/>
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary" onClick={this.changeGroupName}>Save Group</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             return(
                 <div>
                     <NavBar />
-                    <h2 className="text-center">{this.state.chatGroup.chatName}</h2>
+                    <h2 className="text-center">{this.state.chatGroup.chatName}</h2><button data-target="#chatNameModal">Edit Group Name</button>
+
                     <div className="container">
                         <div className="row">
                             <div id="chat" className="col-md-8">

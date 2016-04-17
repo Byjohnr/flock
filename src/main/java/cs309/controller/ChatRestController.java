@@ -46,10 +46,11 @@ public class ChatRestController {
     }
 
     @RequestMapping(value = "/api/chat/group/{groupId}/updateName")
-    public void updateChatName(@RequestBody String groupName, @PathVariable int groupId) {
+    public String updateChatName(@RequestBody String groupName, @PathVariable int groupId) {
         ChatGroup chatGroup = chatService.getChatGroupById(groupId);
         chatGroup.setChatName(groupName);
         chatService.saveChatGroup(chatGroup);
+        return groupName;
     }
 
     @RequestMapping(value = "/api/chat/group/{groupId}/invite", method = RequestMethod.POST)
