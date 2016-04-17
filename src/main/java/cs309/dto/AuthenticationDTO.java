@@ -4,6 +4,11 @@ public class AuthenticationDTO {
     private Integer userId;
     private String authorityLevel;
 
+    public AuthenticationDTO(Integer userId, String authorityLevel) {
+        this.userId = userId;
+        this.authorityLevel = authorityLevel;
+    }
+
     public Integer getUserId() {
         return userId;
     }

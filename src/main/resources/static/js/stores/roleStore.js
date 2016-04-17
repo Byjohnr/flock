@@ -27,7 +27,7 @@ var RoleStore = Reflux.createStore({
             url: '/api/admin/authentication_levels',
             dataType: 'text',
             type: 'GET',
-            success: this.pushRole
+            success: this.pushRole(usersAuthLevel)
         });
     },
     onMakeUserAuthenticationLevelAdmin: function (userId) {

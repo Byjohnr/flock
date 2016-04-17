@@ -3,6 +3,7 @@ package cs309.controller;
 import cs309.data.Event;
 import cs309.data.Role;
 import cs309.data.User;
+import cs309.dto.AuthenticationDTO;
 import cs309.service.EventService;
 import cs309.service.RoleService;
 import cs309.service.SecurityService;
@@ -13,10 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -52,15 +50,14 @@ public class AdminRestController {
 
     @PreAuthorize(("hasRole('" + Role.ADMIN + "')"))
     @RequestMapping(value = "/authentication_levels")
-    public Map<Integer, String> authenticationLevel(Principal principal) {
+    public List<AuthenticationDTO> authenticationLevel(Principal principal) {
         List<User> allUsers = userService.getUsers();
-        Map<Integer, String> authenticationLevels = new LinkedHashMap<>();
-        authenticationLevels.put(0, "Base");
+        List<AuthenticationDTO> authenticationLevels = new LinkedList<>();
         for (User user : allUsers) {
             if (roleService.isAdmin(user)) {
-                authenticationLevels.put(user.getId(), "Admin");
+                authenticationLevels.add(new AuthenticationDTO(user.getId(), "Admin"));
             } else {
-                authenticationLevels.put(user.getId(), "User");
+                authenticationLevels.add(new AuthenticationDTO(user.getId(), "User"));
             }
         }
         return authenticationLevels;

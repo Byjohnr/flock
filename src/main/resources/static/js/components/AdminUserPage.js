@@ -13,11 +13,18 @@ var AdminUserPage = React.createClass({
         if (this.state.allUsers !== undefined && this.state.allUsers.length === 0) {
             userListNodes = <div>No Users Found</div>;
         } else if (this.state.allUsers !== undefined && this.state.allUsers.length > 0 && this.state.usersAuthLevel !== undefined && this.state.usersAuthLevel.length > 0) {
-            // Array.map(this.state.usersAuthLevel);
             var outerThis = this;
             userListNodes = this.state.allUsers.map(function (user) {
                 return (
-                    <AdminUserLine key={user.email} data={user} authorityLevel={outerThis.state.usersAuthLevel["Admin"]}/>
+                    outerThis.state.usersAuthLevel.map(function (authenticationLevel) {
+                        if (authenticationLevel.userId === user.id) {
+                            return(
+                                <AdminUserLine key={user.email} data={user} authorityLevel={authenticationLevel.authorityLevel}/>
+                            )
+                        } else {
+                            return "";
+                        }
+                    })
                 );
             });
         }
