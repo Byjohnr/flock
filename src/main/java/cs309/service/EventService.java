@@ -47,4 +47,9 @@ public class EventService {
         int eventSize = events.size();
         return eventSize > 5 ? events.subList(0,5) : events;
     }
+
+    @Transactional
+    public void deleteEvent(Event event) {
+        eventRepository.delete(event);
+    }
 }

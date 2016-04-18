@@ -47,6 +47,9 @@ public class EventRestController {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.GET)
     public Event getEvent(@PathVariable Integer id) {
         return eventService.getEvent(id);
@@ -100,7 +103,7 @@ public class EventRestController {
     @RequestMapping(value = "/api/event/getAttending/{id}", method = RequestMethod.GET)
     public int getInvite(@PathVariable Integer id, Principal principal) {
         EventInvite invite = eventInviteService.getEventInvite(userService.getUserByEmail(principal.getName()), eventService.getEvent(id));
-        return invite.getInviteStatus();
+        return invite != null ? invite.getInviteStatus() : EventInvite.JOINABLE;
     }
 
     @RequestMapping(value = "/api/event/isEventAdmin/{id}", method = RequestMethod.GET)
@@ -118,8 +121,12 @@ public class EventRestController {
             result.getFieldErrors().stream().forEach(fieldError ->  errors.add(new ErrorsDTO(fieldError.getField(),fieldError.getCode())));
             return errors;
         }
-        Event event = eventService.saveEvent(new Event(createEventDTO, userService.getUserByEmail(principal.getName())));
-        roleService.createRole(principal.getName(),Role.EVENT_ADMIN, event.getId());
+        User creator = userService.getUserByEmail(principal.getName());
+        Event event = eventService.saveEvent(new Event(createEventDTO, creator));
+        roleService.createRole(principal.getName(), Role.EVENT_ADMIN, event.getId());
+        EventInvite invite = new EventInvite(creator, creator, event);
+        invite.setInviteStatus(EventInvite.GOING);
+        eventInviteService.saveEventInvite(invite);
         List<ErrorsDTO> noErrors = new ArrayList<>();
         noErrors.add(new ErrorsDTO("success", event.getId() + ""));
         return noErrors;
@@ -134,6 +141,14 @@ public class EventRestController {
             if(!eventInviteService.eventInviteExists(eventId,userId)) {
                 User invitedUser = userService.getUser(userId);
                 EventInvite eventInvite = new EventInvite(inviter, invitedUser, event);
+
+                Notification notification = new Notification();
+                notification.setReceiver(invitedUser);
+                notification.setCreator(inviter);
+                notification.setType(Notification.EVENT_INVITE);
+                notification.setTypeId(event.getId());
+
+                notificationService.saveNotification(notification);
                 eventInviteService.saveEventInvite(eventInvite);
             }
         }
@@ -141,11 +156,27 @@ public class EventRestController {
 
     @RequestMapping(value = "/api/event/{eventId}/admins", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void addEventAdmins(@RequestBody final Integer[] userIds, @PathVariable Integer eventId) {
+    public void addEventAdmins(@RequestBody final Integer[] userIds, Principal principal, @PathVariable Integer eventId) {
         for(Integer userId : userIds) {
             User invitedAdmin = userService.getUser(userId);
             roleService.createRole(invitedAdmin.getEmail(), Role.EVENT_ADMIN, eventId);
+//            roleService.createRole(invitedAdmin.getEmail(), Role.EVENT_ADMIN);
+
+            Notification notification = new Notification();
+            notification.setReceiver(invitedAdmin);
+            notification.setCreator(userService.getUserByEmail(principal.getName()));
+            notification.setType(Notification.EVENT_INVITE);
+            notification.setTypeId(eventId);
+
+            notificationService.saveNotification(notification);
         }
+    }
+
+    @RequestMapping(value = "/api/event/join/{id}", method = RequestMethod.POST)
+    public void joinEvent(@PathVariable Integer id, Principal principal) {
+        EventInvite invite = new EventInvite(eventService.getEvent(id).getCreator(), userService.getUserByEmail(principal.getName()), eventService.getEvent(id));
+        invite.setInviteStatus(EventInvite.GOING);
+        eventInviteService.saveEventInvite(invite);
     }
 
     @InitBinder(value = "createEventDTO")

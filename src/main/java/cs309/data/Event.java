@@ -14,6 +14,10 @@ import java.util.List;
 @Table(name = "event")
 public class Event {
 
+    public static final int OPEN = 1;
+    public static final int CONNECTIONS_ONLY = 2;
+    public static final int INVITE_ONLY = 3;
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)

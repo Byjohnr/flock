@@ -30,34 +30,34 @@ var EventPage = React.createClass({
     },
     onSubmit: function (){
         EventActions.editEvent(this.state.event);
+        $('#EditModal').modal('hide');
     },
     createComment: function(){
         var comment = this.refs.commentString.value;
         EventActions.createComment(comment);
-        EventActions.getEvent();
     },
     handleGoing: function() {
         EventInviteActions.setAttending("Going");
-        EventActions.getEvent();
+        this.onSubmit();
     },
     handleMaybe: function() {
         EventInviteActions.setAttending("Maybe");
-        EventActions.getEvent();
+        this.onSubmit();
     },
     handleNotGoing: function() {
         EventInviteActions.setAttending("Not Going");
-        EventActions.getEvent();
+        this.onSubmit();
     },
     handleInviteChange: function() {
         EventInviteActions.setAttending("Change");
     },
-    handleInvite : function(connection) {
+    handleSendInvite : function(connection) {
         var newInvites = this.state.invites;
         newInvites.push(connection);
         this.setState({invites : newInvites});
         EventActions.editInvites(this.state.invites, this.state.eventAdmins);
         this.setState({invites : []});
-        EventActions.getEvent();
+
     },
     handleEventAdmin : function(connection) {
         var newEventAdmins = this.state.eventAdmins;
@@ -66,9 +66,11 @@ var EventPage = React.createClass({
         EventActions.editInvites(this.state.invites, this.state.eventAdmins);
         EventActions.editEventAdmins(this.state.eventAdmins);
         this.setState({eventAdmins : []});
-        EventActions.getEvent();
     },
-
+    handleJoin : function() {
+        EventActions.joinEvent();
+        this.setState({eventInvite : 1})
+    },
 
     render: function() {
         if (this.state.event === undefined) {
@@ -77,6 +79,7 @@ var EventPage = React.createClass({
         var attending;
         var edit;
         var invite;
+        var picture;
         if (this.state.eventInvite.toString() === "0") {
             attending = (
                     <div className="btn-group" role="group">
@@ -108,6 +111,11 @@ var EventPage = React.createClass({
                     </div>
                 )
         }
+        if (this.state.eventInvite.toString() === "4") {
+            attending = (
+                <button type="button" className="btn btn-primary" id="Join" onClick={this.handleJoin}>Join</button>
+            )
+        }
         if (this.state.role.toString() === "true") {
             edit = (
                 <div className="btn-group" role="group">
@@ -123,19 +131,31 @@ var EventPage = React.createClass({
                         <ConnectionList actionId="eventAdmins" modalId="eventAdminModal" handleInvite={this.handleEventAdmin} buttonName="Add Event Admins" actionName="Add as Event Admin" type="event"/>
                     </div>
                     <div id="invites">
-                        <ConnectionList actionId="inviteList" modalId="inviteModal" handleInvite={this.handleInvite} buttonName="Invite Connections" actionName="Add to Invite List" type="event" />
+                        <ConnectionList actionId="inviteList" modalId="inviteModal" handleInvite={this.handleSendInvite} buttonName="Invite Connections" actionName="Add to Invite List" type="event" />
                     </div>
                 </div>
             );
+            picture = (<Picture
+                sendingUrl={"/api/picture_upload/event_picture/" + this.state.event.id}
+                pictureEditable={true}
+                getterUrl={"/api/event_picture/" + this.state.event.id}/>);
+        }
+        else {
+            picture = (<Picture
+                sendingUrl={""}
+                pictureEditable={false}
+                getterUrl={"/api/event_picture/" + this.state.event.id}/>);
         }
 
         return (
             <div className="row">
                 <NavBar/>
                 <div className="col-sm-5 col-sm-offset-3">
-                    <h1 className="text-center"> Event </h1>
+                    <h1 className="text-center"> {this.state.event.eventName} </h1>
                     <div>
-                        <h3> {this.state.event.eventName} </h3>
+                        {picture}
+                    </div>
+                    <div>
 
                         <div>
                             {attending}
@@ -176,7 +196,7 @@ var EventPage = React.createClass({
                              aria-labelledby="EditModalLabel">
                             <div className="modal-dialog" role="document">
                                 <div className="modal-content">
-                                    <form onSubmit={this.onSubmit}>
+                                    <form>
                                         <div className="modal-header">
                                             <button type="button" className="close" data-dismiss="modal"
                                                     aria-label="Close">
@@ -224,7 +244,8 @@ var EventPage = React.createClass({
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-default" data-dismiss="modal">Close
                                             </button>
-                                        <input type="submit" className="btn btn-primary" value="Save Changes"/>
+                                        <button type="button" className="btn btn-primary" onClick={this.onSubmit}>Save Changes
+                                            </button>
                                     </div>
                                 </form>
                             </div>

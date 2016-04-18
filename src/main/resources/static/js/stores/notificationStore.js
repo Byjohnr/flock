@@ -31,5 +31,4 @@ var NotificationStore = Reflux.createStore({
             success: this.onFetchNotifications
         })
     }
-    //ToDO allow users to delete notifications
 });

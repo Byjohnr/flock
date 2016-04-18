@@ -44,4 +44,11 @@ public class NotificationServiceUTest extends UnitTestBase {
         notificationService.deleteNotification(notification);
         verify(notificationRepo,times(1)).delete(notification);
     }
+
+    @Test
+    public void saveNotification() throws Exception {
+        Notification notification = MockData.getNotification(1);
+        notificationService.saveNotification(notification);
+        verify(notificationRepo, times(1)).save(notification);
+    }
 }

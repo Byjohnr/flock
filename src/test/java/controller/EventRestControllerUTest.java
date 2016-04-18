@@ -178,16 +178,30 @@ public class EventRestControllerUTest extends UnitTestBase {
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk());
 
-        verify(roleService, times(3)).createRole("email2", Role.EVENT_ADMIN,1);
+        verify(roleService, times(3)).createRole("email2", Role.EVENT_ADMIN, 1);
     }
 
     @Test
     public void isEventAdmin() throws Exception {
         Principal principal = mock(Principal.class);
-        when(roleService.getRole(principal.getName(), "ROLE_EVENT_ADMIN",1)).thenReturn(MockData.getEventAdmin(1));
+        when(roleService.getRole(principal.getName(), "ROLE_EVENT_ADMIN", 1)).thenReturn(MockData.getEventAdmin(1));
         mockMvc.perform(get("/api/event/isEventAdmin/1")
                 .principal(principal))
                 .andExpect(status().isOk());
         verify(roleService, times(1)).getRole(principal.getName(), "ROLE_EVENT_ADMIN", 1);
+    }
+
+    @Test
+    public void joinEvent() throws Exception {
+        Principal principal = mock(Principal.class);
+        when(eventService.getEvent(anyInt())).thenReturn(MockData.getEvent(1));
+        when(eventInviteService.saveEventInvite(any(EventInvite.class))).thenReturn(MockData.getInvite(1));
+        when(userService.getUserByEmail(principal.getName())).thenReturn(mock(User.class));
+        this.mockMvc.perform(post("/api/event/join/1")
+                .principal(principal)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(eventInviteService, times(1)).saveEventInvite(any(EventInvite.class));
     }
 }
