@@ -117,16 +117,18 @@ var ChatPage = React.createClass({
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={this.changeGroupName}>Save Group</button>
+                            <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.changeGroupName}>Save Group</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>;
             return(
                 <div>
                     <NavBar />
-                    <h2 className="text-center">{this.state.chatGroup.chatName}</h2><button data-target="#chatNameModal">Edit Group Name</button>
-
+                    <h2 className="text-center">{this.state.chatGroup.chatName}
+                        &nbsp;<button className="btn btn-primary" data-toggle="modal" data-target="#chatNameModal">Edit Group Name</button>
+                    </h2>
+                    {modal}
                     <div className="container">
                         <div className="row">
                             <div id="chat" className="col-md-8">

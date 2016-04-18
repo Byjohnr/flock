@@ -80,7 +80,7 @@ var ChatStore = Reflux.createStore({
         this.triggerUpdate(this.state);
     },
     updateChatName : function(chatName) {
-      this.state.chatName = newName;
+      this.state.chatName = chatName;
         this.triggerUpdate(this.state);
     },
     onEditGroupName : function(newName) {
@@ -95,7 +95,7 @@ var ChatStore = Reflux.createStore({
             data: newName,
             dataType: 'text',
             success: this.updateChatName
-        })
+        });
     },
     onInviteConnection : function(userId) {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
