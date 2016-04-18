@@ -4,3 +4,16 @@ insert into user_roles(id,email,role,target_id) values (3,'thomas@test.com','ROL
 insert into user_roles(id,email,role,target_id) values (4,'chase@test.com','ROLE_ADMIN',null);
 insert into user_roles(id,email,role,target_id) values (5,'john@test.com','ROLE_ADMIN',null);
 insert into user_roles(id,email,role,target_id) values (6,'chase@test.com','ROLE_EVENT_ADMIN',1);
+insert into user_roles(id,email,role,target_id) values (7,'test5@test.com','ROLE_USER',null);
+insert into user_roles(id,email,role,target_id) values (8,'test6@test.com','ROLE_USER',null);
+insert into user_roles(id,email,role,target_id) values (9,'test7@test.com','ROLE_USER',null);
+insert into user_roles(id,email,role,target_id) values (10,'test8@test.com','ROLE_USER',null);
+insert into user_roles(id,email,role,target_id) values (11,'test9@test.com','ROLE_USER',null);
+insert into user_roles(id,email,role,target_id) values (12,'test10@test.com','ROLE_USER',null);
+insert into user_roles(id,email,role,target_id) values (13,'test11@test.com','ROLE_USER',null);
+insert into user_roles(id,email,role,target_id) values (14,'test12@test.com','ROLE_USER',null);
+insert into user_roles(id,email,role,target_id) values (15,'test13@test.com','ROLE_USER',null);
+insert into user_roles(id,email,role,target_id) values (16,'test14@test.com','ROLE_USER',null);
+insert into user_roles(id,email,role,target_id) values (17,'test15@test.com','ROLE_USER',null);
+insert into user_roles(id,email,role,target_id) values (18,'test16@test.com','ROLE_USER',null);
+insert into user_roles(id,email,role,target_id) values (19,'test17@test.com','ROLE_USER',null);

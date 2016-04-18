@@ -30,7 +30,6 @@ public class Role {
     private Integer targetId;
 
     public Role() {
-
     }
 
     public Role(String email, String roleName, Integer targetId) {

@@ -1,4 +1,8 @@
 
 var RoleActions = Reflux.createActions([
-    "isEventAdmin"
+    "isEventAdmin",
+    "getAdminAuthentication",
+    "getUsersAuthenticationLevel",
+    "makeUserAuthenticationLevelAdmin",
+    "makeUserAuthenticationLevelUser"
 ]);

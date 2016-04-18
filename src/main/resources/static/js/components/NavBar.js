@@ -1,18 +1,23 @@
 var NavBar = React.createClass({
-    mixins: [Reflux.connect(NavStore, 'user'), Reflux.connect(SearchStore, 'searchResults')],
+    mixins: [Reflux.connect(NavStore, 'user'), Reflux.connect(SearchStore, 'searchResults'), Reflux.connect(RoleStore, 'adminAuthentication')],
     getInitialState: function () {
-        return {user: undefined, searchResults : undefined};
+        var auth = RoleActions.getAdminAuthentication();
+        return {
+            user: undefined,
+            searchResults: undefined,
+            adminAuthentication: auth
+        };
     },
-    searchChange: function(query) {
+    searchChange: function (query) {
         console.log(query.target.value);
-        if(query.target.value == "") {
-            this.setState({searchResults : undefined});
+        if (query.target.value == "") {
+            this.setState({searchResults: undefined});
         } else {
             SearchActions.search(query.target.value);
         }
 
     },
-    render: function() {
+    render: function () {
         var searchResults = "";
         var navbar = null;
         if (this.props.hideInfo === "true") {
@@ -60,36 +65,47 @@ var NavBar = React.createClass({
         } else {
             var events = "";
             var users = "";
-            if(this.state.searchResults != undefined) {
-                users = this.state.searchResults.users.map(function(user) {
-                    return <a href={'/user/' + user.id} key={'user' + user.id}><li className="list-group-item">{user.firstName} {user.lastName}</li></a>
+            var adminLinks = "";
+            if (this.state.searchResults != undefined) {
+                users = this.state.searchResults.users.map(function (user) {
+                    return <a href={'/user/' + user.id} key={'user' + user.id}>
+                        <li className="list-group-item">{user.firstName} {user.lastName}</li>
+                    </a>
                 });
-                events = this.state.searchResults.events.map(function(event) {
-                   return <a href={'/event/' + event.id} key={'event' + event.id} ><li className="list-group-item"> {event.eventName} </li></a>
+                events = this.state.searchResults.events.map(function (event) {
+                    return <a href={'/event/' + event.id} key={'event' + event.id}>
+                        <li className="list-group-item"> {event.eventName} </li>
+                    </a>
                 });
             }
             if (this.state.user === undefined) {
                 NavActions.getUserInfo();
-            }
-            else {
-                if(this.state.searchResults != undefined) {
-                    searchResults = <div className="panel panel-default col-md-offset-2 col-md-4"
-                                         style={{zIndex: '100', position : 'fixed', marginLeft: '26%', marginTop : '-2.1em'}}>
-                        <div>
-                        <div className="panel-body">
-                            <h4><strong>Users</strong></h4>
+            } else {
+                if (this.state.searchResults != undefined) {
+                    searchResults = (
+                        <div className="panel panel-default col-md-offset-2 col-md-4"
+                             style={{zIndex: '100', position : 'fixed', marginLeft: '26%', marginTop : '-2.1em'}}>
+                            <div>
+                                <div className="panel-body">
+                                    <h4><strong>Users</strong></h4>
+                                </div>
+                                <ul className="list-group">
+                                    {users}
+                                </ul>
+                                <div className="panel-body">
+                                    <h4><strong>Events</strong></h4>
+                                </div>
+                                <ul className="list-group">
+                                    {events}
+                                </ul>
+                            </div>
                         </div>
-                        <ul className="list-group">
-                            {users}
-                        </ul>
-                        <div className="panel-body">
-                            <h4><strong>Events</strong></h4>
-                        </div>
-                        <ul className="list-group">
-                            {events}
-                        </ul>
-                        </div>
-                    </div>;
+                    );
+                }
+                if (this.state.adminAuthentication !== false) {
+                    adminLinks = (
+                        <li><a href="/admin/user_list">Admin: Users</a></li>
+                    );
                 }
                 navbar = (<div>
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -113,6 +129,7 @@ var NavBar = React.createClass({
                                 <li><a href='/account'>My Profile</a></li>
                                 <li><a href="/notifications">Notifications</a></li>
                                 <li><a href="#">Settings</a></li>
+                                {adminLinks}
                                 <li role="separator" className="divider"/>
                                 <li>
                                     <form action="/logout">
@@ -145,6 +162,6 @@ var NavBar = React.createClass({
                 </div>
             </nav>
             {searchResults}
-            </div>);
+        </div>);
     }
 });

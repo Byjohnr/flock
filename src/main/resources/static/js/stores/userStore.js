@@ -18,9 +18,12 @@ var UserStore = Reflux.createStore({
             }
         });
     },
-    createUserSuccess: function() {
+    createUserSuccess: function () {
         console.log('success');
         this.trigger('yoloswag');
+    },
+    returnInformationSuccess: function (data) {
+        this.trigger(data);
     },
     onGetUserInformation: function () {
         $.ajax({
@@ -36,15 +39,19 @@ var UserStore = Reflux.createStore({
             }
         });
     },
-    returnInformationSuccess: function (data) {
-        this.trigger(data);
-    },
-    onGetOtherUserInfo: function() {
+    onGetOtherUserInfo: function () {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
         $.ajax({
             url: '/api/user/' + id,
-            dataType:'json',
-            success : this.returnInformationSuccess
+            dataType: 'json',
+            success: this.returnInformationSuccess
+        });
+    },
+    onGetAllUsers: function () {
+        $.ajax({
+            url: '/api/admin/list_all_users',
+            dataType: 'json',
+            success: this.returnInformationSuccess
         });
     }
 });
