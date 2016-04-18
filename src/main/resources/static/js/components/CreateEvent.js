@@ -8,13 +8,15 @@ var CreateEvent = React.createClass({
         }
     },
     onSubmit: function () {
+        console.log(this.refs.tagList.tagId.value);
         var formData = {
             eventName: this.refs.eventName.value,
             description: this.refs.description.value,
             startDate: this.refs.startDate.value + ' ' + this.refs.startTime.value,
             endDate: this.refs.endDate.value + ' ' + this.refs.endTime.value,
             type: this.refs.type.value,
-            address: this.refs.address.value
+            address: this.refs.address.value,
+            tagId : this.refs.tagList.tagId.value
         };
         EventActions.createEvent(formData, this.state.invites, this.state.eventAdmins);
     },
@@ -112,6 +114,14 @@ var CreateEvent = React.createClass({
                                             <option value="2">Connections Only</option>
                                             <option value="3">Invite Only</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <div>
+                                        <label className="col-sm-2 control-label">Event Tag</label>
+                                    </div>
+                                    <div className="col-sm-8">
+                                        <TagList ref="tagList" />
                                     </div>
                                 </div>
                                 <div id="eventAdmin">

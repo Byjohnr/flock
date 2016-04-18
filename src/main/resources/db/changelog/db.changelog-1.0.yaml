@@ -92,6 +92,9 @@ databaseChangeLog:
               - column:
                   name: event_description
                   type: varchar(2000)
+              - column:
+                  name: tag_id
+                  type: int
           - createTable:
               tableName: event_invite
               columns:
