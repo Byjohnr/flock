@@ -6,12 +6,14 @@
 </head>
 <body>
 <div id="event_div"></div>
+    <script th:src="@{https://maps.googleapis.com/maps/api/js(key='AIzaSyBmY2VCKrLCs1xOLypS7v6AjifNp7s_sTY')}"></script>
     <script src="/js/components_compiled/EventElements.js"></script>
     <script src="/js/components_compiled/EventPage.js"></script>
     <script src="/js/components_compiled/CommentList.js"></script>
     <script src="/js/components_compiled/InviteList.js"></script>
     <script src="/js/components_compiled/ConnectionList.js"></script>
     <script src="/js/components_compiled/Picture.js"></script>
+    <script src="/js/components_compiled/Map.js"></script>
 
 <body th:remove="tag" th:include="fragments/foot :: footer"/>
 </body>

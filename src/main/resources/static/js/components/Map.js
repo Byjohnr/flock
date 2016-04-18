@@ -16,9 +16,9 @@ var Map= React.createClass({
     getLocations : function() {
         var parent = this;
         var geocoder = new google.maps.Geocoder();
-        var markerNodes = parent.props.events.map(function (event) {
-            var address = event.address;
-            geocoder.geocode( { 'address': address}, function(results, status) {
+        if (parent.props.events.location != undefined) {
+            var address = parent.props.events.location;
+            geocoder.geocode({'address': address}, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     var marker = new google.maps.Marker({
                         map: parent.state.googleMap,
@@ -26,7 +26,20 @@ var Map= React.createClass({
                     });
                 }
             });
-        });
+        }
+        else {
+            var markerNodes = parent.props.events.map(function (event) {
+                var address = event.address;
+                geocoder.geocode({'address': address}, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        var marker = new google.maps.Marker({
+                            map: parent.state.googleMap,
+                            position: results[0].geometry.location
+                        });
+                    }
+                });
+            });
+        }
     },
     render: function() {
         return(

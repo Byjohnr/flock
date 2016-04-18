@@ -155,8 +155,8 @@ var EventPage = React.createClass({
                     <div>
                         {picture}
                     </div>
+                    <Map Map events={this.state.event} height='300px' width='300px'/>
                     <div>
-
                         <div>
                             {attending}
                         </div>
