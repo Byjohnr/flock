@@ -69,8 +69,8 @@ public class AdminRestController {
         String returnedMessage = "";
         User user = userService.getUser(userId);
         if (user != null) {
-            Role savedRole = roleService.updateRolePrivilages(user.getEmail(), Role.ADMIN);
-            if (savedRole != null && !StringUtils.equalsIgnoreCase(Role.ADMIN, savedRole.getRoleName())) {
+            Boolean savedRole = roleService.updateRolePrivilages(user.getEmail(), Role.ADMIN);
+            if (savedRole) {
                 returnedMessage = user.getFirstName() + " " + user.getLastName() + " has been made an admin.";
             } else {
                 returnedMessage = user.getFirstName() + " " + user.getLastName() + " was not made an admin.";
@@ -85,8 +85,8 @@ public class AdminRestController {
         String returnedMessage = "";
         User user = userService.getUser(userId);
         if (user != null && !StringUtils.equalsIgnoreCase(user.getEmail(), principal.getName())) {
-            Role savedRole = roleService.updateRolePrivilages(user.getEmail(), Role.USER);
-            if (savedRole != null && !StringUtils.equalsIgnoreCase(Role.USER, savedRole.getRoleName())) {
+            Boolean savedRole = roleService.updateRolePrivilages(user.getEmail(), Role.USER);
+            if (savedRole) {
                 returnedMessage = user.getFirstName() + " " + user.getLastName() + " has been made a user.";
             } else {
                 returnedMessage = user.getFirstName() + " " + user.getLastName() + " was not made a user.";

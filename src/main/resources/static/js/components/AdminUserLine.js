@@ -1,10 +1,8 @@
 var AdminUserLine = React.createClass({
     makeNormalUser: function () {
-        console.log("makeNormalUser hit");
         RoleActions.makeUserAuthenticationLevelUser(this.props.data.id);
     },
     makeAdminUser: function () {
-        console.log("makeAdminUser hit");
         RoleActions.makeUserAuthenticationLevelAdmin(this.props.data.id);
     },
     render: function () {

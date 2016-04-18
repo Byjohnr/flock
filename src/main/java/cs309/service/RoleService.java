@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @Service
 public class RoleService {
 
@@ -20,23 +23,28 @@ public class RoleService {
     }
 
     @Transactional
-    public Role updateRolePrivilages(String email, String roleName) {
-        Role role = null;
+    public Boolean updateRolePrivilages(String email, String roleName) {
+        List<Role> roles = new LinkedList<>();
+        Boolean toReturn = false;
         if (StringUtils.equalsIgnoreCase(Role.USER, roleName)) {
-            role = roleRepository.getRole(email, Role.ADMIN, null);
+            roles = roleRepository.getRolesByEmail(email);
         } else if (StringUtils.equalsIgnoreCase(Role.ADMIN, roleName)) {
-            role = roleRepository.getRole(email, Role.USER, null);
+            roles = roleRepository.getRolesByEmail(email);
         }
-        if (role != null) {
-            role.setRoleName(roleName);
-            roleRepository.save(role);
+        if (!roles.isEmpty()) {
+            for (Role role : roles) {
+                if (StringUtils.equalsIgnoreCase(Role.ADMIN, role.getRoleName()) || StringUtils.equalsIgnoreCase(Role.USER, role.getRoleName())) {
+                    role.setRoleName(roleName);
+                    roleRepository.save(role);
+                    toReturn = true;
+                }
+            }
         }
-        return role;
+        return toReturn;
     }
 
     public Role getRole(String email, String roleName, Integer id) {
-        Role returnedRole = roleRepository.getRole(email, roleName, id);
-        return returnedRole;
+        return roleRepository.getRole(email, roleName, id);
     }
 
     public boolean isAdmin(User user) {
