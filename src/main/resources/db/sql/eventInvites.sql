@@ -5,3 +5,4 @@ INSERT into event_invite(id,inviter_id,invited_user_id,date_invited,event_id, in
 INSERT into event_invite(id,inviter_id,invited_user_id,date_invited,event_id, invite_status) values (5, 2, 4, null, 2, 2);
 INSERT into event_invite(id,inviter_id,invited_user_id,date_invited,event_id, invite_status) values (6, 2, 4, null, 3, 2);
 INSERT into event_invite(id,inviter_id,invited_user_id,date_invited,event_id, invite_status) values (7, 2, 4, null, 4, 2);
+INSERT into event_invite(id,inviter_id,invited_user_id,date_invited,event_id, invite_status) values (8, 1, 2, null, 3, 0);
