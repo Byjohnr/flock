@@ -21,9 +21,6 @@ var ChatPage = React.createClass({
             //stompClient.setConnected(true);
             console.log(frame.headers);
             console.log(frame.headers['user-name']);
-            //var userName = frame.headers['user-name'].replace("@", "_").replace(".", "_");
-            //console.log(userName);
-            //$("#chat" + userName).append("(Online)");
             stompClient.subscribe('/topic/message/' + chatId, function(message) {
                 console.log("HIT!");
                 handleReturn(JSON.parse(message.body));
@@ -33,12 +30,11 @@ var ChatPage = React.createClass({
     handleReturn : function(message) {
         var newList = this.state.chatGroup.chatMessages;
         var newState = this.state.chatGroup;
-        console.log(newState);
         newList.push(message);
-        console.log(newList);
         newState.chatMessages = newList;
-        console.log(newState);
         this.setState({chatGroup: newState});
+        var elem = document.getElementById('chat_area');
+        elem.scrollTop = elem.scrollHeight;
     },
     handleMessage : function(e) {
         var chatId = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
@@ -49,8 +45,6 @@ var ChatPage = React.createClass({
             $("#message_btn").attr("disabled", true);
             $("#chat_input").val('');
             this.setState({message: ''});
-            var elem = document.getElementById('chat_area');
-            elem.scrollTop = elem.scrollHeight;
         }
     },
     handleInvite : function(connection) {
@@ -94,7 +88,6 @@ var ChatPage = React.createClass({
                 }
                 console.log(user);
                 console.log(user.user.email);
-                //var id = user.user.email.replace("@", "_").replace(".", "_");
                 return (
                     <tr key={user.id}>
                         <td>{user.user.firstName} {user.user.lastName}</td>
