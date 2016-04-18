@@ -25,28 +25,32 @@ var RoleStore = Reflux.createStore({
     onGetUsersAuthenticationLevel: function () {
         $.ajax({
             url: '/api/admin/authentication_levels',
-            dataType: 'text',
+            dataType: 'json',
             type: 'GET',
-            success: this.pushRole(usersAuthLevel)
+            success: this.pushRole
         });
     },
     onMakeUserAuthenticationLevelAdmin: function (userId) {
+        var outerThis = this;
         $.ajax({
             url: '/api/admin/authentication/' + userId + '/make_admin',
             dataType: 'text',
             type: 'GET',
             success: function (resultingMessage) {
                 console.log(resultingMessage);
+                outerThis.onGetUsersAuthenticationLevel();
             }
         });
     },
     onMakeUserAuthenticationLevelUser: function (userId) {
+        var outerThis = this;
         $.ajax({
             url: '/api/admin/authentication/' + userId + '/make_user',
             dataType: 'text',
             type: 'GET',
             success: function (resultingMessage) {
                 console.log(resultingMessage);
+                outerThis.onGetUsersAuthenticationLevel();
             }
         });
     },
