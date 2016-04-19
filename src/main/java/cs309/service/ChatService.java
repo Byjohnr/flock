@@ -27,19 +27,19 @@ public class ChatService {
         return chatGroupRepository.findOne(id);
     }
 
-    public void saveChatMessage(String message, int chatGroupId, String userEmail) {
+    public ChatMessage saveChatMessage(String message, int chatGroupId, String userEmail) {
         ChatGroup chatGroup = chatGroupRepository.findOne(chatGroupId);
         ChatUser chatUser = chatUserRepository.getChatUserByUserEmailAndChatGroupId(userEmail, chatGroupId);
         ChatMessage chatMessage = new ChatMessage(message, chatGroup, chatUser);
-        chatMessageRepository.save(chatMessage);
+        return chatMessageRepository.save(chatMessage);
     }
 
     public ChatGroup saveChatGroup(ChatGroup chatGroup) {
         return chatGroupRepository.save(chatGroup);
     }
 
-    public void saveChatUser(ChatUser chatUser) {
-        chatUserRepository.save(chatUser);
+    public ChatUser saveChatUser(ChatUser chatUser) {
+        return chatUserRepository.save(chatUser);
     }
 
     public ChatUser getChatUserByEmailAndGroupId(String email, int groupId) {

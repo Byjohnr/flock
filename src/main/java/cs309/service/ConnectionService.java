@@ -2,11 +2,7 @@ package cs309.service;
 
 import cs309.data.*;
 import cs309.data.*;
-import cs309.repo.ConnectionGroupRepository;
-import cs309.repo.ConnectionGroupUserRepository;
-import cs309.repo.ConnectionRepository;
-import cs309.repo.ConnectionRequestRepository;
-import cs309.repo.EventRepository;
+import cs309.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +21,9 @@ public class ConnectionService {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private ChatUserRepository chatUserRepository;
     
     @Autowired
     private ConnectionGroupRepository connectionGroupRepository;
@@ -128,5 +127,13 @@ public class ConnectionService {
 
     public ConnectionGroupUser getConnectionGroupUserByUserIdAndGroupId(int userId, int groupId) {
         return connectionGroupUserRepository.getConnectionGroupUserByUserIdAndGroupId(userId, groupId);
+    }
+
+    public List<User> getConnectionsNotInvitedToChat(String email, int chatId) {
+
+        List<User> connections = connectionRepository.getConnectionsByEmail(email);
+        List<User> chatUsers = chatUserRepository.getChatUsersInGroup(chatId);
+        return connections.stream().filter(user -> !chatUsers.contains(user)).collect(Collectors.toList());
+
     }
 }
