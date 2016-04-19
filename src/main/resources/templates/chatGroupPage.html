@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <head th:remove="tag" th:include="fragments/head :: title" />
+    <head th:remove="tag" th:include="fragments/head :: imports" />
 </head>
 <body>
-
+    <div id="group_chat"></div>
+    <script src="/js/components_compiled/ConnectionList.js"></script>
+    <script src="/js/components_compiled/ChatPage.js"></script>
 </body>
 </html>

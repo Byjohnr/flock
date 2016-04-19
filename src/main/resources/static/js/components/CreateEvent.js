@@ -125,7 +125,7 @@ var CreateEvent = React.createClass({
                                     </div>
                                 </div>
                                 <div id="eventAdmin">
-                                    <ConnectionList actionId="eventAdmins" modalId="eventAdminModal" handleInvite={this.handleEventAdmin} buttonName="Add Event Admins" actionName="Add as Event Admin" />
+                                    <ConnectionList actionId="eventAdmins" modalId="eventAdminModal" handleInvite={this.handleEventAdmin} buttonName="Add Event Admins" actionName="Add as Event Admin" type="create"/>
                                 </div>
                                 <div className="form-group">
                                     <div>
@@ -136,7 +136,7 @@ var CreateEvent = React.createClass({
                                     </div>
                                 </div>
                                 <div id="invites">
-                                    <ConnectionList actionId="inviteList" modalId="inviteModal" handleInvite={this.handleInvite} buttonName="Invite Connections" actionName="Add to Invite List" />
+                                    <ConnectionList actionId="inviteList" modalId="inviteModal" handleInvite={this.handleInvite} buttonName="Invite Connections" actionName="Add to Invite List" type="create" />
                                 </div>
                                     <div className="form-group">
                                     <div>

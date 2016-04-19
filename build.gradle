@@ -57,4 +57,3 @@ task compileComponents(type:Exec) {
 task compileComponentsWindows(type:Exec) {
     commandLine "babel.cmd", "src/main/resources/static/js/components", "-w", "-d", "src/main/resources/static/js/components_compiled"
 }
-

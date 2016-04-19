@@ -128,10 +128,10 @@ var EventPage = React.createClass({
             invite = (
                 <div>
                     <div id="eventAdmin">
-                        <ConnectionList actionId="eventAdmins" modalId="eventAdminModal" handleInvite={this.handleEventAdmin} buttonName="Add Event Admins" actionName="Add as Event Admin" />
+                        <ConnectionList actionId="eventAdmins" modalId="eventAdminModal" handleInvite={this.handleEventAdmin} buttonName="Add Event Admins" actionName="Add as Event Admin" type="event"/>
                     </div>
                     <div id="invites">
-                        <ConnectionList actionId="inviteList" modalId="inviteModal" handleInvite={this.handleSendInvite} buttonName="Invite Connections" actionName="Add to Invite List" />
+                        <ConnectionList actionId="inviteList" modalId="inviteModal" handleInvite={this.handleSendInvite} buttonName="Invite Connections" actionName="Add to Invite List" type="event" />
                     </div>
                 </div>
             );
@@ -155,8 +155,8 @@ var EventPage = React.createClass({
                     <div>
                         {picture}
                     </div>
+                    <Map Map events={this.state.event} height='300px' width='300px'/>
                     <div>
-
                         <div>
                             {attending}
                         </div>
@@ -168,11 +168,9 @@ var EventPage = React.createClass({
                         <h3> End: {this.state.event.eventEnd} </h3>
 
                         <h3> Location: {this.state.event.location} </h3>
-
                         </div>
                             {edit}
                         <div>
-
                             <h2> Comments </h2>
                             <CommentList comments={this.state.event.commentList}/>
 

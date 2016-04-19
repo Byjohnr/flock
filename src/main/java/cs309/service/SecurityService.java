@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
 
 
 @Service
@@ -17,16 +18,12 @@ public class SecurityService {
 
     @Autowired
     EventInviteRepository inviteRepository;
-
     @Autowired
     EventRepository eventRepository;
-
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     ConnectionRepository connectionRepository;
-
     @Autowired
     RoleRepository roleRepository;
 

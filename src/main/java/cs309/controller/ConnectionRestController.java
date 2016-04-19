@@ -29,18 +29,18 @@ public class ConnectionRestController {
     @Autowired
     private NotificationService notificationService;
 
-    @RequestMapping(value = "/connections/get", method = RequestMethod.GET)
-    public List<ConnectionDTO> getConnections(Principal principal, @RequestParam(name = "eventId", required = false) Integer eventId) {
+    @RequestMapping("/connections/get")
+    public List<ConnectionDTO> getConnections(Principal principal, @RequestParam(name = "eventId", required = false) Integer eventId, @RequestParam(name = "chatId", required = false) Integer chatId) {
         List<ConnectionDTO> connections = new ArrayList<>();
-        if(principal != null) {
-            if (eventId == null) {
-                connectionService.getConnectionsByEmail(principal.getName()).stream().forEach(user ->
-                        connections.add(new ConnectionDTO(user.getId(), user.getFirstName(), user.getLastName())));
-            }
-            else {
-                connectionService.getConnectionsNotInvited(principal.getName(), eventId).stream().forEach(user ->
-                        connections.add(new ConnectionDTO(user.getId(), user.getFirstName(), user.getLastName())));
-            }
+        if(eventId != null) {
+            connectionService.getConnectionsNotInvited(principal.getName(), eventId).stream().forEach(user ->
+                    connections.add(new ConnectionDTO(user.getId(), user.getFirstName(), user.getLastName())));
+        } else if (chatId != null) {
+            connectionService.getConnectionsNotInvitedToChat(principal.getName(), chatId).stream().forEach(user ->
+                    connections.add(new ConnectionDTO(user.getId(), user.getFirstName(), user.getLastName())));
+        } else {
+            connectionService.getConnectionsByEmail(principal.getName()).stream().forEach(user ->
+                    connections.add(new ConnectionDTO(user.getId(), user.getFirstName(), user.getLastName())));
         }
         return connections;
     }

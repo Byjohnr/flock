@@ -14,6 +14,7 @@ var EventStore = Reflux.createStore({
         });
     },
     addEvents: function (data) {
+        console.log(data);
         this.trigger(data);
     },
     onCreateEvent: function (data, invites, eventAdmins) {

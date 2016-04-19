@@ -29,7 +29,7 @@ public class User {
     @Column(name = "description")
     private String description;
 
-//    @JsonIgnore
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
