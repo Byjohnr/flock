@@ -1,10 +1,15 @@
 var Map= React.createClass({
+    mixins: [Reflux.connect(UserStore,'user')],
     getInitialState: function() {
-        return {googleMap: undefined}
+        return {googleMap: undefined,
+        user : undefined}
     },
     componentDidMount: function() {
         google.maps.event.addDomListener(window, 'load', this.initMap());
-        this.getLocations();
+        UserActions.getUserInformation;
+        if (this.props.data != undefined) {
+            this.getLocations();
+        }
     },
     initMap : function() {
         var myLatLng = {lat: -25.363, lng: 131.044};
@@ -16,8 +21,8 @@ var Map= React.createClass({
     getLocations : function() {
         var parent = this;
         var geocoder = new google.maps.Geocoder();
-        if (parent.props.events.location != undefined) {
-            var address = parent.props.events.location;
+        if (parent.props.data.location != undefined) {
+            var address = parent.props.data.location;
             geocoder.geocode({'address': address}, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     var marker = new google.maps.Marker({
@@ -27,8 +32,18 @@ var Map= React.createClass({
                 }
             });
         }
+        else if (this.props.data === undefined) {
+            geocoder.geocode({'address': this.state.user.currentCity}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var marker = new google.maps.Marker({
+                        map: parent.state.googleMap,
+                        position: results[0].geometry.location
+                    });
+                }
+            });
+        }
         else {
-            var markerNodes = parent.props.events.map(function (event) {
+            var markerNodes = parent.props.data.map(function (event) {
                 var address = event.address;
                 geocoder.geocode({'address': address}, function (results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {

@@ -153,6 +153,7 @@ var CreateEvent = React.createClass({
                     </div>
                     <input type="button" className="btn btn-default" value="Create Event" onClick={this.onSubmit}/>
                 </form>
+                <Map data={undefined} height='300px' width='300px'/>
             </div>
         );
     }
