@@ -6,9 +6,6 @@ var ChatPage = React.createClass({
     componentDidMount : function() {
         ChatActions.getChatGroup();
         $("#message_btn").attr("disabled", true);
-        //stompClient.register([
-        //    {route: '/topic/newMessage', callback: this.refreshCurrentPage}
-        //]);
         this.connect();
     },
     connect : function() {
@@ -18,7 +15,6 @@ var ChatPage = React.createClass({
         var socket = new SockJS('/chat');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function(frame) {
-            //stompClient.setConnected(true);
             console.log(frame.headers);
             console.log(frame.headers['user-name']);
             stompClient.subscribe('/topic/message/' + chatId, function(message) {
@@ -41,7 +37,6 @@ var ChatPage = React.createClass({
 
         if(e.keyCode == undefined || e.keyCode == 13 && this.state.message != "") {
             stompClient.send("/add/" + chatId, {}, JSON.stringify({message : this.state.message}));
-            //ChatActions.sendMessage(this.state.message);
             $("#message_btn").attr("disabled", true);
             $("#chat_input").val('');
             this.setState({message: ''});
