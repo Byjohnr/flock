@@ -23,6 +23,7 @@ var UserStore = Reflux.createStore({
         this.trigger('yoloswag');
     },
     returnInformationSuccess: function (data) {
+        console.log(data);
         this.trigger(data);
     },
     onGetUserInformation: function () {

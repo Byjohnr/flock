@@ -1,12 +1,11 @@
 var Map= React.createClass({
-    mixins: [Reflux.connect(UserStore,'user')],
+    mixins: [Reflux.connect(UserStore, 'user')],
     getInitialState: function() {
-        return {googleMap: undefined,
-        user : undefined}
+        return {user : undefined, googleMap: undefined};
     },
     componentDidMount: function() {
+        UserActions.getUserInformation();
         google.maps.event.addDomListener(window, 'load', this.initMap());
-        UserActions.getUserInformation;
         if (this.props.data != undefined) {
             this.getLocations();
         }
@@ -32,16 +31,6 @@ var Map= React.createClass({
                 }
             });
         }
-        else if (this.props.data === undefined) {
-            geocoder.geocode({'address': this.state.user.currentCity}, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    var marker = new google.maps.Marker({
-                        map: parent.state.googleMap,
-                        position: results[0].geometry.location
-                    });
-                }
-            });
-        }
         else {
             var markerNodes = parent.props.data.map(function (event) {
                 var address = event.address;
@@ -56,10 +45,31 @@ var Map= React.createClass({
             });
         }
     },
+    addMarker : function() {
+        var parent = this;
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({'address': this.state.user.currentCity}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                var marker = new google.maps.Marker({
+                    map: parent.state.googleMap,
+                    position: results[0].geometry.location,
+                    draggable:true
+                });
+                parent.props.marker(marker.getPosition());
+            }
+        });
+    },
     render: function() {
-        return(
-            <div id="daMap" style={{height: this.props.height, width: this.props.width}}>
-            </div>
+        if (this.props.data === undefined) {
+            return (
+                <div>
+                    <div id="daMap" style={{height: this.props.height, width: this.props.width}}></div>
+                    <button type="button" className="btn btn-primary" id="add" onClick={this.addMarker}>Add Marker</button>
+                </div>
+            );
+        }
+        return (
+            <div id="daMap" style={{height: this.props.height, width: this.props.width}}></div>
         );
     }
 });

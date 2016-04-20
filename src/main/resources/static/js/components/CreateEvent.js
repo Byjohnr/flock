@@ -4,7 +4,9 @@ var CreateEvent = React.createClass({
         return {
             errors: undefined,
             invites : [],
-            eventAdmins: []
+            eventAdmins: [],
+            latitude: undefined,
+            longitude: undefined
         }
     },
     onSubmit: function () {
@@ -35,6 +37,11 @@ var CreateEvent = React.createClass({
         var newEventAdmins = this.state.eventAdmins;
         newEventAdmins.push(connection);
         this.setState({eventAdmins : newEventAdmins});
+    },
+    handleMarker : function(position) {
+        var newlat = position.lat;
+        this.setState({latitude : newlat});
+        console.log(this.state.latitude);
     },
     render: function () {
         console.log("Rendering create event");
@@ -149,11 +156,13 @@ var CreateEvent = React.createClass({
                                     </div>
                                 </div>
                             </div>
+                            <div>
+                                <Map data={undefined} marker={this.handleMarker} height='300px' width='350px'/>
+                            </div>
                         </div>
                     </div>
                     <input type="button" className="btn btn-default" value="Create Event" onClick={this.onSubmit}/>
                 </form>
-                <Map data={undefined} height='300px' width='300px'/>
             </div>
         );
     }
