@@ -55,7 +55,10 @@ var Map= React.createClass({
                     position: results[0].geometry.location,
                     draggable:true
                 });
-                parent.props.marker(marker.getPosition());
+                marker.addListener('dragend', function() {
+                    parent.state.googleMap.setCenter(marker.getPosition());
+                    parent.props.marker(marker.getPosition());
+                });
             }
         });
     },

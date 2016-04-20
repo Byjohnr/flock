@@ -16,7 +16,9 @@ var CreateEvent = React.createClass({
             startDate: this.refs.startDate.value + ' ' + this.refs.startTime.value,
             endDate: this.refs.endDate.value + ' ' + this.refs.endTime.value,
             type: this.refs.type.value,
-            address: this.refs.address.value
+            address: this.refs.address.value,
+            longitude: this.state.longitude,
+            latitude: this.state.latitude
         };
         EventActions.createEvent(formData, this.state.invites, this.state.eventAdmins);
     },
@@ -39,8 +41,8 @@ var CreateEvent = React.createClass({
         this.setState({eventAdmins : newEventAdmins});
     },
     handleMarker : function(position) {
-        var newlat = position.lat;
-        this.setState({latitude : newlat});
+        this.setState({latitude : position.lat()});
+        this.setState({longitude : position.lng()});
         console.log(this.state.latitude);
     },
     render: function () {
