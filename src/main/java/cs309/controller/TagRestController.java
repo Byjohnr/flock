@@ -37,10 +37,10 @@ public class TagRestController {
     }
 
     @RequestMapping(value = "/api/tag/update/{tagId}")
-    public void updateTag(@PathVariable Integer tagId, @RequestBody String tagName) {
+    public Tag updateTag(@PathVariable Integer tagId, @RequestBody String tagName) {
         Tag savedTag = tagService.getTagById(tagId);
         savedTag.setTagName(tagName);
-        tagService.saveTag(savedTag);
+        return tagService.saveTag(savedTag);
     }
 
     @RequestMapping(value = "/api/tag/toggle/{tagId}")
