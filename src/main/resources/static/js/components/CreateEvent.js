@@ -11,6 +11,7 @@ var CreateEvent = React.createClass({
     },
     onSubmit: function () {
         console.log(this.state.longitude);
+        console.log(this.refs.tagList.tagId.value);
         var formData = {
             eventName: this.refs.eventName.value,
             description: this.refs.description.value,
@@ -18,6 +19,7 @@ var CreateEvent = React.createClass({
             endDate: this.refs.endDate.value + ' ' + this.refs.endTime.value,
             type: this.refs.type.value,
             address: this.refs.address.value,
+            tagId : this.refs.tagList.tagId.value
             longitude: this.state.longitude,
             latitude: this.state.latitude
         };
@@ -124,8 +126,16 @@ var CreateEvent = React.createClass({
                                         </select>
                                     </div>
                                 </div>
+                                <div className="form-group">
+                                    <div>
+                                        <label className="col-sm-2 control-label">Event Tag</label>
+                                    </div>
+                                    <div className="col-sm-8">
+                                        <TagList ref="tagList" />
+                                    </div>
+                                </div>
                                 <div id="eventAdmin">
-                                    <ConnectionList actionId="eventAdmins" modalId="eventAdminModal" handleInvite={this.handleEventAdmin} buttonName="Add Event Admins" actionName="Add as Event Admin" />
+                                    <ConnectionList actionId="eventAdmins" modalId="eventAdminModal" handleInvite={this.handleEventAdmin} buttonName="Add Event Admins" actionName="Add as Event Admin" type="create"/>
                                 </div>
                                 <div className="form-group">
                                     <div>
@@ -136,7 +146,7 @@ var CreateEvent = React.createClass({
                                     </div>
                                 </div>
                                 <div id="invites">
-                                    <ConnectionList actionId="inviteList" modalId="inviteModal" handleInvite={this.handleInvite} buttonName="Invite Connections" actionName="Add to Invite List" />
+                                    <ConnectionList actionId="inviteList" modalId="inviteModal" handleInvite={this.handleInvite} buttonName="Invite Connections" actionName="Add to Invite List" type="create" />
                                 </div>
                                     <div className="form-group">
                                     <div>

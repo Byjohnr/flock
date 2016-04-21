@@ -19,6 +19,7 @@ public class CreateEventDTO {
     private String address;
     private Float longitude;
     private Float latitude;
+    private int tagId;
 
     public CreateEventDTO() {
 
@@ -85,6 +86,14 @@ public class CreateEventDTO {
 
     public void setLatitude(Float latitude) {
         this.latitude = latitude;
+    }
+
+    public int getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
     }
 
     @Override

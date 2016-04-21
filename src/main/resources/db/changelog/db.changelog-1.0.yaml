@@ -98,6 +98,9 @@ databaseChangeLog:
               - column:
                   name: latitude
                   type: float
+              - column:
+                  name: tag_id
+                  type: int
           - createTable:
               tableName: event_invite
               columns:
@@ -360,3 +363,24 @@ databaseChangeLog:
                 - column:
                     name: date_sent
                     type: datetime
+   - changeSet:
+          id: 8
+          author: jeffreyh
+          changes:
+            - createTable:
+                tableName: tag
+                columns:
+                - column:
+                    name: id
+                    type: int
+                    autoIncrement: true
+                    constraints:
+                        nullable: false
+                        primaryKey: true
+                        primaryKeyName: pk_tag
+                - column:
+                    name: tag_name
+                    type: varchar(100)
+                - column:
+                    name: enabled
+                    type: boolean

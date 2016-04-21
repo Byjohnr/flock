@@ -1,0 +1,2 @@
+insert into chat_message(id, chat_group_id, chat_user_id, message, date_sent) values (1,1,1,'hello world!', null);
+insert into chat_message(id, chat_group_id, chat_user_id, message, date_sent) values (2,1,2,'shut up jeff', null);
