@@ -31,15 +31,24 @@ var TagStore = Reflux.createStore({
     onUpdateTagName : function(tagId, tagName) {
         $.ajax({
             url : '/api/tag/update/' + tagId,
+            type : 'POST',
             data : tagName,
             success : this.updateTag
         });
     },
     onToggleTag : function(tagId) {
-        
+        $.ajax({
+            url : '/api/tag/toggle/' +tagId,
+            type : 'POST'
+        });
     },
     onDeletetag : function(tagId) {
-        
+        $.ajax({
+            url : '/api/tag/delete',
+            type : 'POST',
+            data : {tagId : tagId},
+            success : this.removeTagFromList(tagId)
+        });
     },
     updateTag : function(updatedTag) {
         var newList = this.tags.filter(function(tag) {
@@ -55,6 +64,12 @@ var TagStore = Reflux.createStore({
     },
     addToStoreState : function(tag) {
         this.tags.push(tag);
+        this.handleTrigger(this.tags);
+    },
+    removeTagFromList : function(tagId) {
+      this.tags = this.tags.filter(function(tag) {
+          return tag.id != tagId;
+      }) ;
         this.handleTrigger(this.tags);
     },
     handleTrigger : function(data) {
