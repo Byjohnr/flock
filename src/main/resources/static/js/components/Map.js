@@ -1,17 +1,37 @@
 var Map= React.createClass({
+    mixins: [Reflux.connect(UserStore, 'user')],
     getInitialState: function() {
-        return {googleMap: undefined}
+        return {googleMap: undefined, user: undefined}
     },
     componentDidMount: function() {
         google.maps.event.addDomListener(window, 'load', this.initMap());
         this.getLocations();
+        UserActions.getUserInformation();
     },
     initMap : function() {
         var myLatLng = {lat: -25.363, lng: 131.044};
+        var zoom = 5;
+        var initGeoCoder = new google.maps.Geocoder();
+        if (this.state.user.currentCity != undefined){
+            initGeoCoder.geocode({'address': this.state.user.currentCity}), function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK){
+                zoom = 7
+                }
+                else{
+                    address = myLatLng;
+                }
+            }
+            zoom = 7;
+        }
+        else{
+            address = myLatLng;
+            zoom = 5;
+        }
+
         console.log(this.state.geocoder);
         this.setState({googleMap : new google.maps.Map(document.getElementById('daMap'), {
-            center: {lat: 42.018018, lng: -93.660742},
-            zoom: 5})});
+            center: {address},
+            zoom: zoom})});
     },
     getLocations : function() {
         var parent = this;
@@ -42,6 +62,9 @@ var Map= React.createClass({
         }
     },
     render: function() {
+        if (this.state.user != undefined){
+            UserActions.getUserInformation();
+        }
         return(
             <div id="daMap" style={{height: this.props.height, width: this.props.width}}>
             </div>
