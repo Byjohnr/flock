@@ -50,6 +50,9 @@ public class EventRestController {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private TagService tagService;
+
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.GET)
     public Event getEvent(@PathVariable Integer id) {
         return eventService.getEvent(id);
@@ -122,7 +125,8 @@ public class EventRestController {
             return errors;
         }
         User creator = userService.getUserByEmail(principal.getName());
-        Event event = eventService.saveEvent(new Event(createEventDTO, creator));
+        Tag tag = tagService.getTagById(createEventDTO.getTagId());
+        Event event = eventService.saveEvent(new Event(createEventDTO, creator, tag));
         roleService.createRole(principal.getName(), Role.EVENT_ADMIN, event.getId());
         EventInvite invite = new EventInvite(creator, creator, event);
         invite.setInviteStatus(EventInvite.GOING);

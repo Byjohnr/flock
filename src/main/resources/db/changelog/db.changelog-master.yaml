@@ -27,3 +27,5 @@ databaseChangeLog:
       file: db/sql/chatUsers.sql
   - include:
       file: db/sql/chatMessages.sql
+  - include:
+      file: db/sql/tags.sql

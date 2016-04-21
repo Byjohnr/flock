@@ -17,6 +17,7 @@ public class CreateEventDTO {
     private String endDate;
     private int type;
     private String address;
+    private int tagId;
 
     public CreateEventDTO() {
 
@@ -67,6 +68,14 @@ public class CreateEventDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
     }
 
     @Override

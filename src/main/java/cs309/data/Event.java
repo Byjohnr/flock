@@ -38,9 +38,6 @@ public class Event {
 
     @Column(name = "type")
     private Integer type;
-//    TODO jeffreyh 1-28-16 wait for tags to be implemented
-//    private List<Tags> tagsList
-
 
     @OneToMany(mappedBy = "event")
     private List<EventInvite> eventInvites;
@@ -54,13 +51,15 @@ public class Event {
     @Column(name = "event_description")
     private String eventDescription;
 
-//    TODO jeffreyh 1-28-16, wait for image upload implementation
+    @ManyToOne
+    @JoinColumn(name = "tag_id", referencedColumnName = "id")
+    private Tag tag;
 
     public Event() {
 
     }
 
-    public Event(CreateEventDTO eventDTO, User user) throws ParseException {
+    public Event(CreateEventDTO eventDTO, User user, Tag tag) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy HH:mm a");
         this.eventStart = eventDTO.getStartDate() == null || eventDTO.getStartDate().equals(" ") ? null : dateFormat.parse(eventDTO.getStartDate());
         this.eventEnd = eventDTO.getEndDate() == null || eventDTO.getEndDate().equals(" ") ? null : dateFormat.parse(eventDTO.getEndDate());
@@ -69,6 +68,7 @@ public class Event {
         this.eventName = eventDTO.getEventName();
         this.type = eventDTO.getType();
         this.creator = user;
+        this.tag = tag;
     }
 
 
@@ -151,6 +151,14 @@ public class Event {
 
     public void setEventInvites(List<EventInvite> eventInvites) {
         this.eventInvites = eventInvites;
+    }
+
+    public Tag getTag() {
+        return tag;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
     }
 
     @Override
