@@ -10,6 +10,7 @@ var CreateEvent = React.createClass({
         }
     },
     onSubmit: function () {
+        console.log(this.state.longitude);
         var formData = {
             eventName: this.refs.eventName.value,
             description: this.refs.description.value,

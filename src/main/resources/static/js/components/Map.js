@@ -12,7 +12,6 @@ var Map= React.createClass({
     },
     initMap : function() {
         var myLatLng = {lat: -25.363, lng: 131.044};
-        console.log(this.state.geocoder);
         this.setState({googleMap : new google.maps.Map(document.getElementById('daMap'), {
             center: {lat: 42.018018, lng: -93.660742},
             zoom: 5})});
@@ -20,10 +19,20 @@ var Map= React.createClass({
     getLocations : function() {
         var parent = this;
         var geocoder = new google.maps.Geocoder();
-        if (parent.props.data.location != undefined) {
+        if (parent.props.data.eventName != undefined) {
             var address = parent.props.data.location;
+            var latitude = parent.props.data.latitude;
+            var longitude = parent.props.data.longitude;
+            var myLatlng = new google.maps.LatLng(latitude,longitude);
             geocoder.geocode({'address': address}, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
+                console.log(parent.state.googleMap);
+                if (longitude != undefined) {
+                    var marker = new google.maps.Marker({
+                        map: parent.state.googleMap,
+                        position: myLatlng
+                    });
+                }
+                else if (status == google.maps.GeocoderStatus.OK) {
                     var marker = new google.maps.Marker({
                         map: parent.state.googleMap,
                         position: results[0].geometry.location

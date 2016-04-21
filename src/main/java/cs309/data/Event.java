@@ -54,6 +54,12 @@ public class Event {
     @Column(name = "event_description")
     private String eventDescription;
 
+    @Column(name = "latitude")
+    private Float latitude;
+
+    @Column(name = "longitude")
+    private Float longitude;
+
 //    TODO jeffreyh 1-28-16, wait for image upload implementation
 
     public Event() {
@@ -69,6 +75,8 @@ public class Event {
         this.eventName = eventDTO.getEventName();
         this.type = eventDTO.getType();
         this.creator = user;
+        this.longitude = eventDTO.getLongitude();
+        this.latitude = eventDTO.getLatitude();
     }
 
 
@@ -153,6 +161,22 @@ public class Event {
         this.eventInvites = eventInvites;
     }
 
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -172,6 +196,8 @@ public class Event {
                 .append(location, event.location)
                 .append(eventDescription, event.eventDescription)
                 .append(eventInvites, event.eventInvites)
+                .append(longitude, event.longitude)
+                .append(latitude, event.latitude)
                 .isEquals();
     }
 
@@ -188,6 +214,8 @@ public class Event {
                 .append(location)
                 .append(eventDescription)
                 .append(eventInvites)
+                .append(longitude)
+                .append(latitude)
                 .toHashCode();
     }
 

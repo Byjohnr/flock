@@ -17,6 +17,8 @@ public class CreateEventDTO {
     private String endDate;
     private int type;
     private String address;
+    private Float longitude;
+    private Float latitude;
 
     public CreateEventDTO() {
 
@@ -67,6 +69,22 @@ public class CreateEventDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
     }
 
     @Override

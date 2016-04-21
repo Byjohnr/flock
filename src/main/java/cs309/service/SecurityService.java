@@ -29,6 +29,7 @@ public class SecurityService {
 
     public boolean isInvited(Integer id, Principal principal) {
         Event event = eventRepository.findOne(id);
+        LOG.info(event);
         if (event != null) {
             EventInvite invite = inviteRepository.findEventInviteByUserAndEvent(userRepository.findUserByEmail(principal.getName()), event);
             Boolean connected = connectionRepository.isConnected(event.getCreator(), userRepository.findUserByEmail(principal.getName()));
