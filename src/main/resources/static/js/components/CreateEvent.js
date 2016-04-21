@@ -19,7 +19,7 @@ var CreateEvent = React.createClass({
             endDate: this.refs.endDate.value + ' ' + this.refs.endTime.value,
             type: this.refs.type.value,
             address: this.refs.address.value,
-            tagId : this.refs.tagList.tagId.value
+            tagId : this.refs.tagList.tagId.value,
             longitude: this.state.longitude,
             latitude: this.state.latitude
         };

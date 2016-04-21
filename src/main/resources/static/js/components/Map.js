@@ -43,8 +43,18 @@ var Map= React.createClass({
         else {
             var markerNodes = parent.props.data.map(function (event) {
                 var address = event.address;
+                var latitude = event.latitude;
+                var longitude = event.longitude;
+                console.log(latitude);
+                var myLatlng = new google.maps.LatLng(latitude,longitude);
                 geocoder.geocode({'address': address}, function (results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
+                    if (longitude != undefined) {
+                        var marker = new google.maps.Marker({
+                            map: parent.state.googleMap,
+                            position: myLatlng
+                        });
+                    }
+                    else if (status == google.maps.GeocoderStatus.OK) {
                         var marker = new google.maps.Marker({
                             map: parent.state.googleMap,
                             position: results[0].geometry.location
