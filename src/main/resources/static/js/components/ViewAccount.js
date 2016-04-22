@@ -22,6 +22,7 @@ var ViewAccount = React.createClass({
         var connectionStatus = "";
         var listOfEvents = "";
         var connectionGroupLink = "";
+        var notificationList = "";
         if (this.props.account !== true) {
             connectionStatus =
                 <div>
@@ -32,7 +33,8 @@ var ViewAccount = React.createClass({
                 var connectionGroupUrl = "/account/connectionGroup/" + connectionGroup.id;
                 return (
                     <div className="col-md-4 well-sm" key={connectionGroup.id}>
-                        <a className="btn btn-default well-lg" style={{width: '80%'}} href={connectionGroupUrl}>{connectionGroup.groupName}</a>
+                        <a className="btn btn-default well-lg" style={{width: '80%'}}
+                           href={connectionGroupUrl}>{connectionGroup.groupName}</a>
                     </div>
                 )
             });
@@ -43,13 +45,28 @@ var ViewAccount = React.createClass({
                     </div>
                 </div>;
             connectionGroupLink =
-                <div className="row" style={{spacedRow, maxHeight: '300px', overflowY: 'scroll', borderStyle: 'solid', borderWidth: '1px'}}>
+                <div className="row"
+                     style={{spacedRow, maxHeight: '300px', overflowY: 'scroll', borderStyle: 'solid', borderWidth: '1px'}}>
                     <span className="col-md-12 well-sm"><strong>Connection Groups</strong></span>
                     <div className="col-md-4 well-sm">
-                        <a className="btn btn-default well-lg" style={{width: '80%'}} href="/account/connectionGroups">Manage Connection Groups</a>
+                        <a className="btn btn-default well-lg" style={{width: '80%'}} href="/account/connectionGroups">
+                            Manage Connection Groups
+                        </a>
                     </div>
                     {listOfConnectionGroups}
                 </div>;
+            notificationList =
+                <div className="row"
+                     style={{spacedRow, maxHeight: '400px', overflowY: 'scroll', borderStyle: 'solid', borderWidth: '1px'}}>
+                    <div className="well-sm">
+                        <a className="btn btn-default col-md-12" href="/notifications">
+                            View Notifications
+                        </a>
+                    </div>
+                    <div className="col-md-12 text-left">
+                        <NotificationList />
+                    </div>
+                </div>
         }
         if (this.state.userInformation !== undefined) {
             return (
@@ -81,6 +98,7 @@ var ViewAccount = React.createClass({
                         </div>
                         {connectionGroupLink}
                         {listOfEvents}
+                        {notificationList}
                     </div>
                 </div>
             );

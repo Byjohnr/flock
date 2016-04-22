@@ -25,14 +25,14 @@ var NotificationList = React.createClass({
         var parent = this;
         notificationNodes = this.state.notifications.map(function (notification) {
 
-            var handleClick = parent.handleDelete.bind(parent,notification.id);
-            var handleAcceptClick = parent.handleAccept.bind(parent,notification.typeId);
+            var handleClick = parent.handleDelete.bind(parent, notification.id);
+            var handleAcceptClick = parent.handleAccept.bind(parent, notification.typeId);
             var buttonType;
 
-
-            if(notification.type === 2){
-                console.log('it hit button type 2')
-                buttonType = (<button type="button" className="btn btn-lg btn-success" onClick={handleAcceptClick}>Accept</button>);
+            if (notification.type === 2) {
+                console.log('it hit button type 2');
+                buttonType = (<button type="button" className="btn btn-lg btn-success" onClick={handleAcceptClick}>
+                    Accept</button>);
             }
             return (<tr key={notification.id}>
                 <td>{notification.type}</td>
@@ -40,7 +40,8 @@ var NotificationList = React.createClass({
                 <td>
                     <a>{buttonType}</a>
                     <a className="btn btn-info active btn-lg" href={notification.url} role="button">View</a>
-                    <button id={notification.id} key={notification.id} type="button" className="btn btn-lg btn-danger" onClick={handleClick}> Delete
+                    <button id={notification.id} key={notification.id} type="button" className="btn btn-lg btn-danger"
+                            onClick={handleClick}> Delete
                     </button>
                 </td>
             </tr>);
@@ -51,14 +52,11 @@ var NotificationList = React.createClass({
         }
         //$.bootstrapSortable()   add this table later after backend works.
         return (
-            <div>
-                <div className="col-md-6 col-sm-offset-3">
-                    <table className="table table-hover bg-info table-condensed">
-                        <tbody>
-                        {notificationNodes}
-                        </tbody>
-                    </table>
-                </div>
-            </div>);
+            <table className="table table-hover">
+                <tbody>
+                {notificationNodes}
+                </tbody>
+            </table>
+        );
     }
 });
