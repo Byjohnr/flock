@@ -18,13 +18,15 @@ var TagStore = Reflux.createStore({
         })
     },
     onAddTag : function(tagName, enabled) {
+        console.log(enabled);
         $.ajax({
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             url: '/api/tag/add',
-            data: {tagName: tagName, enabled : enabled},
+            type: 'POST',
+            data: JSON.stringify({tagName: tagName, enabled : enabled == 'on'}),
             success : this.addToStoreState
         });
     },
@@ -32,22 +34,28 @@ var TagStore = Reflux.createStore({
         $.ajax({
             url : '/api/tag/update/' + tagId,
             type : 'POST',
+            contentType : 'application/json',
             data : tagName,
             success : this.updateTag
         });
     },
     onToggleTag : function(tagId) {
         $.ajax({
-            url : '/api/tag/toggle/' +tagId,
+            url : '/api/tag/toggle/' + tagId,
             type : 'POST'
         });
     },
-    onDeletetag : function(tagId) {
+    onDeleteTag : function(tagId) {
+        console.log('delete tag store');
         $.ajax({
             url : '/api/tag/delete',
             type : 'POST',
-            data : {tagId : tagId},
-            success : this.removeTagFromList(tagId)
+            data : JSON.stringify(tagId),
+            contentType : 'application/json',
+            success : this.removeTagFromList(tagId),
+            error : function() {
+                console.log('ERR.');
+            }
         });
     },
     updateTag : function(updatedTag) {

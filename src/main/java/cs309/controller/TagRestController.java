@@ -3,10 +3,7 @@ package cs309.controller;
 import cs309.data.Tag;
 import cs309.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,14 +23,14 @@ public class TagRestController {
         return tagService.getAllTags();
     }
 
-    @RequestMapping(value = "/api/tag/add")
+    @RequestMapping(value = "/api/tag/add", method = RequestMethod.POST)
     public Tag addTag(@RequestBody Tag tag) {
         return tagService.saveTag(tag);
     }
 
-    @RequestMapping(value = "/api/tag/delete")
-    public void deleteTag(@RequestBody Tag tag) {
-        tagService.deleteTag(tag);
+    @RequestMapping(value = "/api/tag/delete", method = RequestMethod.POST)
+    public void deleteTag(@RequestBody Integer tagId) {
+        tagService.deleteTag(tagService.getTagById(tagId));
     }
 
     @RequestMapping(value = "/api/tag/update/{tagId}")
