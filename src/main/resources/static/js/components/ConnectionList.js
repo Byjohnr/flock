@@ -9,33 +9,54 @@
  * handleInvite : a function passed from the parent function to do something in the parent component
  */
 var ConnectionList = React.createClass({
-   mixins: [Reflux.connect(ConnectionStore, 'connections')],
+   mixins: [Reflux.connect(ConnectionStore, 'connectionsAndGroups')],
     getInitialState : function() {
         return [{connections : undefined}];
     },
     handleClick : function(connection) {
-      console.log(connection);
+      // console.log(connection);
         this.props.handleInvite(connection);
         var idName = this.props.actionId;
         $('#' + idName + connection.id).prop("disabled", true);
         $('#' + idName + connection.id).html("Added");
 
     },
+    handleGroupClick(group) {
+        var idName = this.props.actionId;
+        $('#' + idName + 'group' + group.id).prop("disabled", true).html('Added');
+        var state = this.state.connectionsAndGroups;
+        group.groupUsers.forEach(function(user) {
+            if ($.inArray(user.user, state.connections)) {
+                $('#' + idName + user.user.id).prop("disabled", true).html('Added');
+                this.props.handleInvite(user.user);
+            }
+        }, this);
+    },
     render: function() {
         var modalBody;
-        if(this.state.connections === undefined) {
+        var groups;
+        if(this.state.connectionsAndGroups === undefined) {
             modalBody = (<div>Loading...</div>);
-            ConnectionActions.getConnections(this.props.type);
+            groups = (<div></div>);
+            ConnectionActions.getConnectionsAndGroups(this.props.type);
         } else {
+            // console.log(this.state.connectionsAndGroups);
             var actionName = this.props.actionName;
-            modalBody = this.state.connections.map(function (connection) {
+            modalBody = this.state.connectionsAndGroups.connections.map(function (connection) {
                 var handleClick = this.handleClick.bind(this,connection);
                 return (<tr key={connection.id}>
                     <td>{connection.firstName} {connection.lastName}</td>
                     <td><button id={this.props.actionId + connection.id} type="button" className="btn btn-primary" onClick={handleClick}>{actionName}</button></td>
                 </tr>);
             }, this);
-            if (this.state.connections.length === 0) {
+            groups = this.state.connectionsAndGroups.groups.map(function(group) {
+                var handleClick = this.handleGroupClick.bind(this, group);
+                return (<tr key={group.id}>
+                        <td>{group.groupName}</td>
+                        <td><button id={this.props.actionId + 'group' + group.id} className="btn btn-primary" onClick={handleClick}>Add Users in Group</button></td>
+                    </tr>);
+            }, this);
+            if (this.state.connectionsAndGroups.connections.length === 0) {
                 console.log('no connections');
                 modalBody = (
                     <tr>
@@ -46,6 +67,15 @@ var ConnectionList = React.createClass({
                     </tr>
                 );
             }
+            var groupBody = <table className="table" cols="2">
+                <tbody>
+                <tr>
+                    <td>Group Name</td>
+                    <td>Invite</td>
+                </tr>
+                {groups}
+                </tbody>
+            </table>;
             modalBody = <table className="table" cols="2">
                 <tbody>
                 <tr>
@@ -70,6 +100,7 @@ var ConnectionList = React.createClass({
                                 <h4 className="modal-title" id="myModalLabel">Connections</h4>
                             </div>
                             <div className="modal-body">
+                                {groupBody}
                                 {modalBody}
                             </div>
                             <div className="modal-footer">
