@@ -1,7 +1,7 @@
 var Map= React.createClass({
     mixins: [Reflux.connect(UserStore, 'user')],
     getInitialState: function() {
-        return {user : undefined, googleMap: undefined, rendered: undefined};
+        return {user : undefined, googleMap: undefined};
     },
     componentDidMount: function() {
         UserActions.getUserInformation();
@@ -16,7 +16,6 @@ var Map= React.createClass({
                 zoom: 1
             })
         });
-        this.setState({rendered : 1});
     },
     getLocations : function() {
         var parent = this;
