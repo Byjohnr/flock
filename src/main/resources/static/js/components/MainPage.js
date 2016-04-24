@@ -5,6 +5,11 @@ var MainPage = React.createClass({
     },
     initMap: function () {
         var myLatLng = {lat: 42.0308, lng: -93.6319};
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                myLatLng = {lat: position.coords.latitude, lng: position.coords.longitude};
+            });
+        }
         var mapOptions = {
             zoom: 8,
             center: myLatLng
