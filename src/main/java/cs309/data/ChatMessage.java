@@ -30,8 +30,10 @@ public class ChatMessage {
         dateSent = new Date();
     }
 
-    public ChatMessage(String message, ChatGroup chatGroup, ChatUser chatUser) {
-
+    public ChatMessage(String message, ChatGroup chatGroup, ChatUser messageSender) {
+        this.message = message;
+        this.chatGroup = chatGroup;
+        this.messageSender = messageSender;
     }
 
     public Integer getId() {

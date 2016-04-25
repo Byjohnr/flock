@@ -80,6 +80,7 @@ var EventPage = React.createClass({
         var edit;
         var invite;
         var picture;
+        var map = (<Map data={this.state.event} height='300px' width='300px'/>)
         if (this.state.eventInvite.toString() === "0") {
             attending = (
                     <div className="btn-group" role="group">
@@ -128,10 +129,10 @@ var EventPage = React.createClass({
             invite = (
                 <div>
                     <div id="eventAdmin">
-                        <ConnectionList actionId="eventAdmins" modalId="eventAdminModal" handleInvite={this.handleEventAdmin} buttonName="Add Event Admins" actionName="Add as Event Admin" />
+                        <ConnectionList actionId="eventAdmins" modalId="eventAdminModal" handleInvite={this.handleEventAdmin} buttonName="Add Event Admins" actionName="Add as Event Admin" type="event"/>
                     </div>
                     <div id="invites">
-                        <ConnectionList actionId="inviteList" modalId="inviteModal" handleInvite={this.handleSendInvite} buttonName="Invite Connections" actionName="Add to Invite List" />
+                        <ConnectionList actionId="inviteList" modalId="inviteModal" handleInvite={this.handleSendInvite} buttonName="Invite Connections" actionName="Add to Invite List" type="event" />
                     </div>
                 </div>
             );
@@ -155,7 +156,9 @@ var EventPage = React.createClass({
                     <div>
                         {picture}
                     </div>
-                    <Map Map events={this.state.event} height='300px' width='300px'/>
+                    <div>
+                        {map}
+                    </div>
                     <div>
                         <div>
                             {attending}

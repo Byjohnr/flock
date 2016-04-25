@@ -14,7 +14,7 @@ var MapPage = React.createClass({
         return(
             <div>
                 <NavBar />
-                <Map events={this.state.events} height='800px'/>
+                <Map data={this.state.events} height='700px'/>
             </div>
         );
     }

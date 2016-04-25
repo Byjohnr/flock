@@ -1,19 +1,31 @@
 package cs309.controller;
 
 import cs309.data.ChatGroup;
+import cs309.data.ChatMessage;
 import cs309.data.ChatUser;
 import cs309.data.User;
+import cs309.dto.ChatGroupDTO;
+import cs309.dto.ChatMessageInput;
 import cs309.service.ChatService;
 import cs309.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.security.Security;
 import java.util.List;
 
 @RestController
 public class ChatRestController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ChatRestController.class);
 
     @Autowired
     private UserService userService;
@@ -28,22 +40,24 @@ public class ChatRestController {
     }
 
     @RequestMapping(value = "/api/chat/group/{groupId}")
-    public ChatGroup getChatGroup(@PathVariable int groupId) {
-        return chatService.getChatGroupById(groupId);
+    public ChatGroupDTO getChatGroup(@PathVariable int groupId) {
+        ChatGroup chatGroup = chatService.getChatGroupById(groupId);
+        return new ChatGroupDTO(chatGroup.getId(), chatGroup.getChatName(), chatGroup.getChatUsers(), chatGroup.getChatMessages());
     }
 
     @RequestMapping(value = "/api/chat/group/{groupId}/updateName")
-    public void updateChatName(@RequestBody String groupName, @PathVariable int groupId) {
+    public String updateChatName(@RequestBody String groupName, @PathVariable int groupId) {
         ChatGroup chatGroup = chatService.getChatGroupById(groupId);
         chatGroup.setChatName(groupName);
         chatService.saveChatGroup(chatGroup);
+        return groupName;
     }
 
     @RequestMapping(value = "/api/chat/group/{groupId}/invite", method = RequestMethod.POST)
-    public void inviteUser(@RequestBody String userId, @PathVariable int groupId) {
+    public ChatUser inviteUser(@RequestBody String userId, @PathVariable int groupId) {
         ChatGroup chatGroup = chatService.getChatGroupById(groupId);
         ChatUser chatUser = new ChatUser(chatGroup, ChatUser.STATUS_INVITED, userService.getUser(Integer.decode(userId)));
-        chatService.saveChatUser(chatUser);
+        return chatService.saveChatUser(chatUser);
     }
 
     @RequestMapping(value = "/api/chat/group/create", method = RequestMethod.POST)
@@ -65,9 +79,11 @@ public class ChatRestController {
         }
     }
 
-    @RequestMapping(value = "/api/chat/group/{groupId}/message", method = RequestMethod.POST)
-    public void saveMessage(@RequestBody String message, @PathVariable int groupId, Principal principal) {
-        chatService.saveChatMessage(message, groupId, principal.getName());
+    @MessageMapping("/add/{chatId}")
+    @SendTo("/topic/message/{chatId}")
+    public ChatMessage saveMessage(@DestinationVariable int chatId, ChatMessageInput message, Principal principal) {
+        LOG.info("HIIIT");
+        return chatService.saveChatMessage(message.getMessage(), chatId, principal.getName());
     }
 
 }
