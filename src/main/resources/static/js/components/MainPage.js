@@ -8,6 +8,8 @@ var MainPage = React.createClass({
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 myLatLng = {lat: position.coords.latitude, lng: position.coords.longitude};
+                map.setCenter(myLatLng);
+
             });
         }
         var mapOptions = {
@@ -20,8 +22,7 @@ var MainPage = React.createClass({
     addMarker: function (map, latLng) {
         var marker = new google.maps.Marker({
             position: latLng,
-            map: map//,
-            //title:"This is the city of Ames!!"
+            map: map
         });
         // google.maps.event.addListener(marker, 'click', function () {
         //     console.log("You clicked " + marker.title);
