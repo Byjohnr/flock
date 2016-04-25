@@ -48,6 +48,12 @@ public class EventRestControllerUTest extends UnitTestBase {
     @Mock
     private RoleService roleService;
 
+    @Mock
+    private TagService tagService;
+
+    @Mock
+    private NotificationService notificationService;
+
     @Before
     public void setup() {
         this.mockMvc = standaloneSetup(eventController).build();
@@ -111,7 +117,7 @@ public class EventRestControllerUTest extends UnitTestBase {
     public void addInvites() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         String ids = mapper.writeValueAsString(new int[]{1,2,3});
-
+        when(eventService.getEvent(anyInt())).thenReturn(mock(Event.class));
         mockMvc.perform(post("/api/event/1/invites").principal(mock(Principal.class))
         .content(ids)
         .contentType(MediaType.APPLICATION_JSON)

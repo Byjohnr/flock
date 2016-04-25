@@ -4,6 +4,7 @@ import config.UnitTestBase;
 import cs309.controller.ConnectionRestController;
 import cs309.data.ConnectionGroup;
 import cs309.service.ConnectionService;
+import cs309.service.NotificationService;
 import cs309.service.UserService;
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -35,6 +36,9 @@ public class ConnectionRestControllerUTest extends UnitTestBase {
 
     @Mock
     private UserService userService;
+
+    @Mock
+    private NotificationService notificationService;
 
     @InjectMocks
     private ConnectionRestController connectionRestController;
