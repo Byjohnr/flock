@@ -30,6 +30,8 @@ var EventPage = React.createClass({
     },
     onSubmit: function (){
         EventActions.editEvent(this.state.event);
+        var date = this.refs.startDate.value;
+        console.log(date);
         $('#EditModal').modal('hide');
     },
     createComment: function(){
@@ -221,19 +223,19 @@ var EventPage = React.createClass({
                                                 <label htmlFor="eventStartDate">Start of the Event</label>
                                                 <input id="startDate" className="form-control"
                                                        onClick={this.datePicker.bind(this,'startDate')}
-                                                       ref="eventStartDate"/>
+                                                       ref="startDate"/>
                                                 <input id="startTime" className="form-control"
                                                        onClick={this.timePicker.bind(this,'startTime')}
-                                                       ref="eventStartTime"/>
+                                                       ref="startTime"/>
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="eventEndDate">End of the Event</label>
-                                                <input id="startDate" className="form-control"
-                                                       onClick={this.datePicker.bind(this,'startDate')}
-                                                       ref="eventEndDate"/>
-                                                <input id="startTime" className="form-control"
-                                                       onClick={this.timePicker.bind(this,'startTime')}
-                                                       ref="eventEndTime"/>
+                                                <input id="endDate" className="form-control"
+                                                       onClick={this.datePicker.bind(this,'endDate')}
+                                                       ref="endDate"/>
+                                                <input id="endTime" className="form-control"
+                                                       onClick={this.timePicker.bind(this,'endTime')}
+                                                       ref="endTime"/>
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="eventLocation">Event Location</label>

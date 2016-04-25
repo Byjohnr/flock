@@ -1,7 +1,7 @@
 var Map= React.createClass({
     mixins: [Reflux.connect(UserStore, 'user')],
     getInitialState: function() {
-        return {user : undefined, googleMap: undefined, rendered: undefined};
+        return {user : undefined, googleMap: undefined};
     },
     componentDidMount: function() {
         UserActions.getUserInformation();
@@ -16,7 +16,6 @@ var Map= React.createClass({
                 zoom: 1
             })
         });
-        this.setState({rendered : 1});
     },
     getLocations : function() {
         var parent = this;
@@ -81,11 +80,17 @@ var Map= React.createClass({
                                 map: parent.state.googleMap,
                                 position: myLatlng
                             });
+                            marker.addListener('click', function(){
+                                parent.showInfo(event, marker);
+                            });
                         }
                         else if (status == google.maps.GeocoderStatus.OK) {
                             var marker = new google.maps.Marker({
                                 map: parent.state.googleMap,
                                 position: results[0].geometry.location
+                            });
+                            marker.addListener('click', function(){
+                                parent.showInfo(event, marker);
                             });
                         }
                     });
@@ -110,8 +115,20 @@ var Map= React.createClass({
             }
         });
     },
+    showInfo : function (event, marker) {
+        console.log('yeeees');
+        var url = '/event/' + event.eventId;
+        console.log(url);
+        infoWindow = new google.maps.InfoWindow();
+        var string = '<a href=' + url + '><b>' + event.name + '</b></a><br>' +
+            event.description + '<br>' +
+            event.address + '<br>' +
+            event.startTime;
+        infoWindow.setContent(string);
+        infoWindow.setPosition(marker.getPosition());
+        infoWindow.open(this.state.googleMap);
+    },
     render: function() {
-        console.log(this.state.user);
         this.getLocations();
         if (this.props.data === undefined) {
             return (
