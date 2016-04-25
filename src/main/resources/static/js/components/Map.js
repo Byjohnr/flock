@@ -75,6 +75,8 @@ var Map= React.createClass({
                         }
                     });
                     geocoder.geocode({'address': address}, function (results, status) {
+                        console.log(address);
+                        console.log(status);
                         if (longitude != undefined) {
                             var marker = new google.maps.Marker({
                                 map: parent.state.googleMap,

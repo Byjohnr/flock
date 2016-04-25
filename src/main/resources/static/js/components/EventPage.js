@@ -30,8 +30,6 @@ var EventPage = React.createClass({
     },
     onSubmit: function (){
         EventActions.editEvent(this.state.event);
-        var date = this.refs.startDate.value;
-        console.log(date);
         $('#EditModal').modal('hide');
     },
     createComment: function(){

@@ -53,6 +53,9 @@ public class EventRestController {
     @Autowired
     private TagService tagService;
 
+    @Autowired
+    private ConnectionService connectionService;
+
     @RequestMapping(value = "/api/event/{id}", method = RequestMethod.GET)
     public Event getEvent(@PathVariable Integer id) {
         return eventService.getEvent(id);
@@ -69,6 +72,19 @@ public class EventRestController {
         List<EventDTO> eventDTOs = new ArrayList<>();
         User user = userService.getUserByEmail(principal.getName());
         user.getEvents().stream().forEach(event -> eventDTOs.add(new EventDTO(event.getEvent())));
+        return eventDTOs;
+    }
+
+    @RequestMapping("/api/mapEvents")
+    public List<EventDTO> getMapEvents(Principal principal) {
+        List<EventDTO> eventDTOs = new ArrayList<>();
+        User user = userService.getUserByEmail(principal.getName());
+        user.getEvents().stream().forEach(event -> eventDTOs.add(new EventDTO(event.getEvent())));
+        eventService.getEvents().stream().filter(event -> event.getType() == Event.OPEN && eventDTOs.stream().noneMatch(eventDTO -> eventDTO.getEventId() == event.getId())).forEach(event -> eventDTOs.add(new EventDTO(event)));
+        List<User> connections = new ArrayList<>();
+        connectionService.getConnectionsByEmail(principal.getName()).stream().forEach(connection -> connections.add(connection));
+        eventService.getEvents().stream().filter(event -> event.getType() == Event.CONNECTIONS_ONLY).filter(event -> connections.contains(event.getCreator()) && eventDTOs.stream().noneMatch(eventDTO -> eventDTO.getEventId() == event.getId())).forEach(event -> eventDTOs.add(new EventDTO(event)));
+        LOG.info(eventDTOs.size());
         return eventDTOs;
     }
 
