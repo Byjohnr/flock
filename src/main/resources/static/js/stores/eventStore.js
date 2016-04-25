@@ -190,6 +190,12 @@ var EventStore = Reflux.createStore({
             data: JSON.stringify(data),
             success: this.onListAllEvents
         });
+    },
+    onGetPublicEventAddresses() {
+        $.ajax({
+            url: '/api/event/public_event_addresses',
+            type: 'GET',
+            success: this.addEvents
+        });
     }
-
 });

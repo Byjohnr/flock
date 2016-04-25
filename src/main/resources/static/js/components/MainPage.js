@@ -1,6 +1,11 @@
+var anonymousUserMap;
 var MainPage = React.createClass({
-    mixins: [Reflux.connect(UserStore, 'user')],
+    mixins: [Reflux.connect(EventStore, 'publicEventAddresses')],
+    getInitialState: function() {
+        return {publicEventAddresses: undefined}
+    },
     componentDidMount: function () {
+        EventActions.getPublicEventAddresses();
         google.maps.event.addDomListener(window, 'load', this.initMap());
     },
     initMap: function () {
@@ -8,27 +13,35 @@ var MainPage = React.createClass({
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 myLatLng = {lat: position.coords.latitude, lng: position.coords.longitude};
-                map.setCenter(myLatLng);
-
+                anonymousUserMap.setCenter(myLatLng);
             });
         }
         var mapOptions = {
             zoom: 8,
             center: myLatLng
         };
-        var map = new google.maps.Map(document.getElementById("anonymous_user_map"), mapOptions);
-        this.addMarker(map, myLatLng);
+        anonymousUserMap = new google.maps.Map(document.getElementById("anonymous_user_map"), mapOptions);
     },
-    addMarker: function (map, latLng) {
-        var marker = new google.maps.Marker({
-            position: latLng,
-            map: map
+    addMarkers: function () {
+        var geocoder = new google.maps.Geocoder();
+        this.state.publicEventAddresses.forEach(function (address) {
+            geocoder.geocode({'address': address}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var marker = new google.maps.Marker({
+                        position: results[0].geometry.location,
+                        map: anonymousUserMap
+                    });
+                }
+            });
         });
         // google.maps.event.addListener(marker, 'click', function () {
         //     console.log("You clicked " + marker.title);
         // })
     },
     render: function () {
+        if (this.state.publicEventAddresses != undefined && this.state.publicEventAddresses.length > 0) {
+            this.addMarkers();
+        }
         return (
             <div className="row">
                 <NavBar hideInfo="true"/>
