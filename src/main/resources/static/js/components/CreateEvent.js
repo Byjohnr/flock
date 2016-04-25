@@ -4,10 +4,13 @@ var CreateEvent = React.createClass({
         return {
             errors: undefined,
             invites : [],
-            eventAdmins: []
+            eventAdmins: [],
+            latitude: undefined,
+            longitude: undefined
         }
     },
     onSubmit: function () {
+        console.log(this.state.longitude);
         console.log(this.refs.tagList.tagId.value);
         var formData = {
             eventName: this.refs.eventName.value,
@@ -16,7 +19,9 @@ var CreateEvent = React.createClass({
             endDate: this.refs.endDate.value + ' ' + this.refs.endTime.value,
             type: this.refs.type.value,
             address: this.refs.address.value,
-            tagId : this.refs.tagList.tagId.value
+            tagId : this.refs.tagList.tagId.value,
+            longitude: this.state.longitude,
+            latitude: this.state.latitude
         };
         EventActions.createEvent(formData, this.state.invites, this.state.eventAdmins);
     },
@@ -37,6 +42,11 @@ var CreateEvent = React.createClass({
         var newEventAdmins = this.state.eventAdmins;
         newEventAdmins.push(connection);
         this.setState({eventAdmins : newEventAdmins});
+    },
+    handleMarker : function(position) {
+        this.setState({latitude : position.lat()});
+        this.setState({longitude : position.lng()});
+        console.log(this.state.latitude);
     },
     render: function () {
         console.log("Rendering create event");
@@ -158,6 +168,9 @@ var CreateEvent = React.createClass({
                                         <input id="address" className="form-control" rows="3" ref="address"/>
                                     </div>
                                 </div>
+                            </div>
+                            <div>
+                                <Map data={undefined} marker={this.handleMarker} height='300px' width='350px'/>
                             </div>
                         </div>
                     </div>
