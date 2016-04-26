@@ -54,11 +54,11 @@ public class UserControllerUTest extends UnitTestBase {
                 .andExpect(view().name("userPage"));
     }
 
-    @Test
-    public void adminUserPage() throws Exception {
-        Principal principal = mock(Principal.class);
-        this.mockMvc.perform(get("/admin/user_list").principal(principal))
-                .andExpect(status().isOk())
-                .andExpect(view().name("adminUserPage"));
-    }
+//    @Test
+//    public void adminUserPage() throws Exception {
+//        Principal principal = mock(Principal.class);
+//        this.mockMvc.perform(get("/admin/user_list").principal(principal))
+//                .andExpect(status().isOk())
+//                .andExpect(view().name("adminUserPage"));
+//    }
 }

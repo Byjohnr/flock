@@ -87,11 +87,4 @@ public class ChatRestControllerUTest extends UnitTestBase{
         verify(chatService, times(1)).saveChatUser(any(ChatUser.class));
     }
 
-    @Test
-    public void saveMessage() throws Exception {
-        mockMvc.perform(post("/api/chat/group/765/message").content("cool message").principal(principal))
-                .andExpect(status().isOk());
-        verify(chatService, times(1)).saveChatMessage("cool message", 765, principal.getName());
-    }
-
 }
