@@ -22,6 +22,8 @@ public class EventDTO {
     private int attending;
     private int maybeAttending;
     private int notAttending;
+    private Float longitude;
+    private Float latitude;
 
     public EventDTO(){
     }
@@ -34,6 +36,8 @@ public class EventDTO {
         creator = event.getCreator();
         description = event.getEventDescription();
         address = event.getLocation();
+        longitude = event.getLongitude();
+        latitude = event.getLatitude();
 //        TODO jeffreyh 1/30/16 need comments, attending, maybeAttending, and notAttending, for now use static values
         numberOfComments = event.getCommentList().size();
         attending = event.getEventInvites().stream().filter(eventInvite -> eventInvite.getInviteStatus().equals(EventInvite.GOING)).collect(Collectors.toList()).size();
@@ -146,5 +150,21 @@ public class EventDTO {
 
     public void setNotAttending(int notAttending) {
         this.notAttending = notAttending;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
     }
 }
