@@ -87,7 +87,7 @@ var ConnectionStore = Reflux.createStore({
         this.handleConnectionAjax('/api/connection/add/', 'POST');
     },
     onAcceptConnection : function(userId) {
-        this.handleConnectionAjax('/api/connection/add/'+userId, 'POST');
+        this.handleConnectionAjaxForAccept('/api/connection/add/'+userId, 'POST', userId);
     },
 
     onAddConnectionToGroup : function(userId) {
@@ -140,6 +140,23 @@ var ConnectionStore = Reflux.createStore({
             dataType: 'text',
             type: type,
             success : this.triggerStatus,
+            error: function () {
+                console.log("Error getting notifications");
+            }
+        });
+    },
+    handleConnectionAjaxForAccept : function(url, type, userId) {
+        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        if (id == 'notifications'){
+            id = '';
+        }
+        $.ajax({
+            url: url,
+            dataType: 'text',
+            type: type,
+            success : function() {
+                location.reload();
+            },
             error: function () {
                 console.log("Error getting notifications");
             }

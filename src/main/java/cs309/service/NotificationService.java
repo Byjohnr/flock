@@ -35,25 +35,20 @@ public class NotificationService {
 
         for (Notification notification : notificationRepository.getNotificationsByEmail(email)) {
             NotificationDTO notificationDTO;
+            User creator = notification.getCreator();
             if (notification.getType().equals(Notification.EVENT_INVITE)) {
                 Event event = eventService.getEvent(notification.getTypeId());
-                notificationDTO= new NotificationDTO("/event/" + notification.getTypeId(),"You have been invited to " + event.getEventName(),notification.getId(),notification.getType(),notification.getTypeId());
+                notificationDTO= new NotificationDTO("/event/" + notification.getTypeId(),"You have been invited to " + event.getEventName(),notification.getId(),notification.getType(),notification.getTypeId(), creator);
                 notificationDtoList.add(notificationDTO);
-            }
-            if (notification.getType().equals(Notification.USER_CONNECTION)) {
-                User user = userService.getUser(notification.getCreator().getId());
-                notificationDTO = new NotificationDTO("/user/" + user.getId(),user.getFirstName() + " " + user.getLastName() + " wants to be your connection",notification.getId(),notification.getType(),notification.getTypeId());
+            } else if (notification.getType().equals(Notification.USER_CONNECTION)) {
+                notificationDTO = new NotificationDTO("/user/" + creator.getId(),creator.getFirstName() + " " + creator.getLastName() + " wants to be your connection",notification.getId(),notification.getType(),notification.getTypeId(), creator);
                 notificationDtoList.add(notificationDTO);
-            }
-            if (notification.getType().equals(Notification.ADD_EVENT_ADMIN)){
-                User user = userService.getUser(notification.getCreator().getId());
+            } else if (notification.getType().equals(Notification.ADD_EVENT_ADMIN)){
                 Event event = eventService.getEvent(notification.getTypeId());
-                notificationDTO = new NotificationDTO("/event/" + notification.getTypeId(), user.getFirstName() + " " + user.getLastName() + " added you as an Admin on their event "+ event.getEventName(), notification.getId(),notification.getType(),notification.getTypeId());
+                notificationDTO = new NotificationDTO("/event/" + notification.getTypeId(), creator.getFirstName() + " " + creator.getLastName() + " added you as an Admin on their event "+ event.getEventName(), notification.getId(),notification.getType(),notification.getTypeId(), creator);
                 notificationDtoList.add(notificationDTO);
-            }
-            if (notification.getType().equals(Notification.ACCEPT_USER_CONNECTION)){
-                User user = userService.getUser(notification.getCreator().getId());
-                notificationDTO = new NotificationDTO("/user/" + user.getId(), user.getFirstName() + " " + user.getLastName() + " is now your connection ", notification.getId(),notification.getType(),notification.getTypeId());
+            } else if (notification.getType().equals(Notification.ACCEPT_USER_CONNECTION)){
+                notificationDTO = new NotificationDTO("/user/" + creator.getId(), creator.getFirstName() + " " + creator.getLastName() + " is now your connection ", notification.getId(),notification.getType(),notification.getTypeId(), creator);
                 notificationDtoList.add(notificationDTO);
             }
         }

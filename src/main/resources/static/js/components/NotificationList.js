@@ -10,7 +10,7 @@ var NotificationList = React.createClass({
         NotificationActions.deleteNotification(id);
     },
     handleAccept: function (id) {
-        ConnectionStore.onAcceptConnection(id);
+        ConnectionActions.acceptConnection(id);
     },
 
     render: function () {
@@ -20,9 +20,9 @@ var NotificationList = React.createClass({
         }
         var parent = this;
         notificationNodes = this.state.notifications.map(function (notification) {
-
+            console.log(notification);
             var handleClick = parent.handleDelete.bind(parent, notification.id);
-            var handleAcceptClick = parent.handleAccept.bind(parent, notification.typeId);
+            var handleAcceptClick = parent.handleAccept.bind(parent, notification.creator.id);
             var buttonType;
 
             if (notification.type === 2) {
