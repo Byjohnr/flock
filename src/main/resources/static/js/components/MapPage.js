@@ -4,7 +4,7 @@ var MapPage = React.createClass({
         return {events: undefined};
     },
     componentDidMount: function() {
-        EventActions.listEvents();
+        EventActions.listMapEvents();
     },
     render: function() {
         if (this.state.events === undefined) {

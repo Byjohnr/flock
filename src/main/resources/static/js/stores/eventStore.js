@@ -11,6 +11,13 @@ var EventStore = Reflux.createStore({
             success: this.addEvents
         });
     },
+    onListMapEvents: function() {
+        $.ajax({
+            url: '/api/mapEvents',
+            dataType: 'json',
+            success: this.addEvents
+        })
+    },
     addEvents: function (data) {
         this.trigger(data);
     },
