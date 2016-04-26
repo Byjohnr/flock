@@ -17,7 +17,7 @@ var EventList = React.createClass({
                 return (<EventLine key={event.eventId} data={event}/>);
             });
             if(eventNodes.length === 0) {
-                return(<div className="text-center">No upcoming events. Sign up for some events!</div>)
+                return(<div className="text-center">No upcoming events. Sign up for some events!</div>);
             }
             return (
             <div>

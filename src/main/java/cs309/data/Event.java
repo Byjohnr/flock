@@ -83,6 +83,26 @@ public class Event {
 
 
 
+    @Transient
+    public String getEventStartString() {
+        if(eventStart != null) {
+            SimpleDateFormat format = new SimpleDateFormat("MMMM dd  h:mm a");
+            return format.format(eventStart);
+        } else {
+            return "";
+        }
+    }
+
+    @Transient
+    public String getEventEndString() {
+        if(eventEnd != null) {
+            SimpleDateFormat format = new SimpleDateFormat("MMMM dd  h:mm a");
+            return format.format(eventEnd);
+        } else {
+            return "";
+        }
+    }
+
     public Integer getId() {
         return id;
     }

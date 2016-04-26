@@ -166,9 +166,9 @@ var EventPage = React.createClass({
 
                         <h3> {this.state.event.eventDescription} </h3>
 
-                        <h3> Start: {this.state.event.eventStart} </h3>
+                        <h3> Start: {this.state.event.eventStartString} </h3>
 
-                        <h3> End: {this.state.event.eventEnd} </h3>
+                        <h3> End: {this.state.event.eventEndString} </h3>
 
                         <h3> Location: {this.state.event.location} </h3>
                         </div>
