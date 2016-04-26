@@ -31,14 +31,12 @@ public class EventDTO {
     public EventDTO(Event event) {
         eventId = event.getId();
         name = event.getEventName();
-//        TODO jeffreyh 1/30/16 set type when we figure out diffrent types of event (open,invite,connections, etc)
         type = "Open";
         creator = event.getCreator();
         description = event.getEventDescription();
         address = event.getLocation();
         longitude = event.getLongitude();
         latitude = event.getLatitude();
-//        TODO jeffreyh 1/30/16 need comments, attending, maybeAttending, and notAttending, for now use static values
         numberOfComments = event.getCommentList().size();
         attending = event.getEventInvites().stream().filter(eventInvite -> eventInvite.getInviteStatus().equals(EventInvite.GOING)).collect(Collectors.toList()).size();
         maybeAttending = event.getEventInvites().stream().filter(eventInvite -> eventInvite.getInviteStatus().equals(EventInvite.UNDECIDED)).collect(Collectors.toList()).size();
