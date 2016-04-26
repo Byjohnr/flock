@@ -182,9 +182,11 @@ public class EventRestController {
     }
 
     @RequestMapping(value = "/api/map/search", method = RequestMethod.POST)
-    public List<Event> getEventsFromSearch(@RequestParam Integer type, @RequestParam Integer tagId, Principal principal) {
+    public List<EventDTO> getEventsFromSearch(@RequestParam(required = false) Integer type, @RequestParam(required = false) Integer tagId, Principal principal) {
         User user = userService.getUserByEmail(principal.getName());
-        return eventService.getEventsFromMapSearch(type, tagId, user);
+        List<EventDTO> dtos = new ArrayList<>();
+        eventService.getEventsFromMapSearch(type, tagId, user).stream().forEach(event -> dtos.add(new EventDTO(event)));
+        return dtos;
     }
 
     @RequestMapping(value = "/api/event/public_event_addresses", method = RequestMethod.GET)

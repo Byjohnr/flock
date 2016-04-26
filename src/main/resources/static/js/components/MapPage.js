@@ -10,7 +10,7 @@ var MapPage = React.createClass({
     handleClick: function () {
         var type = $('#type').val();
         var tagId = this.refs.tagList.tagId.value;
-        EventActions.search(type, tagId);
+        EventActions.searchEvents(type, tagId);
     },
     render: function () {
         if (this.state.events === undefined) {
@@ -20,7 +20,7 @@ var MapPage = React.createClass({
                 <NavBar />
                 <div className="container">
                     <div className="row">
-                        <form className="form-inline">
+                        <div className="form-inline">
                             <div className="form-group">
                                 <label className="control-label" htmlFor="type">Type</label>
                                 <select id="type" className="form-control">
@@ -34,8 +34,8 @@ var MapPage = React.createClass({
                                 <label className="control-label">Tags</label>
                                 <TagList ref="tagList"/>
                             </div>
-                            <button onclick={this.handleClick} className="btn btn-primary">Apply Filters</button>
-                        </form>
+                            <button onClick={this.handleClick} className="btn btn-primary">Apply Filters</button>
+                        </div>
                     </div>
                     <div>
                         <div className="row">

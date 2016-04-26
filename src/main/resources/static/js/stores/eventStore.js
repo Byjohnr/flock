@@ -6,13 +6,17 @@ var EventStore = Reflux.createStore({
     getInitialState() {
         console.log('Initial State');
     },
-    onSearch : function(type, tagId) {
+    onSearchEvents : function(type, tagId) {
+        console.log(type);
+        console.log(tagId);
+        var data = {};
+        data.type = type;
+        data.tagId = tagId;
         $.ajax({
             url : '/api/map/search',
             type: 'POST',
-            data: JSON.stringify({type: type, tagId: tagId}),
+            data: data,
             dataType: 'json',
-            contentType: 'json',
             success : this.pushEvent
         });
     },
@@ -148,6 +152,7 @@ var EventStore = Reflux.createStore({
         }
     },
     pushEvent: function (data) {
+        console.log(data);
         console.log("triggered");
         this.trigger(data);
     },
