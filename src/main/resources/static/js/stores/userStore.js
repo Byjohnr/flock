@@ -19,8 +19,7 @@ var UserStore = Reflux.createStore({
         });
     },
     createUserSuccess: function () {
-        console.log('success');
-        this.trigger('yoloswag');
+        this.trigger('success');
     },
     returnInformationSuccess: function (data) {
         console.log(data);

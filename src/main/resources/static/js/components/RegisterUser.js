@@ -12,7 +12,7 @@ var RegisterUser = React.createClass({
         UserActions.createUser(userInfo);
     },
     render: function () {
-        if (this.state.user === undefined || this.state.user.id === undefined) {
+        if (this.state.user != 'success') {
             return (
                 <div>
                     <h2>Not a user? Register!</h2>
