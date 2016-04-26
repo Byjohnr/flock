@@ -8,13 +8,10 @@ var ViewAccount = React.createClass({
         return {userInformation: undefined, connectionGroupList: undefined};
     },
     componentDidMount: function () {
-        console.log('componentMounted');
         if (this.props.account === true) {
-            console.log("truuu");
             UserActions.getUserInformation();
             ConnectionActions.getConnectionGroups();
         } else {
-            console.log("falseee");
             UserActions.getOtherUserInfo();
         }
     },

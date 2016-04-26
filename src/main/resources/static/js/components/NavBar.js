@@ -9,7 +9,6 @@ var NavBar = React.createClass({
         };
     },
     searchChange: function (query) {
-        console.log(query.target.value);
         if (query.target.value == "") {
             this.setState({searchResults: undefined});
         } else {

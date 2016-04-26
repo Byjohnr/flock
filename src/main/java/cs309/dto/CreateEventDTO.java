@@ -9,8 +9,6 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CreateEventDTO {
 
-//    private static final long serialVersionUID = 1L;
-
     private String eventName;
     private String description;
     private String startDate;

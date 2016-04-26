@@ -2,10 +2,8 @@
 var EventInviteStore = Reflux.createStore({
     listenables: [EventInviteActions],
     init : function() {
-        console.log('Init');
     },
     getInitialState() {
-        console.log('Initial State');
     },
     onGetAttending() {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
@@ -32,7 +30,7 @@ var EventInviteStore = Reflux.createStore({
             data: data,
             success: this.pushAttending,
             error: function(status, thrownError) {
-                console.log(thrownError)
+                console.log(thrownError);
                 console.log(status);
             }
         })

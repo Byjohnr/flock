@@ -18,7 +18,6 @@ var TagStore = Reflux.createStore({
         })
     },
     onAddTag : function(tagName, enabled) {
-        console.log(enabled);
         $.ajax({
             headers: {
                 'Accept': 'application/json',
@@ -46,7 +45,6 @@ var TagStore = Reflux.createStore({
         });
     },
     onDeleteTag : function(tagId) {
-        console.log('delete tag store');
         $.ajax({
             url : '/api/tag/delete',
             type : 'POST',
@@ -54,7 +52,7 @@ var TagStore = Reflux.createStore({
             contentType : 'application/json',
             success : this.removeTagFromList(tagId),
             error : function() {
-                console.log('ERR.');
+                console.log('ERR');
             }
         });
     },
