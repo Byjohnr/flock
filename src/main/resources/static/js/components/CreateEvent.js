@@ -26,7 +26,9 @@ var CreateEvent = React.createClass({
         EventActions.createEvent(formData, this.state.invites, this.state.eventAdmins);
     },
     timePicker: function (id) {
-        $('#' + id).pickatime();
+        var this_input = $('#' + id).pickatime();
+        var this_timepicker = this_input.pickatime('picker');
+        this_timepicker.set('interval', 5);
     },
     datePicker: function (id) {
         $('#' + id).pickadate();
