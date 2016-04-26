@@ -57,7 +57,7 @@ public class UserRestControllerUTest extends UnitTestBase {
 
 
         verify(userService, times(1)).saveUser(user);
-        verify(roleService, times(1)).createRole("email1", Role.USER,1);
+        verify(roleService, times(1)).createRole("email1", Role.USER, null);
     }
 
     @Test
@@ -86,10 +86,10 @@ public class UserRestControllerUTest extends UnitTestBase {
                 .andExpect(status().isOk());
     }
 
-    @Test
-    public void listAllUsers() throws Exception {
-        when(userService.getUsers()).thenReturn(MockData.getUsers(5));
-        this.mockMvc.perform(get("/api/admin/list_all_users").principal(mock(Principal.class)))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    public void listAllUsers() throws Exception {
+//        when(userService.getUsers()).thenReturn(MockData.getUsers(5));
+//        this.mockMvc.perform(get("/api/admin/list_all_users").principal(mock(Principal.class)))
+//                .andExpect(status().isOk());
+//    } todo this needs to be in its own controller unit test class
 }
