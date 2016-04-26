@@ -1,6 +1,7 @@
 package cs309.service;
 
 import cs309.data.Event;
+import cs309.dto.LocationDTO;
 import cs309.repo.CommentRepository;
 import cs309.repo.EventRepository;
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +11,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,7 +56,14 @@ public class EventService {
         eventRepository.delete(event);
     }
 
-    public List<String> getPublicEventAddresses() {
-        return eventRepository.findPublicEventAddresses();
+    public List<LocationDTO> getPublicEventAddresses() {
+        List<LocationDTO> locations = new LinkedList<>();
+        List<Event> events = eventRepository.findPublicEvents();
+        for (Event event : events) {
+            if (event.getLatitude() != null && event.getLongitude() != null) {
+                locations.add(new LocationDTO(event.getLatitude(), event.getLongitude()));
+            }
+        }
+        return locations;
     }
 }

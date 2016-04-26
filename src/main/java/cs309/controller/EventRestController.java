@@ -4,6 +4,7 @@ import cs309.data.*;
 import cs309.dto.CreateEventDTO;
 import cs309.dto.ErrorsDTO;
 import cs309.dto.EventDTO;
+import cs309.dto.LocationDTO;
 import cs309.service.*;
 import cs309.validator.CreateEventValidator;
 import org.apache.log4j.Logger;
@@ -181,7 +182,7 @@ public class EventRestController {
     }
 
     @RequestMapping(value = "/api/event/public_event_addresses", method = RequestMethod.GET)
-    public List<String> getPublicEventAddresses() {
+    public List<LocationDTO> getPublicEventAddresses() {
         return eventService.getPublicEventAddresses();
     }
 

@@ -23,20 +23,12 @@ var MainPage = React.createClass({
         anonymousUserMap = new google.maps.Map(document.getElementById("anonymous_user_map"), mapOptions);
     },
     addMarkers: function () {
-        var geocoder = new google.maps.Geocoder();
         this.state.publicEventAddresses.forEach(function (address) {
-            geocoder.geocode({'address': address}, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
                     var marker = new google.maps.Marker({
-                        position: results[0].geometry.location,
+                        position: {lat: address.latitude, lng: address.longitude},
                         map: anonymousUserMap
                     });
-                }
-            });
         });
-        // google.maps.event.addListener(marker, 'click', function () {
-        //     console.log("You clicked " + marker.title);
-        // })
     },
     render: function () {
         if (this.state.publicEventAddresses != undefined && this.state.publicEventAddresses.length > 0) {

@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event,Integer>, JpaSpecificationExecutor<Event> {
 
-    @Query("select e.location from Event e where e.tag is not null and e.tag.tagName = 'public'")
-    List<String> findPublicEventAddresses();
+    @Query("select e from Event e where e.type = 1")
+    List<Event> findPublicEvents();
 }
