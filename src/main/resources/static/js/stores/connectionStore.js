@@ -129,8 +129,6 @@ var ConnectionStore = Reflux.createStore({
     triggerConnectionsAndGroups : function(groups) {
         this.connectionsAndGroups.groups = groups;
         this.triggerStatus(this.connectionsAndGroups);
-        // console.log('store function');
-        // console.log(this.connectionsAndGroups);
     },
     handleConnectionAjax : function(url, type) {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
@@ -143,7 +141,7 @@ var ConnectionStore = Reflux.createStore({
             type: type,
             success : this.triggerStatus,
             error: function () {
-                console.log("ya dun goofed");
+                console.log("Error getting notifications");
             }
         });
     },
