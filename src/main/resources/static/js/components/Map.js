@@ -52,7 +52,6 @@ var Map= React.createClass({
                         });
                     }
                     else {
-                        console.log('yes');
                         geocoder.geocode({'address': parent.state.user.currentCity}, function (results, status) {
                             if (status == google.maps.GeocoderStatus.OK) {
                                 parent.state.googleMap.setCenter(results[0].geometry.location);
@@ -110,7 +109,6 @@ var Map= React.createClass({
         });
     },
     render: function() {
-        console.log(this.state.user);
         this.getLocations();
         if (this.props.data === undefined) {
             return (

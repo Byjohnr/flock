@@ -21,7 +21,6 @@ var SearchStore = Reflux.createStore({
     },
     triggerState : function(searchResults) {
         this.trigger(searchResults);
-        console.log(searchResults);
     }
 
 

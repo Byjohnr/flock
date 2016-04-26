@@ -1,8 +1,6 @@
 var UserStore = Reflux.createStore({
     listenables: [UserActions],
-    createUser(data) {
-        console.log("create user in store");
-        console.log(data);
+    onCreateUser : function(data) {
         $.ajax({
             headers: {
                 'Accept': 'application/json',
@@ -19,11 +17,9 @@ var UserStore = Reflux.createStore({
         });
     },
     createUserSuccess: function () {
-        console.log('success');
-        this.trigger('yoloswag');
+        this.trigger('success');
     },
     returnInformationSuccess: function (data) {
-        console.log(data);
         this.trigger(data);
     },
     onGetUserInformation: function () {

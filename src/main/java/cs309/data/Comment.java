@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -72,6 +73,16 @@ public class Comment {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    @Transient
+    public String getDateCreatedString() {
+        if(dateCreated != null) {
+            SimpleDateFormat format = new SimpleDateFormat("MMMM dd  h:mm a");
+            return format.format(dateCreated);
+        } else {
+            return "?";
+        }
     }
 
     @Override
