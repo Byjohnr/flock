@@ -39,6 +39,19 @@ var CreateEvent = React.createClass({
         this.setState({eventAdmins : newEventAdmins});
     },
     render: function () {
+        var errors = <div></div>;
+        if (this.state.errors != undefined) {
+            console.log(this.state.errors);
+            var messages = this.state.errors.map(function(error) {
+                return <div>
+                    {error.errorMessage}
+                </div>
+            });
+
+            errors = <div className="alert alert-danger" role="alert">
+                {messages}
+            </div>
+        }
         console.log("Rendering create event");
         var invites = this.state.invites.map(function(connection) {
                 return (" " + connection.firstName + " " + connection.lastName);
@@ -54,6 +67,7 @@ var CreateEvent = React.createClass({
                 <h1 className="text-center">
                     Event Creation
                 </h1>
+                {errors}
                 <form>
                     <div className="row">
                         <div className="col-sm-7">

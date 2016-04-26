@@ -1,9 +1,12 @@
 package cs309.dto;
 
 import cs309.data.Event;
+import cs309.data.EventInvite;
 import cs309.data.User;
 
 import java.text.SimpleDateFormat;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class EventDTO {
 
@@ -32,11 +35,11 @@ public class EventDTO {
         description = event.getEventDescription();
         address = event.getLocation();
 //        TODO jeffreyh 1/30/16 need comments, attending, maybeAttending, and notAttending, for now use static values
-        numberOfComments = 0;
-        attending = 0;
-        maybeAttending = 0;
-        notAttending = 0;
-        SimpleDateFormat format = new SimpleDateFormat("EEEE MMMM dd  h:mm a");
+        numberOfComments = event.getCommentList().size();
+        attending = event.getEventInvites().stream().filter(eventInvite -> eventInvite.getInviteStatus().equals(EventInvite.GOING)).collect(Collectors.toList()).size();
+        maybeAttending = event.getEventInvites().stream().filter(eventInvite -> eventInvite.getInviteStatus().equals(EventInvite.UNDECIDED)).collect(Collectors.toList()).size();
+        notAttending = event.getEventInvites().stream().filter(eventInvite -> eventInvite.getInviteStatus().equals(EventInvite.NOT_GOING)).collect(Collectors.toList()).size();
+        SimpleDateFormat format = new SimpleDateFormat("MMMM dd  h:mm a");
         if(event.getEventStart() != null) {
             startTime = format.format(event.getEventStart());
         } else {
