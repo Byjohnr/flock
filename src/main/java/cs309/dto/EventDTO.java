@@ -24,6 +24,7 @@ public class EventDTO {
     private int notAttending;
     private Float longitude;
     private Float latitude;
+    private String tagName;
 
     public EventDTO(){
     }
@@ -36,6 +37,12 @@ public class EventDTO {
         address = event.getLocation();
         longitude = event.getLongitude();
         latitude = event.getLatitude();
+        if (event.getTag() != null) {
+            tagName = event.getTag().getTagName();
+        }
+        else {
+            tagName = "";
+        }
         numberOfComments = event.getCommentList().size();
         attending = event.getEventInvites().stream().filter(eventInvite -> eventInvite.getInviteStatus().equals(EventInvite.GOING)).collect(Collectors.toList()).size();
         maybeAttending = event.getEventInvites().stream().filter(eventInvite -> eventInvite.getInviteStatus().equals(EventInvite.UNDECIDED)).collect(Collectors.toList()).size();
@@ -172,5 +179,13 @@ public class EventDTO {
 
     public void setLatitude(Float latitude) {
         this.latitude = latitude;
+    }
+
+    public String getTagName() {
+        return tagName;
+    }
+
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
     }
 }

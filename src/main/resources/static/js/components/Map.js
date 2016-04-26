@@ -8,7 +8,7 @@ var Map= React.createClass({
         UserActions.getUserInformation();
         this.initMap();
     },
-    initMap : function(position) {
+    initMap : function() {
         var myLatLng = {lat: -25.363, lng: 131.044};
         var parent = this;
         this.setState({
@@ -31,7 +31,6 @@ var Map= React.createClass({
                 });
             }
             else if (parent.props.data.eventName != undefined) {
-                var address = parent.props.data.location;
                 var latitude = parent.props.data.latitude;
                 var longitude = parent.props.data.longitude;
                 var myLatlng = new google.maps.LatLng(latitude, longitude);
@@ -125,7 +124,8 @@ var Map= React.createClass({
         var string = '<a href=' + url + '><b>' + event.name + '</b></a><br>' +
             event.description + '<br>' +
             event.address + '<br>' +
-            event.startTime + ' ' + type;
+            event.startTime + '<br>' +
+            type + ' ' + event.tagName;
         infoWindow.setContent(string);
         infoWindow.setPosition(marker.getPosition());
         infoWindow.open(this.state.googleMap);
