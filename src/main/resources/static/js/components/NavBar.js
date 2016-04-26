@@ -9,7 +9,6 @@ var NavBar = React.createClass({
         };
     },
     searchChange: function (query) {
-        console.log(query.target.value);
         if (query.target.value == "") {
             this.setState({searchResults: undefined});
         } else {
@@ -104,8 +103,8 @@ var NavBar = React.createClass({
                 }
                 if (this.state.adminAuthentication !== false) {
                     adminLinks = (
-                        <li>
-                            <a href="/admin/user_list">Admin: Users</a>
+                        <li><a href="/admin/user_list">Admin: Users</a>
+                            <a href="/admin/events">Admin: Events</a>
                             <a href="/admin/tags">Tags</a>
                         </li>
                     );

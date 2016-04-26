@@ -4,11 +4,9 @@ var EventList = React.createClass({
         return {events : undefined};
     },
     componentDidMount: function() {
-        console.log('componentMounted');
         EventActions.listEvents();
     },
     render: function() {
-        console.log('rendering');
         if(this.state.events === undefined) {
             return <div>Loading <i className="fa fa-spin fa-refresh"/> </div>;
         }

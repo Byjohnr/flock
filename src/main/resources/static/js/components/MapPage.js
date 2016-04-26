@@ -4,8 +4,8 @@ var MapPage = React.createClass({
     getInitialState: function () {
         return {events: undefined};
     },
-    componentDidMount: function () {
-        EventActions.listEvents();
+    componentDidMount: function() {
+        EventActions.listMapEvents();
     },
     handleClick: function () {
         var type = $('#type').val();

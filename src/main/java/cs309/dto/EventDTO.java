@@ -24,6 +24,7 @@ public class EventDTO {
     private int notAttending;
     private Float longitude;
     private Float latitude;
+    private String tagName;
 
     public EventDTO(){
     }
@@ -31,17 +32,31 @@ public class EventDTO {
     public EventDTO(Event event) {
         eventId = event.getId();
         name = event.getEventName();
-        type = "Open";
         creator = event.getCreator();
         description = event.getEventDescription();
         address = event.getLocation();
         longitude = event.getLongitude();
         latitude = event.getLatitude();
+        if (event.getTag() != null) {
+            tagName = event.getTag().getTagName();
+        }
+        else {
+            tagName = "";
+        }
         numberOfComments = event.getCommentList().size();
         attending = event.getEventInvites().stream().filter(eventInvite -> eventInvite.getInviteStatus().equals(EventInvite.GOING)).collect(Collectors.toList()).size();
         maybeAttending = event.getEventInvites().stream().filter(eventInvite -> eventInvite.getInviteStatus().equals(EventInvite.UNDECIDED)).collect(Collectors.toList()).size();
         notAttending = event.getEventInvites().stream().filter(eventInvite -> eventInvite.getInviteStatus().equals(EventInvite.NOT_GOING)).collect(Collectors.toList()).size();
         SimpleDateFormat format = new SimpleDateFormat("MMMM dd  h:mm a");
+        if (event.getType() == Event.OPEN) {
+            type = "Open";
+        }
+        else if (event.getType() == Event.CONNECTIONS_ONLY) {
+            type = "Connection_Only";
+        }
+        else if (event.getType() == Event.INVITE_ONLY) {
+            type = "Invite_Only";
+        }
         if(event.getEventStart() != null) {
             startTime = format.format(event.getEventStart());
         } else {
@@ -164,5 +179,13 @@ public class EventDTO {
 
     public void setLatitude(Float latitude) {
         this.latitude = latitude;
+    }
+
+    public String getTagName() {
+        return tagName;
+    }
+
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
     }
 }

@@ -35,7 +35,6 @@ var ConnectionGroupPage = React.createClass({
                 groupName: this.state.connectionGroup.groupName
             }
         });
-        console.log("added lol");
         ConnectionActions.addConnectionToGroup(connection.id);
     },
     render: function () {

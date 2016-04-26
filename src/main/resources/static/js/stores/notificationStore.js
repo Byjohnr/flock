@@ -1,10 +1,8 @@
 var NotificationStore = Reflux.createStore({
     listenables: [NotificationActions],
     init : function() {
-        console.log('Init');
     },
     getInitialState() {
-        console.log('Initial State');
     },
     onFetchNotifications: function() {
         $.ajax({
