@@ -17,6 +17,7 @@ public class Event {
     public static final int OPEN = 1;
     public static final int CONNECTIONS_ONLY = 2;
     public static final int INVITE_ONLY = 3;
+    public static final int INVITED = 4;
 
     @Id
     @Column(name = "id")
