@@ -1,6 +1,7 @@
 var EventStore = Reflux.createStore({
     listenables: [EventActions],
     init : function() {
+        this.markers = [];
     },
     getInitialState() {
     },
@@ -15,8 +16,12 @@ var EventStore = Reflux.createStore({
             type: 'POST',
             data: data,
             dataType: 'json',
-            success : this.pushEvent
+            success : this.handleMarkers
         });
+    },
+    handleMarkers : function(data) {
+        this.clearMarkers();
+        this.pushEvent(data);
     },
     onListEvents: function() {
         $.ajax({
@@ -208,5 +213,14 @@ var EventStore = Reflux.createStore({
             type: 'GET',
             success: this.addEvents
         });
+    },
+    onAddMarker : function(marker) {
+        this.markers.push(marker);
+    },
+    clearMarkers : function() {
+        this.markers.forEach(function(marker) {
+            marker.setMap(null);
+        });
+        this.markers = [];
     }
 });

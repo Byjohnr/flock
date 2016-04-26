@@ -1,7 +1,6 @@
 var MapPage = React.createClass({
-    mixins: [Reflux.connect(EventStore, 'events')],
-
-    getInitialState: function () {
+    mixins: [Reflux.connect(EventStore,'events')],
+    getInitialState: function() {
         return {events: undefined};
     },
     componentDidMount: function() {

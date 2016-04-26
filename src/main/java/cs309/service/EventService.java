@@ -66,7 +66,7 @@ public class EventService {
         if(type != null && tagId != null) {
             events = eventRepository.getEventsByTagId(tagId);
             if (type == Event.CONNECTIONS_ONLY) {
-                events = events.stream().filter(event -> connectionRepository.isConnected(user, event.getCreator())).collect(Collectors.toList());
+                events = events.stream().filter(event -> event.getType() == Event.CONNECTIONS_ONLY && connectionRepository.isConnected(user, event.getCreator())).collect(Collectors.toList());
             } else if (type == Event.INVITED) {
                 events = events.stream().filter(event -> eventInviteRepository.userInviteExists(event.getId(), user.getId())).collect(Collectors.toList());
             } else if (type == Event.OPEN) {

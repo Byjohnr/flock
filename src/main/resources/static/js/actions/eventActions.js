@@ -11,5 +11,6 @@ var EventActions = Reflux.createActions([
     "joinEvent",
     "listMapEvents",
     "searchEvents",
-    "getPublicEventAddresses"
+    "getPublicEventAddresses",
+    "addMarker"
 ]);
