@@ -10,4 +10,5 @@ var EventActions = Reflux.createActions([
     "deleteEvent",
     "joinEvent",
     "search"
+    "getPublicEventAddresses"
 ]);

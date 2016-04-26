@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <head th:remove="tag" th:include="fragments/head :: title" />
-    <head th:remove="tag" th:include="fragments/head :: imports" />
+    <head th:remove="tag" th:include="fragments/head :: title"/>
+    <head th:remove="tag" th:include="fragments/head :: imports"/>
+    <style type="text/css">
+        .labelStyle {
+            background-color:#ffffff;
+            font-weight:bold;
+            border:2px #006699 solid;
+        }
+    </style>
 </head>
 <body>
-<div id="main_page"></div>
+    <div id="main_page"></div>
+    <script th:src="@{https://maps.googleapis.com/maps/api/js(key='AIzaSyBmY2VCKrLCs1xOLypS7v6AjifNp7s_sTY')}"></script>
     <script src="js/components_compiled/RegisterUser.js"></script>
     <script src="js/components_compiled/MainPage.js"></script>
 
-<body th:remove="tag" th:include="fragments/foot :: footer"/>
+    <body th:remove="tag" th:include="fragments/foot :: footer"/>
 </body>
 </html>

@@ -36,9 +36,6 @@ public class User {
     @Column(name = "current_city")
     private String currentCity;
 
-    //TODO tstack 2/4/16 implement saving of any further location information
-//    private Long cityXCoordinate;
-//    private Long cityYCoordinate;
     @OneToMany(mappedBy = "userInvited")
     @JsonIgnore
     private List<EventInvite> events;
