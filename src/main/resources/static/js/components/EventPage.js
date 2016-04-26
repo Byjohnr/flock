@@ -282,7 +282,6 @@ var EventPage = React.createClass({
         var invite;
         var picture;
         var map = (<Map data={this.state.event} height='300px' width='300px'/>);
-        console.log(this.state.eventInvite);
         if (this.state.eventInvite == "0") {
             attending = (
                 <div className="btn-group" role="group">
