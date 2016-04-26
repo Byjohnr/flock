@@ -80,6 +80,7 @@ var EventPage = React.createClass({
         var edit;
         var invite;
         var picture;
+        var map = (<Map data={this.state.event} height='300px' width='300px'/>)
         if (this.state.eventInvite.toString() === "0") {
             attending = (
                     <div className="btn-group" role="group">
@@ -155,7 +156,9 @@ var EventPage = React.createClass({
                     <div>
                         {picture}
                     </div>
-                    <Map Map events={this.state.event} height='300px' width='300px'/>
+                    <div>
+                        {map}
+                    </div>
                     <div>
                         <div>
                             {attending}

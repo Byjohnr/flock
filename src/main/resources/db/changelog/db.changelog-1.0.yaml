@@ -93,6 +93,12 @@ databaseChangeLog:
                   name: event_description
                   type: varchar(2000)
               - column:
+                  name: longitude
+                  type: float
+              - column:
+                  name: latitude
+                  type: float
+              - column:
                   name: tag_id
                   type: int
           - createTable:
