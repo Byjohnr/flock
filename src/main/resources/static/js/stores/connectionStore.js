@@ -1,6 +1,8 @@
 var ConnectionStore = Reflux.createStore({
     listenables: [ConnectionActions],
-
+    init : function() {
+        this.connectionsAndGroups = {};
+    },
     onGetConnections : function(type) {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
         var data = {};
@@ -17,7 +19,7 @@ var ConnectionStore = Reflux.createStore({
             data: data,
             dataType: 'json',
             success : this.triggerConnections
-        })
+        });
     },
     triggerConnections : function(data) {
         console.log(data);
@@ -105,6 +107,38 @@ var ConnectionStore = Reflux.createStore({
         this.ajaxRequestWithIntValue(userId, '/api/connectionGroup/' + id + '/remove', 'POST', function() {
             console.log('Removed');
         });
+    },
+    onGetConnectionsAndGroups : function(type) {
+        var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        var data = {};
+        if(type == "create") {
+            data = undefined;
+        } else if(type == "event") {
+            data.eventId = id;
+        } else if (type == "chat") {
+            data.chatId = id;
+        }
+        $.ajax({
+            url: "/api/connections/get",
+            type: 'GET',
+            data: data,
+            dataType: 'json',
+            success : this.setStateConnections
+        });
+    },
+    setStateConnections : function(connections) {
+        this.connectionsAndGroups.connections = connections;
+        $.ajax({
+            url: "/api/connectionGroups",
+            dataType: 'json',
+            success : this.triggerConnectionsAndGroups
+        });
+    },
+    triggerConnectionsAndGroups : function(groups) {
+        this.connectionsAndGroups.groups = groups;
+        this.triggerStatus(this.connectionsAndGroups);
+        // console.log('store function');
+        // console.log(this.connectionsAndGroups);
     },
     handleConnectionAjax : function(url, type) {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);

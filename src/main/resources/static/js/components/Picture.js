@@ -32,8 +32,10 @@ var pictureSizing = {
 var Picture = React.createClass({
     mixins: [Reflux.connect(PictureStore, 'picture')],
     getInitialState: function () {
-        var actualPicture = PictureActions.getPicture(this.props.getterUrl);
-        return {picture: actualPicture != null ? actualPicture : undefined};
+        return {picture: undefined};
+    },
+    componentDidMount: function() {
+        PictureActions.getPicture(this.props.getterUrl);
     },
     handleFile: function (e) {
         var reader = new FileReader();
@@ -48,12 +50,18 @@ var Picture = React.createClass({
         reader.readAsDataURL(file);
     },
     render: function () {
+        var picture = <h2 className="text-center">Loading Picture <i className="fa fa-spin fa-refresh"/></h2>;
+        if (this.state.picture != undefined) {
+            picture = (
+                <div className="row">
+                    <img src={(this.state.picture != null ? this.state.picture : "")} style={pictureSizing} alt="NO PICTURE"/>
+                </div>
+            )
+        }
         if (this.props.pictureEditable === true) {
             return (
                 <div className="container-fluid">
-                    <div className="row">
-                        <img src={this.state.picture} style={pictureSizing} alt="NO PICTURE"/>
-                    </div>
+                    {picture}
                     <div className="row btn btn-default btnFile" style={btnFile}>Edit Picture<input
                         style={btnFileInput} type="file"
                         multiple={false}
@@ -64,9 +72,7 @@ var Picture = React.createClass({
         } else {
             return (
                 <div className="container-fluid">
-                    <div className="row">
-                        <img src={this.state.picture} style={pictureSizing} alt="NO PICTURE"/>
-                    </div>
+                    {picture}
                 </div>
             )
         }

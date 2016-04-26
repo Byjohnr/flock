@@ -16,7 +16,7 @@ var EventLine = React.createClass({
                 <div id={this.props.data.eventId + '-small'} className="well">
                     <div onClick={this.expandWell.bind(this,this.props.data.eventId + '-small')} ><i className="fa fa-arrows-alt" /></div>
                     <div>
-                        <h3>{this.props.data.name} -- {this.props.data.startTime}</h3>
+                        <h3><a href={'/event/' + this.props.data.eventId}>{this.props.data.name}</a> -- {this.props.data.startTime}</h3>
                     </div>
                     <div>
                         <span><i className="fa fa-comments" /> {this.props.data.numberOfComments}</span>
@@ -27,7 +27,7 @@ var EventLine = React.createClass({
                 </div>
                 <div id={this.props.data.eventId + '-large'} className="well well-lg" hidden="hidden">
                     <div onClick={this.expandWell.bind(this,this.props.data.eventId + '-large')}><i className="fa fa-compress"/></div>
-                    <h2 className="text-center">{this.props.data.name}</h2>
+                    <h2 className="text-center"><a href={"/event/" + this.props.data.eventId}>{this.props.data.name}</a></h2>
                     <h4 className="text-center">Created by: {this.props.data.creator.firstName} {this.props.data.creator.lastName}</h4>
                     <div className="row">
                         <div className="col-sm-5">

@@ -23,6 +23,7 @@
     "pickadate": "^3.5.6",
     "bootstrap-sortable": "^2.0.0",
     "sockjs": "^0.3.4",
-    "stomp-websocket": "^2.3.4"
+    "stomp-websocket": "^2.3.4",
+    "eonasdan-bootstrap-datetimepicker": "bootstrap3-datetimepicker#^4.17.37"
   }
 }
