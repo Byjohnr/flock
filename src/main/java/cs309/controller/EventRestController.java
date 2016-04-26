@@ -199,6 +199,12 @@ public class EventRestController {
         eventInviteService.saveEventInvite(invite);
     }
 
+    @RequestMapping(value = "/api/map/search", method = RequestMethod.POST)
+    public List<Event> getEventsFromSearch(@RequestParam Integer type, @RequestParam Integer tagId, Principal principal) {
+        User user = userService.getUserByEmail(principal.getName());
+        return eventService.getEventsFromMapSearch(type, tagId, user);
+    }
+
     @InitBinder(value = "createEventDTO")
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(eventValidator);

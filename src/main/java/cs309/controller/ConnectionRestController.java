@@ -165,7 +165,8 @@ public class ConnectionRestController {
                         new ConnectionDTO(user.getId(), user.getFirstName(), user.getLastName())
                 )
         );
+        ConnectionGroup connectionGroup = connectionService.getConnectionGroupById(groupId);
 
-        return new ConnectionGroupDTO(connectionsInGroup, connectionsNotInGroup);
+        return new ConnectionGroupDTO(connectionsInGroup, connectionsNotInGroup, (connectionGroup != null && !connectionGroup.getGroupName().isEmpty() ? connectionGroup.getGroupName() : "Group " + groupId));
     }
 }

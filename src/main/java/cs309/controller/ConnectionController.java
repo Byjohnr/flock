@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ConnectionController {
 
-
     @RequestMapping("/account/connectionGroups")
     public String connectionGroupListPage() {
         return "connectionGroups";

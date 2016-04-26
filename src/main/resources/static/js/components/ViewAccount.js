@@ -3,15 +3,16 @@ var spacedRow = {
 };
 
 var ViewAccount = React.createClass({
-    mixins: [Reflux.connect(UserStore, 'userInformation')],
+    mixins: [Reflux.connect(UserStore, 'userInformation'), Reflux.connect(ConnectionStore, 'connectionGroupList')],
     getInitialState: function () {
-        return {userInformation: undefined};
+        return {userInformation: undefined, connectionGroupList: undefined};
     },
     componentDidMount: function () {
         console.log('componentMounted');
         if (this.props.account === true) {
             console.log("truuu");
             UserActions.getUserInformation();
+            ConnectionActions.getConnectionGroups();
         } else {
             console.log("falseee");
             UserActions.getOtherUserInfo();
@@ -20,25 +21,52 @@ var ViewAccount = React.createClass({
     render: function () {
         var connectionStatus = "";
         var listOfEvents = "";
-        var connectionGroupLink =
-            <div className="row" style={spacedRow}>
-                <div className="col-md-12">
-                    <a href="/account/connectionGroups">My Connection Groups</a>
-                </div>
-            </div>;
+        var connectionGroupLink = "";
+        var notificationList = "";
         if (this.props.account !== true) {
             connectionStatus =
                 <div>
                     <ConnectionStatus />
                 </div>;
-            connectionGroupLink = "";
-        } else {
+        } else if (this.state.connectionGroupList != undefined) {
+            var listOfConnectionGroups = this.state.connectionGroupList.map(function (connectionGroup) {
+                var connectionGroupUrl = "/account/connectionGroup/" + connectionGroup.id;
+                return (
+                    <div className="col-md-4 well-sm" key={connectionGroup.id}>
+                        <a className="btn btn-default well-lg" style={{width: '80%'}}
+                           href={connectionGroupUrl}>{connectionGroup.groupName}</a>
+                    </div>
+                )
+            });
             listOfEvents =
                 <div className="row" style={{spacedRow, borderStyle: 'solid', borderWidth: '1px'}}>
-                    <div className="col-md-12" style={{width: '100%', height: '400px', overflowY: 'scroll'}}>
+                    <div className="col-md-12" style={{width: '100%', maxHeight: '400px', overflowY: 'scroll'}}>
                         <EventList />
                     </div>
                 </div>;
+            connectionGroupLink =
+                <div className="row"
+                     style={{spacedRow, maxHeight: '300px', overflowY: 'scroll', borderStyle: 'solid', borderWidth: '1px'}}>
+                    <span className="col-md-12 well-sm"><strong>Connection Groups</strong></span>
+                    <div className="col-md-4 well-sm">
+                        <a className="btn btn-default well-lg" style={{width: '80%'}} href="/account/connectionGroups">
+                            Manage Connection Groups
+                        </a>
+                    </div>
+                    {listOfConnectionGroups}
+                </div>;
+            notificationList =
+                <div className="row"
+                     style={{spacedRow, maxHeight: '400px', overflowY: 'scroll', borderStyle: 'solid', borderWidth: '1px'}}>
+                    <div className="well-sm">
+                        <a className="btn btn-default col-md-12" href="/notifications">
+                            View Notifications
+                        </a>
+                    </div>
+                    <div className="col-md-12 text-left">
+                        <NotificationList />
+                    </div>
+                </div>
         }
         if (this.state.userInformation !== undefined) {
             return (
@@ -70,6 +98,7 @@ var ViewAccount = React.createClass({
                         </div>
                         {connectionGroupLink}
                         {listOfEvents}
+                        {notificationList}
                     </div>
                 </div>
             );

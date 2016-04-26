@@ -1,11 +1,20 @@
 var NotificationPage = React.createClass({
-        render: function() {
+    render: function () {
 
         return (
 
             <div>
                 <NavBar/>
-                <div><NotificationList/></div>
+                <div className="container">
+                    <div className="row text-center">
+                        <h1>Your Notifications</h1>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <NotificationList/>
+                        </div>
+                    </div>
+                </div>
             </div>);
     }
 });

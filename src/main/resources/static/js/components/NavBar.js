@@ -106,6 +106,7 @@ var NavBar = React.createClass({
                     adminLinks = (
                         <li><a href="/admin/user_list">Admin: Users</a>
                             <a href="/admin/events">Admin: Events</a>
+                            <a href="/admin/tags">Tags</a>
                         </li>
                     );
                 }
