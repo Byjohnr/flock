@@ -11,7 +11,7 @@
 var ConnectionList = React.createClass({
    mixins: [Reflux.connect(ConnectionStore, 'connectionsAndGroups')],
     getInitialState : function() {
-        return [{connections : undefined}];
+        return [{connectionsAndGroups : undefined}];
     },
     handleClick : function(connection) {
       // console.log(connection);
