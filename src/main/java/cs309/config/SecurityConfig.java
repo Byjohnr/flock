@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeRequests()
-                    .antMatchers("/bower_components/**","/console/**", "/js/**", "/css/**").permitAll()
+                    .antMatchers("/bower_components/**","/console/**", "/js/**", "/css/**", "/api/event/public_event_addresses","/api/user/create").permitAll()
                     .anyRequest()
                   //  .permitAll()
                     .authenticated()

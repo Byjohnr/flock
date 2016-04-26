@@ -9,5 +9,6 @@ var EventActions = Reflux.createActions([
     "listAllEvents",
     "deleteEvent",
     "joinEvent",
-    "listMapEvents"
+    "listMapEvents",
+    "getPublicEventAddresses"
 ]);

@@ -55,6 +55,7 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "tag_id", referencedColumnName = "id")
     private Tag tag;
+
     @Column(name = "latitude")
     private Float latitude;
 
