@@ -1,13 +1,11 @@
 package cs309.controller;
 
 import cs309.data.Event;
+import cs309.data.EventInvite;
 import cs309.data.Role;
 import cs309.data.User;
 import cs309.dto.AuthenticationDTO;
-import cs309.service.EventService;
-import cs309.service.RoleService;
-import cs309.service.SecurityService;
-import cs309.service.UserService;
+import cs309.service.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +24,8 @@ public class AdminRestController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private EventInviteService inviteService;
 
     @RequestMapping("/events")
     public List<Event> getAllEvents() {
@@ -35,6 +35,10 @@ public class AdminRestController {
     @PreAuthorize("hasRole('" + Role.ADMIN + "')")
     @RequestMapping(value = "/events/delete", method = RequestMethod.POST)
     public void deleteEvent(@RequestBody Integer id) {
+        List<EventInvite> list = inviteService.getEventInvites(eventService.getEvent(id));
+        for (int i = 0; i< list.size(); i++) {
+            inviteService.delete(list.get(i));
+        }
         eventService.deleteEvent(eventService.getEvent(id));
     }
 
