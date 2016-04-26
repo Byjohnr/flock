@@ -52,8 +52,8 @@ var CreateEvent = React.createClass({
         var errors = <div></div>;
         if (this.state.errors != undefined) {
             console.log(this.state.errors);
-            var messages = this.state.errors.map(function(error) {
-                return <div>
+            var messages = this.state.errors.map(function(error, index) {
+                return <div key={index}>
                     {error.errorMessage}
                 </div>
             });
