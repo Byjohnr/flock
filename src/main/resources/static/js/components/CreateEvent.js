@@ -34,7 +34,6 @@ var CreateEvent = React.createClass({
     handleInvite : function(connection) {
         var newInvites = this.state.invites;
         newInvites.push(connection);
-        console.log(newInvites);
         this.setState({invites : newInvites});
         //console.log(connection);
     },
@@ -46,7 +45,6 @@ var CreateEvent = React.createClass({
     handleMarker : function(position) {
         this.setState({latitude : position.lat()});
         this.setState({longitude : position.lng()});
-        console.log(this.state.latitude);
     },
     handleLatLng : function() {
         var geocoder = new google.maps.Geocoder();
@@ -70,7 +68,6 @@ var CreateEvent = React.createClass({
     render: function () {
         var errors = <div></div>;
         if (this.state.errors != undefined) {
-            console.log(this.state.errors);
             var messages = this.state.errors.map(function(error, index) {
                 return <div key={index}>
                     {error.errorMessage}
@@ -81,7 +78,6 @@ var CreateEvent = React.createClass({
                 {messages}
             </div>
         }
-        console.log("Rendering create event");
         var invites = this.state.invites.map(function(connection) {
                 return (" " + connection.firstName + " " + connection.lastName);
             });

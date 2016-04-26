@@ -15,10 +15,7 @@ var ChatPage = React.createClass({
         var socket = new SockJS('/chat');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function(frame) {
-            console.log(frame.headers);
-            console.log(frame.headers['user-name']);
             stompClient.subscribe('/topic/message/' + chatId, function(message) {
-                console.log("HIT!");
                 handleReturn(JSON.parse(message.body));
             });
         })
@@ -81,8 +78,6 @@ var ChatPage = React.createClass({
                 if(user.status == 1) {
                     userAdded = <td>Invited</td>
                 }
-                console.log(user);
-                console.log(user.user.email);
                 return (
                     <tr key={user.id}>
                         <td>{user.user.firstName} {user.user.lastName}</td>

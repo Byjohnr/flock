@@ -8,7 +8,6 @@ var NavStore = Reflux.createStore({
         })
     },
     handleUserInfo: function (data) {
-        console.log(data);
         this.trigger(data);
     }
 });

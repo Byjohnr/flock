@@ -57,7 +57,6 @@ var ConnectionList = React.createClass({
                     </tr>);
             }, this);
             if (this.state.connectionsAndGroups.connections.length === 0) {
-                console.log('no connections');
                 modalBody = (
                     <tr>
                         <td>
