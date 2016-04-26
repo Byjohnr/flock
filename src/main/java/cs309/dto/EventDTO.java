@@ -31,7 +31,6 @@ public class EventDTO {
     public EventDTO(Event event) {
         eventId = event.getId();
         name = event.getEventName();
-        type = "Open";
         creator = event.getCreator();
         description = event.getEventDescription();
         address = event.getLocation();
@@ -42,6 +41,15 @@ public class EventDTO {
         maybeAttending = event.getEventInvites().stream().filter(eventInvite -> eventInvite.getInviteStatus().equals(EventInvite.UNDECIDED)).collect(Collectors.toList()).size();
         notAttending = event.getEventInvites().stream().filter(eventInvite -> eventInvite.getInviteStatus().equals(EventInvite.NOT_GOING)).collect(Collectors.toList()).size();
         SimpleDateFormat format = new SimpleDateFormat("MMMM dd  h:mm a");
+        if (event.getType() == Event.OPEN) {
+            type = "Open";
+        }
+        else if (event.getType() == Event.CONNECTIONS_ONLY) {
+            type = "Connection_Only";
+        }
+        else if (event.getType() == Event.INVITE_ONLY) {
+            type = "Invite_Only";
+        }
         if(event.getEventStart() != null) {
             startTime = format.format(event.getEventStart());
         } else {

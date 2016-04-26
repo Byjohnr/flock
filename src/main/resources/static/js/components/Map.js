@@ -54,9 +54,10 @@ var Map= React.createClass({
             }
             else {
                 var markerNodes = parent.props.data.map(function (event) {
-                    var address = event.address;
                     var latitude = event.latitude;
                     var longitude = event.longitude;
+                    var type = event.type;
+                    console.log(type);
                     var myLatlng = new google.maps.LatLng(latitude, longitude);
                     geocoder.geocode({'address': parent.state.user.currentCity}, function (results, status) {
                         if (status == google.maps.GeocoderStatus.OK) {
@@ -67,11 +68,20 @@ var Map= React.createClass({
                     if (longitude != undefined) {
                         var marker = new google.maps.Marker({
                             map: parent.state.googleMap,
-                            position: myLatlng
+                            position: myLatlng,
                         });
                         marker.addListener('click', function(){
                             parent.showInfo(event, marker);
                         });
+                        if (type === 'Open') {
+                            marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+                        }
+                        else if (type === 'Connection_Only') {
+                            marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+                        }
+                        else if (type === 'Invite_Only') {
+                            marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+                        }
                     }
                 });
             }
@@ -101,12 +111,21 @@ var Map= React.createClass({
     showInfo : function (event, marker) {
         console.log('yeeees');
         var url = '/event/' + event.eventId;
-        console.log(url);
         infoWindow = new google.maps.InfoWindow();
+        var type;
+        if (event.type === 'Open') {
+            type = 'Open';
+        }
+        else if (event.type === 'Connection_Only') {
+            type = 'Connections Only';
+        }
+        else if (event.type === 'Invite_Only') {
+            type = 'Invite Only';
+        }
         var string = '<a href=' + url + '><b>' + event.name + '</b></a><br>' +
             event.description + '<br>' +
             event.address + '<br>' +
-            event.startTime;
+            event.startTime + ' ' + type;
         infoWindow.setContent(string);
         infoWindow.setPosition(marker.getPosition());
         infoWindow.open(this.state.googleMap);
