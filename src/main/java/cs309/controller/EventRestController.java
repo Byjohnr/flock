@@ -181,6 +181,12 @@ public class EventRestController {
         eventInviteService.saveEventInvite(invite);
     }
 
+    @RequestMapping(value = "/api/map/search", method = RequestMethod.POST)
+    public List<Event> getEventsFromSearch(@RequestParam Integer type, @RequestParam Integer tagId, Principal principal) {
+        User user = userService.getUserByEmail(principal.getName());
+        return eventService.getEventsFromMapSearch(type, tagId, user);
+    }
+
     @RequestMapping(value = "/api/event/public_event_addresses", method = RequestMethod.GET)
     public List<LocationDTO> getPublicEventAddresses() {
         return eventService.getPublicEventAddresses();

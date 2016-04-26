@@ -17,6 +17,7 @@ public class Event {
     public static final int OPEN = 1;
     public static final int CONNECTIONS_ONLY = 2;
     public static final int INVITE_ONLY = 3;
+    public static final int INVITED = 4;
 
     @Id
     @Column(name = "id")
@@ -82,6 +83,26 @@ public class Event {
     }
 
 
+
+    @Transient
+    public String getEventStartString() {
+        if(eventStart != null) {
+            SimpleDateFormat format = new SimpleDateFormat("MMMM dd  h:mm a");
+            return format.format(eventStart);
+        } else {
+            return "";
+        }
+    }
+
+    @Transient
+    public String getEventEndString() {
+        if(eventEnd != null) {
+            SimpleDateFormat format = new SimpleDateFormat("MMMM dd  h:mm a");
+            return format.format(eventEnd);
+        } else {
+            return "";
+        }
+    }
 
     public Integer getId() {
         return id;
