@@ -1,7 +1,8 @@
 var Map= React.createClass({
     mixins: [Reflux.connect(UserStore, 'user')],
     getInitialState: function() {
-        return {user : undefined, googleMap: undefined};
+        return {user : undefined,
+            googleMap: undefined};
     },
     componentDidMount: function() {
         UserActions.getUserInformation();
@@ -34,33 +35,22 @@ var Map= React.createClass({
                 var latitude = parent.props.data.latitude;
                 var longitude = parent.props.data.longitude;
                 var myLatlng = new google.maps.LatLng(latitude, longitude);
-                geocoder.geocode({'address': address}, function (results, status) {
-                    if (longitude != undefined) {
-                        parent.state.googleMap.setCenter(myLatlng);
-                        parent.state.googleMap.setZoom(5);
-                        var marker = new google.maps.Marker({
-                            map: parent.state.googleMap,
-                            position: myLatlng
-                        });
-                    }
-                    else if (status == google.maps.GeocoderStatus.OK) {
-                        parent.state.googleMap.setCenter(results[0].geometry.location);
-                        parent.state.googleMap.setZoom(5);
-                        var marker = new google.maps.Marker({
-                            map: parent.state.googleMap,
-                            position: results[0].geometry.location
-                        });
-                    }
-                    else {
-                        console.log('yes');
-                        geocoder.geocode({'address': parent.state.user.currentCity}, function (results, status) {
-                            if (status == google.maps.GeocoderStatus.OK) {
-                                parent.state.googleMap.setCenter(results[0].geometry.location);
-                                parent.state.googleMap.setZoom(5);
-                            }
-                        });
-                    }
-                });
+                if (longitude != undefined) {
+                    parent.state.googleMap.setCenter(myLatlng);
+                    parent.state.googleMap.setZoom(5);
+                    var marker = new google.maps.Marker({
+                        map: parent.state.googleMap,
+                        position: myLatlng
+                    });
+                }
+                else {
+                    geocoder.geocode({'address': parent.state.user.currentCity}, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            parent.state.googleMap.setCenter(results[0].geometry.location);
+                            parent.state.googleMap.setZoom(5);
+                        }
+                    });
+                }
             }
             else {
                 var markerNodes = parent.props.data.map(function (event) {
@@ -74,28 +64,15 @@ var Map= React.createClass({
                             parent.state.googleMap.setZoom(8);
                         }
                     });
-                    geocoder.geocode({'address': address}, function (results, status) {
-                        console.log(address);
-                        console.log(status);
-                        if (longitude != undefined) {
-                            var marker = new google.maps.Marker({
-                                map: parent.state.googleMap,
-                                position: myLatlng
-                            });
-                            marker.addListener('click', function(){
-                                parent.showInfo(event, marker);
-                            });
-                        }
-                        else if (status == google.maps.GeocoderStatus.OK) {
-                            var marker = new google.maps.Marker({
-                                map: parent.state.googleMap,
-                                position: results[0].geometry.location
-                            });
-                            marker.addListener('click', function(){
-                                parent.showInfo(event, marker);
-                            });
-                        }
-                    });
+                    if (longitude != undefined) {
+                        var marker = new google.maps.Marker({
+                            map: parent.state.googleMap,
+                            position: myLatlng
+                        });
+                        marker.addListener('click', function(){
+                            parent.showInfo(event, marker);
+                        });
+                    }
                 });
             }
         }
@@ -111,11 +88,15 @@ var Map= React.createClass({
                     draggable:true
                 });
                 marker.addListener('dragend', function() {
-                    parent.state.googleMap.setCenter(marker.getPosition());
+                    var zoom = parent.state.googleMap.getZoom();
+                    console.log(zoom);
                     parent.props.marker(marker.getPosition());
+                    parent.state.googleMap.setCenter(marker.getPosition());
+                    parent.state.googleMap.setZoom(zoom);
                 });
             }
         });
+        this.setState({user: undefined});
     },
     showInfo : function (event, marker) {
         console.log('yeeees');

@@ -9,7 +9,7 @@ var CreateEvent = React.createClass({
             longitude: undefined
         }
     },
-    onSubmit: function () {
+    onSubmit: function (latitude, longitude) {
         console.log(this.state.longitude);
         console.log(this.refs.tagList.tagId.value);
         var formData = {
@@ -19,9 +19,9 @@ var CreateEvent = React.createClass({
             endDate: this.refs.endDate.value + ' ' + this.refs.endTime.value,
             type: this.refs.type.value,
             address: this.refs.address.value,
-            tagId : this.refs.tagList.tagId.value,
-            longitude: this.state.longitude,
-            latitude: this.state.latitude
+            tagId: this.refs.tagList.tagId.value,
+            longitude: longitude,
+            latitude: latitude
         };
         EventActions.createEvent(formData, this.state.invites, this.state.eventAdmins);
     },
@@ -47,6 +47,25 @@ var CreateEvent = React.createClass({
         this.setState({latitude : position.lat()});
         this.setState({longitude : position.lng()});
         console.log(this.state.latitude);
+    },
+    handleLatLng : function() {
+        var geocoder = new google.maps.Geocoder();
+        var parent = this;
+        var latitude;
+        var longitude;
+        geocoder.geocode({'address': this.refs.address.value}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                console.log('yes');
+                longitude = results[0].geometry.location.lng();
+                latitude = results[0].geometry.location.lat();
+                console.log(parent.state.longitude);
+            }
+            if (parent.state.latitude != undefined) {
+                longitude = parent.state.longitude;
+                latitude = parent.state.latitude;
+            }
+            parent.onSubmit(latitude, longitude);
+        });
     },
     render: function () {
         console.log("Rendering create event");
@@ -174,7 +193,7 @@ var CreateEvent = React.createClass({
                             </div>
                         </div>
                     </div>
-                    <input type="button" className="btn btn-default" value="Create Event" onClick={this.onSubmit}/>
+                    <input type="button" className="btn btn-default" value="Create Event" onClick={this.handleLatLng}/>
                 </form>
             </div>
         );

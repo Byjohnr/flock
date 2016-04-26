@@ -104,7 +104,9 @@ var NavBar = React.createClass({
                 }
                 if (this.state.adminAuthentication !== false) {
                     adminLinks = (
-                        <li><a href="/admin/user_list">Admin: Users</a></li>
+                        <li><a href="/admin/user_list">Admin: Users</a>
+                            <a href="/admin/events">Admin: Events</a>
+                        </li>
                     );
                 }
                 navbar = (<div>
