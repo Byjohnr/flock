@@ -10,7 +10,7 @@ var MapPage = React.createClass({
     handleClick: function () {
         var type = $('#type').val();
         var tagId = this.refs.tagList.tagId.value;
-        SearchActions.search(type, tagId);
+        EventActions.search(type, tagId);
     },
     render: function () {
         if (this.state.events === undefined) {
@@ -34,7 +34,7 @@ var MapPage = React.createClass({
                                 <label className="control-label">Tags</label>
                                 <TagList ref="tagList"/>
                             </div>
-                            <button onclick={this.handleClick} className="btn btn-primary">Search</button>
+                            <button onclick={this.handleClick} className="btn btn-primary">Apply Filters</button>
                         </form>
                     </div>
                     <div>

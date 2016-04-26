@@ -6,12 +6,14 @@ var EventStore = Reflux.createStore({
     getInitialState() {
         console.log('Initial State');
     },
-    onSearch : function() {
+    onSearch : function(type, tagId) {
         $.ajax({
             url : '/api/map/search',
             type: 'POST',
+            data: JSON.stringify({type: type, tagId: tagId}),
             dataType: 'json',
-            success : this.handleTrigger
+            contentType: 'json',
+            success : this.pushEvent
         });
     },
     onListEvents: function() {
