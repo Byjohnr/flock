@@ -24,6 +24,14 @@ public class EventInviteService {
         return eventInviteRepository.save(eventInvite);
     }
 
+    public List<EventInvite> getEventInvites(Event event) {
+        return eventInviteRepository.getByEventId(event);
+    }
+
+    public void delete(EventInvite invite) {
+        eventInviteRepository.delete(invite);
+    }
+
     public EventInvite getEventInvite(User user, Event event) {
         return eventInviteRepository.findEventInviteByUserAndEvent(user, event);
     }
@@ -31,4 +39,5 @@ public class EventInviteService {
     public boolean eventInviteExists(int eventId, int userId) {
         return eventInviteRepository.userInviteExists(eventId, userId);
     }
+
 }
