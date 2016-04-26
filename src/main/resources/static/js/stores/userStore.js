@@ -12,7 +12,7 @@ var UserStore = Reflux.createStore({
             data: JSON.stringify(data),
             success: this.createUserSuccess,
             error: function () {
-                console.log("error bruh");
+                console.log("Error creating user");
             }
         });
     },
@@ -32,7 +32,7 @@ var UserStore = Reflux.createStore({
             type: 'GET',
             success: this.returnInformationSuccess,
             error: function () {
-                console.log("error getting user information from the backend");
+                console.log("Error getting user information");
             }
         });
     },

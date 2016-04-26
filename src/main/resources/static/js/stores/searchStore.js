@@ -15,7 +15,7 @@ var SearchStore = Reflux.createStore({
             dataType: 'json',
             success: this.triggerState,
             error : function() {
-                console.log("ya dun goofed");
+                console.log("Error searching for query");
             }
         });
     },
