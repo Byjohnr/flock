@@ -1,4 +1,8 @@
 var TagActions = Reflux.createActions([
-   'getTags',
-    'addTag'
+    'getTags',
+    'addTag',
+    'getAllTags',
+    'updateTagName',
+    'toggleTag',
+    'deleteTag'
 ]);
