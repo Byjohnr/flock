@@ -1,6 +1,6 @@
 var UserStore = Reflux.createStore({
     listenables: [UserActions],
-    createUser(data) {
+    onCreateUser : function(data) {
         console.log("create user in store");
         console.log(data);
         $.ajax({
