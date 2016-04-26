@@ -21,7 +21,6 @@ var TestStore = Reflux.createStore({
             data: user,
             type: 'GET',
             success: function(data) {
-                console.log('TADA!!!!')
             }
         })
     }

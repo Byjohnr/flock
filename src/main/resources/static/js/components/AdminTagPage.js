@@ -15,19 +15,14 @@ var AdminTagPage = React.createClass({
             $("#" + tagId + "btn").removeClass('btn-success').addClass('btn-warning').html('Disable');
 
         }
-        console.log(buttonName);
     },
     deleteTag : function(tagId) {
-        console.log('DELETE');
-        console.log(tagId);
     //    TODO jeffreyh 4/21/16 add a delete confirmation modal someday in the future
         TagActions.deleteTag(tagId);
     },
     addTag: function() {
         var tagName = $('#tag_name').val();
         var isEnabled = $('#tag_enabled').val();
-        console.log(isEnabled);
-
         TagActions.addTag(tagName, isEnabled);
     },
     editTag : function(tagId, tagName) {

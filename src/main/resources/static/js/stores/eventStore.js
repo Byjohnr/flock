@@ -1,10 +1,8 @@
 var EventStore = Reflux.createStore({
     listenables: [EventActions],
     init : function() {
-        console.log('Init');
     },
     getInitialState() {
-        console.log('Initial State');
     },
     onListEvents: function() {
         $.ajax({
@@ -14,11 +12,9 @@ var EventStore = Reflux.createStore({
         });
     },
     addEvents: function (data) {
-        console.log(data);
         this.trigger(data);
     },
     onCreateEvent: function (data, invites, eventAdmins) {
-        console.log(data);
         var parent = this;
         $.ajax({
             headers: {
@@ -31,7 +27,6 @@ var EventStore = Reflux.createStore({
             data: JSON.stringify(data),
             success: function(data) {
                 var errors = JSON.parse(data);
-                console.log(errors);
                 if(errors.length === 1 && errors[0].fieldId === "success") {
                     parent.handleInvites(errors[0].errorMessage, invites, eventAdmins);
                     parent.handleEventAdmins(errors[0].errorMessage, eventAdmins);
@@ -42,12 +37,8 @@ var EventStore = Reflux.createStore({
             },
             error : function (data) {
                 console.log(data);
-            },
-            done: function () {
-                console.log("done?");
             }
         });
-        console.log('does it get here?');
     },
     handleInvites: function(eventId, invites, eventAdmins) {
         var userIds = [];
@@ -138,7 +129,6 @@ var EventStore = Reflux.createStore({
         }
     },
     pushEvent: function (data) {
-        console.log("triggered");
         this.trigger(data);
     },
     onCreateComment: function (data) {
@@ -179,7 +169,6 @@ var EventStore = Reflux.createStore({
         });
     },
     onDeleteEvent: function(data) {
-        console.log(data);
         $.ajax({
             headers: {
                 'Accept': 'application/json',

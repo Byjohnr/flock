@@ -21,7 +21,6 @@ var ChatStore = Reflux.createStore({
             data: response,
             type: 'POST',
             success: function() {
-                console.log('success');
                 window.location.reload(true);
             }
         });
@@ -36,7 +35,6 @@ var ChatStore = Reflux.createStore({
             data: groupName,
             type: 'POST',
             success : function() {
-                console.log('success');
                 window.location.reload(true);
             }
         });
@@ -68,7 +66,6 @@ var ChatStore = Reflux.createStore({
     },
     updateState : function(data) {
         this.state = data;
-        console.log(this.state);
         this.triggerUpdate(this.state);
     },
     updateMessageState : function(message) {
@@ -99,7 +96,6 @@ var ChatStore = Reflux.createStore({
     },
     onInviteConnection : function(userId) {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
-        console.log(userId);
         $.ajax({
             headers: {
                 'Accept': 'application/json',

@@ -80,8 +80,9 @@ var EventPage = React.createClass({
         var edit;
         var invite;
         var picture;
-        var map = (<Map data={this.state.event} height='300px' width='300px'/>)
-        if (this.state.eventInvite.toString() === "0") {
+        var map = (<Map data={this.state.event} height='300px' width='300px'/>);
+        console.log(this.state.eventInvite);
+        if (this.state.eventInvite == "0") {
             attending = (
                     <div className="btn-group" role="group">
                         <button type="button" className="btn btn-success" id="Going" onClick={this.handleGoing}>Going</button>
@@ -89,14 +90,14 @@ var EventPage = React.createClass({
                         <button type="button" className="btn btn-danger" id="Not Going" onClick={this.handleNotGoing}>Not Going</button>
                     </div>);
         }
-        if (this.state.eventInvite.toString() === "1") {
+        if (this.state.eventInvite == "1") {
             attending = (
                     <div className="btn-group" role="group">
                         <button type="button" className="btn btn-success" id="Going">Going</button>
                         <button type="button" className="btn btn-link" onClick={this.handleInviteChange}>Change</button>
                     </div>);
         }
-        if (this.state.eventInvite.toString() === "2") {
+        if (this.state.eventInvite == "2") {
             attending = (
                     <div className="btn-group" role="group">
                         <button type="button" className="btn btn-primary" id="Maybe">Maybe</button>
@@ -104,7 +105,7 @@ var EventPage = React.createClass({
                     </div>
                 )
         }
-        if (this.state.eventInvite.toString() === "3") {
+        if (this.state.eventInvite == "3") {
             attending = (
                     <div className="btn-group" role="group">
                         <button type="button" className="btn btn-danger" id="Not Going">Not Going</button>
@@ -112,7 +113,7 @@ var EventPage = React.createClass({
                     </div>
                 )
         }
-        if (this.state.eventInvite.toString() === "4") {
+        if (this.state.eventInvite == "4") {
             attending = (
                 <button type="button" className="btn btn-primary" id="Join" onClick={this.handleJoin}>Join</button>
             )

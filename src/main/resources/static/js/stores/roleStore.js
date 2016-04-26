@@ -1,10 +1,8 @@
 var RoleStore = Reflux.createStore({
     listenables: [RoleActions],
     init: function () {
-        console.log('Init');
     },
     getInitialState() {
-        console.log('Initial State');
     },
     onIsEventAdmin() {
         var id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
@@ -37,7 +35,6 @@ var RoleStore = Reflux.createStore({
             dataType: 'text',
             type: 'GET',
             success: function (resultingMessage) {
-                console.log(resultingMessage);
                 outerThis.onGetUsersAuthenticationLevel();
             }
         });
@@ -49,7 +46,6 @@ var RoleStore = Reflux.createStore({
             dataType: 'text',
             type: 'GET',
             success: function (resultingMessage) {
-                console.log(resultingMessage);
                 outerThis.onGetUsersAuthenticationLevel();
             }
         });

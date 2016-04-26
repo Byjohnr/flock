@@ -80,7 +80,6 @@ public class ChatRestController {
     @MessageMapping("/add/{chatId}")
     @SendTo("/topic/message/{chatId}")
     public ChatMessage saveMessage(@DestinationVariable int chatId, ChatMessageInput message, Principal principal) {
-        LOG.info("HIIIT");
         return chatService.saveChatMessage(message.getMessage(), chatId, principal.getName());
     }
 

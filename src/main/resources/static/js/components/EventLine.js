@@ -7,7 +7,6 @@ var EventLine = React.createClass({
             $('#' + id).hide();
             $('#' + id.substring(0,id.length - 5) + 'small').show();
         }
-    console.log(id);
     },
     render: function() {
         //TODO jeffreyh, add picture when we get that setup, everything needs links to stuff

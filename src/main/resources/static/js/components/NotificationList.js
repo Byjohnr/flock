@@ -4,21 +4,17 @@ var NotificationList = React.createClass({
         return {notifications: undefined};
     },
     componentDidMount: function () {
-        console.log('componentMounted');
         NotificationActions.fetchNotifications();
     },
     handleDelete: function (id) {
-        console.log('deleting');
         NotificationActions.deleteNotification(id);
     },
     handleAccept: function (id) {
-        console.log('accepting');
         ConnectionStore.onAcceptConnection(id);
     },
 
     render: function () {
         var notificationNodes;
-        console.log('rendering');
         if (this.state.notifications === undefined) {
             return <div> Loading <i className="fa fa-spin fa-refresh align-center"/></div>;
         }
@@ -30,7 +26,6 @@ var NotificationList = React.createClass({
             var buttonType;
 
             if (notification.type === 2) {
-                console.log('it hit button type 2');
                 buttonType = (<button type="button" className="btn btn-lg btn-success" onClick={handleAcceptClick}>
                     Accept</button>);
             }
