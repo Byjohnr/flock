@@ -34,7 +34,9 @@ var EventPage = React.createClass({
                         creator: parent.state.event.creator,
                         type: parent.state.event.type,
                         commentList: parent.state.event.commentList,
-                        eventInvites: parent.state.event.eventInvites
+                        eventInvites: parent.state.event.eventInvites,
+                        latitude: parent.state.event.latitude,
+                        longitude: parent.state.event.longitude
                     }
                 });
             })
@@ -67,7 +69,9 @@ var EventPage = React.createClass({
                         creator: parent.state.event.creator,
                         type: parent.state.event.type,
                         commentList: parent.state.event.commentList,
-                        eventInvites: parent.state.event.eventInvites
+                        eventInvites: parent.state.event.eventInvites,
+                        latitude: parent.state.event.latitude,
+                        longitude: parent.state.event.longitude
                     }
                 });
             })
@@ -106,7 +110,9 @@ var EventPage = React.createClass({
                         creator: parent.state.event.creator,
                         type: parent.state.event.type,
                         commentList: parent.state.event.commentList,
-                        eventInvites: parent.state.event.eventInvites
+                        eventInvites: parent.state.event.eventInvites,
+                        latitude: parent.state.event.latitude,
+                        longitude: parent.state.event.longitude
                     }
                 });
             })
@@ -139,7 +145,9 @@ var EventPage = React.createClass({
                         creator: parent.state.event.creator,
                         type: parent.state.event.type,
                         commentList: parent.state.event.commentList,
-                        eventInvites: parent.state.event.eventInvites
+                        eventInvites: parent.state.event.eventInvites,
+                        latitude: parent.state.event.latitude,
+                        longitude: parent.state.event.longitude
                     }
                 });
             });
@@ -173,7 +181,9 @@ var EventPage = React.createClass({
                 eventEndString: this.state.event.eventEndString,
                 type: this.state.event.type,
                 commentList: this.state.event.commentList,
-                eventInvites: this.state.event.eventInvites
+                eventInvites: this.state.event.eventInvites,
+                latitude: this.state.event.latitude,
+                longitude: this.state.event.longitude
             }
         });
     },
@@ -191,7 +201,9 @@ var EventPage = React.createClass({
                 eventEndString: this.state.event.eventEndString,
                 type: this.state.event.type,
                 commentList: this.state.event.commentList,
-                eventInvites: this.state.event.eventInvites
+                eventInvites: this.state.event.eventInvites,
+                latitude: this.state.event.latitude,
+                longitude: this.state.event.longitude
             }
         });
     },
@@ -209,25 +221,30 @@ var EventPage = React.createClass({
                 eventEndString: this.state.event.eventEndString,
                 type: this.state.event.type,
                 commentList: this.state.event.commentList,
-                eventInvites: this.state.event.eventInvites
+                eventInvites: this.state.event.eventInvites,
+                latitude: this.state.event.latitude,
+                longitude: this.state.event.longitude
             }
         });
     },
-    onSubmit: function () {
+    onSubmit: function (latitude, longitude) {
+        console.log(this.state.event);
         this.setState({
             event: {
                 eventEnd: new Date(this.state.event.eventEnd),
                 eventEndString: this.state.event.eventEndString,
                 eventStart: new Date(this.state.event.eventStart),
                 eventStartString: this.state.event.eventStartString,
-                eventName: this.state.event.eventDescription,
+                eventName: this.state.event.eventName,
                 eventDescription: this.state.event.eventDescription,
                 location: this.state.event.location,
                 id: this.state.event.id,
                 creator: this.state.event.creator,
                 type: this.state.event.type,
                 commentList: this.state.event.commentList,
-                eventInvites: this.state.event.eventInvites
+                eventInvites: this.state.event.eventInvites,
+                longitude: longitude,
+                latitude: latitude
             }
         });
         EventActions.editEvent(this.state.event);
@@ -271,6 +288,19 @@ var EventPage = React.createClass({
     handleJoin: function () {
         EventActions.joinEvent();
         this.setState({eventInvite: 1})
+    },
+    handleLatLng : function() {
+        var geocoder = new google.maps.Geocoder();
+        var parent = this;
+        var latitude;
+        var longitude;
+        geocoder.geocode({'address': this.refs.address.value}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                longitude = results[0].geometry.location.lng();
+                latitude = results[0].geometry.location.lat();
+            }
+            parent.onSubmit(latitude, longitude);
+        });
     },
 
     render: function () {
@@ -445,7 +475,7 @@ var EventPage = React.createClass({
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="eventLocation">Event Location</label>
-                                            <input type="text" className="form-control" id="eventLocation"
+                                            <input type="text" className="form-control" id="eventLocation" ref="address"
                                                    value={this.state.event.location}
                                                    onChange={this.handleLocationChange}/>
                                         </div>
@@ -453,7 +483,7 @@ var EventPage = React.createClass({
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-default" data-dismiss="modal">Close
                                         </button>
-                                        <button type="button" className="btn btn-primary" onClick={this.onSubmit}>Save
+                                        <button type="button" className="btn btn-primary" onClick={this.handleLatLng}>Save
                                             Changes
                                         </button>
                                     </div>
