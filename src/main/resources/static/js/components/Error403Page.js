@@ -1,16 +1,16 @@
 var Error403Page = React.createClass({
-    render: function() {
+    render: function () {
         return (
-            <div className="col-sm-5 col-sm-offset-3">
-                <h1 className="text-center">
-                    ERROR: 403 - ACCESS DENIED
-                </h1>
-                <a href="">
-                <img src="https://pbs.twimg.com/media/CbSg8UkUYAE6Lht.jpg" alt="IDK" width="600" height="800"/>
-                </a>
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-12 text-center">
+                        <h1>
+                            ERROR: 403 - ACCESS DENIED
+                        </h1>
+                    </div>
+                </div>
             </div>
         );
     }
 });
-
 ReactDOM.render(<Error403Page/>, document.getElementById('Error403Page'));

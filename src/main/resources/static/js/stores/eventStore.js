@@ -1,8 +1,27 @@
 var EventStore = Reflux.createStore({
     listenables: [EventActions],
     init : function() {
+        this.markers = [];
     },
     getInitialState() {
+    },
+    onSearchEvents : function(type, tagId) {
+        console.log(type);
+        console.log(tagId);
+        var data = {};
+        data.type = type;
+        data.tagId = tagId;
+        $.ajax({
+            url : '/api/map/search',
+            type: 'POST',
+            data: data,
+            dataType: 'json',
+            success : this.handleMarkers
+        });
+    },
+    handleMarkers : function(data) {
+        this.clearMarkers();
+        this.pushEvent(data);
     },
     onListEvents: function() {
         $.ajax({
@@ -194,5 +213,14 @@ var EventStore = Reflux.createStore({
             type: 'GET',
             success: this.addEvents
         });
+    },
+    onAddMarker : function(marker) {
+        this.markers.push(marker);
+    },
+    clearMarkers : function() {
+        this.markers.forEach(function(marker) {
+            marker.setMap(null);
+        });
+        this.markers = [];
     }
 });

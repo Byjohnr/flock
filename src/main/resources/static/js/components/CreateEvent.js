@@ -147,7 +147,6 @@ var CreateEvent = React.createClass({
                                 <div className="form-group">
                                     <div>
                                         <label className="col-sm-2 control-label" htmlFor="type">Event Type</label>
-
                                     </div>
                                     <div className="col-sm-8">
                                         <select id="type" className="form-control" ref="type">

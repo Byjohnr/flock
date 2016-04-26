@@ -81,6 +81,7 @@ var Map= React.createClass({
                         else if (type === 'Invite_Only') {
                             marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
                         }
+                        EventActions.addMarker(marker);
                     }
                 });
             }

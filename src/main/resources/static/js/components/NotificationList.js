@@ -30,7 +30,6 @@ var NotificationList = React.createClass({
                     Accept</button>);
             }
             return (<tr key={notification.id}>
-                <td>{notification.type}</td>
                 <td>{notification.message}</td>
                 <td>
                     <a>{buttonType}</a>
