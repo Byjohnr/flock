@@ -4,16 +4,15 @@ import cs309.data.*;
 import cs309.dto.CreateEventDTO;
 import cs309.dto.ErrorsDTO;
 import cs309.dto.EventDTO;
+import cs309.dto.LocationDTO;
 import cs309.service.*;
 import cs309.validator.CreateEventValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -22,7 +21,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 
 @RestController
 public class EventRestController {
@@ -187,6 +185,11 @@ public class EventRestController {
     public List<Event> getEventsFromSearch(@RequestParam Integer type, @RequestParam Integer tagId, Principal principal) {
         User user = userService.getUserByEmail(principal.getName());
         return eventService.getEventsFromMapSearch(type, tagId, user);
+    }
+
+    @RequestMapping(value = "/api/event/public_event_addresses", method = RequestMethod.GET)
+    public List<LocationDTO> getPublicEventAddresses() {
+        return eventService.getPublicEventAddresses();
     }
 
     @InitBinder(value = "createEventDTO")

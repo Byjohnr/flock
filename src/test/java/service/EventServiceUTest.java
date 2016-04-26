@@ -7,8 +7,6 @@ import cs309.service.EventService;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.data.jpa.domain.Specification;
 import util.MockData;
 
 import java.util.ArrayList;

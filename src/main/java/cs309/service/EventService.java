@@ -1,6 +1,7 @@
 package cs309.service;
 
 import cs309.data.Event;
+import cs309.dto.LocationDTO;
 import cs309.data.EventInvite;
 import cs309.data.User;
 import cs309.repo.CommentRepository;
@@ -93,6 +94,17 @@ public class EventService {
     @Transactional
     public void deleteEvent(Event event) {
         eventRepository.delete(event);
+    }
+
+    public List<LocationDTO> getPublicEventAddresses() {
+        List<LocationDTO> locations = new ArrayList<>();
+        List<Event> events = eventRepository.getOpenEvents();
+        for (Event event : events) {
+            if (event.getLatitude() != null && event.getLongitude() != null) {
+                locations.add(new LocationDTO(event.getLatitude(), event.getLongitude()));
+            }
+        }
+        return locations;
     }
 
     private List<Event> getEventsByType(Integer type, User user) {
